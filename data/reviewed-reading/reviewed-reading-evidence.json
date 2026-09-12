@@ -1,0 +1,396 @@
+{
+  "version": 1,
+  "preferences": [
+    {
+      "surface": "佰",
+      "reading": "ひゃく",
+      "alternatives": [
+        "はく"
+      ],
+      "numericCanonical": "百",
+      "numericRole": "numeral",
+      "note": "Formal/variant 百 in numeric context; lexical ハク remains valid."
+    },
+    {
+      "surface": "偏",
+      "reading": "へん",
+      "alternatives": [
+        "かたよる"
+      ],
+      "note": "Bare character fallback only; 偏る and lexical spans retain contextual readings."
+    },
+    {
+      "surface": "卌",
+      "reading": "よんじゅう",
+      "alternatives": [
+        "しじゅう"
+      ],
+      "numericCanonical": "四十",
+      "numericRole": "numeral",
+      "note": "Archaic single-character forty; modern preferred reading よんじゅう."
+    },
+    {
+      "surface": "喃",
+      "reading": "なん",
+      "alternatives": [
+        "のう",
+        "だん"
+      ],
+      "note": "喃喃 is なんなん as a whole word; なんなん is not a single-character reading."
+    },
+    {
+      "surface": "嬲",
+      "reading": "なぶる",
+      "alternatives": [
+        "じょう",
+        "どう"
+      ],
+      "note": "Bare character lexical fallback; いたぶる is not retained as a reading of 嬲."
+    },
+    {
+      "surface": "巉",
+      "reading": "ざん",
+      "alternatives": [
+        "さん",
+        "ぜん"
+      ],
+      "note": "慣用音 ザン; サン/ゼン are historical Sino-Japanese readings."
+    },
+    {
+      "surface": "弍",
+      "reading": "に",
+      "alternatives": [
+        "ふた",
+        "ふ",
+        "ふう"
+      ],
+      "numericCanonical": "二",
+      "numericRole": "numeral",
+      "note": "Formal/old 二; canonical numeric context decides native counter forms when applicable."
+    },
+    {
+      "surface": "弎",
+      "reading": "さん",
+      "alternatives": [
+        "み",
+        "ぞう"
+      ],
+      "numericCanonical": "三",
+      "numericRole": "numeral",
+      "note": "Variant 三; canonical numeric context decides native counter forms when applicable."
+    },
+    {
+      "surface": "弐",
+      "reading": "に",
+      "alternatives": [
+        "ふた",
+        "ふ",
+        "ふう",
+        "じ"
+      ],
+      "numericCanonical": "二",
+      "numericRole": "numeral",
+      "note": "Formal 二; canonical numeric context decides native counter forms when applicable."
+    },
+    {
+      "surface": "恁",
+      "reading": "じん",
+      "alternatives": [
+        "いん",
+        "にん"
+      ],
+      "note": "Rare character; exact lexical evidence takes precedence."
+    },
+    {
+      "surface": "掬",
+      "reading": "きく",
+      "alternatives": [
+        "すくう",
+        "むすぶ",
+        "こく"
+      ],
+      "note": "Bare character/headword reading; 掬う is contextually すくう."
+    },
+    {
+      "surface": "捌",
+      "reading": "はち",
+      "alternatives": [
+        "さばく",
+        "さばける",
+        "はける",
+        "はつ",
+        "べつ"
+      ],
+      "numericCanonical": "八",
+      "numericRole": "numeral",
+      "note": "Bare glyph can function as formal 八; okurigana resolves verbal uses."
+    },
+    {
+      "surface": "擣",
+      "reading": "とう",
+      "alternatives": [
+        "つく",
+        "うつ",
+        "たたく"
+      ],
+      "note": "Variant-related to 搗; exact verbal spans override the bare fallback."
+    },
+    {
+      "surface": "殱",
+      "reading": "せん",
+      "alternatives": [
+        "つくす",
+        "ほろぼす"
+      ],
+      "note": "俗字/variant of 殲; unsupported サン candidate is deliberately not retained."
+    },
+    {
+      "surface": "溷",
+      "reading": "こん",
+      "alternatives": [
+        "かわや",
+        "にごる",
+        "みだれる"
+      ],
+      "note": "Compound/on reading fallback; exact lexical uses take precedence."
+    },
+    {
+      "surface": "爼",
+      "reading": "そ",
+      "alternatives": [
+        "しょ",
+        "まないた"
+      ],
+      "note": "Variant of 俎; common compound reading is ソ."
+    },
+    {
+      "surface": "疋",
+      "reading": "ひき",
+      "alternatives": [
+        "しょ",
+        "そ",
+        "ひつ",
+        "あし",
+        "き"
+      ],
+      "numericCanonical": "匹",
+      "numericRole": "counter",
+      "note": "Counter alias of 匹 in numeric context; historical キ is retained as an alternative."
+    },
+    {
+      "surface": "站",
+      "reading": "たん",
+      "alternatives": [
+        "えき",
+        "たつ",
+        "たたずむ"
+      ],
+      "note": "Japanese compounds such as 兵站/車站 use タン; エキ is also a valid kun reading."
+    },
+    {
+      "surface": "纈",
+      "reading": "けつ",
+      "alternatives": [
+        "けち",
+        "しぼり"
+      ],
+      "note": "Both ケツ and ケチ occur in textile vocabulary; exact spans take precedence."
+    },
+    {
+      "surface": "纐",
+      "reading": "こう",
+      "alternatives": [
+        "しぼり"
+      ],
+      "note": "国字; unsupported かのこ candidate is deliberately not retained as a character reading."
+    },
+    {
+      "surface": "罧",
+      "reading": "しん",
+      "alternatives": [
+        "りん",
+        "ふしづけ",
+        "ふし"
+      ],
+      "note": "Kanjipedia gives シン while KANJIDIC-derived data gives リン; preserve the source disagreement for review."
+    },
+    {
+      "surface": "翊",
+      "reading": "よく",
+      "alternatives": [
+        "たすける",
+        "あくるひ"
+      ],
+      "note": "Unsupported いう candidate is deliberately not retained."
+    },
+    {
+      "surface": "蒿",
+      "reading": "よもぎ",
+      "alternatives": [
+        "こう"
+      ],
+      "note": "Standalone lexical word is よもぎ; compounds such as 蒿里 use コウ."
+    },
+    {
+      "surface": "貮",
+      "reading": "に",
+      "alternatives": [
+        "ふた",
+        "ふ",
+        "ふう",
+        "じ"
+      ],
+      "numericCanonical": "二",
+      "numericRole": "numeral",
+      "note": "Rare formal 二; canonical numeric context decides native counter forms when applicable."
+    },
+    {
+      "surface": "逎",
+      "reading": "しゅう",
+      "alternatives": [
+        "せまる",
+        "つよい"
+      ],
+      "note": "Variant of 遒; unsupported シュ candidate is deliberately not retained."
+    },
+    {
+      "surface": "陌",
+      "reading": "はく",
+      "alternatives": [
+        "ひゃく",
+        "ばく",
+        "みち",
+        "あぜみち",
+        "まち"
+      ],
+      "numericCanonical": "百",
+      "numericRole": "numeral",
+      "note": "Lexical/pathway use is ハク; only numeric context maps the glyph to 百."
+    },
+    {
+      "surface": "頷",
+      "reading": "あご",
+      "alternatives": [
+        "がん",
+        "かん",
+        "うなずく"
+      ],
+      "note": "Bare standalone word is あご; 頷く and compounds supply their own contextual readings."
+    },
+    {
+      "surface": "驫",
+      "reading": "ひょう",
+      "alternatives": [
+        "ひゅう",
+        "しゅう",
+        "とどろ"
+      ],
+      "note": "ヒョウ/ヒュウ are both attested; proper-name spans such as 驫木 take precedence."
+    },
+    {
+      "surface": "髷",
+      "reading": "まげ",
+      "alternatives": [
+        "わげ",
+        "きょく",
+        "まるまげ"
+      ],
+      "note": "Generic hairstyle reading まげ; specific hairstyle compounds can use わげ."
+    },
+    {
+      "surface": "玖",
+      "reading": "きゅう",
+      "alternatives": [
+        "く"
+      ],
+      "numericCanonical": "九",
+      "numericRole": "numeral",
+      "note": "Formal 九; canonical numeric context is required because 九月 is くがつ while 九万 is きゅうまん."
+    }
+  ],
+  "spans": [
+    {
+      "surface": "仟佰",
+      "reading": "せんぱく",
+      "romaji": "Senpaku",
+      "note": "Lexical compound protects 佰=ハク from numeric aliasing."
+    },
+    {
+      "surface": "巉岩",
+      "reading": "ざんがん",
+      "romaji": "Zangan"
+    },
+    {
+      "surface": "掬飲",
+      "reading": "きくいん",
+      "romaji": "Kikuin"
+    },
+    {
+      "surface": "擣く",
+      "reading": "つく",
+      "romaji": "Tsuku"
+    },
+    {
+      "surface": "擣衣",
+      "reading": "とうい",
+      "romaji": "Toui"
+    },
+    {
+      "surface": "殱滅",
+      "reading": "せんめつ",
+      "romaji": "Senmetsu"
+    },
+    {
+      "surface": "爼上",
+      "reading": "そじょう",
+      "romaji": "Sojou"
+    },
+    {
+      "surface": "車站",
+      "reading": "しゃたん",
+      "romaji": "Shatan"
+    },
+    {
+      "surface": "夾纈",
+      "reading": "きょうけち",
+      "romaji": "Kyoukechi"
+    },
+    {
+      "surface": "翊賛",
+      "reading": "よくさん",
+      "romaji": "Yokusan"
+    },
+    {
+      "surface": "蒿里",
+      "reading": "こうり",
+      "romaji": "Kouri"
+    },
+    {
+      "surface": "陌上",
+      "reading": "はくじょう",
+      "romaji": "Hakujou"
+    },
+    {
+      "surface": "頷首",
+      "reading": "がんしゅ",
+      "romaji": "Ganshu"
+    },
+    {
+      "surface": "玖馬",
+      "reading": "きゅーば",
+      "romaji": "Kyuuba"
+    },
+    {
+      "surface": "薄桜",
+      "reading": "うすざくら",
+      "romaji": "Usuzakura",
+      "note": "Attested ordinary lexical reading; Digital Daijisen and Nihon Kokugo Daijiten via Kotobank: https://kotobank.jp/word/%E8%96%84%E6%A1%9C-439832"
+    },
+    {
+      "surface": "小公子",
+      "reading": "しょうこうし",
+      "romaji": "Shoukoushi",
+      "note": "Reviewed whole-word dictionary reading; Kotobank / Digital Daijisen and Nihon Kokugo Daijiten: https://kotobank.jp/word/%E5%B0%8F%E5%85%AC%E5%AD%90-79178"
+    }
+  ]
+}

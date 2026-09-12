@@ -1,0 +1,362 @@
+[
+  {
+    "surface": "日本",
+    "reading": "にほん",
+    "pattern": "日本(?:は|へ|について)",
+    "source": "Project-reviewed/Rule 0"
+  },
+  {
+    "surface": "一人",
+    "reading": "ひとり",
+    "pattern": "一人(?=$|[、。！？]|(?:の|が|は|を|に|へ|と|も|で|だけ|しか|ずつ|きり|として|なら|でも))",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "とうきょう",
+    "reading": "とうきょう",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "極振り",
+    "reading": "きょくふり",
+    "pattern": "(?:防御力に)?極振り",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "本好き",
+    "reading": "ほんずき",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "屍鬼",
+    "reading": "しき",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "かくしごと",
+    "reading": "かくしごと",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "最弱",
+    "reading": "さいじゃく",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "犬夜叉",
+    "reading": "いぬやしゃ",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "甲鉄城",
+    "reading": "こうてつじょう",
+    "pattern": "甲鉄城のカバネリ",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "乙嫁語り",
+    "reading": "おとよめがたり",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "とつくに",
+    "reading": "とつくに",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "平家",
+    "reading": "へいけ",
+    "pattern": "平家物語",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "百合",
+    "reading": "ゆり",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "うみねこ",
+    "reading": "うみねこ",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "世話やき",
+    "reading": "せわやき",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "甘々",
+    "reading": "あまあま",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "うざい",
+    "reading": "うざい",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "おとこのこ",
+    "reading": "おとこのこ",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "かくりよ",
+    "reading": "かくりよ",
+    "pattern": "かくりよの宿飯",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "宿飯",
+    "reading": "やどめし",
+    "pattern": "かくりよの宿飯",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "ひなまつり",
+    "reading": "ひなまつり",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "くノ一",
+    "reading": "くのいち",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "一杯",
+    "reading": "いっぱい",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "強いて",
+    "reading": "しいて",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "脱ける",
+    "reading": "ぬける",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "一曲",
+    "reading": "いっきょく",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "一歩",
+    "reading": "いっぽ",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "下っ腹",
+    "reading": "したっぱら",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "見映え",
+    "reading": "みばえ",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "御馴染み",
+    "reading": "おなじみ",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "航空会社",
+    "reading": "こうくうがいしゃ",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "丁目",
+    "reading": "ちょうめ",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "日変わり",
+    "reading": "ひがわり",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "八つ当り",
+    "reading": "やつあたり",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "小美玉",
+    "reading": "おみたま",
+    "pattern": "小美玉",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "北極点",
+    "reading": "ほっきょくてん",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "通り",
+    "reading": "どおり",
+    "pattern": "いつも通り",
+    "source": "Project-reviewed/manual"
+  },
+  {
+    "surface": "どたん場",
+    "reading": "どたんば",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "一石",
+    "reading": "いっせき",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "読み難い",
+    "reading": "よみにくい",
+    "source": "Jitendex 2026-08-11 / revision 2026.08.11.0"
+  },
+  {
+    "surface": "這いよれ",
+    "reading": "はいよれ",
+    "source": "Project-reviewed lexical inflection evidence; 這い寄る/這いよる godan imperative はいよれ (Digital Daijisen via Kotobank)"
+  },
+  {
+    "surface": "継母",
+    "reading": "ままはは",
+    "pattern": "継母の連れ子が元カノだった",
+    "source": "Project-reviewed contextual lexical reading; Digital Daijisen/Kotobank attests 継母 ままはは alongside けいぼ"
+  },
+  {
+    "surface": "連れ子",
+    "reading": "つれご",
+    "pattern": "継母の連れ子が元カノだった",
+    "source": "Project-reviewed contextual lexical reading; Kotobank attests 連れ子 つれご alongside つれこ"
+  },
+  {
+    "surface": "地縛",
+    "reading": "じばく",
+    "source": "Project-reviewed lexical evidence; Digital Daijisen 地縛霊 じばくれい supports 地縛 じばく"
+  },
+  {
+    "surface": "さくら荘",
+    "reading": "さくらそう",
+    "pattern": "さくら荘のペットな彼女",
+    "source": "Project-reviewed title-context lexical reading; title spelling さくら荘 fixes 荘 as そう"
+  },
+  {
+    "surface": "獣たち",
+    "reading": "けものたち",
+    "pattern": "かつて神だった獣たちへ",
+    "source": "Project-reviewed contextual lexical reading; title context selects 獣 けもの + plural たち"
+  },
+  {
+    "surface": "主",
+    "reading": "あるじ",
+    "pattern": "烏は主を選ばない",
+    "source": "Project-reviewed contextual lexical reading; title context selects 主 あるじ"
+  },
+  {
+    "surface": "姑獲鳥",
+    "reading": "うぶめ",
+    "pattern": "姑獲鳥の夏",
+    "source": "Project-reviewed contextual irregular reading; Digital Daijisen/Kotobank attests 姑獲鳥 うぶめ"
+  },
+  {
+    "surface": "絡新婦",
+    "reading": "じょろうぐも",
+    "source": "Project-reviewed irregular whole-word reading; Kanjipedia/JMdict attests 絡新婦 じょろうぐも"
+  },
+  {
+    "surface": "八咫烏",
+    "reading": "やたがらす",
+    "source": "Project-reviewed lexical reading; dictionary evidence attests 八咫烏 やたがらす"
+  },
+  {
+    "surface": "妖狐",
+    "reading": "ようこ",
+    "source": "Project-reviewed lexical reading; Digital Daijisen/Kotobank attests 妖狐 ようこ"
+  },
+  {
+    "surface": "巨乳",
+    "reading": "きょにゅう",
+    "source": "Project-reviewed lexical reading; Digital Daijisen attests 巨乳 きょにゅう"
+  },
+  {
+    "surface": "鵼",
+    "reading": "ぬえ",
+    "source": "Project-reviewed lexical reading; Digital Daijisen/Kotobank attests 鵼 ぬえ"
+  },
+  {
+    "surface": "理",
+    "reading": "ことわり",
+    "pattern": "絡新婦の理",
+    "source": "Project-reviewed contextual lexical reading; title context selects 理 ことわり"
+  },
+  {
+    "surface": "元カノ",
+    "reading": "もとかの",
+    "romaji": "Moto Kano",
+    "source": "Project-reviewed ordinary lexical form; 元 + カノ internal Rule 0 boundary",
+    "pattern": "元カノ"
+  },
+  {
+    "surface": "ロシア語",
+    "reading": "ろしあご",
+    "source": "Project-reviewed ordinary lexical form; ロシア + 語 is one lexical language-name compound",
+    "pattern": "ロシア語"
+  },
+  {
+    "surface": "まぞく",
+    "reading": "まぞく",
+    "source": "Project-reviewed ordinary lexical kana spelling of 魔族; added during exact-override decomposition"
+  },
+  {
+    "surface": "かげき",
+    "reading": "かげき",
+    "source": "Project-reviewed/manual; scoped lexical boundary evidence for かげきしょうじょ",
+    "pattern": "かげきしょうじょ"
+  },
+  {
+    "surface": "わるもの",
+    "reading": "わるもの",
+    "source": "Project-reviewed/manual; ordinary lexical reading of 悪者 used to preserve kana word boundaries"
+  },
+  {
+    "surface": "やつら",
+    "reading": "やつら",
+    "source": "Project-reviewed/manual; ordinary kana lexical form 奴ら, added during exact-override decomposition"
+  },
+  {
+    "surface": "うみねこ",
+    "reading": "うみねこ",
+    "pattern": "うみねこのなく頃に",
+    "source": "Project-reviewed title-context boundary evidence; permits reviewed うみねこ span across Kuromoji token boundary in this title"
+  },
+  {
+    "surface": "頃",
+    "reading": "ころ",
+    "pattern": "うみねこのなく頃に",
+    "source": "Project-reviewed title-context lexical reading; title context selects 頃 ころ rather than suffixal ごろ"
+  },
+  {
+    "surface": "黄昏",
+    "reading": "たそがれ",
+    "pattern": "黄昏乙女×アムネジア",
+    "source": "Project-reviewed title-context lexical reading; this title selects 黄昏 たそがれ over the less common こうこん reading"
+  },
+  {
+    "surface": "九龍",
+    "reading": "きゅうりゅう",
+    "source": "Project-reviewed ordinary lexical reading; 精選版 日本国語大辞典 via Kotobank lists 九龍 as きゅうりゅう"
+  },
+  {
+    "surface": "告る",
+    "reading": "こくる",
+    "conjugationClass": "godan-ra",
+    "source": "Project-reviewed lexical lemma; Digital Daijisen via Kotobank attests 告る こくる as slang ラ行五段 verb"
+  },
+  {
+    "surface": "心",
+    "reading": "こころ",
+    "pattern": "心が叫びたがってるんだ。",
+    "source": "Project-reviewed title-context lexical reading; this title selects 心 こころ"
+  }
+]

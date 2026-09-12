@@ -1,0 +1,3253 @@
+{
+  "_meta": {
+    "version": 1,
+    "purpose": "Compact reviewed positive Japanese-use Han scope evidence for characters not safely covered by ordinary KANJIDIC lookup alone.",
+    "policy": "Positive-scope evidence only. Japanese readings may be exposed as candidates, but this bank must never force one reading when several legitimate readings remain. Chinese/Korean readings are not imported.",
+    "derivedFrom": [
+      {
+        "name": "MJ文字情報一覧表 Ver.006.02",
+        "publisher": "文字情報技術促進協議会 / IPA source attribution required",
+        "url": "https://moji.or.jp/mojikiban/mjlist/",
+        "licence": "Creative Commons Attribution-ShareAlike 2.1 Japan"
+      },
+      {
+        "name": "Unicode Unihan 18.0.0",
+        "url": "https://www.unicode.org/Public/18.0.0/ucd/Unihan.zip",
+        "role": "secondary stable cross-check using Japanese-specific properties only"
+      },
+      {
+        "name": "三省堂「漢字の現在」笹原宏之 第82回",
+        "url": "https://dictionary.sanseido-publ.co.jp/column/kanji_genzai082",
+        "role": "Japanese scholarly evidence for the transmitted 84-stroke kokuji/ghost-character readings; real surname use explicitly treated as doubtful"
+      },
+      {
+        "name": "国立国会図書館 レファレンス協同データベース 1000152853",
+        "url": "https://crd.ndl.go.jp/reference/detail?page=ref_view&id=1000152853",
+        "role": "Japanese library reference corroborating dictionary attestation of おとど・たいと・だいと"
+      },
+      {
+        "name": "漢字辞典オンライン",
+        "url": "https://kanji.jitenon.jp/",
+        "role": "primary Japanese dictionary evidence for rare-character readings and explicit no-reading/component classifications"
+      },
+      {
+        "name": "民間字辞典",
+        "url": "https://minkan.jp/",
+        "role": "primary Japanese rare-character reading evidence for CJK Extension/JIS rare Han"
+      },
+      {
+        "name": "文字情報基盤検索システム",
+        "url": "https://moji.or.jp/mojikibansearch/",
+        "role": "Japanese character-infrastructure reading/relationship evidence used for selected rare forms"
+      },
+      {
+        "name": "漢字知識",
+        "url": "https://kanjitisiki.com/",
+        "role": "Japanese dictionary cross-check for selected rare readings"
+      }
+    ],
+    "researchReview": {
+      "date": "2026-09-11",
+      "batch": "Batch 2 269-character unknown-scope follow-up",
+      "method": "All 269 previously unknown KANJIDIC Han were researched as one set before implementation. Japanese dictionary/infrastructure evidence was preferred; Unicode Japanese-specific properties were secondary only. Component names and explicitly provisional/convenience readings were not promoted.",
+      "researched": 269,
+      "promoted": 256,
+      "remainingUnknown": 13,
+      "remainingUnknownCharacters": [
+        "㣺",
+        "䒑",
+        "亻",
+        "关",
+        "耂",
+        "艹",
+        "飠",
+        "碵",
+        "囍",
+        "爫",
+        "牜",
+        "犭",
+        "㓁"
+      ],
+      "remainingUnknownRationale": {
+        "㣺": "standalone component; source explicitly lists no reading",
+        "䒑": "standalone component; source explicitly lists no reading",
+        "亻": "standalone component; source explicitly lists no reading",
+        "关": "component/uncertain variant; source explicitly lists no reading",
+        "耂": "standalone component; source explicitly lists no reading",
+        "艹": "standalone component; source explicitly lists no reading",
+        "飠": "standalone component; source explicitly lists no reading",
+        "碵": "source labels セキ as a convenience reading while stating the sound/meaning are uncertain; insufficient for positive support",
+        "囍": "sound reading explicitly listed as unknown",
+        "爫": "standalone component; source explicitly lists no reading",
+        "牜": "standalone component; source explicitly lists no reading",
+        "犭": "standalone component; source explicitly lists no reading",
+        "㓁": "standalone component; source explicitly lists no reading"
+      }
+    }
+  },
+  "entries": [
+    {
+      "character": "𠮷",
+      "reference": "吉",
+      "readings": [
+        "きち",
+        "きつ",
+        "よい"
+      ],
+      "sourceIds": [
+        "MJ032129",
+        "JMJ-032129",
+        "U+20BB7"
+      ],
+      "source": "MJ文字情報一覧表 Ver.006.02; Unicode Unihan 18.0.0 kJapanese/kMojiJoho"
+    },
+    {
+      "character": "龘",
+      "readings": [
+        "とう"
+      ],
+      "sourceIds": [
+        "MJ030150",
+        "JMJ-030150",
+        "U+9F98"
+      ],
+      "source": "MJ文字情報一覧表 Ver.006.02; Unicode Unihan 18.0.0 kJapanese/kJapaneseOn/kMojiJoho/kIRG_JSource"
+    },
+    {
+      "character": "䨻",
+      "readings": [
+        "ほう",
+        "びょう"
+      ],
+      "sourceIds": [
+        "MJ005410",
+        "JMJ-005410",
+        "U+4A3B"
+      ],
+      "source": "MJ文字情報一覧表 Ver.006.02; Unicode Unihan 18.0.0 kJapanese/kMojiJoho/kIRG_JSource"
+    },
+    {
+      "character": "𱁬",
+      "readings": [
+        "たいと",
+        "だいと",
+        "おとど"
+      ],
+      "sourceIds": [
+        "SANSEIDO-SASAHARA-2011-02-08",
+        "NDL-CRD-1000152853",
+        "U+3106C"
+      ],
+      "source": "三省堂 笹原宏之「漢字の現在」第82回; 国立国会図書館レファレンス協同データベース 1000152853. Japanese kokuji/ghost-character evidence only; actual surname use/historicity is disputed and no reading is preferred."
+    },
+    {
+      "character": "㖦",
+      "readings": [
+        "つ",
+        "とう"
+      ],
+      "sourceIds": [
+        "U+35A6",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㖨",
+      "readings": [
+        "ろく"
+      ],
+      "sourceIds": [
+        "U+35A8",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㗅",
+      "readings": [
+        "こ",
+        "ご"
+      ],
+      "sourceIds": [
+        "U+35C5",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㗚",
+      "readings": [
+        "りち",
+        "りつ"
+      ],
+      "sourceIds": [
+        "U+35DA",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㗴",
+      "readings": [
+        "がん",
+        "げん"
+      ],
+      "sourceIds": [
+        "U+35F4",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㘅",
+      "readings": [
+        "かん",
+        "がん",
+        "くつわ",
+        "くらい",
+        "くわえる",
+        "ふくむ"
+      ],
+      "sourceIds": [
+        "U+3605",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㙊",
+      "readings": [
+        "ちょう"
+      ],
+      "sourceIds": [
+        "U+364A",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㚖",
+      "readings": [
+        "こう",
+        "しゃく",
+        "せき",
+        "たく"
+      ],
+      "sourceIds": [
+        "U+3696",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㛏",
+      "readings": [
+        "きゅう",
+        "ぐ"
+      ],
+      "sourceIds": [
+        "U+36CF",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㝡",
+      "readings": [
+        "さい",
+        "も",
+        "もっとも"
+      ],
+      "sourceIds": [
+        "U+3761",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㝢",
+      "readings": [
+        "う",
+        "いえ",
+        "のき"
+      ],
+      "sourceIds": [
+        "U+3762",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㝫",
+      "readings": [
+        "りゅう"
+      ],
+      "sourceIds": [
+        "U+376B",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㝵",
+      "readings": [
+        "がい",
+        "とく"
+      ],
+      "sourceIds": [
+        "U+3775",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㟁",
+      "readings": [
+        "がん",
+        "かどだつ",
+        "きし"
+      ],
+      "sourceIds": [
+        "U+37C1",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㟨",
+      "readings": [
+        "たん"
+      ],
+      "sourceIds": [
+        "U+37E8",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㟴",
+      "readings": [
+        "い",
+        "かい"
+      ],
+      "sourceIds": [
+        "U+37F4",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㟽",
+      "readings": [
+        "ひょう"
+      ],
+      "sourceIds": [
+        "U+37FD",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㠶",
+      "readings": [
+        "はん",
+        "ほ"
+      ],
+      "sourceIds": [
+        "U+3836",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㡀",
+      "readings": [
+        "へい",
+        "べい"
+      ],
+      "sourceIds": [
+        "U+3840",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㡜",
+      "readings": [
+        "せつ"
+      ],
+      "sourceIds": [
+        "U+385C",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㡡",
+      "readings": [
+        "ちゅ",
+        "ちゅう"
+      ],
+      "sourceIds": [
+        "U+3861",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㤚",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+391A",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㥯",
+      "readings": [
+        "いん"
+      ],
+      "sourceIds": [
+        "U+396F",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㩮",
+      "readings": [
+        "けん"
+      ],
+      "sourceIds": [
+        "U+3A6E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㩳",
+      "readings": [
+        "しょう"
+      ],
+      "sourceIds": [
+        "U+3A73",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㫗",
+      "readings": [
+        "こう",
+        "あつい"
+      ],
+      "sourceIds": [
+        "U+3AD7",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㫪",
+      "readings": [
+        "しょう",
+        "うすづく",
+        "つく"
+      ],
+      "sourceIds": [
+        "U+3AEA",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㬎",
+      "readings": [
+        "けん"
+      ],
+      "sourceIds": [
+        "U+3B0E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㬚",
+      "readings": [
+        "てつ"
+      ],
+      "sourceIds": [
+        "U+3B1A",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㬜",
+      "readings": [
+        "しん",
+        "すすむ"
+      ],
+      "sourceIds": [
+        "U+3B1C",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㬢",
+      "readings": [
+        "き",
+        "ぎ",
+        "ひ",
+        "ひかり"
+      ],
+      "sourceIds": [
+        "U+3B22",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㭭",
+      "readings": [
+        "はつ"
+      ],
+      "sourceIds": [
+        "U+3B6D",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㮇",
+      "readings": [
+        "てん"
+      ],
+      "sourceIds": [
+        "U+3B87",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㮈",
+      "readings": [
+        "だい",
+        "でい"
+      ],
+      "sourceIds": [
+        "U+3B88",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㮍",
+      "readings": [
+        "さん",
+        "せん"
+      ],
+      "sourceIds": [
+        "U+3B8D",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㮤",
+      "readings": [
+        "しょう",
+        "まつ"
+      ],
+      "sourceIds": [
+        "U+3BA4",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㮶",
+      "readings": [
+        "さく"
+      ],
+      "sourceIds": [
+        "U+3BB6",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㯃",
+      "readings": [
+        "しつ"
+      ],
+      "sourceIds": [
+        "U+3BC3",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㯍",
+      "readings": [
+        "しょう"
+      ],
+      "sourceIds": [
+        "U+3BCD",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㯰",
+      "readings": [
+        "しょく",
+        "ち",
+        "うえる",
+        "うわる",
+        "たてる"
+      ],
+      "sourceIds": [
+        "U+3BF0",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㰏",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+3C0F",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㰦",
+      "readings": [
+        "きょ"
+      ],
+      "sourceIds": [
+        "U+3C26",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㳃",
+      "readings": [
+        "さい",
+        "にらぐ"
+      ],
+      "sourceIds": [
+        "U+3CC3",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㳒",
+      "readings": [
+        "はっ",
+        "ほう",
+        "ほっ",
+        "のっとる",
+        "のり",
+        "ふらん"
+      ],
+      "sourceIds": [
+        "U+3CD2",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㴑",
+      "readings": [
+        "そ",
+        "さかのぼる",
+        "むかう"
+      ],
+      "sourceIds": [
+        "U+3D11",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㴞",
+      "readings": [
+        "とう",
+        "あつまる",
+        "うごく",
+        "はびこる"
+      ],
+      "sourceIds": [
+        "U+3D1E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㵤",
+      "readings": [
+        "そう"
+      ],
+      "sourceIds": [
+        "U+3D64",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㷀",
+      "readings": [
+        "けい",
+        "うれえる",
+        "ひとりもの"
+      ],
+      "sourceIds": [
+        "U+3DC0",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㷔",
+      "readings": [
+        "えん",
+        "ほのお",
+        "もえる"
+      ],
+      "sourceIds": [
+        "U+3DD4",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㸅",
+      "readings": [
+        "せつ"
+      ],
+      "sourceIds": [
+        "U+3E05",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㸿",
+      "readings": [
+        "とく",
+        "こうし"
+      ],
+      "sourceIds": [
+        "U+3E3F",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㹦",
+      "readings": [
+        "ちょう"
+      ],
+      "sourceIds": [
+        "U+3E66",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㹨",
+      "readings": [
+        "ゆう"
+      ],
+      "sourceIds": [
+        "U+3E68",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㺃",
+      "readings": [
+        "く",
+        "こう",
+        "いぬ"
+      ],
+      "sourceIds": [
+        "U+3E83",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㺔",
+      "readings": [
+        "き"
+      ],
+      "sourceIds": [
+        "U+3E94",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㽲",
+      "readings": [
+        "きゅう",
+        "きょう",
+        "く",
+        "こう"
+      ],
+      "sourceIds": [
+        "U+3F72",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㽵",
+      "readings": [
+        "しょう",
+        "そう",
+        "おごそか",
+        "しもやしき"
+      ],
+      "sourceIds": [
+        "U+3F75",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㽷",
+      "readings": [
+        "すい"
+      ],
+      "sourceIds": [
+        "U+3F77",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㾮",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+3FAE",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㿉",
+      "readings": [
+        "ずい",
+        "たい"
+      ],
+      "sourceIds": [
+        "U+3FC9",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㿗",
+      "readings": [
+        "たい"
+      ],
+      "sourceIds": [
+        "U+3FD7",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䀹",
+      "readings": [
+        "こう",
+        "しょう"
+      ],
+      "sourceIds": [
+        "U+4039",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䁘",
+      "readings": [
+        "よう"
+      ],
+      "sourceIds": [
+        "U+4058",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䂓",
+      "readings": [
+        "き",
+        "ただす",
+        "のり",
+        "ぶんまわし"
+      ],
+      "sourceIds": [
+        "U+4093",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䄅",
+      "readings": [
+        "けん"
+      ],
+      "sourceIds": [
+        "U+4105",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䅏",
+      "readings": [
+        "び"
+      ],
+      "sourceIds": [
+        "U+414F",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䅣",
+      "readings": [
+        "おう",
+        "こう"
+      ],
+      "sourceIds": [
+        "U+4163",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䆴",
+      "readings": [
+        "そう",
+        "かまど",
+        "へっつい"
+      ],
+      "sourceIds": [
+        "U+41B4",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䆿",
+      "readings": [
+        "げい"
+      ],
+      "sourceIds": [
+        "U+41BF",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䇦",
+      "readings": [
+        "えい",
+        "おう"
+      ],
+      "sourceIds": [
+        "U+41E6",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䇮",
+      "readings": [
+        "じん"
+      ],
+      "sourceIds": [
+        "U+41EE",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䇳",
+      "readings": [
+        "せん",
+        "かきもの",
+        "てがみ",
+        "ときあかし",
+        "なふだ",
+        "はりふだ",
+        "ふだ"
+      ],
+      "sourceIds": [
+        "U+41F3",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䈇",
+      "readings": [
+        "とう"
+      ],
+      "sourceIds": [
+        "U+4207",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䈎",
+      "readings": [
+        "よう"
+      ],
+      "sourceIds": [
+        "U+420E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䉤",
+      "readings": [
+        "しゅ",
+        "す",
+        "そう",
+        "こめあげざる"
+      ],
+      "sourceIds": [
+        "U+4264",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䋖",
+      "readings": [
+        "いつ"
+      ],
+      "sourceIds": [
+        "U+42D6",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䋝",
+      "readings": [
+        "えい",
+        "よう",
+        "ひも",
+        "まとう",
+        "むながい"
+      ],
+      "sourceIds": [
+        "U+42DD",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䌂",
+      "readings": [
+        "おう"
+      ],
+      "sourceIds": [
+        "U+4302",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䌫",
+      "readings": [
+        "らん",
+        "ともづな"
+      ],
+      "sourceIds": [
+        "U+432B",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䍃",
+      "readings": [
+        "ゆう"
+      ],
+      "sourceIds": [
+        "U+4343",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䏮",
+      "readings": [
+        "きょう",
+        "かたわら",
+        "わき"
+      ],
+      "sourceIds": [
+        "U+43EE",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䏰",
+      "readings": [
+        "じゅん",
+        "じん"
+      ],
+      "sourceIds": [
+        "U+43F0",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䐈",
+      "readings": [
+        "しき",
+        "しょく"
+      ],
+      "sourceIds": [
+        "U+4408",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䐗",
+      "readings": [
+        "ちょ",
+        "と"
+      ],
+      "sourceIds": [
+        "U+4417",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䐜",
+      "readings": [
+        "しん"
+      ],
+      "sourceIds": [
+        "U+441C",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䐢",
+      "readings": [
+        "しゅ",
+        "すう"
+      ],
+      "sourceIds": [
+        "U+4422",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䑓",
+      "readings": [
+        "たい",
+        "だい",
+        "うてな",
+        "しもべ"
+      ],
+      "sourceIds": [
+        "U+4453",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䑛",
+      "readings": [
+        "し",
+        "なめる",
+        "ねぶる"
+      ],
+      "sourceIds": [
+        "U+445B",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䑶",
+      "readings": [
+        "せん"
+      ],
+      "sourceIds": [
+        "U+4476",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䑺",
+      "readings": [
+        "はん",
+        "ほ"
+      ],
+      "sourceIds": [
+        "U+447A",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䒳",
+      "readings": [
+        "た",
+        "だ",
+        "うごかす",
+        "えだ",
+        "しだれる"
+      ],
+      "sourceIds": [
+        "U+44B3",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䔈",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+4508",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䔥",
+      "readings": [
+        "しょう",
+        "しずか",
+        "よもぎ"
+      ],
+      "sourceIds": [
+        "U+4525",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䕃",
+      "readings": [
+        "いん",
+        "おん",
+        "おおう",
+        "おかげ",
+        "かげ",
+        "しげる"
+      ],
+      "sourceIds": [
+        "U+4543",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䖝",
+      "readings": [
+        "ちゅう",
+        "むし"
+      ],
+      "sourceIds": [
+        "U+459D",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䖸",
+      "readings": [
+        "が",
+        "ぎ",
+        "あり",
+        "ひひる",
+        "ひむし",
+        "まゆげ"
+      ],
+      "sourceIds": [
+        "U+45B8",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䗥",
+      "readings": [
+        "しょう"
+      ],
+      "sourceIds": [
+        "U+45E5",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䗪",
+      "readings": [
+        "しゃ"
+      ],
+      "sourceIds": [
+        "U+45EA",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䘏",
+      "readings": [
+        "しゅつ",
+        "じゅつ",
+        "あわれむ",
+        "うれえる",
+        "めぐむ"
+      ],
+      "sourceIds": [
+        "U+460F",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䙁",
+      "readings": [
+        "せん"
+      ],
+      "sourceIds": [
+        "U+4641",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䙥",
+      "readings": [
+        "れい"
+      ],
+      "sourceIds": [
+        "U+4665",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䚡",
+      "readings": [
+        "さい",
+        "こづの"
+      ],
+      "sourceIds": [
+        "U+46A1",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䚯",
+      "readings": [
+        "けん",
+        "とう"
+      ],
+      "sourceIds": [
+        "U+46AF",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䜌",
+      "readings": [
+        "らん",
+        "みだれる",
+        "もつれる"
+      ],
+      "sourceIds": [
+        "U+470C",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䝤",
+      "readings": [
+        "りょう",
+        "ろう"
+      ],
+      "sourceIds": [
+        "U+4764",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䟽",
+      "readings": [
+        "しょ",
+        "そ",
+        "あらい",
+        "うとい",
+        "うとむ",
+        "おろそか",
+        "とおす",
+        "とおる",
+        "まばら"
+      ],
+      "sourceIds": [
+        "U+47FD",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䡎",
+      "readings": [
+        "ろ"
+      ],
+      "sourceIds": [
+        "U+484E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䢵",
+      "readings": [
+        "うん"
+      ],
+      "sourceIds": [
+        "U+48B5",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䦰",
+      "readings": [
+        "きゅう",
+        "くじ",
+        "たたかいとる"
+      ],
+      "sourceIds": [
+        "U+49B0",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䧧",
+      "readings": [
+        "ぎ"
+      ],
+      "sourceIds": [
+        "U+49E7",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䧺",
+      "readings": [
+        "ゆう",
+        "お",
+        "おす",
+        "おん",
+        "まさる"
+      ],
+      "sourceIds": [
+        "U+49FA",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䨄",
+      "readings": [
+        "あん"
+      ],
+      "sourceIds": [
+        "U+4A04",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䨩",
+      "readings": [
+        "りょう",
+        "れい",
+        "たま",
+        "たましい",
+        "よい"
+      ],
+      "sourceIds": [
+        "U+4A29",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䪼",
+      "readings": [
+        "せつ"
+      ],
+      "sourceIds": [
+        "U+4ABC",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䬻",
+      "readings": [
+        "せん",
+        "おくる",
+        "はなむけ"
+      ],
+      "sourceIds": [
+        "U+4B3B",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䯂",
+      "readings": [
+        "しん"
+      ],
+      "sourceIds": [
+        "U+4BC2",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䯊",
+      "readings": [
+        "か"
+      ],
+      "sourceIds": [
+        "U+4BCA",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䯒",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+4BD2",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䯨",
+      "readings": [
+        "かく",
+        "こう"
+      ],
+      "sourceIds": [
+        "U+4BE8",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䰗",
+      "readings": [
+        "きゅう",
+        "くじ",
+        "たたかいとる"
+      ],
+      "sourceIds": [
+        "U+4C17",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䰠",
+      "readings": [
+        "しん"
+      ],
+      "sourceIds": [
+        "U+4C20",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䳄",
+      "readings": [
+        "し",
+        "め",
+        "めす",
+        "めん"
+      ],
+      "sourceIds": [
+        "U+4CC4",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䳑",
+      "readings": [
+        "ゆう",
+        "あじ"
+      ],
+      "sourceIds": [
+        "U+4CD1",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䴇",
+      "readings": [
+        "れい"
+      ],
+      "sourceIds": [
+        "U+4D07",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "䵷",
+      "readings": [
+        "あ",
+        "かい",
+        "わい",
+        "かえる"
+      ],
+      "sourceIds": [
+        "U+4D77",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "丬",
+      "readings": [
+        "しょう",
+        "そう"
+      ],
+      "sourceIds": [
+        "U+4E2C",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "仫",
+      "readings": [
+        "む"
+      ],
+      "sourceIds": [
+        "U+4EEB",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "俦",
+      "readings": [
+        "ちゅう",
+        "じゅう",
+        "じゅ",
+        "ともがら"
+      ],
+      "sourceIds": [
+        "U+4FE6",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "傣",
+      "readings": [
+        "たい"
+      ],
+      "sourceIds": [
+        "U+50A3",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "僳",
+      "readings": [
+        "す"
+      ],
+      "sourceIds": [
+        "U+50F3",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "养",
+      "readings": [
+        "よう",
+        "やしなう",
+        "やしない"
+      ],
+      "sourceIds": [
+        "U+517B",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "凃",
+      "readings": [
+        "と",
+        "ず",
+        "ちょ",
+        "じょ"
+      ],
+      "sourceIds": [
+        "U+51C3",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "卧",
+      "readings": [
+        "が",
+        "ふしど",
+        "ふす"
+      ],
+      "sourceIds": [
+        "U+5367",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "呕",
+      "readings": [
+        "おう",
+        "う",
+        "く",
+        "うたう",
+        "はく"
+      ],
+      "sourceIds": [
+        "U+5455",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "埗",
+      "readings": [
+        "ふ",
+        "ほ",
+        "ぶ"
+      ],
+      "sourceIds": [
+        "U+57D7",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "复",
+      "readings": [
+        "ふく",
+        "ぶく"
+      ],
+      "sourceIds": [
+        "U+590D",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "嶗",
+      "readings": [
+        "ろう"
+      ],
+      "sourceIds": [
+        "U+5D97",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "庹",
+      "readings": [
+        "た",
+        "たく"
+      ],
+      "sourceIds": [
+        "U+5EB9",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "廹",
+      "readings": [
+        "はく",
+        "せまる",
+        "せる"
+      ],
+      "sourceIds": [
+        "U+5EF9",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "开",
+      "readings": [
+        "かい",
+        "あく",
+        "あける",
+        "ひらく",
+        "ひらける"
+      ],
+      "sourceIds": [
+        "U+5F00",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "惮",
+      "readings": [
+        "たん",
+        "はばかり",
+        "はばかる"
+      ],
+      "sourceIds": [
+        "U+60EE",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "懵",
+      "readings": [
+        "ぼう"
+      ],
+      "sourceIds": [
+        "U+61F5",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "扡",
+      "readings": [
+        "た",
+        "ち"
+      ],
+      "sourceIds": [
+        "U+6261",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "扻",
+      "readings": [
+        "かん",
+        "しつ",
+        "そん"
+      ],
+      "sourceIds": [
+        "U+627B",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "抅",
+      "readings": [
+        "こう",
+        "かかわる",
+        "こだわる",
+        "とどめる"
+      ],
+      "sourceIds": [
+        "U+6285",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "挲",
+      "readings": [
+        "さ"
+      ],
+      "sourceIds": [
+        "U+6332",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "揫",
+      "readings": [
+        "しゅう"
+      ],
+      "sourceIds": [
+        "U+63EB",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "摹",
+      "readings": [
+        "ぼ",
+        "も"
+      ],
+      "sourceIds": [
+        "U+6479",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "敄",
+      "readings": [
+        "ぶ"
+      ],
+      "sourceIds": [
+        "U+6544",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "斵",
+      "readings": [
+        "たく"
+      ],
+      "sourceIds": [
+        "U+65B5",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "斸",
+      "readings": [
+        "ちょく"
+      ],
+      "sourceIds": [
+        "U+65B8",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "旼",
+      "readings": [
+        "びん"
+      ],
+      "sourceIds": [
+        "U+65FC",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "昺",
+      "readings": [
+        "へい"
+      ],
+      "sourceIds": [
+        "U+663A",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "晥",
+      "readings": [
+        "かん",
+        "あきらか"
+      ],
+      "sourceIds": [
+        "U+6665",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "朁",
+      "readings": [
+        "さん"
+      ],
+      "sourceIds": [
+        "U+6701",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "枒",
+      "readings": [
+        "が"
+      ],
+      "sourceIds": [
+        "U+6792",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "栘",
+      "readings": [
+        "い"
+      ],
+      "sourceIds": [
+        "U+6818",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "栾",
+      "readings": [
+        "らん",
+        "おうち",
+        "まどか",
+        "まるい"
+      ],
+      "sourceIds": [
+        "U+683E",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "梐",
+      "readings": [
+        "へい"
+      ],
+      "sourceIds": [
+        "U+6890",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "梴",
+      "readings": [
+        "てん"
+      ],
+      "sourceIds": [
+        "U+68B4",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "棃",
+      "readings": [
+        "り",
+        "なし"
+      ],
+      "sourceIds": [
+        "U+68C3",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "槩",
+      "readings": [
+        "がい",
+        "かい",
+        "おおむね"
+      ],
+      "sourceIds": [
+        "U+69E9",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "樳",
+      "readings": [
+        "しん"
+      ],
+      "sourceIds": [
+        "U+6A33",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "檔",
+      "readings": [
+        "とう",
+        "かまち"
+      ],
+      "sourceIds": [
+        "U+6A94",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "櫳",
+      "readings": [
+        "ろう",
+        "おり",
+        "まど"
+      ],
+      "sourceIds": [
+        "U+6AF3",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "歺",
+      "readings": [
+        "がつ",
+        "たい"
+      ],
+      "sourceIds": [
+        "U+6B7A",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "毈",
+      "readings": [
+        "たん"
+      ],
+      "sourceIds": [
+        "U+6BC8",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "毗",
+      "readings": [
+        "ひ",
+        "び",
+        "たすける"
+      ],
+      "sourceIds": [
+        "U+6BD7",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "氊",
+      "readings": [
+        "せん",
+        "けむしろ",
+        "もうせん"
+      ],
+      "sourceIds": [
+        "U+6C0A",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "沄",
+      "readings": [
+        "うん",
+        "こん"
+      ],
+      "sourceIds": [
+        "U+6C84",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "沪",
+      "readings": [
+        "りょ",
+        "ろ",
+        "こす"
+      ],
+      "sourceIds": [
+        "U+6CAA",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "沭",
+      "readings": [
+        "しゅつ"
+      ],
+      "sourceIds": [
+        "U+6CAD",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "泭",
+      "readings": [
+        "ふ"
+      ],
+      "sourceIds": [
+        "U+6CED",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "泻",
+      "readings": [
+        "しゃ",
+        "くだす",
+        "しおつち",
+        "そそぐ",
+        "はく"
+      ],
+      "sourceIds": [
+        "U+6CFB",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "洤",
+      "readings": [
+        "せん",
+        "いずみ"
+      ],
+      "sourceIds": [
+        "U+6D24",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "洴",
+      "readings": [
+        "へい"
+      ],
+      "sourceIds": [
+        "U+6D34",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "涊",
+      "readings": [
+        "でん"
+      ],
+      "sourceIds": [
+        "U+6D8A",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "涮",
+      "readings": [
+        "さん"
+      ],
+      "sourceIds": [
+        "U+6DAE",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "溴",
+      "readings": [
+        "しゅ",
+        "しゅう"
+      ],
+      "sourceIds": [
+        "U+6EB4",
+        "MJ-JP",
+        "JAPANESE-DICTIONARY"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 文字情報基盤/日本語辞典."
+    },
+    {
+      "character": "滙",
+      "readings": [
+        "かい",
+        "わい",
+        "めぐる"
+      ],
+      "sourceIds": [
+        "U+6ED9",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "潠",
+      "readings": [
+        "そん"
+      ],
+      "sourceIds": [
+        "U+6F60",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "澾",
+      "readings": [
+        "たつ"
+      ],
+      "sourceIds": [
+        "U+6FBE",
+        "JITENON-JP",
+        "KANJITISIKI-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン/漢字知識."
+    },
+    {
+      "character": "瀺",
+      "readings": [
+        "さん",
+        "せん"
+      ],
+      "sourceIds": [
+        "U+703A",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "炻",
+      "readings": [
+        "せき"
+      ],
+      "sourceIds": [
+        "U+70BB",
+        "JITENON-JP",
+        "JAPANESE-LEXICAL-USAGE"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン/日本語用例."
+    },
+    {
+      "character": "猹",
+      "readings": [
+        "ちゃー"
+      ],
+      "sourceIds": [
+        "U+7339",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "玔",
+      "readings": [
+        "せん"
+      ],
+      "sourceIds": [
+        "U+7394",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "玨",
+      "readings": [
+        "かく"
+      ],
+      "sourceIds": [
+        "U+73A8",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "璈",
+      "readings": [
+        "ごう"
+      ],
+      "sourceIds": [
+        "U+7488",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "璥",
+      "readings": [
+        "けい"
+      ],
+      "sourceIds": [
+        "U+74A5",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "璺",
+      "readings": [
+        "ぶん",
+        "もん"
+      ],
+      "sourceIds": [
+        "U+74BA",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "瓖",
+      "readings": [
+        "しょう"
+      ],
+      "sourceIds": [
+        "U+74D6",
+        "KANJITISIKI-JP",
+        "JAPANESE-DICTIONARY"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字知識/日本語辞典."
+    },
+    {
+      "character": "瘘",
+      "readings": [
+        "る",
+        "ろう",
+        "こぶ",
+        "はれもの"
+      ],
+      "sourceIds": [
+        "U+7618",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "瘨",
+      "readings": [
+        "てん"
+      ],
+      "sourceIds": [
+        "U+7628",
+        "漢字知識"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字知識."
+    },
+    {
+      "character": "皞",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+769E",
+        "MJ-JP",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 文字情報基盤/漢字辞典オンライン."
+    },
+    {
+      "character": "皡",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+76A1",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "睘",
+      "readings": [
+        "けい"
+      ],
+      "sourceIds": [
+        "U+7758",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "瞤",
+      "readings": [
+        "じゅん",
+        "しゅん"
+      ],
+      "sourceIds": [
+        "U+77A4",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "瞩",
+      "readings": [
+        "しょく",
+        "そく",
+        "みる"
+      ],
+      "sourceIds": [
+        "U+77A9",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "砬",
+      "readings": [
+        "りゅう",
+        "ろう"
+      ],
+      "sourceIds": [
+        "U+782C",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "礮",
+      "readings": [
+        "ほう"
+      ],
+      "sourceIds": [
+        "U+792E",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "窾",
+      "readings": [
+        "かん",
+        "く",
+        "こう"
+      ],
+      "sourceIds": [
+        "U+7ABE",
+        "MINKAN-JP",
+        "KANJITISIKI-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典/漢字知識."
+    },
+    {
+      "character": "筹",
+      "readings": [
+        "ちゅう",
+        "かずとり",
+        "はかりごと",
+        "はかる"
+      ],
+      "sourceIds": [
+        "U+7B79",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "篰",
+      "readings": [
+        "ほう",
+        "ぶ"
+      ],
+      "sourceIds": [
+        "U+7BF0",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "籯",
+      "readings": [
+        "えい"
+      ],
+      "sourceIds": [
+        "U+7C6F",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "聃",
+      "readings": [
+        "たん"
+      ],
+      "sourceIds": [
+        "U+8043",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "肙",
+      "readings": [
+        "えん"
+      ],
+      "sourceIds": [
+        "U+8099",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "肤",
+      "readings": [
+        "ふ",
+        "はだ",
+        "はだえ"
+      ],
+      "sourceIds": [
+        "U+80A4",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "胦",
+      "readings": [
+        "おう",
+        "よう"
+      ],
+      "sourceIds": [
+        "U+80E6",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "脍",
+      "readings": [
+        "かい",
+        "なます",
+        "なますにする"
+      ],
+      "sourceIds": [
+        "U+810D",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "臁",
+      "readings": [
+        "れん"
+      ],
+      "sourceIds": [
+        "U+81C1",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "艗",
+      "readings": [
+        "げき"
+      ],
+      "sourceIds": [
+        "U+8257",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "荣",
+      "readings": [
+        "えい",
+        "さかえる",
+        "はえ",
+        "はえる",
+        "はやす"
+      ],
+      "sourceIds": [
+        "U+8363",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "菡",
+      "readings": [
+        "かん"
+      ],
+      "sourceIds": [
+        "U+83E1",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "蔛",
+      "readings": [
+        "こく"
+      ],
+      "sourceIds": [
+        "U+851B",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "蔾",
+      "readings": [
+        "り",
+        "れい"
+      ],
+      "sourceIds": [
+        "U+853E",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "藙",
+      "readings": [
+        "ぎ",
+        "げ"
+      ],
+      "sourceIds": [
+        "U+85D9",
+        "UNICODE-KJAPANESE",
+        "JAPANESE-DICTIONARY"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): Unicode kJapanese + Japanese dictionary cross-check."
+    },
+    {
+      "character": "蘤",
+      "readings": [
+        "い",
+        "か"
+      ],
+      "sourceIds": [
+        "U+8624",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "蚝",
+      "readings": [
+        "し"
+      ],
+      "sourceIds": [
+        "U+869D",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "蝼",
+      "readings": [
+        "る",
+        "ろう",
+        "おけら",
+        "けら"
+      ],
+      "sourceIds": [
+        "U+877C",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "蟥",
+      "readings": [
+        "こう"
+      ],
+      "sourceIds": [
+        "U+87E5",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "覀",
+      "readings": [
+        "あ"
+      ],
+      "sourceIds": [
+        "U+8980",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "訡",
+      "readings": [
+        "ぎん",
+        "うたう",
+        "うめく"
+      ],
+      "sourceIds": [
+        "U+8A21",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "諐",
+      "readings": [
+        "けん",
+        "あやまち",
+        "あやまつ",
+        "あやまる"
+      ],
+      "sourceIds": [
+        "U+8AD0",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "踌",
+      "readings": [
+        "ちゅう",
+        "たちもとおる",
+        "ためらう"
+      ],
+      "sourceIds": [
+        "U+8E0C",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "躶",
+      "readings": [
+        "ら",
+        "はだか"
+      ],
+      "sourceIds": [
+        "U+8EB6",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "轊",
+      "readings": [
+        "えい",
+        "せい"
+      ],
+      "sourceIds": [
+        "U+8F4A",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "釄",
+      "readings": [
+        "び"
+      ],
+      "sourceIds": [
+        "U+91C4",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鍫",
+      "readings": [
+        "しょう",
+        "しゅう",
+        "くわ",
+        "すき"
+      ],
+      "sourceIds": [
+        "U+936B",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鏵",
+      "readings": [
+        "か"
+      ],
+      "sourceIds": [
+        "U+93F5",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "閆",
+      "readings": [
+        "えん"
+      ],
+      "sourceIds": [
+        "U+9586",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "阴",
+      "readings": [
+        "いん",
+        "おん",
+        "あん",
+        "かげ",
+        "かげる",
+        "くもる"
+      ],
+      "sourceIds": [
+        "U+9634",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "隽",
+      "readings": [
+        "せん",
+        "しゅん",
+        "すぐれる"
+      ],
+      "sourceIds": [
+        "U+96BD",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "霶",
+      "readings": [
+        "ほう"
+      ],
+      "sourceIds": [
+        "U+9736",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "頄",
+      "readings": [
+        "き",
+        "きゅう"
+      ],
+      "sourceIds": [
+        "U+9804",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "颼",
+      "readings": [
+        "しゅう",
+        "そう"
+      ],
+      "sourceIds": [
+        "U+98BC",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "飱",
+      "readings": [
+        "そん"
+      ],
+      "sourceIds": [
+        "U+98F1",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "驘",
+      "readings": [
+        "ら",
+        "らば"
+      ],
+      "sourceIds": [
+        "U+9A58",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鱭",
+      "readings": [
+        "せい",
+        "えつ"
+      ],
+      "sourceIds": [
+        "U+9C6D",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鱺",
+      "readings": [
+        "れい"
+      ],
+      "sourceIds": [
+        "U+9C7A",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鵒",
+      "readings": [
+        "よく"
+      ],
+      "sourceIds": [
+        "U+9D52",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鶽",
+      "readings": [
+        "しゅん"
+      ],
+      "sourceIds": [
+        "U+9DBD",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鷀",
+      "readings": [
+        "し",
+        "じ"
+      ],
+      "sourceIds": [
+        "U+9DC0",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "麽",
+      "readings": [
+        "ば",
+        "ま",
+        "も"
+      ],
+      "sourceIds": [
+        "U+9EBD",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "鬥",
+      "readings": [
+        "とう",
+        "たたかう"
+      ],
+      "sourceIds": [
+        "U+9B25",
+        "JITENON-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 漢字辞典オンライン."
+    },
+    {
+      "character": "𢦏",
+      "readings": [
+        "さい"
+      ],
+      "sourceIds": [
+        "U+2298F",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㐆",
+      "readings": [
+        "いん"
+      ],
+      "sourceIds": [
+        "U+3406",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㐬",
+      "readings": [
+        "とつ",
+        "りゅう"
+      ],
+      "sourceIds": [
+        "U+342C",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㐮",
+      "readings": [
+        "しょう",
+        "じょう",
+        "たかい",
+        "のぼる",
+        "はらう"
+      ],
+      "sourceIds": [
+        "U+342E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㑨",
+      "readings": [
+        "ぐ",
+        "こう",
+        "また"
+      ],
+      "sourceIds": [
+        "U+3468",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㑪",
+      "readings": [
+        "さい",
+        "せい",
+        "ともがら"
+      ],
+      "sourceIds": [
+        "U+346A",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㒒",
+      "readings": [
+        "ほく",
+        "ぼく",
+        "しもべ",
+        "やつがれ"
+      ],
+      "sourceIds": [
+        "U+3492",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㒼",
+      "readings": [
+        "ばん",
+        "まん"
+      ],
+      "sourceIds": [
+        "U+34BC",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㓛",
+      "readings": [
+        "く",
+        "こう",
+        "いさお"
+      ],
+      "sourceIds": [
+        "U+34DB",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㕞",
+      "readings": [
+        "せち",
+        "せつ"
+      ],
+      "sourceIds": [
+        "U+355E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㕣",
+      "readings": [
+        "えん"
+      ],
+      "sourceIds": [
+        "U+3563",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    },
+    {
+      "character": "㕮",
+      "readings": [
+        "ふ"
+      ],
+      "sourceIds": [
+        "U+356E",
+        "MINKAN-JP"
+      ],
+      "source": "269-character Batch 2 research review (2026-09-11): 民間字辞典."
+    }
+  ]
+}

@@ -1,0 +1,750 @@
+[
+  {
+    "surface": "一曲",
+    "decision": "promote-common-word",
+    "reading": "いっきょく",
+    "reason": "Kuromoji loses the counter sokuon.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E4%B8%80%E6%9B%B2-31451"
+  },
+  {
+    "surface": "一杯",
+    "decision": "promote-common-word",
+    "reading": "いっぱい",
+    "reason": "Kuromoji splits the counter and loses sokuon/handakuten.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E4%B8%80%E6%9D%AF-434512"
+  },
+  {
+    "surface": "一歩",
+    "decision": "promote-common-word",
+    "reading": "いっぽ",
+    "reason": "Kuromoji loses the counter sokuon.",
+    "source": "Project general-word evidence"
+  },
+  {
+    "surface": "丁目",
+    "decision": "promote-common-word",
+    "reading": "ちょうめ",
+    "reason": "Kuromoji reads the Kanji separately rather than as the address term.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E4%B8%81%E7%9B%AE-569089"
+  },
+  {
+    "surface": "下っ腹",
+    "decision": "promote-common-word",
+    "reading": "したっぱら",
+    "reason": "Kuromoji treats 下っ as a verb fragment.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E4%B8%8B%E3%81%A4%E8%85%B9-3228000"
+  },
+  {
+    "surface": "克寿",
+    "decision": "leave-as-review-signal",
+    "reason": "Bare personal-name Kanji admits multiple legitimate readings; the translator must not globally force かつひさ without full-name/context evidence."
+  },
+  {
+    "surface": "八つ当り",
+    "decision": "promote-common-word",
+    "reading": "やつあたり",
+    "reason": "Kuromoji incorrectly preserves the counter-like sokuon from 八つ.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E5%85%AB%E3%81%A4%E5%BD%93%E3%82%8A-648569"
+  },
+  {
+    "surface": "北極点",
+    "decision": "promote-common-word",
+    "reading": "ほっきょくてん",
+    "reason": "Kuromoji splits 北 from 極点 and misses the established compound reading.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E5%8C%97%E6%A5%B5%E7%82%B9-630540"
+  },
+  {
+    "surface": "小美玉",
+    "decision": "promote-common-word-context",
+    "reading": "おみたま",
+    "reason": "The location has an established reading; a pattern is required because Kuromoji marks part of the span as a proper noun.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E5%B0%8F%E7%BE%8E%E7%8E%89-454446"
+  },
+  {
+    "surface": "強いて",
+    "decision": "promote-common-word",
+    "reading": "しいて",
+    "reason": "Kuromoji analyses 強い + て instead of the lexical adverb.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E5%BC%B7%E3%81%84%E3%81%A6-515955"
+  },
+  {
+    "surface": "御馴染み",
+    "decision": "promote-common-word",
+    "reading": "おなじみ",
+    "reason": "Reviewed general-word evidence is preferable to Kuromoji's prefix reading."
+  },
+  {
+    "surface": "日変わり",
+    "decision": "promote-common-word",
+    "reading": "ひがわり",
+    "reason": "Whole-word reading contains rendaku that the split reading misses.",
+    "source": "Digital Daijisen via Kotobank",
+    "url": "https://kotobank.jp/word/%E6%97%A5%E6%9B%BF%E3%82%8A-608893"
+  },
+  {
+    "surface": "脱ける",
+    "decision": "promote-common-word",
+    "reading": "ぬける",
+    "reason": "The general lexical bank supplies the established whole-word reading; Kuromoji produces a false split.",
+    "source": "Project general-word evidence"
+  },
+  {
+    "surface": "航空会社",
+    "decision": "promote-common-word",
+    "reading": "こうくうがいしゃ",
+    "reason": "Whole-word reading contains rendaku in 会社.",
+    "source": "Shogakukan dictionary entry via Kotobank",
+    "url": "https://kotobank.jp/japtword/%E8%88%AA%E7%A9%BA%E4%BC%9A%E7%A4%BE"
+  },
+  {
+    "surface": "見映え",
+    "decision": "promote-common-word",
+    "reading": "みばえ",
+    "reason": "Whole-word reading contains rendaku that token-by-token reading misses.",
+    "source": "Nihon Kokugo Daijiten via Kotobank",
+    "url": "https://kotobank.jp/word/%E8%A6%8B%E6%A0%84%E3%81%88-2085572"
+  },
+  {
+    "surface": "いつも通り",
+    "decision": "promote-common-word",
+    "reason": "Context-scoped 通り reading preserves the lexical boundary while correcting Kuromoji's とおり.",
+    "reading": "いつもどおり",
+    "expectedRomaji": "Itsumo Doori",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "どたん場",
+    "decision": "promote-common-word",
+    "reason": "Reviewed whole-word reading corrects Kuromoji's false 場 reading.",
+    "reading": "どたんば",
+    "expectedRomaji": "Dotanba",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "一石",
+    "decision": "promote-common-word",
+    "reason": "Reviewed whole-word reading preserves the established sokuon.",
+    "reading": "いっせき",
+    "expectedRomaji": "Isseki",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "何時でも",
+    "decision": "leave-context-dependent",
+    "reason": "Multiple established readings depend on context; a global replacement would discard legitimate usage.",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "侯",
+    "decision": "leave-context-dependent",
+    "reason": "The surface supports multiple readings/usages, including name-like readings; do not force the sampled reference.",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "洋",
+    "decision": "leave-context-dependent",
+    "reason": "The sampled proper/lexical evidence does not justify replacing the ordinary よう reading globally.",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "烟る",
+    "decision": "accept-kuromoji-variant",
+    "reason": "けぶる is an attested older form of けむる, so the Kuromoji reading is legitimate.",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "良人",
+    "decision": "leave-context-dependent",
+    "reason": "The surface has established reading variation; do not force おっと over りょうじん without context.",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "菜",
+    "decision": "leave-context-dependent",
+    "reason": "Both な and サイ readings occur legitimately; context is required.",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "読み難い",
+    "decision": "promote-common-word",
+    "reason": "Reviewed dictionary evidence supports the established よみにくい reading.",
+    "reading": "よみにくい",
+    "expectedRomaji": "Yominikui",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "都",
+    "decision": "leave-context-dependent",
+    "reason": "Both みやこ and と are legitimate readings in different contexts.",
+    "sourceType": "general-word-vs-kuromoji"
+  },
+  {
+    "surface": "丈",
+    "decision": "leave-evidence-disagreement",
+    "reason": "Independent lexical evidence sources disagree; no context-free promotion is justified.",
+    "sourceType": "general-word-vs-reading-evidence"
+  },
+  {
+    "surface": "七戸",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "しちのへ",
+    "expectedRomaji": "Shichinohe",
+    "source": "Reviewed project proper-noun evidence; confirmed against Shichinohe Town official material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "下屋",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "したや",
+    "expectedRomaji": "Shitaya",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "並樹",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "なみき",
+    "expectedRomaji": "Namiki",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "二戸",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "にのへ",
+    "expectedRomaji": "Ninohe",
+    "source": "Reviewed project proper-noun evidence",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "保",
+    "decision": "leave-multiple-name-readings",
+    "reason": "The surface has ordinary and multiple personal-name readings.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "匂宮",
+    "decision": "leave-context-dependent",
+    "reason": "The literary/name reading includes an internal の relationship; forcing a compact reading would also risk Rule 0 spacing.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "北方謙三",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "きたかたけんぞう",
+    "expectedRomaji": "Kitakata Kenzou",
+    "source": "Reviewed project proper-noun evidence; confirmed against Shueisha author material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "千豊",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "かずとよ",
+    "expectedRomaji": "Kazutoyo",
+    "source": "Reviewed project proper-noun evidence; dominant personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "南昌",
+    "decision": "leave-context-dependent",
+    "reason": "The surface can refer to the Chinese place name or Japanese name-like readings; context/source language matters.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "右代宮",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "うしろみや",
+    "expectedRomaji": "Ushiromiya",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "和晃",
+    "decision": "leave-multiple-name-readings",
+    "reason": "More than one personal-name reading is supported.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "堀部安兵衛",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ほりべやすべえ",
+    "expectedRomaji": "Horibe Yasubee",
+    "source": "Digital Daijisen / Nihon Kokugo Daijiten via Kotobank; reviewed against the conflicting name-bank reference",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "塩田",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "塩田 is an ordinary lexical/location surface and a surname with multiple readings.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "大森望",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "おおもりのぞみ",
+    "expectedRomaji": "Oomori Nozomi",
+    "source": "Reviewed project proper-noun evidence; confirmed against publisher/author material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "大知",
+    "decision": "leave-multiple-name-readings",
+    "reason": "Several proper-name readings are supported, so the sampled reference is not authoritative alone.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "大船渡",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "おおふなと",
+    "expectedRomaji": "Oofunato",
+    "source": "Reviewed project proper-noun evidence; confirmed against Ofunato City official material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "大貴",
+    "decision": "leave-multiple-name-readings",
+    "reason": "Several common personal-name readings are supported.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "宗佑",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "そうすけ",
+    "expectedRomaji": "Sousuke",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "宣親",
+    "decision": "leave-multiple-name-readings",
+    "reason": "More than one personal-name reading is supported.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "家中",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "家中 has ordinary lexical readings as well as surname/location evidence.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "山中",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "山中 is both an ordinary lexical expression and a common surname.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "幹二",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "かんじ",
+    "expectedRomaji": "Kanji",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "弘次郎",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "こうじろう",
+    "expectedRomaji": "Koujirou",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "忠茂",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ただしげ",
+    "expectedRomaji": "Tadashige",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "愛荘町",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "あいしょうちょう",
+    "expectedRomaji": "Aishouchou",
+    "source": "Reviewed project proper-noun evidence; confirmed against Aisho Town official material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "成利",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "なりとし",
+    "expectedRomaji": "Naritoshi",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "成勲",
+    "decision": "leave-multiple-name-readings",
+    "reason": "The evidence includes Japanese and Korean-name readings; source identity/context is required.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "日馬富士",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "はるまふじ",
+    "expectedRomaji": "Harumafuji",
+    "source": "Reviewed project proper-noun evidence; confirmed against Japan Sumo Association",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "日高町",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ひだかちょう",
+    "expectedRomaji": "Hidakachou",
+    "source": "Reviewed project proper-noun evidence",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "晴敏",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "はるとし",
+    "expectedRomaji": "Harutoshi",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "朋紘",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ともひろ",
+    "expectedRomaji": "Tomohiro",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "望",
+    "decision": "leave-multiple-name-readings",
+    "reason": "The surface has lexical use and several personal-name readings.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "未恵",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "みえ",
+    "expectedRomaji": "Mie",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "朽木",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "朽木 can be an ordinary lexical expression as well as a surname/location.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "森繁",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "もりしげ",
+    "expectedRomaji": "Morishige",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "正宏",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "まさひろ",
+    "expectedRomaji": "Masahiro",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "正春",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "まさはる",
+    "expectedRomaji": "Masaharu",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "武豊",
+    "decision": "leave-context-dependent",
+    "reason": "The exact surface can be the place Taketoyo or the person Take Yutaka; context is essential.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "武雅",
+    "decision": "leave-multiple-name-readings",
+    "reason": "More than one personal-name reading is supported.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "民生",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "民生 is an ordinary lexical word as well as the personal name Tamio.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "池田恒興",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "いけだつねおき",
+    "expectedRomaji": "Ikeda Tsuneoki",
+    "source": "Reviewed project proper-noun evidence; confirmed against reference material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "浩介",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "こうすけ",
+    "expectedRomaji": "Kousuke",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "源太郎",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "げんたろう",
+    "expectedRomaji": "Gentarou",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "滝川駅",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "たきかわえき",
+    "expectedRomaji": "Takikawaeki",
+    "source": "Reviewed project proper-noun evidence",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "犬養毅",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "いぬかいつよし",
+    "expectedRomaji": "Inukai Tsuyoshi",
+    "source": "Reviewed project proper-noun evidence; confirmed against Prime Minister of Japan and His Cabinet material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "田子",
+    "decision": "leave-multiple-name-readings",
+    "reason": "Family and location evidence supports several readings.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "留弗夫",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "るどるふ",
+    "expectedRomaji": "Rudolf",
+    "source": "Reviewed project proper-noun evidence; Rule 0 foreign-name spelling",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "白川町",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "しらかわちょう",
+    "expectedRomaji": "Shirakawachou",
+    "source": "Reviewed project proper-noun evidence; confirmed against Shirakawa Town official material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "直泰",
+    "decision": "leave-multiple-name-readings",
+    "reason": "More than one personal-name reading is supported.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "真己",
+    "decision": "leave-multiple-name-readings",
+    "reason": "The proper-name evidence contains multiple plausible personal-name readings.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "石川優吾",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "いしかわゆうご",
+    "expectedRomaji": "Ishikawa Yuugo",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "碧",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "The Kanji has ordinary lexical readings and several legitimate personal-name readings.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "神木隆之介",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "かみきりゅうのすけ",
+    "expectedRomaji": "Kamiki Ryuunosuke",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "神石高原町",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "じんせきこうげんちょう",
+    "expectedRomaji": "Jinsekikougenchou",
+    "source": "Reviewed project proper-noun evidence",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "秀郷",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ひでさと",
+    "expectedRomaji": "Hidesato",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "羊介",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ようすけ",
+    "expectedRomaji": "Yousuke",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "英雄",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "英雄 is an ordinary lexical word as well as a personal name; Hideo must not be forced globally.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "藤井聡太",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ふじいそうた",
+    "expectedRomaji": "Fujii Souta",
+    "source": "Reviewed project proper-noun evidence; confirmed against Japan Shogi Association material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "藤子不二雄",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ふじこふじお",
+    "expectedRomaji": "Fujiko Fujio",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "行方市",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "なめがたし",
+    "expectedRomaji": "Namegatashi",
+    "source": "Reviewed project proper-noun evidence; confirmed against Namegata City official address material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "豪志",
+    "decision": "leave-multiple-name-readings",
+    "reason": "The proper-name bank contains several legitimate personal-name readings.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "運昇",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "うんしょう",
+    "expectedRomaji": "Unshou",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "里崎",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "さとざき",
+    "expectedRomaji": "Satozaki",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "金ケ崎町",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "かねがさきちょう",
+    "expectedRomaji": "Kanegasakichou",
+    "source": "Reviewed project proper-noun evidence; confirmed against Kanegasaki municipal material",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "長崎尚志",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "ながさきたかし",
+    "expectedRomaji": "Nagasaki Takashi",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "隆盛",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "隆盛 is an ordinary lexical word as well as a personal name.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "雄仁",
+    "decision": "leave-multiple-name-readings",
+    "reason": "More than one personal-name reading is supported.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "首里",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "しゅり",
+    "expectedRomaji": "Shuri",
+    "source": "Reviewed project proper-noun evidence (Jiten/JMnedict-derived bank)",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "高口",
+    "decision": "promote-reviewed-proper-name-span",
+    "reason": "Exact reviewed span evidence is safer than reconstructing this name or place from individual Kuromoji tokens.",
+    "reading": "たかぐち",
+    "expectedRomaji": "Takaguchi",
+    "source": "Reviewed project proper-noun evidence; dominant surname reading",
+    "sourceType": "proper-noun-vs-kuromoji"
+  },
+  {
+    "surface": "高士",
+    "decision": "leave-lexical-name-ambiguity",
+    "reason": "高士 has ordinary lexical usage as well as a personal-name reading.",
+    "sourceType": "proper-noun-vs-kuromoji"
+  }
+]

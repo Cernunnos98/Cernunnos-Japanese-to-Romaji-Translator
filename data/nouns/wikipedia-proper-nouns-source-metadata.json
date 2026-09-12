@@ -1,0 +1,15 @@
+{
+  "title": "CJ2R compact Japanese Wikipedia proper-noun evidence",
+  "format": 1,
+  "source": "Japanese Wikipedia",
+  "sourceUrl": "https://ja.wikipedia.org/",
+  "intermediateReference": {
+    "title": "Japanese Proper Nouns",
+    "url": "https://ankiweb.net/shared/info/3885156604",
+    "note": "The legacy project import used this shared deck as an extraction intermediate. Its description states that statistical and pronunciation information was pulled from Japanese Wikipedia."
+  },
+  "transformation": "CJ2R 2026-09-06 provenance cleanup removed Anki/Yomitan card formatting and glossary strings. The distributed runtime bank retains only surface forms, readings, coarse name categories, relative reading weights and rank values used by the resolver.",
+  "licence": "CC BY-SA 4.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "attribution": "Japanese Wikipedia contributors; the legacy Anki shared deck is acknowledged as the extraction intermediate."
+}

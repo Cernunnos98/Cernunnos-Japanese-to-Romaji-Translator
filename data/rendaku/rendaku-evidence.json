@@ -1,0 +1,47 @@
+[
+  {
+    "surface": "角刈り",
+    "reading": "かくがり",
+    "rendaku": true,
+    "source": "NINJAL N+V=N Rendaku Database Commentary",
+    "note": "Listed as kaku+gari, -DO/+R.",
+    "sourceUrl": "https://www2.ninjal.ac.jp/past-projects/rendaku/Description.pdf",
+    "sourceLandingPage": "https://www2.ninjal.ac.jp/past-projects/rendaku/en/database/"
+  },
+  {
+    "surface": "草刈り",
+    "reading": "くさかり",
+    "rendaku": false,
+    "source": "NINJAL N+V=N Rendaku Database Commentary",
+    "note": "Listed as kusa+kari, +DO/-R.",
+    "sourceUrl": "https://www2.ninjal.ac.jp/past-projects/rendaku/Description.pdf",
+    "sourceLandingPage": "https://www2.ninjal.ac.jp/past-projects/rendaku/en/database/"
+  },
+  {
+    "surface": "虎刈り",
+    "reading": "とらがり",
+    "rendaku": true,
+    "source": "NINJAL N+V=N Rendaku Database Commentary",
+    "note": "Listed as tora+gari, -DO/+R.",
+    "sourceUrl": "https://www2.ninjal.ac.jp/past-projects/rendaku/Description.pdf",
+    "sourceLandingPage": "https://www2.ninjal.ac.jp/past-projects/rendaku/en/database/"
+  },
+  {
+    "surface": "味付け",
+    "reading": "あじつけ",
+    "rendaku": false,
+    "source": "NINJAL N+V=N Rendaku Database Commentary",
+    "note": "The commentary uses aji+tsuke as the direct-object, non-rendaku contrast.",
+    "sourceUrl": "https://www2.ninjal.ac.jp/past-projects/rendaku/Description.pdf",
+    "sourceLandingPage": "https://www2.ninjal.ac.jp/past-projects/rendaku/en/database/"
+  },
+  {
+    "surface": "釘付け",
+    "reading": "くぎづけ",
+    "rendaku": true,
+    "source": "NINJAL N+V=N Rendaku Database Commentary",
+    "note": "The commentary uses kugi+zuke as the non-direct-object, rendaku contrast.",
+    "sourceUrl": "https://www2.ninjal.ac.jp/past-projects/rendaku/Description.pdf",
+    "sourceLandingPage": "https://www2.ninjal.ac.jp/past-projects/rendaku/en/database/"
+  }
+]

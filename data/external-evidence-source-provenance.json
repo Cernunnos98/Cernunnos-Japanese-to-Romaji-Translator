@@ -1,0 +1,318 @@
+{
+  "_meta": {
+    "version": 3,
+    "purpose": "Machine-readable provenance for distributed evidence files whose source basis is explicitly documented by this project.",
+    "scope": "This manifest pins externally derived or mixed runtime/evidence files whose source basis and applicable licence references are sufficiently specific to verify automatically. Project-authored/manual-only banks are classified separately and are not required here.",
+    "snapshotPolicy": "Source snapshots are pinned and dated for reproducibility. This manifest does not assert or impose an automatic update schedule."
+  },
+  "entries": [
+    {
+      "path": "data/ateji/ateji-term-bank-1.json",
+      "sha256": "328ffc7e58a24e91e4558eeb53ca1a55bfc4cb9333d2d51486f76d6c269d54d6",
+      "sources": [
+        {
+          "name": "Jitendex",
+          "snapshot": "2026-08-11",
+          "revision": "2026.08.11.0"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ],
+      "note": "Reviewed ateji reading evidence."
+    },
+    {
+      "path": "data/common-words/common-words-term-bank-1.json",
+      "sha256": "2f3fb062c6537cd66589f81a733d8a0d93267c138d42636e30414623e4bb8dae",
+      "sources": [
+        {
+          "name": "CJ2R project review",
+          "snapshot": "maintained manual rows"
+        },
+        {
+          "name": "Jitendex",
+          "snapshot": "2026-08-11",
+          "revision": "2026.08.11.0"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ],
+      "note": "Mixed compact bank. Each row identifies whether it is project-reviewed/manual or Jitendex-derived."
+    },
+    {
+      "path": "data/general-words/general-words-term-bank-1.json",
+      "sha256": "5ea76568c3117f223264811652a83af40dde808f1be59e86e67ad843cf6631bc",
+      "sources": [
+        {
+          "name": "Jitendex",
+          "snapshot": "2026-08-11",
+          "revision": "2026.08.11.0"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ],
+      "note": "Compact whole-word fallback bank derived from positive-priority surface/reading pairs."
+    },
+    {
+      "path": "data/grammar/conjugation-patterns.json",
+      "sha256": "61234f7fcf4530cb372c8e74e4e0c6dce83fef5db57a1f799662e831e3b3a282",
+      "sources": [
+        {
+          "name": "Japanese Language Data",
+          "version": "0.9.0",
+          "generated": "2026-04-14"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Japanese-Language-Data-Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ],
+      "note": "Compact configuration representing reviewed conjugation-class coverage rather than the generated upstream table."
+    },
+    {
+      "path": "data/historical-kana/historical-kana-evidence.json",
+      "sha256": "571c3605bb6cb7bb051f43d21a960006e9706e7495ad2a47f8b4c369649a0f61",
+      "sources": [
+        {
+          "name": "Agency for Cultural Affairs Modern Kana Usage comparison tables",
+          "snapshot": "manually reviewed project evidence"
+        },
+        {
+          "name": "Kotobank",
+          "entry": "をかし"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Historical Kana Evidence Sources.md"
+      ],
+      "note": "Exact historical spelling-to-reading evidence used only by the historical API."
+    },
+    {
+      "path": "data/kanji/kanji-bank-1.json",
+      "sha256": "1b204b08660d18df44f1ae0809b7ca5f8e92deffa527773a39e18445700fb669",
+      "sources": [
+        {
+          "name": "KANJIDIC2/KANJIDIC",
+          "snapshot": "2026-222",
+          "revision": "kanjidic2.2026-222"
+        },
+        {
+          "name": "Yomitan import pipeline",
+          "url": "https://github.com/yomidevs/yomitan-import"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/KANJIDIC Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ],
+      "note": "KANJIDIC-derived primary Kanji helper bank."
+    },
+    {
+      "path": "data/kanji/kanji-bank-2.json",
+      "sha256": "bbe2601b86c621197e0f1d0d4f8ba02160fcae38e2f5bf19744a7d4ed5a2cc24",
+      "sources": [
+        {
+          "name": "KANJIDIC2/KANJIDIC",
+          "snapshot": "2026-222",
+          "revision": "kanjidic2.2026-222"
+        },
+        {
+          "name": "Yomitan import pipeline",
+          "url": "https://github.com/yomidevs/yomitan-import"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/KANJIDIC Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ],
+      "note": "KANJIDIC-derived supplementary Kanji helper bank."
+    },
+    {
+      "path": "data/kanji/kanji-tag-bank-1.json",
+      "sha256": "92544f6a6a1f7289d274d31ce9ef407b464c0f54a9bb6af39751b1b967be5a3a",
+      "sources": [
+        {
+          "name": "KANJIDIC2/KANJIDIC",
+          "snapshot": "2026-222",
+          "revision": "kanjidic2.2026-222"
+        },
+        {
+          "name": "Yomitan import pipeline",
+          "url": "https://github.com/yomidevs/yomitan-import"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/KANJIDIC Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ],
+      "note": "KANJIDIC-derived companion tag metadata used by the Kanji helper."
+    },
+    {
+      "path": "data/kanji/japanese-han-scope.json",
+      "sha256": "722059ab2b29b33a95cbbea7e56469f53936159e8ded3116ec23a9369ef43ff9",
+      "sources": [
+        {
+          "name": "MJ文字情報一覧表",
+          "version": "006.02",
+          "snapshot": "2024-01",
+          "url": "https://moji.or.jp/mojikiban/mjlist/"
+        },
+        {
+          "name": "Unicode Unihan",
+          "version": "18.0.0",
+          "url": "https://www.unicode.org/Public/18.0.0/ucd/Unihan.zip",
+          "role": "secondary Japanese-property cross-check"
+        },
+        {
+          "name": "三省堂「漢字の現在」笹原宏之 第82回",
+          "date": "2011-02-08",
+          "url": "https://dictionary.sanseido-publ.co.jp/column/kanji_genzai082",
+          "role": "Japanese scholarly evidence for the transmitted 84-stroke rare kokuji/ghost-character and its disputed-name context"
+        },
+        {
+          "name": "国立国会図書館 レファレンス協同データベース",
+          "record": "1000152853",
+          "url": "https://crd.ndl.go.jp/reference/detail?page=ref_view&id=1000152853",
+          "role": "Japanese library reference corroborating dictionary-attested readings おとど・たいと・だいと"
+        },
+        {
+          "name": "漢字辞典オンライン",
+          "url": "https://kanji.jitenon.jp/",
+          "role": "manual Japanese reading/no-reading review for the 269-character Batch 2 follow-up"
+        },
+        {
+          "name": "民間字辞典",
+          "url": "https://minkan.jp/",
+          "role": "manual Japanese rare-character reading review for the 269-character Batch 2 follow-up"
+        },
+        {
+          "name": "文字情報基盤検索システム",
+          "url": "https://moji.or.jp/mojikibansearch/",
+          "role": "selected Japanese reading/relationship corroboration in the 269-character review"
+        },
+        {
+          "name": "漢字知識",
+          "url": "https://kanjitisiki.com/",
+          "role": "selected Japanese reading corroboration in the 269-character review"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/MJ Character Information Attribution.md",
+        "licenses and sources/Unicode Data Attribution.md",
+        "licenses and sources/Rare Japanese Han Evidence Sources.md"
+      ],
+      "note": "Reviewed positive Japanese-use Han scope/candidate bank. A 2026-09-11 review researched all 269 previously unknown KANJIDIC Han before implementation: 256 gained supported Japanese readings and 13 remained deliberately unknown because evidence was absent, component-only, explicitly unknown, or provisional. Chinese/Korean readings are not imported."
+    },
+    {
+      "path": "data/kanji/kanji-variants.json",
+      "sha256": "1443730e1f5c26917d106c8a5af1b86e92dfb328cdae42a51008404d3437d3be",
+      "sources": [
+        {
+          "name": "Agency for Cultural Affairs Jōyō Kanji reference",
+          "role": "normative/reference evidence"
+        },
+        {
+          "name": "Unicode Ideographic Variation Database",
+          "role": "normative/data evidence"
+        },
+        {
+          "name": "CJ2R project review",
+          "role": "curated mapping table"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Japanese-Government-Data-Attribution.md",
+        "licenses and sources/Unicode Data Attribution.md"
+      ],
+      "note": "Project-curated mapping table; CJKVI and University of Tokyo itaiji pages are comparison references only and are not redistributed."
+    },
+    {
+      "path": "data/nouns/jmnedict-bank-1.json",
+      "sha256": "1bb2680006b0f6f1c163b891afd615a6d04c20214ef5c71090e123417a754f67",
+      "sources": [
+        {
+          "name": "JMnedict",
+          "snapshot": "2026-08-10"
+        },
+        {
+          "name": "Jiten global frequency dictionary",
+          "snapshot": "2026-09-03",
+          "revision": "2026-09-02"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ],
+      "note": "JMnedict-derived proper-noun evidence with the CJ2R-reviewed 春麗 reading separator normalisation documented in the provenance classification."
+    },
+    {
+      "path": "data/nouns/nouns-term-bank-1.json",
+      "sha256": "88601d92bdc1eb5bffb85291d9dce87eca26a8183dbab0084f09fa2396209cc1",
+      "sources": [
+        {
+          "name": "Japanese Wikipedia",
+          "url": "https://ja.wikipedia.org/"
+        },
+        {
+          "name": "Japanese Proper Nouns Anki shared deck 3885156604",
+          "role": "historical extraction intermediate only"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Japanese-Wikipedia-Proper-Noun-Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ],
+      "note": "Japanese Wikipedia-derived proper-noun evidence with three CJ2R-reviewed semantic reading repairs documented in the provenance classification."
+    },
+    {
+      "path": "data/reading-evidence/reading-evidence.json",
+      "sha256": "cb930a072c539a0f3214183c639bae975e9816f505b847d7409d0273e17d6f77",
+      "sources": [
+        {
+          "name": "Jitendex",
+          "snapshot": "2026-08-11",
+          "revision": "2026.08.11.0"
+        },
+        {
+          "name": "Jiten global frequency dictionary",
+          "snapshot": "2026-09-03",
+          "revision": "2026-09-02"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ],
+      "note": "Reading-priority evidence with frequency used only as supporting evidence."
+    },
+    {
+      "path": "data/rendaku/rendaku-evidence.json",
+      "sha256": "e289e955bdeba788013b38d74ab18ebc7dffdc5c4fde554e96b53a6e1dd65d59",
+      "sources": [
+        {
+          "name": "NINJAL The Japanese Lexicon: A Rendaku Encyclopedia",
+          "snapshot": "manually reviewed project evidence"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/NINJAL Rendaku Attribution.md"
+      ],
+      "note": "Reviewed complete-word evidence only; not a predictive Rendaku database."
+    }
+  ]
+}

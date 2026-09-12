@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "version": 1,
+    "purpose": "Attested historical-kana surface forms mapped to modern readings for explicit historical translation mode.",
+    "activation": "historical-api-only",
+    "notes": "Entries are exact whole-word evidence. The normal modern translator does not consult this file."
+  },
+  "entries": [
+    {"surface":"をかし","reading":"おかし","pos":"形容詞","source":"https://kotobank.jp/word/%E3%82%92%E3%81%8B%E3%81%97-172905","sourceType":"dictionary","note":"Historical lexical form; modern reading おかし."},
+    {"surface":"ゐど","reading":"いど","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 井戸."},
+    {"surface":"ゐる","reading":"いる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 居る."},
+    {"surface":"まゐる","reading":"まいる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 参る."},
+    {"surface":"おもひで","reading":"おもいで","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 思い出."},
+    {"surface":"思ひ出","reading":"おもいで","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Mixed-script historical form."},
+    {"surface":"こゑ","reading":"こえ","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 声."},
+    {"surface":"うゑる","reading":"うえる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 植える."},
+    {"surface":"植ゑる","reading":"うえる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Mixed-script historical form."},
+    {"surface":"かんがへる","reading":"かんがえる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 考える."},
+    {"surface":"考へる","reading":"かんがえる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Mixed-script historical form."},
+    {"surface":"をとこ","reading":"おとこ","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 男."},
+    {"surface":"とをか","reading":"とおか","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 十日."},
+    {"surface":"をどる","reading":"おどる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 踊る."},
+    {"surface":"あをい","reading":"あおい","pos":"形容詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 青い."},
+    {"surface":"まはる","reading":"まわる","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 回る."},
+    {"surface":"おもはず","reading":"おもわず","pos":"副詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 思わず."},
+    {"surface":"思はず","reading":"おもわず","pos":"副詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Mixed-script historical form."},
+    {"surface":"やはらか","reading":"やわらか","pos":"形容動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 柔らか."},
+    {"surface":"けふ","reading":"きょう","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_kyo.html","sourceType":"official-comparison-table","note":"Historical kana for 今日."},
+    {"surface":"てふ","reading":"ちょう","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_kyo.html","sourceType":"official-comparison-table","note":"Historical kana for 蝶."},
+    {"surface":"いふ","reading":"いう","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_yu.html","sourceType":"official-comparison-table","note":"Historical kana for 言う."},
+    {"surface":"言ふ","reading":"いう","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_yu.html","sourceType":"official-comparison-table","note":"Mixed-script historical form."},
+    {"surface":"ゆふがた","reading":"ゆうがた","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_yu.html","sourceType":"official-comparison-table","note":"Historical kana for 夕方."},
+    {"surface":"かげろふ","reading":"かげろう","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_yu.html","sourceType":"official-comparison-table","note":"Historical kana for かげろう."},
+    {"surface":"ふくろふ","reading":"ふくろう","pos":"名詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_yu.html","sourceType":"official-comparison-table","note":"Historical kana for ふくろう."},
+    {"surface":"買ふ","reading":"かう","pos":"動詞","source":"https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/gendaikana/huhyo_i.html","sourceType":"official-comparison-table","note":"Historical kana for 買う."}
+  ]
+}

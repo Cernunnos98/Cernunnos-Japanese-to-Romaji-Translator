@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Translator Browser Smoke Test</title>
+</head>
+<body>
+    <h1>Translator Browser Smoke Test</h1>
+    <p>This page is for development and release checks only.</p>
+
+    <div id="built-in-ui">
+        <div id="status-banner">Loading</div>
+        <textarea id="input" disabled></textarea>
+        <div id="output"></div>
+        <div id="kanji-readings" data-cj2r-kanji-readings data-cj2r-kanji-source="#input" data-cj2r-kanji-search="#kanji-search"></div>
+        <input id="kanji-search" type="text">
+        <label id="override-control">
+            <input id="overrides-enabled" type="checkbox" checked>
+            <span id="override-text">Override Enabled</span>
+        </label>
+        <div id="license-notice"></div>
+    </div>
+
+    <textarea id="hook-field"></textarea>
+    <button id="hook-button" type="button">Romanise</button>
+    <div id="hook-output"></div>
+
+    <h2>Result</h2>
+    <pre id="browser-smoke-result">Running…</pre>
+
+    <script>
+        window.translatorDiagnostics = { hostOwned: true };
+        window.runTranslatorRegressionChecks = () => 'host-regression';
+        window.runTranslatorGeneratedQA = () => 'host-generated';
+        window.runTranslatorDifferentialChecks = () => 'host-differential';
+        window.runTranslatorReadingAudit = () => 'host-audit';
+    </script>
+    <script nonce="cj2r-browser-smoke-nonce" src="../../../translator-engine.js"></script>
+    <script>
+        try {
+            RomajiTranslator.translateSync('テスト');
+            window.browserEarlySyncGuard = false;
+        } catch (error) {
+            window.browserEarlySyncGuard = /not ready yet/i.test(String(error?.message || error));
+        }
+        try {
+            RomajiTranslator.destroy();
+            window.browserEarlyDestroyGuard = false;
+        } catch (error) {
+            window.browserEarlyDestroyGuard = /loading/i.test(String(error?.message || error));
+        }
+    </script>
+    <script src="translator-browser-smoke.js"></script>
+</body>
+</html>

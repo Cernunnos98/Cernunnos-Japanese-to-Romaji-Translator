@@ -1,0 +1,993 @@
+[
+  {
+    "surface": "一人",
+    "reading": "ひとり",
+    "romaji": "Hitori"
+  },
+  {
+    "surface": "二人",
+    "reading": "ふたり",
+    "romaji": "Futari"
+  },
+  {
+    "surface": "三人",
+    "reading": "さんにん",
+    "romaji": "Sannin"
+  },
+  {
+    "surface": "四人",
+    "reading": "よにん",
+    "romaji": "Yonin"
+  },
+  {
+    "surface": "一日",
+    "reading": "ついたち",
+    "romaji": "Tsuitachi"
+  },
+  {
+    "surface": "二日",
+    "reading": "ふつか",
+    "romaji": "Futsuka"
+  },
+  {
+    "surface": "三日",
+    "reading": "みっか",
+    "romaji": "Mikka"
+  },
+  {
+    "surface": "四日",
+    "reading": "よっか",
+    "romaji": "Yokka"
+  },
+  {
+    "surface": "五日",
+    "reading": "いつか",
+    "romaji": "Itsuka"
+  },
+  {
+    "surface": "六日",
+    "reading": "むいか",
+    "romaji": "Muika"
+  },
+  {
+    "surface": "七日",
+    "reading": "なのか",
+    "romaji": "Nanoka"
+  },
+  {
+    "surface": "八日",
+    "reading": "ようか",
+    "romaji": "Youka"
+  },
+  {
+    "surface": "九日",
+    "reading": "ここのか",
+    "romaji": "Kokonoka"
+  },
+  {
+    "surface": "十日",
+    "reading": "とおか",
+    "romaji": "Tooka"
+  },
+  {
+    "surface": "十四日",
+    "reading": "じゅうよっか",
+    "romaji": "Juuyokka"
+  },
+  {
+    "surface": "二十日",
+    "reading": "はつか",
+    "romaji": "Hatsuka"
+  },
+  {
+    "surface": "二十四日",
+    "reading": "にじゅうよっか",
+    "romaji": "Nijuuyokka"
+  },
+  {
+    "surface": "一個",
+    "reading": "いっこ",
+    "romaji": "Ikko"
+  },
+  {
+    "surface": "六個",
+    "reading": "ろっこ",
+    "romaji": "Rokko"
+  },
+  {
+    "surface": "八個",
+    "reading": "はっこ",
+    "romaji": "Hakko"
+  },
+  {
+    "surface": "十個",
+    "reading": "じゅっこ",
+    "romaji": "Jukko"
+  },
+  {
+    "surface": "一匹",
+    "reading": "いっぴき",
+    "romaji": "Ippiki"
+  },
+  {
+    "surface": "三匹",
+    "reading": "さんびき",
+    "romaji": "Sanbiki"
+  },
+  {
+    "surface": "六匹",
+    "reading": "ろっぴき",
+    "romaji": "Roppiki"
+  },
+  {
+    "surface": "八匹",
+    "reading": "はっぴき",
+    "romaji": "Happiki"
+  },
+  {
+    "surface": "十匹",
+    "reading": "じゅっぴき",
+    "romaji": "Juppiki"
+  },
+  {
+    "surface": "一本",
+    "reading": "いっぽん",
+    "romaji": "Ippon"
+  },
+  {
+    "surface": "三本",
+    "reading": "さんぼん",
+    "romaji": "Sanbon"
+  },
+  {
+    "surface": "六本",
+    "reading": "ろっぽん",
+    "romaji": "Roppon"
+  },
+  {
+    "surface": "八本",
+    "reading": "はっぽん",
+    "romaji": "Happon"
+  },
+  {
+    "surface": "十本",
+    "reading": "じゅっぽん",
+    "romaji": "Juppon"
+  },
+  {
+    "surface": "一冊",
+    "reading": "いっさつ",
+    "romaji": "Issatsu"
+  },
+  {
+    "surface": "八冊",
+    "reading": "はっさつ",
+    "romaji": "Hassatsu"
+  },
+  {
+    "surface": "十冊",
+    "reading": "じゅっさつ",
+    "romaji": "Jussatsu"
+  },
+  {
+    "surface": "一回",
+    "reading": "いっかい",
+    "romaji": "Ikkai"
+  },
+  {
+    "surface": "六回",
+    "reading": "ろっかい",
+    "romaji": "Rokkai"
+  },
+  {
+    "surface": "八回",
+    "reading": "はっかい",
+    "romaji": "Hakkai"
+  },
+  {
+    "surface": "十回",
+    "reading": "じゅっかい",
+    "romaji": "Jukkai"
+  },
+  {
+    "surface": "一階",
+    "reading": "いっかい",
+    "romaji": "Ikkai"
+  },
+  {
+    "surface": "三階",
+    "reading": "さんがい",
+    "romaji": "Sangai"
+  },
+  {
+    "surface": "六階",
+    "reading": "ろっかい",
+    "romaji": "Rokkai"
+  },
+  {
+    "surface": "八階",
+    "reading": "はっかい",
+    "romaji": "Hakkai"
+  },
+  {
+    "surface": "十階",
+    "reading": "じゅっかい",
+    "romaji": "Jukkai"
+  },
+  {
+    "surface": "一分",
+    "reading": "いっぷん",
+    "romaji": "Ippun"
+  },
+  {
+    "surface": "三分",
+    "reading": "さんぷん",
+    "romaji": "Sanpun"
+  },
+  {
+    "surface": "四分",
+    "reading": "よんぷん",
+    "romaji": "Yonpun"
+  },
+  {
+    "surface": "六分",
+    "reading": "ろっぷん",
+    "romaji": "Roppun"
+  },
+  {
+    "surface": "八分",
+    "reading": "はっぷん",
+    "romaji": "Happun"
+  },
+  {
+    "surface": "十分",
+    "reading": "じゅっぷん",
+    "romaji": "Juppun"
+  },
+  {
+    "surface": "一杯",
+    "reading": "いっぱい",
+    "romaji": "Ippai"
+  },
+  {
+    "surface": "三杯",
+    "reading": "さんばい",
+    "romaji": "Sanbai"
+  },
+  {
+    "surface": "六杯",
+    "reading": "ろっぱい",
+    "romaji": "Roppai"
+  },
+  {
+    "surface": "八杯",
+    "reading": "はっぱい",
+    "romaji": "Happai"
+  },
+  {
+    "surface": "十杯",
+    "reading": "じゅっぱい",
+    "romaji": "Juppai"
+  },
+  {
+    "surface": "一歳",
+    "reading": "いっさい",
+    "romaji": "Issai"
+  },
+  {
+    "surface": "八歳",
+    "reading": "はっさい",
+    "romaji": "Hassai"
+  },
+  {
+    "surface": "十歳",
+    "reading": "じゅっさい",
+    "romaji": "Jussai"
+  },
+  {
+    "surface": "二十歳",
+    "reading": "はたち",
+    "romaji": "Hatachi"
+  },
+  {
+    "surface": "一千",
+    "reading": "いっせん",
+    "romaji": "Issen"
+  },
+  {
+    "surface": "八千",
+    "reading": "はっせん",
+    "romaji": "Hassen"
+  },
+  {
+    "surface": "三千",
+    "reading": "さんぜん",
+    "romaji": "Sanzen"
+  },
+  {
+    "surface": "三百",
+    "reading": "さんびゃく",
+    "romaji": "Sanbyaku"
+  },
+  {
+    "surface": "六百",
+    "reading": "ろっぴゃく",
+    "romaji": "Roppyaku"
+  },
+  {
+    "surface": "八百",
+    "reading": "はっぴゃく",
+    "romaji": "Happyaku"
+  },
+  {
+    "surface": "1人",
+    "reading": "ひとり",
+    "romaji": "Hitori"
+  },
+  {
+    "surface": "2人",
+    "reading": "ふたり",
+    "romaji": "Futari"
+  },
+  {
+    "surface": "3人",
+    "reading": "さんにん",
+    "romaji": "Sannin"
+  },
+  {
+    "surface": "4人",
+    "reading": "よにん",
+    "romaji": "Yonin"
+  },
+  {
+    "surface": "1日",
+    "reading": "ついたち",
+    "romaji": "Tsuitachi"
+  },
+  {
+    "surface": "2日",
+    "reading": "ふつか",
+    "romaji": "Futsuka"
+  },
+  {
+    "surface": "3日",
+    "reading": "みっか",
+    "romaji": "Mikka"
+  },
+  {
+    "surface": "4日",
+    "reading": "よっか",
+    "romaji": "Yokka"
+  },
+  {
+    "surface": "5日",
+    "reading": "いつか",
+    "romaji": "Itsuka"
+  },
+  {
+    "surface": "6日",
+    "reading": "むいか",
+    "romaji": "Muika"
+  },
+  {
+    "surface": "7日",
+    "reading": "なのか",
+    "romaji": "Nanoka"
+  },
+  {
+    "surface": "8日",
+    "reading": "ようか",
+    "romaji": "Youka"
+  },
+  {
+    "surface": "9日",
+    "reading": "ここのか",
+    "romaji": "Kokonoka"
+  },
+  {
+    "surface": "10日",
+    "reading": "とおか",
+    "romaji": "Tooka"
+  },
+  {
+    "surface": "14日",
+    "reading": "じゅうよっか",
+    "romaji": "Juuyokka"
+  },
+  {
+    "surface": "20日",
+    "reading": "はつか",
+    "romaji": "Hatsuka"
+  },
+  {
+    "surface": "24日",
+    "reading": "にじゅうよっか",
+    "romaji": "Nijuuyokka"
+  },
+  {
+    "surface": "1個",
+    "reading": "いっこ",
+    "romaji": "Ikko"
+  },
+  {
+    "surface": "6個",
+    "reading": "ろっこ",
+    "romaji": "Rokko"
+  },
+  {
+    "surface": "8個",
+    "reading": "はっこ",
+    "romaji": "Hakko"
+  },
+  {
+    "surface": "10個",
+    "reading": "じゅっこ",
+    "romaji": "Jukko"
+  },
+  {
+    "surface": "1匹",
+    "reading": "いっぴき",
+    "romaji": "Ippiki"
+  },
+  {
+    "surface": "3匹",
+    "reading": "さんびき",
+    "romaji": "Sanbiki"
+  },
+  {
+    "surface": "6匹",
+    "reading": "ろっぴき",
+    "romaji": "Roppiki"
+  },
+  {
+    "surface": "8匹",
+    "reading": "はっぴき",
+    "romaji": "Happiki"
+  },
+  {
+    "surface": "10匹",
+    "reading": "じゅっぴき",
+    "romaji": "Juppiki"
+  },
+  {
+    "surface": "1本",
+    "reading": "いっぽん",
+    "romaji": "Ippon"
+  },
+  {
+    "surface": "3本",
+    "reading": "さんぼん",
+    "romaji": "Sanbon"
+  },
+  {
+    "surface": "6本",
+    "reading": "ろっぽん",
+    "romaji": "Roppon"
+  },
+  {
+    "surface": "8本",
+    "reading": "はっぽん",
+    "romaji": "Happon"
+  },
+  {
+    "surface": "10本",
+    "reading": "じゅっぽん",
+    "romaji": "Juppon"
+  },
+  {
+    "surface": "1冊",
+    "reading": "いっさつ",
+    "romaji": "Issatsu"
+  },
+  {
+    "surface": "8冊",
+    "reading": "はっさつ",
+    "romaji": "Hassatsu"
+  },
+  {
+    "surface": "10冊",
+    "reading": "じゅっさつ",
+    "romaji": "Jussatsu"
+  },
+  {
+    "surface": "1回",
+    "reading": "いっかい",
+    "romaji": "Ikkai"
+  },
+  {
+    "surface": "6回",
+    "reading": "ろっかい",
+    "romaji": "Rokkai"
+  },
+  {
+    "surface": "8回",
+    "reading": "はっかい",
+    "romaji": "Hakkai"
+  },
+  {
+    "surface": "10回",
+    "reading": "じゅっかい",
+    "romaji": "Jukkai"
+  },
+  {
+    "surface": "1階",
+    "reading": "いっかい",
+    "romaji": "Ikkai"
+  },
+  {
+    "surface": "3階",
+    "reading": "さんがい",
+    "romaji": "Sangai"
+  },
+  {
+    "surface": "6階",
+    "reading": "ろっかい",
+    "romaji": "Rokkai"
+  },
+  {
+    "surface": "8階",
+    "reading": "はっかい",
+    "romaji": "Hakkai"
+  },
+  {
+    "surface": "10階",
+    "reading": "じゅっかい",
+    "romaji": "Jukkai"
+  },
+  {
+    "surface": "1分",
+    "reading": "いっぷん",
+    "romaji": "Ippun"
+  },
+  {
+    "surface": "3分",
+    "reading": "さんぷん",
+    "romaji": "Sanpun"
+  },
+  {
+    "surface": "4分",
+    "reading": "よんぷん",
+    "romaji": "Yonpun"
+  },
+  {
+    "surface": "6分",
+    "reading": "ろっぷん",
+    "romaji": "Roppun"
+  },
+  {
+    "surface": "8分",
+    "reading": "はっぷん",
+    "romaji": "Happun"
+  },
+  {
+    "surface": "10分",
+    "reading": "じゅっぷん",
+    "romaji": "Juppun"
+  },
+  {
+    "surface": "1杯",
+    "reading": "いっぱい",
+    "romaji": "Ippai"
+  },
+  {
+    "surface": "3杯",
+    "reading": "さんばい",
+    "romaji": "Sanbai"
+  },
+  {
+    "surface": "6杯",
+    "reading": "ろっぱい",
+    "romaji": "Roppai"
+  },
+  {
+    "surface": "8杯",
+    "reading": "はっぱい",
+    "romaji": "Happai"
+  },
+  {
+    "surface": "10杯",
+    "reading": "じゅっぱい",
+    "romaji": "Juppai"
+  },
+  {
+    "surface": "1歳",
+    "reading": "いっさい",
+    "romaji": "Issai"
+  },
+  {
+    "surface": "8歳",
+    "reading": "はっさい",
+    "romaji": "Hassai"
+  },
+  {
+    "surface": "10歳",
+    "reading": "じゅっさい",
+    "romaji": "Jussai"
+  },
+  {
+    "surface": "20歳",
+    "reading": "はたち",
+    "romaji": "Hatachi"
+  },
+  {
+    "surface": "1千",
+    "reading": "いっせん",
+    "romaji": "Issen"
+  },
+  {
+    "surface": "8千",
+    "reading": "はっせん",
+    "romaji": "Hassen"
+  },
+  {
+    "surface": "3千",
+    "reading": "さんぜん",
+    "romaji": "Sanzen"
+  },
+  {
+    "surface": "3百",
+    "reading": "さんびゃく",
+    "romaji": "Sanbyaku"
+  },
+  {
+    "surface": "6百",
+    "reading": "ろっぴゃく",
+    "romaji": "Roppyaku"
+  },
+  {
+    "surface": "8百",
+    "reading": "はっぴゃく",
+    "romaji": "Happyaku"
+  },
+  {
+    "surface": "1月",
+    "reading": "いちがつ",
+    "romaji": "Ichigatsu"
+  },
+  {
+    "surface": "2月",
+    "reading": "にがつ",
+    "romaji": "Nigatsu"
+  },
+  {
+    "surface": "3月",
+    "reading": "さんがつ",
+    "romaji": "Sangatsu"
+  },
+  {
+    "surface": "4月",
+    "reading": "しがつ",
+    "romaji": "Shigatsu"
+  },
+  {
+    "surface": "5月",
+    "reading": "ごがつ",
+    "romaji": "Gogatsu"
+  },
+  {
+    "surface": "6月",
+    "reading": "ろくがつ",
+    "romaji": "Rokugatsu"
+  },
+  {
+    "surface": "7月",
+    "reading": "しちがつ",
+    "romaji": "Shichigatsu"
+  },
+  {
+    "surface": "8月",
+    "reading": "はちがつ",
+    "romaji": "Hachigatsu"
+  },
+  {
+    "surface": "9月",
+    "reading": "くがつ",
+    "romaji": "Kugatsu"
+  },
+  {
+    "surface": "10月",
+    "reading": "じゅうがつ",
+    "romaji": "Juugatsu"
+  },
+  {
+    "surface": "11月",
+    "reading": "じゅういちがつ",
+    "romaji": "Juuichigatsu"
+  },
+  {
+    "surface": "12月",
+    "reading": "じゅうにがつ",
+    "romaji": "Juunigatsu"
+  },
+  {
+    "surface": "一箇月",
+    "aliases": [
+      "一ヶ月",
+      "一ケ月",
+      "一か月",
+      "一カ月",
+      "一ヵ月"
+    ],
+    "reading": "いっかげつ",
+    "romaji": "Ikkagetsu"
+  },
+  {
+    "surface": "一箇所",
+    "aliases": [
+      "一ヶ所",
+      "一ケ所",
+      "一か所",
+      "一カ所",
+      "一ヵ所"
+    ],
+    "reading": "いっかしょ",
+    "romaji": "Ikkasho"
+  },
+  {
+    "surface": "六箇月",
+    "aliases": [
+      "六ヶ月",
+      "六ケ月",
+      "六か月",
+      "六カ月",
+      "六ヵ月"
+    ],
+    "reading": "ろっかげつ",
+    "romaji": "Rokkagetsu"
+  },
+  {
+    "surface": "十箇月",
+    "aliases": [
+      "十ヶ月",
+      "十ケ月",
+      "十か月",
+      "十カ月",
+      "十ヵ月"
+    ],
+    "reading": "じゅっかげつ",
+    "romaji": "Jukkagetsu"
+  },
+  {
+    "surface": "六箇所",
+    "aliases": [
+      "六ヶ所",
+      "六ケ所",
+      "六か所",
+      "六カ所",
+      "六ヵ所"
+    ],
+    "reading": "ろっかしょ",
+    "romaji": "Rokkasho"
+  },
+  {
+    "surface": "八箇所",
+    "aliases": [
+      "八ヶ所",
+      "八ケ所",
+      "八か所",
+      "八カ所",
+      "八ヵ所"
+    ],
+    "reading": "はっかしょ",
+    "romaji": "Hakkasho"
+  },
+  {
+    "surface": "十箇所",
+    "aliases": [
+      "十ヶ所",
+      "十ケ所",
+      "十か所",
+      "十カ所",
+      "十ヵ所"
+    ],
+    "reading": "じゅっかしょ",
+    "romaji": "Jukkasho"
+  },
+  {
+    "surface": "一兆",
+    "reading": "いっちょう",
+    "romaji": "Icchou"
+  },
+  {
+    "surface": "八兆",
+    "reading": "はっちょう",
+    "romaji": "Hacchou"
+  },
+  {
+    "surface": "十兆",
+    "reading": "じゅっちょう",
+    "romaji": "Jucchou"
+  },
+  {
+    "surface": "零時",
+    "aliases": [
+      "0時"
+    ],
+    "reading": "れいじ",
+    "romaji": "Reiji"
+  },
+  {
+    "surface": "一時",
+    "aliases": [
+      "1時"
+    ],
+    "reading": "いちじ",
+    "romaji": "Ichiji"
+  },
+  {
+    "surface": "二時",
+    "aliases": [
+      "2時"
+    ],
+    "reading": "にじ",
+    "romaji": "Niji"
+  },
+  {
+    "surface": "三時",
+    "aliases": [
+      "3時"
+    ],
+    "reading": "さんじ",
+    "romaji": "Sanji"
+  },
+  {
+    "surface": "四時",
+    "aliases": [
+      "4時"
+    ],
+    "reading": "よじ",
+    "romaji": "Yoji"
+  },
+  {
+    "surface": "五時",
+    "aliases": [
+      "5時"
+    ],
+    "reading": "ごじ",
+    "romaji": "Goji"
+  },
+  {
+    "surface": "六時",
+    "aliases": [
+      "6時"
+    ],
+    "reading": "ろくじ",
+    "romaji": "Rokuji"
+  },
+  {
+    "surface": "七時",
+    "aliases": [
+      "7時"
+    ],
+    "reading": "しちじ",
+    "romaji": "Shichiji"
+  },
+  {
+    "surface": "八時",
+    "aliases": [
+      "8時"
+    ],
+    "reading": "はちじ",
+    "romaji": "Hachiji"
+  },
+  {
+    "surface": "九時",
+    "aliases": [
+      "9時"
+    ],
+    "reading": "くじ",
+    "romaji": "Kuji"
+  },
+  {
+    "surface": "十時",
+    "aliases": [
+      "10時"
+    ],
+    "reading": "じゅうじ",
+    "romaji": "Juuji"
+  },
+  {
+    "surface": "十一時",
+    "aliases": [
+      "11時"
+    ],
+    "reading": "じゅういちじ",
+    "romaji": "Juuichiji"
+  },
+  {
+    "surface": "十二時",
+    "aliases": [
+      "12時"
+    ],
+    "reading": "じゅうにじ",
+    "romaji": "Juuniji"
+  },
+  {
+    "surface": "十三時",
+    "aliases": [
+      "13時"
+    ],
+    "reading": "じゅうさんじ",
+    "romaji": "Juusanji"
+  },
+  {
+    "surface": "十四時",
+    "aliases": [
+      "14時"
+    ],
+    "reading": "じゅうよじ",
+    "romaji": "Juuyoji"
+  },
+  {
+    "surface": "十五時",
+    "aliases": [
+      "15時"
+    ],
+    "reading": "じゅうごじ",
+    "romaji": "Juugoji"
+  },
+  {
+    "surface": "十六時",
+    "aliases": [
+      "16時"
+    ],
+    "reading": "じゅうろくじ",
+    "romaji": "Juurokuji"
+  },
+  {
+    "surface": "十七時",
+    "aliases": [
+      "17時"
+    ],
+    "reading": "じゅうしちじ",
+    "romaji": "Juushichiji"
+  },
+  {
+    "surface": "十八時",
+    "aliases": [
+      "18時"
+    ],
+    "reading": "じゅうはちじ",
+    "romaji": "Juuhachiji"
+  },
+  {
+    "surface": "十九時",
+    "aliases": [
+      "19時"
+    ],
+    "reading": "じゅうくじ",
+    "romaji": "Juukuji"
+  },
+  {
+    "surface": "二十時",
+    "aliases": [
+      "20時"
+    ],
+    "reading": "にじゅうじ",
+    "romaji": "Nijuuji"
+  },
+  {
+    "surface": "二十一時",
+    "aliases": [
+      "21時"
+    ],
+    "reading": "にじゅういちじ",
+    "romaji": "Nijuuichiji"
+  },
+  {
+    "surface": "二十二時",
+    "aliases": [
+      "22時"
+    ],
+    "reading": "にじゅうにじ",
+    "romaji": "Nijuuniji"
+  },
+  {
+    "surface": "二十三時",
+    "aliases": [
+      "23時"
+    ],
+    "reading": "にじゅうさんじ",
+    "romaji": "Nijuusanji"
+  }
+]

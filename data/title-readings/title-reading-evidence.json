@@ -1,0 +1,706 @@
+[
+  {
+    "surface": "旅々",
+    "pattern": "魔女の旅々",
+    "reading": "たびたび",
+    "romaji": "Tabitabi",
+    "kind": "title-reading",
+    "source": "Project-reviewed title reading migrated from the former exact override; whole-sentence tokenisation retained"
+  },
+  {
+    "surface": "祓魔師",
+    "pattern": "青の祓魔師",
+    "reading": "えくそしすと",
+    "romaji": "Exorcist",
+    "kind": "gikun",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "禁書目録",
+    "pattern": "とある魔術の禁書目録",
+    "reading": "いんでっくす",
+    "romaji": "Index",
+    "kind": "gikun",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "空",
+    "pattern": "空の境界",
+    "reading": "から",
+    "romaji": "Kara",
+    "kind": "title-reading",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "彼女",
+    "pattern": "冴えない彼女の育てかた",
+    "reading": "ひろいん",
+    "romaji": "Heroine",
+    "kind": "gikun",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "着せ替え人形",
+    "pattern": "その着せ替え人形は恋をする",
+    "reading": "びすくどーる",
+    "romaji": "Bisque Doll",
+    "kind": "gikun",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "剣",
+    "pattern": "杖と剣のウィストリア",
+    "reading": "つるぎ",
+    "romaji": "Tsurugi",
+    "kind": "title-reading",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "小惑星",
+    "pattern": "恋する小惑星",
+    "reading": "あすてろいど",
+    "romaji": "Asteroid",
+    "kind": "gikun",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "宇宙",
+    "pattern": "宇宙よりも遠い場所",
+    "reading": "そら",
+    "romaji": "Sora",
+    "kind": "gikun",
+    "source": "Project-reviewed title-specific reading migrated from contextual override"
+  },
+  {
+    "surface": "ニャル子",
+    "pattern": "這いよれ！ニャル子さん",
+    "reading": "にゃるこ",
+    "romaji": "Nyaruko",
+    "kind": "title-name",
+    "source": "Project-reviewed title/name reading migrated from contextual override after audit showed output-equivalent but review-dependent behaviour"
+  },
+  {
+    "surface": "フリーレン",
+    "pattern": "葬送のフリーレン",
+    "reading": "ふりーれん",
+    "romaji": "Frieren",
+    "kind": "official-spelling",
+    "source": "https://www.viz.com/frieren-beyond-journeys-end"
+  },
+  {
+    "surface": "グリムガル",
+    "pattern": "灰と幻想のグリムガル",
+    "reading": "ぐりむがる",
+    "romaji": "Grimgar",
+    "kind": "official-spelling",
+    "source": "https://grimgar.com/"
+  },
+  {
+    "surface": "ウィストリア",
+    "pattern": "杖と剣のウィストリア",
+    "reading": "うぃすとりあ",
+    "romaji": "Wistoria",
+    "kind": "official-spelling",
+    "source": "https://kodansha.us/series/wistoria-wand-and-sword/"
+  },
+  {
+    "surface": "化物語",
+    "pattern": "化物語",
+    "reading": "ばけものがたり",
+    "romaji": "Bakemonogatari",
+    "kind": "official-title-reading",
+    "source": "https://kodansha.us/book/monogatari/"
+  },
+  {
+    "surface": "傷物語",
+    "pattern": "傷物語",
+    "reading": "きずものがたり",
+    "romaji": "Kizumonogatari",
+    "kind": "official-title-reading",
+    "source": "https://kodansha.us/book/monogatari/"
+  },
+  {
+    "surface": "猫物語",
+    "pattern": "猫物語",
+    "reading": "ねこものがたり",
+    "romaji": "Nekomonogatari",
+    "kind": "official-title-reading",
+    "source": "https://kodansha.us/book/monogatari/"
+  },
+  {
+    "surface": "暦物語",
+    "pattern": "暦物語",
+    "reading": "こよみものがたり",
+    "romaji": "Koyomimonogatari",
+    "kind": "official-title-reading",
+    "source": "https://kodansha.us/book/monogatari/koyomimonogatari-part-1/"
+  },
+  {
+    "surface": "終物語",
+    "pattern": "終物語",
+    "reading": "おわりものがたり",
+    "romaji": "Owarimonogatari",
+    "kind": "official-title-reading",
+    "source": "https://kodansha.us/book/monogatari/owarimonogatari-part-1/"
+  },
+  {
+    "surface": "傾物語",
+    "pattern": "傾物語",
+    "reading": "かぶきものがたり",
+    "romaji": "Kabukimonogatari",
+    "kind": "official-title-reading",
+    "source": "https://kodansha.us/book/monogatari/kabukimonogatari/"
+  },
+  {
+    "surface": "銀魂",
+    "pattern": "銀魂",
+    "reading": "ぎんたま",
+    "romaji": "Gintama",
+    "kind": "title-reading",
+    "source": "Official/publisher title spelling; VIZ uses Gintama"
+  },
+  {
+    "surface": "呪術廻戦",
+    "pattern": "呪術廻戦",
+    "reading": "じゅじゅつかいせん",
+    "romaji": "Jujutsu Kaisen",
+    "kind": "title-reading",
+    "source": "Official/publisher title spelling; VIZ uses Jujutsu Kaisen"
+  },
+  {
+    "surface": "鬼滅の刃",
+    "pattern": "鬼滅の刃",
+    "reading": "きめつのやいば",
+    "romaji": "Kimetsu no Yaiba",
+    "kind": "title-reading",
+    "source": "Project-reviewed official title reading"
+  },
+  {
+    "surface": "刀語",
+    "pattern": "刀語",
+    "reading": "かたながたり",
+    "romaji": "Katanagatari",
+    "kind": "title-reading",
+    "source": "Project-reviewed official title reading"
+  },
+  {
+    "surface": "未来日記",
+    "pattern": "未来日記",
+    "reading": "みらいにっき",
+    "romaji": "Mirai Nikki",
+    "kind": "title-reading",
+    "source": "Project-reviewed official title reading"
+  },
+  {
+    "surface": "青春男",
+    "pattern": "電波女と青春男",
+    "reading": "せいしゅんおとこ",
+    "romaji": "Seishun Otoko",
+    "kind": "title-reading",
+    "source": "Project-reviewed title-specific lexical boundary"
+  },
+  {
+    "surface": "全修",
+    "pattern": "^全修。?$",
+    "reading": "ぜんしゅう",
+    "romaji": "Zenshuu",
+    "kind": "title-reading",
+    "source": "Project-reviewed official title reading"
+  },
+  {
+    "surface": "るろうに",
+    "pattern": "るろうに剣心",
+    "reading": "るろうに",
+    "romaji": "Rurouni",
+    "kind": "title-reading",
+    "source": "Project-reviewed title-specific kana lexical boundary"
+  },
+  {
+    "surface": "凍牌",
+    "pattern": "凍牌[～〜]裏レート麻雀闘牌録[～〜]",
+    "reading": "とうはい",
+    "romaji": "Touhai",
+    "kind": "title-reading",
+    "source": "https://www.video.unext.jp/book/title/BSD0000034633"
+  },
+  {
+    "surface": "闘牌録",
+    "pattern": "凍牌[～〜]裏レート麻雀闘牌録[～〜]",
+    "reading": "とうはいろく",
+    "romaji": "Touhairoku",
+    "kind": "title-reading",
+    "source": "https://televimanga.blog.jp/archives/89476959.html"
+  },
+  {
+    "surface": "仙狐",
+    "pattern": "世話やきキツネの仙狐さん",
+    "reading": "せんこ",
+    "romaji": "Senko",
+    "kind": "title-name",
+    "source": "https://senkosan.com/character/"
+  },
+  {
+    "surface": "精霊の守り人",
+    "pattern": "精霊の守り人",
+    "reading": "せいれいのもりびと",
+    "romaji": "Seirei no Moribito",
+    "kind": "official-title-reading",
+    "source": "https://www.kaiseisha.co.jp/books/9784035401506"
+  },
+  {
+    "surface": "鵼の碑",
+    "pattern": "鵼の碑",
+    "reading": "ぬえのいしぶみ",
+    "romaji": "Nue no Ishibumi",
+    "kind": "official-title-reading",
+    "source": "https://www.kodansha.co.jp/book/products/0000380699"
+  },
+  {
+    "surface": "攻殻",
+    "pattern": "攻殻機動隊",
+    "reading": "こうかく",
+    "romaji": "Koukaku",
+    "kind": "title-reading",
+    "source": "Project-reviewed exact-override decomposition; reviewed title compound reading 攻殻 こうかく"
+  },
+  {
+    "surface": "ちの",
+    "pattern": "小林さんちのメイドラゴン",
+    "reading": "ちの",
+    "romaji": "Chi no",
+    "kind": "title-lexical-boundary",
+    "source": "Project-reviewed exact-override decomposition; title context selects lexical ち + particle の"
+  },
+  {
+    "surface": "超電磁砲",
+    "pattern": "とある科学の超電磁砲",
+    "reading": "れーるがん",
+    "romaji": "Railgun",
+    "kind": "gikun",
+    "source": "Project-reviewed title-specific gikun migrated from exact override; 超電磁砲 is read レールガン in this title"
+  },
+  {
+    "surface": "のんのん",
+    "pattern": "のんのんびより",
+    "reading": "のんのん",
+    "romaji": "Non Non",
+    "kind": "title-lexical-boundary",
+    "source": "Project-reviewed exact-override decomposition; reviewed all-kana title segmentation"
+  },
+  {
+    "surface": "よふかしのうた",
+    "pattern": "よふかしのうた",
+    "reading": "よふかしのうた",
+    "romaji": "Yofukashi no Uta",
+    "kind": "official-title-reading",
+    "source": "Project-reviewed exact-override decomposition; whole-title evidence is required because Kuromoji yields an inseparable のうた token after よふかし rescue"
+  },
+  {
+    "surface": "手記",
+    "pattern": "ヴァニタスの手記",
+    "reading": "カルテ",
+    "romaji": "Carte",
+    "kind": "gikun",
+    "source": "https://orig-magazine.jp.square-enix.com/joker/series/vanitas/"
+  },
+  {
+    "surface": "とらドラ",
+    "pattern": "とらドラ！?",
+    "reading": "とらどら",
+    "romaji": "Toradora",
+    "kind": "title-lexical-boundary",
+    "source": "https://www.kingrecords.co.jp/cs/artist/artist.aspx?artist=35739"
+  },
+  {
+    "surface": "キャン",
+    "pattern": "ゆるキャン△?",
+    "reading": "きゃん",
+    "romaji": "Camp",
+    "kind": "official-spelling",
+    "source": "https://yurucamp.jp/first/"
+  },
+  {
+    "surface": "ばらかもん",
+    "pattern": "ばらかもん",
+    "reading": "ばらかもん",
+    "romaji": "Barakamon",
+    "kind": "title-lexical-reading",
+    "source": "https://www.hd.square-enix.com/eng/ir/library/pdf/15q4slides.pdf"
+  },
+  {
+    "surface": "ぼっち・ざ・ろっく",
+    "pattern": "ぼっち・ざ・ろっく！",
+    "reading": "ぼっちざろっく",
+    "romaji": "Bocchi the Rock",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; title-specific English article/source spelling"
+  },
+  {
+    "surface": "けいおん",
+    "pattern": "けいおん！",
+    "reading": "けいおん",
+    "romaji": "K-On",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; official title typography"
+  },
+  {
+    "surface": "しかのこのこのここしたんたん",
+    "pattern": "しかのこのこのここしたんたん",
+    "reading": "しかのこのこのここしたんたん",
+    "romaji": "Shikanoko Nokonoko Koshitantan",
+    "kind": "title-lexical-boundary",
+    "source": "Project-reviewed exact-override decomposition; title-specific all-kana lexical segmentation"
+  },
+  {
+    "surface": "であいもん",
+    "pattern": "であいもん",
+    "reading": "であいもん",
+    "romaji": "Deaimon",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; title-specific lexical boundary"
+  },
+  {
+    "surface": "ふらいんぐうぃっち",
+    "pattern": "ふらいんぐうぃっち",
+    "reading": "ふらいんぐうぃっち",
+    "romaji": "Flying Witch",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; English source spelling represented in hiragana"
+  },
+  {
+    "surface": "ドロヘドロ",
+    "pattern": "ドロヘドロ",
+    "reading": null,
+    "romaji": "Dorohedoro",
+    "kind": "official-title-spelling",
+    "source": "https://www.viz.com/dorohedoro"
+  },
+  {
+    "surface": "メイドインアビス",
+    "pattern": "メイドインアビス",
+    "reading": null,
+    "romaji": "Made in Abyss",
+    "kind": "official-title-spelling",
+    "source": "https://sevenseasentertainment.com/series/made-in-abyss/"
+  },
+  {
+    "surface": "オッドタクシー",
+    "pattern": "オッドタクシー",
+    "reading": null,
+    "romaji": "Odd Taxi",
+    "kind": "official-title-spelling",
+    "source": "https://www.pics.tokyo/works/anime-oddtaxi/"
+  },
+  {
+    "surface": "リコリス・リコイル",
+    "pattern": "リコリス・リコイル",
+    "reading": null,
+    "romaji": "Lycoris Recoil",
+    "kind": "official-title-spelling",
+    "source": "https://lycorisrecoil.com/"
+  },
+  {
+    "surface": "サマータイムレンダ",
+    "pattern": "サマータイムレンダ",
+    "reading": null,
+    "romaji": "Summer Time Rendering",
+    "kind": "official-title-spelling",
+    "source": "https://www.disneyplus.com/en-gb/browse/entity-ad803e91-b02a-42c9-a6f8-29f6468a74fd"
+  },
+  {
+    "surface": "アンダーニンジャ",
+    "pattern": "アンダーニンジャ",
+    "reading": null,
+    "romaji": "Under Ninja",
+    "kind": "official-title-spelling",
+    "source": "https://under-ninja.jp/"
+  },
+  {
+    "surface": "デュラララ",
+    "pattern": "デュラララ!!",
+    "reading": null,
+    "romaji": "Durarara",
+    "kind": "official-title-spelling",
+    "source": "https://yenpress.com/series/durarara"
+  },
+  {
+    "surface": "楠雄",
+    "pattern": "斉木楠雄のΨ難",
+    "reading": "くすお",
+    "romaji": "Kusuo",
+    "kind": "title-name",
+    "source": "Project-reviewed exact-override decomposition; scoped character-name reading within 斉木楠雄のΨ難"
+  },
+  {
+    "surface": "Ψ難",
+    "pattern": "斉木楠雄のΨ難",
+    "reading": "さいなん",
+    "romaji": "Sainan",
+    "kind": "title-gikun",
+    "source": "Project-reviewed exact-override decomposition; title-specific Ψ難 reading さいなん"
+  },
+  {
+    "surface": "まどか☆マギカ",
+    "pattern": "魔法少女まどか☆マギカ",
+    "reading": null,
+    "romaji": "Madoka Magica",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; title-specific Magica source spelling and decorative-star handling"
+  },
+  {
+    "surface": "デッドデッドデーモンズデデデデデストラクション",
+    "pattern": "デッドデッドデーモンズデデデデデストラクション",
+    "reading": null,
+    "romaji": "Dead Dead Demons Dededede Destruction",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; reviewed official/source title spelling for coined katakana title"
+  },
+  {
+    "surface": "妖狐×僕",
+    "pattern": "妖狐×僕SS",
+    "reading": null,
+    "romaji": "Inu x Boku",
+    "kind": "title-gikun-spelling",
+    "source": "Project-reviewed exact-override decomposition; title-specific 妖狐→Inu gikun plus ×→x title separator"
+  },
+  {
+    "surface": "夏雪",
+    "pattern": "夏雪ランデブー",
+    "reading": "なつゆき",
+    "romaji": "Natsuyuki",
+    "kind": "title-compound-reading",
+    "source": "Project-reviewed exact-override decomposition; scoped title compound reading 夏雪→Natsuyuki"
+  },
+  {
+    "surface": "東京喰種",
+    "pattern": "東京喰種",
+    "reading": null,
+    "romaji": "Tokyo Ghoul",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; title-specific Tokyo source spelling and 喰種→Ghoul gikun"
+  },
+  {
+    "surface": "賭ケグルイ",
+    "pattern": "賭ケグルイ",
+    "reading": null,
+    "romaji": "Kakegurui",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed exact-override decomposition; stylised title orthography resolves as Kakegurui"
+  },
+  {
+    "surface": "十二国記",
+    "pattern": "十二国記",
+    "reading": "じゅうにこくき",
+    "romaji": "Juuni Kokuki",
+    "kind": "title-lexical-boundary",
+    "source": "Project-reviewed exact-override decomposition; title-level lexical boundary/spacing for 十二国記"
+  },
+  {
+    "surface": "うる星",
+    "pattern": "うる星やつら",
+    "reading": "うるせい",
+    "romaji": "Urusei",
+    "kind": "title-gikun",
+    "source": "Project-reviewed exact-override decomposition; title wordplay/gikun うる星→Urusei"
+  },
+  {
+    "surface": "×",
+    "pattern": "黄昏乙女×アムネジア",
+    "reading": null,
+    "romaji": "x",
+    "kind": "title-separator",
+    "source": "Project-reviewed exact-override decomposition; × functions as the title separator x in this title rather than lexical かける"
+  },
+  {
+    "surface": "九龍",
+    "pattern": "九龍ジェネリックロマンス",
+    "reading": "くーろん",
+    "romaji": "Kowloon",
+    "kind": "official-title-spelling",
+    "source": "Project-reviewed title-specific place reading; Young Jump official page gives 九龍城砦 as くーろんじょうさい; reviewed English title spelling Kowloon"
+  },
+  {
+    "surface": "らんま",
+    "pattern": "らんま1/2",
+    "reading": "らんま",
+    "romaji": "Ranma",
+    "kind": "title-compact-numeric-prefix",
+    "source": "https://ranma-pr.com/"
+  },
+  {
+    "surface": "剣心",
+    "pattern": "るろうに剣心",
+    "reading": "けんしん",
+    "romaji": "Kenshin",
+    "kind": "title-character-reading",
+    "source": "https://kotobank.jp/word/%E3%82%8B%E3%82%8D%E3%81%86%E3%81%AB%E5%89%A3%E5%BF%83%E6%98%8E%E6%B2%BB%E5%89%A3%E5%AE%A2%E6%B5%AA%E6%BC%AB%E8%AD%9A-189233"
+  },
+  {
+    "surface": "剣客",
+    "pattern": "るろうに剣心―明治剣客浪漫譚―",
+    "reading": "けんかく",
+    "romaji": "Kenkaku",
+    "kind": "title-compound-reading",
+    "source": "https://kotobank.jp/word/%E3%82%8B%E3%82%8D%E3%81%86%E3%81%AB%E5%89%A3%E5%BF%83%E6%98%8E%E6%B2%BB%E5%89%A3%E5%AE%A2%E6%B5%AA%E6%BC%AB%E8%AD%9A-189233"
+  },
+  {
+    "surface": "浪漫譚",
+    "pattern": "るろうに剣心―明治剣客浪漫譚―",
+    "reading": "ろまんたん",
+    "romaji": "Romantan",
+    "kind": "title-compound-reading",
+    "source": "https://kotobank.jp/word/%E3%82%8B%E3%82%8D%E3%81%86%E3%81%AB%E5%89%A3%E5%BF%83%E6%98%8E%E6%B2%BB%E5%89%A3%E5%AE%A2%E6%B5%AA%E6%BC%AB%E8%AD%9A-189233"
+  },
+  {
+    "surface": "墓場鬼太郎",
+    "pattern": "墓場鬼太郎",
+    "reading": "はかばきたろう",
+    "romaji": "Hakaba Kitarou",
+    "kind": "official-title-reading",
+    "source": "https://ndlsearch.ndl.go.jp/books/R100000002-I000001307547"
+  },
+  {
+    "surface": "薄桜鬼",
+    "pattern": "薄桜鬼",
+    "reading": "はくおうき",
+    "romaji": "Hakuouki",
+    "kind": "official-title-reading",
+    "source": "https://ndlsearch.ndl.go.jp/books/R100000137-I04727130A01554900000"
+  },
+  {
+    "surface": "幽☆遊☆白書",
+    "pattern": "幽☆遊☆白書",
+    "reading": "ゆうゆうはくしょ",
+    "romaji": "Yuu Yuu Hakusho",
+    "kind": "official-title-reading",
+    "source": "https://ndlsearch.ndl.go.jp/books/R100000002-I000002393536"
+  },
+  {
+    "surface": "幽★遊★白書",
+    "pattern": "幽★遊★白書",
+    "reading": "ゆうゆうはくしょ",
+    "romaji": "Yuu Yuu Hakusho",
+    "kind": "official-title-reading",
+    "source": "https://ndlsearch.ndl.go.jp/books/R100000002-I000011041673"
+  },
+  {
+    "surface": "モノノ怪",
+    "pattern": "モノノ怪(?=$|[。？！、～〜~])",
+    "reading": "もののけ",
+    "romaji": "Mononoke",
+    "kind": "official-title-reading",
+    "source": "https://www.mononoke-movie.com/"
+  },
+  {
+    "surface": "千と千尋の神隠し",
+    "pattern": "千と千尋の神隠し(?=$|[。？！、～〜~])",
+    "reading": "せんとちひろのかみかくし",
+    "romaji": "Sen to Chihiro no Kamikakushi",
+    "kind": "title-reading",
+    "source": "https://kotobank.jp/word/%E5%8D%83%E3%81%A8%E5%8D%83%E5%B0%8B%E3%81%AE%E7%A5%9E%E9%9A%A0%E3%81%97-1555384"
+  },
+  {
+    "surface": "夏目友人帳 漆",
+    "pattern": "夏目友人帳[ 　]漆(?=$|[。？！、～〜~])",
+    "reading": "なつめゆうじんちょうしち",
+    "romaji": "Natsume Yuujinchou Shichi",
+    "kind": "title-reading",
+    "source": "https://ndlsearch.ndl.go.jp/books/R100000002-I033837563"
+  },
+  {
+    "surface": "螺巌篇",
+    "pattern": "螺巌篇(?=$|[。？！、～〜~])",
+    "reading": "らがんへん",
+    "romaji": "Raganhen",
+    "kind": "official-title-reading",
+    "source": "https://ndlsearch.ndl.go.jp/books/R100000002-I000010273695"
+  },
+  {
+    "surface": "バクマン",
+    "pattern": "バクマン(?=$|[。？！、～〜~])",
+    "reading": "ばくまん",
+    "romaji": "Bakuman",
+    "kind": "official-title-spelling",
+    "source": "https://www.viz.com/bakuman"
+  },
+  {
+    "surface": "万事屋",
+    "pattern": "劇場版[ \\u3000]?銀魂[ \\u3000]完結篇[ \\u3000]万事屋よ永遠なれ(?=$|[。？！、～〜~])",
+    "reading": "よろずや",
+    "romaji": "Yorozuya",
+    "kind": "title-character-reading",
+    "source": "https://www.warnerbros.co.jp/home_entertainment/i20dm4pcu/"
+  },
+  {
+    "surface": "我間乱",
+    "pattern": "我間乱(?=$|[。？！、～〜~])",
+    "reading": "がまらん",
+    "romaji": "Gamaran",
+    "kind": "title-ateji",
+    "source": "https://www.kodansha.co.jp/comic/products/0000017207"
+  },
+  {
+    "surface": "誰そ彼",
+    "pattern": "誰そ彼(?=$|[。？！、～〜~])",
+    "reading": "たそがれ",
+    "romaji": "Tasogare",
+    "kind": "bibliographic-title-reading",
+    "source": "https://ndlsearch.ndl.go.jp/books/R100000002-I034551878"
+  },
+  {
+    "surface": "累",
+    "pattern": "累(?=$|[。？！、～〜~])",
+    "reading": "かさね",
+    "romaji": "Kasane",
+    "kind": "official-title-reading",
+    "source": "https://www.kodansha.co.jp/comic/products/0000038876"
+  },
+  {
+    "surface": "鉄風",
+    "pattern": "鉄風(?=$|[。？！、～〜~])",
+    "reading": "てっぷう",
+    "romaji": "Teppuu",
+    "kind": "official-title-reading",
+    "source": "https://www.kodansha.co.jp/comic/products/0000029695"
+  },
+  {
+    "surface": "青春",
+    "pattern": "青春×機関銃(?=$|[。？！、～〜~])",
+    "reading": "あおはる",
+    "romaji": "Aoharu",
+    "kind": "official-title-reading",
+    "source": "https://www.tbs.co.jp/tbs-ch/item/a0189/"
+  },
+  {
+    "surface": "光",
+    "pattern": "光が死んだ夏(?=$|[。？！、～〜~])",
+    "reading": "ひかる",
+    "romaji": "Hikaru",
+    "kind": "title-name",
+    "source": "https://promo.kadokawa.co.jp/hikarugashinda/about/ — KADOKAWA official character material identifies the title-context character 光 as ヒカル; scoped to 光が死んだ夏 so ordinary 光 remains lexical/ambiguous."
+  },
+  {
+    "surface": "×",
+    "pattern": "青春×機関銃(?=$|[。？！、～〜~])",
+    "reading": null,
+    "romaji": "",
+    "kind": "title-separator-silent",
+    "source": "https://www.tbs.co.jp/tbs-ch/item/a0189/ — TBS gives the title reading あおはる きかんじゅう, establishing that × is unspoken in this title."
+  },
+  {
+    "surface": "3×3EYES",
+    "pattern": "3×3EYES(?=$|[。？！、～〜~])",
+    "reading": "さざんあいず",
+    "romaji": "Sazan Eyes",
+    "kind": "official-mixed-script-title-reading",
+    "source": "https://magazine.yanmaga.jp/c/3x3eyes/ — Kodansha Young Magazine identifies 3×3EYES as サザンアイズ; Rule 0 preserves the already-written English source spelling Eyes."
+  },
+  {
+    "surface": "3×3 EYES",
+    "pattern": "3×3 EYES(?=$|[。？！、～〜~])",
+    "reading": "さざんあいず",
+    "romaji": "Sazan Eyes",
+    "kind": "official-mixed-script-title-reading",
+    "source": "https://magazine.yanmaga.jp/c/3x3eyes/ — Space-normal presentation variant of the same reviewed 3×3EYES〈サザンアイズ〉 title evidence."
+  }
+]

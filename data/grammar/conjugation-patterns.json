@@ -1,0 +1,47 @@
+{
+  "joinEndings": [
+    "て",
+    "で",
+    "た",
+    "だ",
+    "って",
+    "っと",
+    "ん",
+    "たら"
+  ],
+  "auxiliarySpacing": [
+    "いる",
+    "ある",
+    "ござい",
+    "です",
+    "だ",
+    "だった",
+    "で",
+    "よ",
+    "ね",
+    "な",
+    "でした"
+  ],
+  "auxiliarySpacingBasicForms": [
+    "いる",
+    "ある",
+    "ござる",
+    "です",
+    "だ"
+  ],
+  "contractedAuxiliaryBasicForms": [
+    "てる",
+    "でる"
+  ],
+  "capitalizedAuxiliaries": [
+    "だった"
+  ],
+  "coverage": [
+    "ichidan",
+    "godan",
+    "suru",
+    "i-adjective",
+    "irregular-i-adjective",
+    "na-adjective"
+  ]
+}

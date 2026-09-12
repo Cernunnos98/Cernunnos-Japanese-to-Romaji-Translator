@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Translator Failure-Injection QA</title>
+</head>
+<body>
+<script>
+(function () {
+    'use strict';
+
+    const scenario = window.__TRANSLATOR_FAILURE_SCENARIO__ || null;
+    if (!scenario) {
+        document.body.innerHTML = '<h1>Translator Failure-Injection QA</h1><p>Run this harness through tools/qa/run-translator-failure-injection-cdp.js so scenarios come from the translator asset registry.</p>';
+        return;
+    }
+
+    document.body.innerHTML = `
+        <div id="status-banner">Loading</div>
+        <textarea id="input" disabled></textarea><div id="output"></div>
+        <div id="kanji-readings"></div><input id="kanji-search">
+        <label id="override-control"><input id="overrides-enabled" type="checkbox" checked><span id="override-text"></span></label>
+        <div id="license-notice"></div>`;
+
+    window.CJ2R_TRANSLATOR_CONFIG = {
+        runtimeDiagnostics: scenario.runtimeDiagnostics !== false,
+        assetTimeoutMs: scenario.assetTimeoutMs || 5000,
+        scriptTimeoutMs: scenario.scriptTimeoutMs || 5000,
+        tokenizerTimeoutMs: scenario.tokenizerTimeoutMs || 8000,
+        retryDelayMs: scenario.retryDelayMs || 20,
+        assetRetryCount: scenario.assetRetryCount ?? 2
+    };
+
+    const targetPath = `/${String(scenario.assetPath || '').replace(/^\/+/, '')}`;
+    const delayedPath = scenario.delayedPath ? `/${String(scenario.delayedPath).replace(/^\/+/, '')}` : null;
+    function pathMatches(input, expectedPath) {
+        if (!expectedPath) return false;
+        try { return new URL(String(input), location.href).pathname === expectedPath; }
+        catch (_) { return false; }
+    }
+    function matchesTarget(input) { return pathMatches(input, targetPath); }
+
+    let targetFetchAttempts = 0;
+    let targetScriptAttempts = 0;
+    let unhandledRejections = 0;
+    window.addEventListener('unhandledrejection', event => { unhandledRejections += 1; event.preventDefault(); });
+    window.__delayedSiblingSettled = false;
+    const originalFetch = window.fetch.bind(window);
+    window.fetch = async function (input, options) {
+        if (pathMatches(input, delayedPath) && scenario.failure === 'delayed-sibling') {
+            await new Promise(resolve => setTimeout(resolve, scenario.delayMs || 350));
+            const response = await originalFetch(input, options);
+            return {
+                ok: response.ok,
+                status: response.status,
+                json: async () => {
+                    const data = await response.json();
+                    window.__delayedSiblingSettled = true;
+                    return data;
+                }
+            };
+        }
+        if (matchesTarget(input) && (scenario.type === 'json' || scenario.failure === 'delayed-sibling')) {
+            targetFetchAttempts += 1;
+            if (scenario.failure === 'missing' || scenario.failure === 'delayed-sibling' || scenario.failure === 'production-fatal' || scenario.failure === 'bind-init-failure') {
+                return new Response('', { status: 404, statusText: 'Injected failure' });
+            }
+            if (scenario.failure === 'bad-schema') {
+                const body = scenario.assetKey === 'exactOverrides' ? '{"猫":"猫"}' : '{}';
+                return new Response(body, { status: 200, headers: { 'Content-Type': 'application/json' } });
+            }
+            if (scenario.failure === 'bad-json') return new Response('{', { status: 200, headers: { 'Content-Type': 'application/json' } });
+            if (scenario.failure === 'transient-503' && targetFetchAttempts <= 2) {
+                return new Response('', { status: 503, statusText: 'Injected transient failure' });
+            }
+            if (scenario.failure === 'json-timeout') return new Promise(() => {});
+        }
+        return originalFetch(input, options);
+    };
+
+    if (scenario.failure === 'dictionary-missing') {
+        const OriginalXHR = window.XMLHttpRequest;
+        window.XMLHttpRequest = class extends OriginalXHR {
+            open(method, url, ...rest) {
+                this.__injectedUrl = String(url);
+                return super.open(method, url, ...rest);
+            }
+            send(...args) {
+                if (this.__injectedUrl.includes(`/${scenario.assetPath}`)) {
+                    setTimeout(() => this.onerror?.(new Error('Injected dictionary failure')), 0);
+                    return;
+                }
+                return super.send(...args);
+            }
+        };
+    }
+
+    const appendChild = document.head.appendChild.bind(document.head);
+    document.head.appendChild = function (node) {
+        if (node?.tagName === 'SCRIPT' && matchesTarget(node.src)) {
+            targetScriptAttempts += 1;
+            if (scenario.failure === 'script-missing') {
+                queueMicrotask(() => node.onerror?.(new Error('Injected script failure')));
+                return node;
+            }
+            if (scenario.failure === 'script-transient-error' && targetScriptAttempts <= 2) {
+                queueMicrotask(() => node.onerror?.(new Error('Injected transient script failure')));
+                return node;
+            }
+            if (scenario.failure === 'script-timeout') return node;
+        }
+        return appendChild(node);
+    };
+
+    function postResult(extra = {}) {
+        const status = window.RomajiTranslator?.getStatus?.() || null;
+        const diagnostics = window.RomajiTranslator?.getDiagnostics?.() || null;
+        const warnings = [...(diagnostics?.dataWarnings || [])];
+        const developerWarnings = [...(diagnostics?.developerWarnings || [])];
+        parent.postMessage({
+            type: 'translator-failure-injection',
+            result: {
+                scenario: scenario.id,
+                assetKey: scenario.assetKey,
+                assetPath: scenario.assetPath,
+                criticality: scenario.criticality,
+                failure: scenario.failure,
+                warnings,
+                developerWarnings,
+                status,
+                targetFetchAttempts,
+                targetScriptAttempts,
+                bannerText: document.querySelector('#status-banner')?.textContent || '',
+                ...extra
+            }
+        }, '*');
+    }
+
+    function loadEngine() {
+        const script = document.createElement('script');
+        script.src = '../../../translator-engine.js';
+        script.onload = async () => {
+            let ready = false;
+            let rejected = false;
+            let errorMessage = null;
+            let bindingFailure = null;
+            let bindingOutput = null;
+            if (scenario.failure === 'bind-init-failure') {
+                const field = document.createElement('textarea');
+                const button = document.createElement('button');
+                const output = document.createElement('div');
+                field.value = '学校に行く';
+                output.textContent = 'binding-sentinel';
+                document.body.append(field, button, output);
+                const binding = window.RomajiTranslator.bind({ field, button, output });
+                bindingOutput = output;
+                bindingFailure = binding.translate().then(
+                    () => ({ rejected: false, message: '' }),
+                    error => ({ rejected: true, message: error?.message || String(error) })
+                );
+                button.click();
+            }
+            try {
+                await window.RomajiTranslator.ready;
+                ready = window.RomajiTranslator.isReady();
+            } catch (error) {
+                rejected = true;
+                errorMessage = error?.message || String(error);
+            }
+
+            const status = window.RomajiTranslator.getStatus();
+            const diagnostics = window.RomajiTranslator?.getDiagnostics?.() || null;
+            const warnings = [...(diagnostics?.dataWarnings || [])];
+            const developerWarnings = [...(diagnostics?.developerWarnings || [])];
+            let ok = false;
+            if (scenario.failure === 'transient-503') {
+                ok = ready && !rejected && targetFetchAttempts === 3 && status.state === 'ready'
+                    && diagnostics?.loadingPolicy?.retryCount === 2
+                    && diagnostics?.loadingPolicy?.retryDelaysMs?.join(',') === '20,40';
+            } else if (scenario.failure === 'script-transient-error') {
+                ok = ready && !rejected && targetScriptAttempts === 3 && status.state === 'ready';
+            } else if (scenario.failure === 'json-timeout') {
+                ok = rejected && !ready && targetFetchAttempts === 3 && status.state === 'failed' && /timed out/i.test(errorMessage || '');
+            } else if (scenario.failure === 'script-timeout') {
+                ok = rejected && !ready && targetScriptAttempts === 3 && status.state === 'failed' && /timed out/i.test(errorMessage || '');
+            } else if (scenario.failure === 'tokenizer-timeout') {
+                ok = rejected && !ready && status.state === 'failed' && /construction timed out/i.test(errorMessage || '');
+            } else if (scenario.failure === 'tokenizer-delayed-success') {
+                ok = ready && !rejected && status.state === 'ready'
+                    && diagnostics?.loadingPolicy?.tokenizerTimeoutMs === scenario.tokenizerTimeoutMs;
+            } else if (scenario.failure === 'bind-init-failure') {
+                const bindingResult = await bindingFailure;
+                await new Promise(resolve => setTimeout(resolve, 30));
+                ok = rejected && !ready && bindingResult?.rejected === true
+                    && bindingOutput?.textContent === 'binding-sentinel'
+                    && unhandledRejections === 0;
+            } else if (scenario.failure === 'diagnostics-bridge-collision') {
+                const bridgeSymbol = Symbol.for('CJ2R.translator.runtime-diagnostics.bridge');
+                const hostBridge = window.__hostDiagnosticsBridge;
+                const preservedBeforeDestroy = window[bridgeSymbol] === hostBridge;
+                const oldApi = window.RomajiTranslator;
+                const statusBeforeDestroy = oldApi.getStatus();
+                const diagnosticsBeforeDestroy = oldApi.getDiagnostics();
+                const destroyed = oldApi.destroy();
+                const preservedAfterDestroy = window[bridgeSymbol] === hostBridge;
+                ok = ready && !rejected && statusBeforeDestroy.state === 'ready'
+                    && diagnosticsBeforeDestroy.developerWarnings.some(item => /bridge is already in use/i.test(item))
+                    && destroyed && preservedBeforeDestroy && preservedAfterDestroy;
+                postResult({ ok, ready, rejected, errorMessage, status: statusBeforeDestroy, warnings: diagnosticsBeforeDestroy.dataWarnings, developerWarnings: diagnosticsBeforeDestroy.developerWarnings, bridgePreserved: preservedAfterDestroy });
+                return;
+            } else if (scenario.failure === 'delayed-sibling') {
+                const settledAtReject = window.__delayedSiblingSettled;
+                await new Promise(resolve => setTimeout(resolve, (scenario.delayMs || 350) + 150));
+                ok = rejected && !ready && settledAtReject && window.__delayedSiblingSettled && status.state === 'failed';
+            } else if (scenario.failure === 'production-fatal') {
+                ok = rejected && !ready && status.state === 'failed' && Boolean(status.error)
+                    && document.querySelector('#status-banner')?.textContent.includes('Translator failed to initialise:');
+            } else if (scenario.failure === 'preexisting-kuromoji-incompatible') {
+                ok = rejected && !ready && status.state === 'failed' && /incompatible kuromoji api/i.test(errorMessage || '');
+            } else if (scenario.failure === 'preexisting-kuromoji-compatible') {
+                ok = ready && !rejected && status.state === 'ready' && targetScriptAttempts === 0;
+            } else if (scenario.failure === 'tokenizer-hooks-incompatible') {
+                ok = rejected && !ready && status.state === 'failed' && /incompatible kuromoji tokenizer/i.test(errorMessage || '');
+            } else if (scenario.criticality === 'critical') {
+                const deterministicFetch = ['missing', 'bad-schema', 'bad-json'].includes(scenario.failure) && scenario.type === 'json';
+                const deterministicOk = !deterministicFetch || targetFetchAttempts === 1;
+                const scriptRetryOk = scenario.failure !== 'script-missing' || targetScriptAttempts === 3;
+                ok = rejected && !window.RomajiTranslator.isReady() && status.state === 'failed' && Boolean(status.error)
+                    && deterministicOk && scriptRetryOk;
+            } else if (scenario.criticality === 'developer-only') {
+                ok = ready && status.state === 'ready' && developerWarnings.length > 0
+                    && (scenario.failure !== 'script-missing' || targetScriptAttempts === 3);
+            } else {
+                const deterministicFetch = ['missing', 'bad-schema', 'bad-json'].includes(scenario.failure) && scenario.type === 'json';
+                ok = ready && status.state === 'ready' && warnings.length > 0
+                    && (!deterministicFetch || targetFetchAttempts === 1);
+            }
+            postResult({ ok, ready, rejected, errorMessage, delayedSiblingSettled: window.__delayedSiblingSettled });
+        };
+        script.onerror = () => postResult({ ok: false, error: 'translator-engine.js failed to load' });
+        appendChild(script);
+    }
+
+    if (scenario.failure === 'diagnostics-bridge-collision') {
+        const bridgeSymbol = Symbol.for('CJ2R.translator.runtime-diagnostics.bridge');
+        window.__hostDiagnosticsBridge = { hostOwned: true };
+        window[bridgeSymbol] = window.__hostDiagnosticsBridge;
+        loadEngine();
+    } else if (scenario.failure === 'preexisting-kuromoji-incompatible') {
+        window.kuromoji = {};
+        loadEngine();
+    } else if (scenario.failure === 'preexisting-kuromoji-compatible') {
+        const preload = document.createElement('script');
+        preload.src = '../../../kuromoji.js';
+        preload.onload = () => loadEngine();
+        preload.onerror = () => postResult({ ok: false, error: 'Kuromoji preload failed' });
+        appendChild(preload);
+    } else if (scenario.failure === 'tokenizer-hooks-incompatible') {
+        window.kuromoji = {
+            builder: () => ({
+                build(callback) {
+                    callback(null, { tokenize() { return []; } });
+                }
+            })
+        };
+        loadEngine();
+    } else if (scenario.failure === 'tokenizer-delayed-success') {
+        const preload = document.createElement('script');
+        preload.src = '../../../kuromoji.js';
+        preload.onload = () => {
+            const originalBuilder = window.kuromoji.builder.bind(window.kuromoji);
+            window.kuromoji.builder = options => {
+                const builder = originalBuilder(options);
+                const originalBuild = builder.build.bind(builder);
+                builder.build = callback => originalBuild((error, tokenizer) => {
+                    setTimeout(() => callback(error, tokenizer), scenario.delayMs || 250);
+                });
+                return builder;
+            };
+            loadEngine();
+        };
+        preload.onerror = () => postResult({ ok: false, error: 'Kuromoji preload failed' });
+        appendChild(preload);
+    } else if (scenario.failure === 'tokenizer-timeout') {
+        const preload = document.createElement('script');
+        preload.src = '../../../kuromoji.js';
+        preload.onload = () => {
+            window.kuromoji.builder = () => ({ build() {} });
+            loadEngine();
+        };
+        preload.onerror = () => postResult({ ok: false, error: 'Kuromoji preload failed' });
+        appendChild(preload);
+    } else {
+        loadEngine();
+    }
+}());
+</script>
+</body>
+</html>

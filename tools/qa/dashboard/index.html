@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="description" content="Local dashboard for running and reviewing CJ2R quality assurance checks.">
+    <title>CJ2R QA Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231d4ed8'/%3E%3Cpath d='M17 33l10 10 21-23' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+</head>
+<body>
+    <main class="page-shell">
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">CJ2R developer tools</p>
+                <h1>Quality assurance dashboard</h1>
+                <p class="intro">Run the existing QA checks and review their progress in one place. Only a successful full release run certifies a release.</p>
+            </div>
+            <div class="header-actions">
+                <div id="connectionStatus" class="connection-status" role="status">Connecting…</div>
+                <button id="closeButton" class="close-dashboard" type="button">Close dashboard</button>
+            </div>
+        </header>
+
+        <section class="control-panel" aria-labelledby="runHeading">
+            <div class="section-heading compact-heading">
+                <div>
+                    <h2 id="runHeading">Choose a scan</h2>
+                    <p id="jobDescription">Runs every release gate. Only this option can certify a release.</p>
+                </div>
+                <span id="certificationBadge" class="badge certification">Release-certifying</span>
+            </div>
+
+            <div class="run-controls">
+                <label class="field-label" for="jobSelect">QA scan</label>
+                <select id="jobSelect"></select>
+
+                <label id="buildOption" class="checkbox-row">
+                    <input id="buildFirst" type="checkbox">
+                    <span>
+                        <strong>Build generated files first</strong>
+                        <small>Use this only when maintained source files have changed.</small>
+                    </span>
+                </label>
+
+                <div class="button-row">
+                    <button id="runButton" class="button primary" type="button">Run comprehensive QA</button>
+                    <button id="stopButton" class="button danger" type="button" disabled>Stop safely</button>
+                    <button id="downloadButton" class="button secondary" type="button" disabled>Download report</button>
+                </div>
+                <p id="actionMessage" class="action-message" role="alert"></p>
+            </div>
+        </section>
+
+        <section class="summary-grid" aria-label="Run summary">
+            <article class="summary-card status-card">
+                <span class="summary-label">Status</span>
+                <strong id="runStatus" class="summary-value">Idle</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">Selected run</span>
+                <strong id="runName" class="summary-value">Comprehensive release QA</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">Elapsed time</span>
+                <strong id="runDuration" class="summary-value">—</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">Result</span>
+                <strong id="runResult" class="summary-value">Not run</strong>
+            </article>
+        </section>
+
+        <div class="results-grid">
+            <section class="panel" aria-labelledby="stepsHeading">
+                <div class="section-heading">
+                    <div>
+                        <h2 id="stepsHeading">Progress</h2>
+                        <p>Each completed release step is recorded separately.</p>
+                    </div>
+                    <span id="stepCount" class="count-label">0 steps</span>
+                </div>
+                <ol id="stepList" class="step-list">
+                    <li class="empty-state">No run has started.</li>
+                </ol>
+            </section>
+
+            <section class="panel" aria-labelledby="failuresHeading">
+                <div class="section-heading">
+                    <div>
+                        <h2 id="failuresHeading">Failures</h2>
+                        <p>Errors and failed assertions appear here.</p>
+                    </div>
+                    <span id="failureCount" class="count-label">0 found</span>
+                </div>
+                <ul id="failureList" class="failure-list">
+                    <li class="empty-state success-empty">No failures recorded.</li>
+                </ul>
+            </section>
+        </div>
+
+        <section class="panel log-panel" aria-labelledby="logHeading">
+            <div class="section-heading log-heading">
+                <div>
+                    <h2 id="logHeading">Detailed output</h2>
+                    <p>Search the complete output or show error lines only.</p>
+                </div>
+                <div class="log-tools">
+                    <label class="search-label" for="logSearch">Search output</label>
+                    <input id="logSearch" type="search" placeholder="Search output">
+                    <label class="inline-check"><input id="errorsOnly" type="checkbox"> Errors only</label>
+                    <label class="inline-check"><input id="wrapLines" type="checkbox" checked> Wrap lines</label>
+                    <label class="inline-check"><input id="autoScroll" type="checkbox" checked> Follow output</label>
+                </div>
+            </div>
+            <div id="logOutput" class="log-output wrap" role="log" aria-live="polite" aria-relevant="additions text" tabindex="0">
+                <p class="log-placeholder">Output will appear here when a run starts.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

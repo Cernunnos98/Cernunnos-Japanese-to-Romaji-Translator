@@ -1,0 +1,507 @@
+{
+  "_meta": {
+    "version": 2,
+    "purpose": "Classify every maintained file under data/ by provenance type, including the 2026-09-06 provenance cleanup, without inventing missing lineage.",
+    "categories": [
+      "project-authored/manual",
+      "externally-derived",
+      "mixed",
+      "legacy/unknown"
+    ],
+    "statusValues": [
+      "complete",
+      "partial"
+    ],
+    "coverageRule": "Every maintained file under data/ is listed except this classification manifest itself. New data files must be classified before release QA can pass.",
+    "interpretation": {
+      "project-authored/manual": "Project-created rules, corrections or metadata with no claimed copied external dataset.",
+      "externally-derived": "Data or metadata selected, transformed or generated from an identified external source.",
+      "mixed": "Project curation combines external evidence with manual decisions or multiple source families so no single upstream snapshot fully describes the file.",
+      "legacy/unknown": "The current project cannot establish a reliable source basis. No file is assigned this category in version 1."
+    }
+  },
+  "entries": [
+    {
+      "path": "data/Overrides/context-overrides.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-authored contextual corrections and Rule 0 decisions."
+      ]
+    },
+    {
+      "path": "data/Overrides/overrides.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-authored exact whole-input corrections."
+      ]
+    },
+    {
+      "path": "data/title-readings/title-reading-evidence.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "CJ2R-reviewed title-specific readings and direct Romaji migrated from former exact/contextual overrides so the normal tokenisation and resolver pipeline remains observable.",
+        "External publisher/official-site references may be recorded per row to verify factual title spellings; the distributed file contains project-authored evidence records rather than copied source datasets or prose."
+      ]
+    },
+    {
+      "path": "data/ateji/ateji-term-bank-1.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Jitendex snapshot 2026-08-11 / revision 2026.08.11.0."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ]
+    },
+    {
+      "path": "data/common-words/common-words-term-bank-1.json",
+      "classification": "mixed",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Row-level source labels distinguish project-reviewed/manual entries from Jitendex-derived entries.",
+        "Jitendex rows are tied to snapshot 2026-08-11 / revision 2026.08.11.0; project-reviewed rows are CJ2R-authored corrections or title/whole-word decisions."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ]
+    },
+    {
+      "path": "data/compound-words/compound-words-term-bank-1.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "2026-09-06 CJ2R provenance cleanup replaced the undocumented 222-row legacy snapshot with three independently reviewed fallback readings required by maintained behaviour.",
+        "男→おとこ is supported by the bundled Kuromoji/IPADIC path; 男→おのこ and 団扇→うちわ were independently checked against Japanese dictionary references. No legacy forum/card prose or source snapshot remains in the distributed bank.",
+        "The retained file contains only the factual surface/reading pairs used by CJ2R."
+      ]
+    },
+    {
+      "path": "data/dict/base.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/cc.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/check.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/tid.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/tid_map.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/tid_pos.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/unk.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/unk_char.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/unk_compat.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/unk_invoke.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/unk_map.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/dict/unk_pos.dat.gz",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bundle",
+      "sourceBasis": [
+        "Kuromoji dictionary bundle derived from mecab-ipadic-2.7.0-20070801."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Kuromoji NOTICE.md"
+      ]
+    },
+    {
+      "path": "data/external-evidence-source-provenance.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "project-metadata",
+      "sourceBasis": [
+        "Project-authored machine-readable provenance manifest."
+      ]
+    },
+    {
+      "path": "data/general-words/general-words-term-bank-1.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Jitendex snapshot 2026-08-11 / revision 2026.08.11.0."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ]
+    },
+    {
+      "path": "data/grammar/conjugation-patterns.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Japanese Language Data v0.9.0, generated 2026-04-14; compact reviewed configuration."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Japanese-Language-Data-Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ]
+    },
+    {
+      "path": "data/grammar/counter-date-reading-evidence.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-authored reviewed counter/date/numeral readings promoted from adversarial stress testing under Rule 0.",
+        "The 2026-09-06 numeral review cross-checked basic/large-number composition and sound-change cases against the user-supplied Smile Nihongo and MLC Japanese number guides; 一兆/八兆/十兆 sokuon behaviour was independently cross-checked against Tae Kim/Tofugu large-number references. External romanisation conventions do not override Rule 0.",
+        "The 2026-09-10 clock-hour review cross-checked 0:00–23:00 hour readings, including irregular 四時/七時/九時 forms, against The Japan Foundation Irodori starter time tables. Romanisation is normalised to Rule 0."
+      ]
+    },
+    {
+      "path": "data/grammar/particle-expressions.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-authored authoritative list derived from Rule 0 / Romaji Rules decisions."
+      ]
+    },
+    {
+      "path": "data/historical-kana/historical-kana-evidence.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Agency for Cultural Affairs historical/modern kana comparison tables and reviewed lexical verification including Kotobank をかし."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Historical Kana Evidence Sources.md"
+      ]
+    },
+    {
+      "path": "data/kanji/kanji-bank-1.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "KANJIDIC2/KANJIDIC snapshot 2026-222 / revision kanjidic2.2026-222, generated through the Yomitan import pipeline."
+      ],
+      "licenceRefs": [
+        "licenses and sources/KANJIDIC Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ]
+    },
+    {
+      "path": "data/kanji/kanji-bank-2.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "KANJIDIC2/KANJIDIC snapshot 2026-222 / revision kanjidic2.2026-222, generated through the Yomitan import pipeline."
+      ],
+      "licenceRefs": [
+        "licenses and sources/KANJIDIC Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ]
+    },
+    {
+      "path": "data/kanji/kanji-tag-bank-1.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "KANJIDIC2/KANJIDIC snapshot 2026-222 / revision kanjidic2.2026-222, generated through the Yomitan import pipeline."
+      ],
+      "licenceRefs": [
+        "licenses and sources/KANJIDIC Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ]
+    },
+    {
+      "path": "data/kanji/japanese-han-scope.json",
+      "classification": "mixed",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Compact CJ2R-derived positive Japanese-use scope evidence from selected factual fields in MJ文字情報一覧表 Ver.006.02; the full MJ source workbook is not redistributed.",
+        "Stable Unicode Unihan 18.0.0 Japanese-specific kJapanese/kJapaneseOn/kMojiJoho/kIRG_JSource properties are used only as secondary corroboration; Chinese/Korean readings are excluded.",
+        "For the rare U+3106C Japanese-created/transmitted ghost-character, Japanese scholarly and National Diet Library reference evidence records たいと・だいと・おとど while explicitly preserving the disputed historicity/actual surname-use caveat.",
+        "Runtime policy may resolve an exact single Han character only when the reviewed Japanese-scope bank contains exactly one Japanese reading; multiple legitimate readings remain candidate provenance and require review.",
+        "The 2026-09-11 Batch 2 follow-up researched the complete 269-character unknown-scope set before implementation; 256 characters gained positive Japanese reading evidence and 13 were retained as unknown.",
+        "Japanese-language dictionary and character-infrastructure evidence is primary for this review. Component names are not treated as standalone readings, explicitly unknown readings remain unknown, and provisional/convenience readings are not promoted.",
+        "Where Unicode Japanese-specific properties conflict with stronger Japanese lexicographic evidence, the Japanese lexicographic evidence governs; 炻 is recorded as セキ rather than importing the conflicting Unicode value."
+      ],
+      "licenceRefs": [
+        "licenses and sources/MJ Character Information Attribution.md",
+        "licenses and sources/Unicode Data Attribution.md",
+        "licenses and sources/Rare Japanese Han Evidence Sources.md"
+      ]
+    },
+    {
+      "path": "data/kanji/kanji-variants.json",
+      "classification": "mixed",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-curated lookup mappings; Agency for Cultural Affairs and Unicode material are normative/reference evidence.",
+        "CJKVI and University of Tokyo itaiji pages are comparison references only; CJ2R does not redistribute their source datasets, page text, images or design.",
+        "The file records source roles explicitly in _meta.sourcePolicy."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Japanese-Government-Data-Attribution.md",
+        "licenses and sources/Unicode Data Attribution.md"
+      ]
+    },
+    {
+      "path": "data/kanji/kanjidic-source-metadata.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "source-metadata",
+      "sourceBasis": [
+        "KANJIDIC2/KANJIDIC snapshot 2026-222 / revision kanjidic2.2026-222, generated through the Yomitan import pipeline."
+      ],
+      "licenceRefs": [
+        "licenses and sources/KANJIDIC Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ]
+    },
+    {
+      "path": "data/loanwords/loanwords-term-bank-1.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-maintained source-language spelling decisions used to implement Rule 0."
+      ]
+    },
+    {
+      "path": "data/nouns/jmnedict-bank-1.json",
+      "classification": "mixed",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "JMnedict snapshot 2026-08-10 with Jiten frequency snapshot 2026-09-03 used only as supporting selection evidence.",
+        "CJ2R semantic-safety review normalised the 春麗 reading separator for runtime kana handling; Rule 0 source spelling is kept in reviewed exact-span evidence."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ]
+    },
+    {
+      "path": "data/nouns/nouns-term-bank-1.json",
+      "classification": "mixed",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Compact CJ2R adaptation of Japanese Wikipedia proper-noun statistics/readings historically extracted through Anki shared-deck 3885156604.",
+        "2026-09-06 cleanup removed imported Anki/Yomitan card formatting and glossary strings; retained fields are surface, reading candidates, coarse categories, relative weights and rank used by the resolver.",
+        "Source attribution and transformation are recorded in data/nouns/wikipedia-proper-nouns-source-metadata.json.",
+        "CJ2R semantic-safety review repaired three malformed imported reading fields to valid kana while preserving the intended proper-noun evidence."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Japanese-Wikipedia-Proper-Noun-Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md"
+      ]
+    },
+    {
+      "path": "data/nouns/reviewed-proper-name-span-evidence.json",
+      "classification": "mixed",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-authored exact-span decisions; each row keeps a source/evidence description identifying the material used for verification.",
+        "External references are used to verify factual name readings/spellings. CJ2R does not redistribute the referenced publishers' or official sites' prose, page design or media.",
+        "Rows citing JMnedict/Jiten use the project's separately documented EDRDG/Jitendex/Jiten source basis.",
+        "The bank also carries reviewed Rule 0 source-spelling decisions for imported proper-name rows whose phonetic readings alone are insufficient."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ]
+    },
+    {
+      "path": "data/nouns/wikipedia-proper-nouns-source-metadata.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "source-metadata",
+      "sourceBasis": [
+        "Project-authored metadata documenting the Japanese Wikipedia source basis, historical Anki extraction intermediate, CJ2R transformation and CC BY-SA 4.0 attribution for data/nouns/nouns-term-bank-1.json."
+      ]
+    },
+    {
+      "path": "data/reading-evidence/contextual-reading-evidence.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "CJ2R-authored contextual feature groups, weights, thresholds and candidate-selection rules for legitimate multiple-reading surfaces.",
+        "External dictionary references may be consulted to confirm factual readings or sense distinctions; the distributed feature/weight data is project-authored and is not an imported external dataset."
+      ]
+    },
+    {
+      "path": "data/reading-evidence/reading-evidence.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Jitendex snapshot 2026-08-11 and Jiten global frequency snapshot 2026-09-03 / revision 2026-09-02."
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/CC BY-SA 4.0 Notice.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ]
+    },
+    {
+      "path": "data/rendaku/rendaku-evidence.json",
+      "classification": "externally-derived",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Manually reviewed complete-word evidence from NINJAL The Japanese Lexicon: A Rendaku Encyclopedia."
+      ],
+      "licenceRefs": [
+        "licenses and sources/NINJAL Rendaku Attribution.md"
+      ]
+    },
+    {
+      "path": "data/reviewed-reading/reviewed-reading-evidence.json",
+      "classification": "project-authored/manual",
+      "status": "complete",
+      "role": "runtime-bank",
+      "sourceBasis": [
+        "Project-reviewed reading preferences and alternatives created from manual linguistic verification; this is a CJ2R decision/evidence layer rather than a copied upstream dataset."
+      ]
+    }
+  ]
+}

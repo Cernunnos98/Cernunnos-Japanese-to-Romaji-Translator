@@ -1,0 +1,639 @@
+[
+  {
+    "surface": "かぐや",
+    "reading": "かぐや",
+    "romaji": "Kaguya",
+    "category": "name",
+    "source": "VIZ Kaguya-sama: Love Is War / official anime character naming"
+  },
+  {
+    "surface": "グレンラガン",
+    "reading": "ぐれんらがん",
+    "romaji": "Gurren Lagann",
+    "category": "name",
+    "source": "https://gurren-lagann15th.com/"
+  },
+  {
+    "surface": "ジャック・スケリントン",
+    "reading": "じゃっくすけりんとん",
+    "romaji": "Jack Skellington",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; Disney official Japanese character page confirms ジャック・スケリントン and Rule 0 preserves the original Western spelling"
+  },
+  {
+    "surface": "ナウシカ",
+    "reading": "なうしか",
+    "romaji": "Nausicaa",
+    "category": "name",
+    "source": "Reviewed project proper-name/source-spelling evidence; Studio Ghibli official work/publication material establishes the English name, normalised to ASCII as Nausicaa under Rule 0."
+  },
+  {
+    "surface": "七戸",
+    "reading": "しちのへ",
+    "romaji": "Shichinohe",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; confirmed against Shichinohe Town official material"
+  },
+  {
+    "surface": "上田晋也",
+    "reading": "うえだしんや",
+    "romaji": "Ueda Shinya",
+    "category": "person",
+    "source": "Reviewed project proper-name evidence; ORICON profile confirms うえだしんや."
+  },
+  {
+    "surface": "下屋",
+    "reading": "したや",
+    "romaji": "Shitaya",
+    "category": "name",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading"
+  },
+  {
+    "surface": "並樹",
+    "reading": "なみき",
+    "romaji": "Namiki",
+    "category": "name",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading"
+  },
+  {
+    "surface": "二戸",
+    "reading": "にのへ",
+    "romaji": "Ninohe",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence"
+  },
+  {
+    "surface": "伊藤計劃",
+    "reading": "いとうけいかく",
+    "romaji": "Itou Keikaku",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; Project Itoh official material confirms 伊藤計劃; Rule 0 uses the original Japanese name"
+  },
+  {
+    "surface": "倖田來未",
+    "reading": "こうだくみ",
+    "romaji": "Kouda Kumi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; official artist material confirms 倖田來未; Rule 0 romanises the original Japanese name"
+  },
+  {
+    "surface": "切嗣",
+    "reading": "きりつぐ",
+    "romaji": "Kiritsugu",
+    "category": "character",
+    "source": "Reviewed project proper-noun evidence; single JMnedict character reading; Fate official material confirms the name"
+  },
+  {
+    "surface": "北方謙三",
+    "reading": "きたかたけんぞう",
+    "romaji": "Kitakata Kenzou",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; confirmed against Shueisha author material"
+  },
+  {
+    "surface": "千豊",
+    "reading": "かずとよ",
+    "romaji": "Kazutoyo",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; dominant personal-name reading"
+  },
+  {
+    "surface": "古見",
+    "reading": "こみ",
+    "romaji": "Komi",
+    "category": "name",
+    "source": "VIZ Komi Can’t Communicate; Shoko Komi"
+  },
+  {
+    "surface": "右代宮",
+    "reading": "うしろみや",
+    "romaji": "Ushiromiya",
+    "category": "name",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)"
+  },
+  {
+    "surface": "司馬遷",
+    "reading": "しばせん",
+    "romaji": "Sima Qian",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Rule 0 source-language spelling Sima Qian"
+  },
+  {
+    "surface": "堀部安兵衛",
+    "reading": "ほりべやすべえ",
+    "romaji": "Horibe Yasubee",
+    "category": "person",
+    "source": "Digital Daijisen / Nihon Kokugo Daijiten via Kotobank; reviewed against the conflicting name-bank reference"
+  },
+  {
+    "surface": "大坂城",
+    "reading": "おおさかじょう",
+    "romaji": "Oosakajou",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; malformed imported reading repaired to kana"
+  },
+  {
+    "surface": "大暮維人",
+    "reading": "おおぐれいと",
+    "romaji": "Oogure Ito",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; sources identify 大暮 維人 as Oogure Ito; Rule 0 Japanese name order"
+  },
+  {
+    "surface": "大森望",
+    "reading": "おおもりのぞみ",
+    "romaji": "Oomori Nozomi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; confirmed against publisher/author material"
+  },
+  {
+    "surface": "大船渡",
+    "reading": "おおふなと",
+    "romaji": "Oofunato",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; confirmed against Ofunato City official material"
+  },
+  {
+    "surface": "宗佑",
+    "reading": "そうすけ",
+    "romaji": "Sousuke",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "小日向海流",
+    "reading": "こひなたみのる",
+    "romaji": "Kohinata Minoru",
+    "category": "person",
+    "source": "https://www.kodansha.co.jp/comic/products/0000008558 — Kodansha gives the complete title reading カラテショウコウシコヒナタミノル and identifies 小日向海流 as the protagonist; Rule 0 preserves Japanese name order."
+  },
+  {
+    "surface": "山崎烝",
+    "reading": "やまざきすすむ",
+    "romaji": "Yamazaki Susumu",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; Rule 0 Japanese name order"
+  },
+  {
+    "surface": "巨神兵",
+    "reading": "きょしんへい",
+    "romaji": "Kyoshinhei",
+    "category": "character",
+    "source": "Reviewed project proper-noun evidence; single JMnedict character reading"
+  },
+  {
+    "surface": "幹二",
+    "reading": "かんじ",
+    "romaji": "Kanji",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "式守",
+    "reading": "しきもり",
+    "romaji": "Shikimori",
+    "category": "name",
+    "source": "NBCUniversal Shikimori’s Not Just a Cutie"
+  },
+  {
+    "surface": "弘次郎",
+    "reading": "こうじろう",
+    "romaji": "Koujirou",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "張作霖",
+    "reading": "ちょうさくりん",
+    "romaji": "Zhang Zuolin",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Rule 0 source-language spelling Zhang Zuolin"
+  },
+  {
+    "surface": "忠茂",
+    "reading": "ただしげ",
+    "romaji": "Tadashige",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "愛荘町",
+    "reading": "あいしょうちょう",
+    "romaji": "Aishouchou",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; confirmed against Aisho Town official material"
+  },
+  {
+    "surface": "成利",
+    "reading": "なりとし",
+    "romaji": "Naritoshi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "日馬富士",
+    "reading": "はるまふじ",
+    "romaji": "Harumafuji",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; confirmed against Japan Sumo Association"
+  },
+  {
+    "surface": "日高町",
+    "reading": "ひだかちょう",
+    "romaji": "Hidakachou",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence"
+  },
+  {
+    "surface": "春麗",
+    "reading": "チュンリー",
+    "romaji": "Chun-Li",
+    "category": "character",
+    "source": "Reviewed project proper-noun evidence; Rule 0 source-language spelling for Chun-Li"
+  },
+  {
+    "surface": "晴敏",
+    "reading": "はるとし",
+    "romaji": "Harutoshi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "曹丕",
+    "reading": "そうひ",
+    "romaji": "Cao Pi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Encyclopedia of China/Chinese Text Project confirm Cao Pi"
+  },
+  {
+    "surface": "曹操",
+    "reading": "そうそう",
+    "romaji": "Cao Cao",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the entity and Encyclopedia of China confirms Cao Cao"
+  },
+  {
+    "surface": "朋紘",
+    "reading": "ともひろ",
+    "romaji": "Tomohiro",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "未恵",
+    "reading": "みえ",
+    "romaji": "Mie",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "李逵",
+    "reading": "りき",
+    "romaji": "Li Kui",
+    "category": "character",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the Water Margin character; Chinese Text Project confirms Li Kui"
+  },
+  {
+    "surface": "森繁",
+    "reading": "もりしげ",
+    "romaji": "Morishige",
+    "category": "name",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading"
+  },
+  {
+    "surface": "森鷗外",
+    "reading": "もりおうがい",
+    "romaji": "Mori Ougai",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; Mori Ogai museum/national museum material confirms the identity"
+  },
+  {
+    "surface": "横浜市営地下鉄グリーンライン",
+    "reading": "よこはましえいちかてつグリーンライン",
+    "romaji": "Yokohama Shiei Chikatetsu Green Line",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; malformed imported reading repaired to kana and Rule 0 source-language spelling for Green Line"
+  },
+  {
+    "surface": "欽明天皇",
+    "reading": "きんめいてんのう",
+    "romaji": "Kinmeitennou",
+    "category": "person",
+    "source": "Reviewed project proper-name evidence; NDL/JapanKnowledge confirms きんめいてんのう."
+  },
+  {
+    "surface": "正宏",
+    "reading": "まさひろ",
+    "romaji": "Masahiro",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "正春",
+    "reading": "まさはる",
+    "romaji": "Masaharu",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "池田恒興",
+    "reading": "いけだつねおき",
+    "romaji": "Ikeda Tsuneoki",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; confirmed against reference material"
+  },
+  {
+    "surface": "法月綸太郎",
+    "reading": "のりづきりんたろう",
+    "romaji": "Norizuki Rintarou",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; Rule 0 Japanese name order"
+  },
+  {
+    "surface": "浩介",
+    "reading": "こうすけ",
+    "romaji": "Kousuke",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "涼宮",
+    "reading": "すずみや",
+    "romaji": "Suzumiya",
+    "category": "name",
+    "source": "Yen Press The Melancholy of Haruhi Suzumiya"
+  },
+  {
+    "surface": "源太郎",
+    "reading": "げんたろう",
+    "romaji": "Gentarou",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "滝川駅",
+    "reading": "たきかわえき",
+    "romaji": "Takikawaeki",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence"
+  },
+  {
+    "surface": "火憐",
+    "reading": "かれん",
+    "romaji": "Karen",
+    "category": "character",
+    "source": "Reviewed project proper-noun evidence; single JMnedict character reading"
+  },
+  {
+    "surface": "煬帝",
+    "reading": "ようだい",
+    "romaji": "Yangdi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies Emperor Yang; scholarly source confirms the source-language form Yangdi"
+  },
+  {
+    "surface": "犬養毅",
+    "reading": "いぬかいつよし",
+    "romaji": "Inukai Tsuyoshi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; confirmed against Prime Minister of Japan and His Cabinet material"
+  },
+  {
+    "surface": "猪八戒",
+    "reading": "ちょはっかい",
+    "romaji": "Zhu Bajie",
+    "category": "character",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the Journey to the West character; Rule 0 source-language spelling Zhu Bajie"
+  },
+  {
+    "surface": "留弗夫",
+    "reading": "るどるふ",
+    "romaji": "Rudolf",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; Rule 0 foreign-name spelling"
+  },
+  {
+    "surface": "白川町",
+    "reading": "しらかわちょう",
+    "romaji": "Shirakawachou",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; confirmed against Shirakawa Town official material"
+  },
+  {
+    "surface": "石川五ェ門",
+    "reading": "いしかわごえもん",
+    "romaji": "Ishikawa Goemon",
+    "category": "character",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; official Lupin material confirms 石川五ェ門"
+  },
+  {
+    "surface": "石川優吾",
+    "reading": "いしかわゆうご",
+    "romaji": "Ishikawa Yuugo",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)"
+  },
+  {
+    "surface": "神木隆之介",
+    "reading": "かみきりゅうのすけ",
+    "romaji": "Kamiki Ryuunosuke",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)"
+  },
+  {
+    "surface": "神石高原町",
+    "reading": "じんせきこうげんちょう",
+    "romaji": "Jinsekikougenchou",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence"
+  },
+  {
+    "surface": "秀郷",
+    "reading": "ひでさと",
+    "romaji": "Hidesato",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "紂王",
+    "reading": "ちゅうおう",
+    "romaji": "Zhou Wang",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies King Zhou; Rule 0 source-language spelling Zhou Wang"
+  },
+  {
+    "surface": "細野不二彦",
+    "reading": "ほそのふじひこ",
+    "romaji": "Hosono Fujihiko",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading and Shogakukan-attested identity; Rule 0 Japanese name order"
+  },
+  {
+    "surface": "緊箍児",
+    "reading": "きんこじ",
+    "romaji": "Kinkoji",
+    "category": "name",
+    "source": "Reviewed project entity evidence; EDRDG JMdictDB gives the single reading きんこじ for the Journey to the West fictional object"
+  },
+  {
+    "surface": "羊介",
+    "reading": "ようすけ",
+    "romaji": "Yousuke",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "臨済",
+    "reading": "りんざい",
+    "romaji": "Linji",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict person entry identifies the Chinese Chan master; Rule 0 source-language spelling Linji"
+  },
+  {
+    "surface": "荀子",
+    "reading": "じゅんし",
+    "romaji": "Xunzi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the philosopher; Stanford Encyclopedia of Philosophy confirms Xunzi"
+  },
+  {
+    "surface": "荒木飛呂彦",
+    "reading": "あらきひろひこ",
+    "romaji": "Araki Hirohiko",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; VIZ confirms Hirohiko Araki and Rule 0 uses Japanese name order"
+  },
+  {
+    "surface": "蒙恬",
+    "reading": "もうてん",
+    "romaji": "Meng Tian",
+    "category": "person",
+    "source": "Reviewed foreign proper-name evidence; Chinese Text Project identifies 蒙恬 as Meng Tian; Rule 0 preserves reviewed source-language spelling."
+  },
+  {
+    "surface": "藤井聡太",
+    "reading": "ふじいそうた",
+    "romaji": "Fujii Souta",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; confirmed against Japan Shogi Association material"
+  },
+  {
+    "surface": "藤子不二雄",
+    "reading": "ふじこふじお",
+    "romaji": "Fujiko Fujio",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)"
+  },
+  {
+    "surface": "藤林 杏",
+    "reading": "ふじばやしきょう",
+    "romaji": "Fujibayashi Kyou",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; Key official CLANNAD material confirms the character 藤林 杏; established character reading ふじばやし きょう"
+  },
+  {
+    "surface": "行方市",
+    "reading": "なめがたし",
+    "romaji": "Namegatashi",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; confirmed against Namegata City official address material"
+  },
+  {
+    "surface": "袁世凱",
+    "reading": "えんせいがい",
+    "romaji": "Yuan Shikai",
+    "category": "person",
+    "source": "Reviewed foreign proper-name evidence; NDL material identifies 袁世凱 as Yuan Shikai; Rule 0 preserves reviewed source-language spelling."
+  },
+  {
+    "surface": "西施",
+    "reading": "せいし",
+    "romaji": "Xi Shi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Chinese Text Project confirms Xi Shi"
+  },
+  {
+    "surface": "運昇",
+    "reading": "うんしょう",
+    "romaji": "Unshou",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "鄧小平",
+    "reading": "とうしょうへい",
+    "romaji": "Deng Xiaoping",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Rule 0 source-language spelling Deng Xiaoping"
+  },
+  {
+    "surface": "里崎",
+    "reading": "さとざき",
+    "romaji": "Satozaki",
+    "category": "name",
+    "source": "Reviewed project proper-noun evidence; single high-confidence surname reading"
+  },
+  {
+    "surface": "金ケ崎町",
+    "reading": "かねがさきちょう",
+    "romaji": "Kanegasakichou",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; confirmed against Kanegasaki municipal material"
+  },
+  {
+    "surface": "長崎尚志",
+    "reading": "ながさきたかし",
+    "romaji": "Nagasaki Takashi",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence (JMnedict snapshot)"
+  },
+  {
+    "surface": "阿良々木",
+    "reading": "あららぎ",
+    "romaji": "Araragi",
+    "category": "name",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading and Monogatari official character material"
+  },
+  {
+    "surface": "首里",
+    "reading": "しゅり",
+    "romaji": "Shuri",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence (Jiten/JMnedict-derived bank)"
+  },
+  {
+    "surface": "高口",
+    "reading": "たかぐち",
+    "romaji": "Takaguchi",
+    "category": "name",
+    "source": "Reviewed project proper-noun evidence; dominant surname reading"
+  },
+  {
+    "surface": "高雄駅",
+    "reading": "カオシュンえき",
+    "romaji": "Kaohsiung Eki",
+    "category": "location",
+    "source": "Reviewed project proper-noun evidence; Rule 0 source-language spelling for Kaohsiung"
+  },
+  {
+    "surface": "魯粛",
+    "reading": "ろしゅく",
+    "romaji": "Lu Su",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Rule 0 source-language spelling Lu Su"
+  },
+  {
+    "surface": "鴨乃橋ロン",
+    "reading": "かものはしろん",
+    "romaji": "Kamonohashi Ron",
+    "category": "name",
+    "source": "Crunchyroll Ron Kamonohashi’s Forbidden Deductions"
+  },
+  {
+    "surface": "鷗外",
+    "reading": "おうがい",
+    "romaji": "Ougai",
+    "category": "person",
+    "source": "Reviewed project proper-noun evidence; single JMnedict reading; Mori Ogai museum material confirms the pen name"
+  }
+]

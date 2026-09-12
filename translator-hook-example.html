@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translator Hook Example</title>
+</head>
+<body>
+    <textarea id="my-textbox" rows="6" cols="60" placeholder="Enter Japanese here"></textarea>
+    <button id="my-romaji-button" type="button">Romanise</button>
+    <div data-cj2r-kanji-readings data-cj2r-kanji-source="#my-textbox"></div>
+
+    <script src="translator-engine.js"></script>
+    <script>
+        RomajiTranslator.bind({
+            field: '#my-textbox',
+            button: '#my-romaji-button'
+        });
+    </script>
+</body>
+</html>

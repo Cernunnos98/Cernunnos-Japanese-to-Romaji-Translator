@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "featureGroups": [
+    {
+      "id": "physical-market-context",
+      "terms": [
+        {
+          "term": "買う",
+          "weight": 4
+        },
+        {
+          "term": "売る",
+          "weight": 4
+        },
+        {
+          "term": "買い物",
+          "weight": 3
+        },
+        {
+          "term": "仕入れる",
+          "weight": 3
+        },
+        {
+          "term": "魚",
+          "weight": 2
+        },
+        {
+          "term": "野菜",
+          "weight": 2
+        },
+        {
+          "term": "果物",
+          "weight": 2
+        },
+        {
+          "term": "肉",
+          "weight": 2
+        },
+        {
+          "term": "店",
+          "weight": 1
+        },
+        {
+          "term": "店舗",
+          "weight": 1
+        },
+        {
+          "term": "露店",
+          "weight": 2
+        },
+        {
+          "term": "朝市",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "economic-market-context",
+      "terms": [
+        {
+          "term": "株式",
+          "weight": 4
+        },
+        {
+          "term": "金融",
+          "weight": 4
+        },
+        {
+          "term": "証券",
+          "weight": 4
+        },
+        {
+          "term": "為替",
+          "weight": 4
+        },
+        {
+          "term": "投資",
+          "weight": 3
+        },
+        {
+          "term": "経済",
+          "weight": 3
+        },
+        {
+          "term": "需要",
+          "weight": 3
+        },
+        {
+          "term": "供給",
+          "weight": 3
+        },
+        {
+          "term": "価格",
+          "weight": 2
+        },
+        {
+          "term": "調査",
+          "weight": 2
+        },
+        {
+          "term": "シェア",
+          "weight": 3
+        },
+        {
+          "term": "参入",
+          "weight": 3
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "surface": "市場",
+      "window": 6,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "いちば",
+          "features": [
+            "physical-market-context"
+          ],
+          "minScore": 2
+        },
+        {
+          "reading": "しじょう",
+          "features": [
+            "economic-market-context"
+          ],
+          "minScore": 2
+        }
+      ],
+      "source": "Project-reviewed/JMdict contextual sense distinction"
+    }
+  ]
+}

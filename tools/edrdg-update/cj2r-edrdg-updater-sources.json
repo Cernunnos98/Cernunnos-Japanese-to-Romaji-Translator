@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "licenceUrl": "https://www.edrdg.org/edrdg/licence.html",
+  "sources": {
+    "jitendex": {
+      "url": "https://github.com/stephenmk/stephenmk.github.io/releases/latest/download/jitendex-yomitan.zip",
+      "type": "terms",
+      "purpose": "Current Jitendex/JMdict-derived priority evidence used by CJ2R."
+    },
+    "jmdict": {
+      "url": "https://github.com/yomidevs/jmdict-yomitan/releases/latest/download/JMdict_english_without_proper_names.zip",
+      "type": "terms",
+      "purpose": "Current JMdict cross-check without copied JMnedict proper names."
+    },
+    "jmnedict": {
+      "url": "https://github.com/yomidevs/jmdict-yomitan/releases/latest/download/JMnedict.zip",
+      "type": "terms",
+      "purpose": "Current JMnedict support check for CJ2R's reviewed proper-name subset."
+    },
+    "kanjidic": {
+      "url": "https://github.com/yomidevs/jmdict-yomitan/releases/latest/download/KANJIDIC_english.zip",
+      "type": "kanji",
+      "purpose": "Current KANJIDIC helper snapshot used to stage CJ2R's Kanji helper banks."
+    }
+  }
+}

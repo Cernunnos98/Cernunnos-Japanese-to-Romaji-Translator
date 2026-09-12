@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cernunnos' Japanese to Romaji Translator</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg: #f9fafb;
+            --card: #ffffff;
+            --text: #1f2937;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        h1 { margin-top: 0; font-size: 24px; font-weight: 700; color: #111827; }
+        
+        #status-banner {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            border-left: 4px solid #3b82f6;
+        }
+        #status-banner.ready { background-color: #ecfdf5; color: #047857; border-left-color: var(--success); }
+        #status-banner.error { background-color: #fef2f2; color: #b91c1c; border-left-color: var(--error); }
+
+        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media(min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+        
+        label, .section-label { font-weight: 600; font-size: 14px; display: block; margin-bottom: 8px; }
+        textarea {
+            width: 100%; height: 180px; padding: 12px; box-sizing: border-box;
+            border: 1px solid var(--border); border-radius: 6px; font-size: 16px;
+            resize: none; font-family: inherit; overflow-y: auto;
+        }
+        textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+        textarea:disabled { background-color: #f3f4f6; cursor: not-allowed; }
+
+        .kanji-panel {
+            margin-top: 0;
+        }
+        .kanji-search {
+            width: 100%; box-sizing: border-box; margin-top: 8px; margin-bottom: 12px;
+            padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px;
+            font-size: 14px; font-family: inherit;
+        }
+        .kanji-search:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+        .kanji-readings-box {
+            min-height: 110px; max-height: 220px; overflow-y: auto;
+            padding: 12px; border: 1px solid var(--border); border-radius: 6px;
+            background-color: #f9fafb; font-size: 14px; line-height: 1.5; color: #111827;
+        }
+        .kanji-result-group { margin-bottom: 12px; }
+        .kanji-result-label {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; color: #6b7280; margin-bottom: 6px;
+        }
+        .kanji-divider {
+            border-top: 1px solid #e5e7eb; margin: 10px 0 12px; padding-top: 8px;
+        }
+        .kanji-reading-item {
+            display: flex; gap: 12px; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid #eef2f7;
+        }
+        .kanji-reading-item:last-child { border-bottom: none; }
+        .kanji-character {
+            font-size: 24px; font-weight: 700; min-width: 32px; color: var(--primary);
+        }
+        .kanji-reading-text { flex: 1; }
+        .kanji-reading-text strong { color: #4b5563; }
+        .kanji-reading-button {
+            display: inline-flex; flex-direction: column; align-items: center; gap: 2px;
+            background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 999px;
+            color: #312e81; font-size: 12px; padding: 4px 10px; margin: 2px 4px 2px 0;
+            cursor: pointer; transition: background 0.15s ease, transform 0.15s ease;
+        }
+        .kanji-reading-button:hover {
+            background: #e0e7ff; transform: translateY(-1px);
+        }
+        .kanji-reading-button:active {
+            transform: translateY(0);
+        }
+        
+        .output-box {
+            background-color: #f9fafb; border: 1px solid var(--border); border-radius: 6px;
+            padding: 12px; height: 180px; box-sizing: border-box; font-size: 16px;
+            white-space: pre-wrap; word-wrap: break-word; overflow-y: auto; color: #111827;
+        }
+        .notes-panel {
+            margin-top: 0;
+        }
+        .notes-box {
+            min-height: 100px; margin-top: 8px; padding: 12px 16px;
+            border: 1px solid var(--border); border-radius: 6px; background-color: #fff;
+            font-size: 16px; color: #111827; overflow-y: auto;
+            line-height: 1.5;
+        }
+        .notes-box ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+        .notes-box li {
+            margin: 0 0 0.5rem;
+            padding-left: 0.25rem;
+        }
+        .notes-box li:last-child {
+            margin-bottom: 0;
+        }
+        .notes-box:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+        .license-notice {
+            margin-top: 0; color: #6b7280; font-size: 12px; line-height: 1.5;
+            text-align: left;
+            order: -1;
+        }
+        .license-notice a { color: inherit; }
+        .footer-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+        .override-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0;
+            font-size: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Japanese to Romaji Translator</h1>
+    
+    <div id="status-banner">
+        ⏳ Loading local dictionary assets...
+    </div>
+    
+    <div class="grid">
+        <div>
+            <label for="input">Japanese Text</label>
+            <textarea id="input" placeholder="Enter Japanese here..." disabled></textarea>
+        </div>
+
+        <div>
+            <label>Romaji Translation</label>
+            <div id="output" class="output-box"></div>
+        </div>
+
+        <div class="kanji-panel">
+            <label>Kanji Readings</label>
+            <input id="kanji-search" class="kanji-search" type="text" placeholder="Enter your Kanji here." aria-label="Kanji search field" />
+            <div id="kanji-readings" class="kanji-readings-box" data-cj2r-kanji-readings data-cj2r-kanji-source="#input" data-cj2r-kanji-search="#kanji-search"></div>
+        </div>
+
+        <div class="notes-panel">
+            <div id="translation-notes-label" class="section-label">Translation Notes</div>
+            <div id="translation-notes" class="notes-box" aria-labelledby="translation-notes-label">
+                <ul><li>Loanwords, which can also include ateji, are to be transliterated according to their source language. Loanwords can be recognised by their phoneticism and use of katakana.</li><li>Names are to remain in their official format, including non-Japanese names.</li><li>Ensure you are familiar with the Database Guidelines before contributing and that you have checked the translator output for errors.</li></ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-controls">
+        <label id="override-control" class="override-toggle" for="overrides-enabled">
+            <input id="overrides-enabled" type="checkbox" checked>
+            <span id="override-text">Override Enabled</span>
+        </label>
+        <div id="license-notice" class="license-notice">
+            <a href="licenses%20and%20sources/CJ2R-Translator-Project-License.md">Sources &amp; licences</a>
+        </div>
+    </div>
+</div>
+
+<script src="translator-engine.js"></script>
+<script>
+(() => {
+    const overrideInput = document.getElementById('overrides-enabled');
+    const overrideText = document.getElementById('override-text');
+    const input = document.getElementById('input');
+    if (!overrideInput || !overrideText || !window.RomajiTranslator) return;
+
+    const applyOverrideControl = () => {
+        const enabled = overrideInput.checked;
+        overrideText.textContent = enabled ? 'Override Enabled' : 'Override Disabled';
+        window.RomajiTranslator.setOverridesEnabled(enabled);
+        if (input) input.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
+    overrideInput.addEventListener('change', applyOverrideControl);
+    applyOverrideControl();
+})();
+</script>
+
+</body>
+</html>
