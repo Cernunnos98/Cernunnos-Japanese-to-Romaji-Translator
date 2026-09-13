@@ -400,7 +400,7 @@ function getCommonWordReadingForToken(token, sourceText) {
 }
 
 function getLoanwordOutputForToken(token) {
-    if (!token) return null;
+    if (!token || token.suppressLoanwordSourceSpelling) return null;
     const surface = String(token.surface_form || '');
     return runtimeState.loanwordDictionary.get(surface) || runtimeState.loanwordDictionary.get(normalizeKanjiForLookup(surface)) || null;
 }

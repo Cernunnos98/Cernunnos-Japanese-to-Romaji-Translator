@@ -109,6 +109,12 @@ if (RomajiTranslator.isReady()) {
 
 Calling `translateSync()` too early throws a readiness error rather than attempting a reduced translation.
 
+### Preserve CJ2R output as returned
+
+A host should treat the returned Romaji as final translator output. Do not apply generic title-casing, word splitting/joining or punctuation cleanup after `translate()`/`translateSync()`: reviewed foreign names and loanwords can intentionally contain source-language spacing and casing such as `Death Note`, `eBay` or `SpaceX`, and those decisions may span several Kuromoji tokens internally.
+
+If a host needs a different presentation convention, keep that transformation outside CJ2R and do not treat the transformed text as CJ2R's Rule 0 result.
+
 ### Readiness, status and lifecycle
 
 `RomajiTranslator.ready` is a promise that resolves after successful initialisation. `isReady()` is the synchronous readiness check. `getStatus()` returns the current lifecycle state, readiness, initialisation error and warning arrays; `getWarnings()` returns the data/developer warning arrays directly. `getDiagnostics()` returns CJ2R-owned runtime diagnostic state, including the effective loading policy. When `runtimeDiagnostics: true` is enabled, its `tools` property also exposes the development diagnostic functions. CJ2R does not publish or remove generic host-page globals such as `translatorDiagnostics` or `runTranslatorRegressionChecks`.
@@ -300,7 +306,7 @@ Neither tool promotes unreviewed dictionary content directly into live runtime d
 
 Before handing CJ2R to another site:
 
-1. Keep `translator-engine.js`, `kuromoji.js` and `data/` together as one tested release; do not mix engine/data/dictionaries from different releases.
+1. Keep `translator-engine.js`, `kuromoji.js` and `data/` together as one tested release; do not mix engine/data/dictionaries from different releases. The expanded loanword bank depends on matching engine/schema behaviour for reviewed whole-span recognition, normalised aliases and protected source-language casing.
 2. Keep `licenses and sources/` with redistributed copies of the corresponding software/data, or provide the applicable equivalent notices/links where permitted.
 3. Ensure the host site's source/licence presentation satisfies the obligations applicable to the deployed material; omitting CJ2R's built-in notice does not remove them.
 4. Omit `runtimeDiagnostics` in production; enable `runtimeDiagnostics: true` only for development or troubleshooting.

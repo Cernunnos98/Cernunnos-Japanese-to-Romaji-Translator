@@ -371,7 +371,8 @@ const assetSchemaValidators = Object.freeze({
         && hasNoConflictingRows(data, entry => entry[0], entry => entry[1]),
     'loanword-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry)
         ? isText(entry[0]) && isRule0RomajiEvidence(entry[1])
-        : isPlainObject(entry) && isText(entry.surface) && isRule0RomajiEvidence(entry.output))
+        : isPlainObject(entry) && isText(entry.surface) && isRule0RomajiEvidence(entry.output)
+            && (entry.category == null || ['country-name', 'country-language'].includes(String(entry.category))))
         && hasNoConflictingRows(data, entry => Array.isArray(entry) ? entry[0] : entry.surface, entry => normalizeReviewedRomaji(Array.isArray(entry) ? entry[1] : entry.output)),
     'compound-word-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry) && isText(entry[0]) && isSemanticKanaReading(entry[1])),
     'ateji-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry) && isText(entry[0]) && isSemanticKanaReading(entry[1]))

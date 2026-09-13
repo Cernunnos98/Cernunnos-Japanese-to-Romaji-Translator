@@ -603,6 +603,43 @@ function canContinueLoanword(surface) {
         || runtimeState.loanwordPrefixes.has(normalizeKanjiForLookup(originalSurface));
 }
 
+function getLoanwordMetadata(surface) {
+    const originalSurface = String(surface || '');
+    return runtimeState.loanwordMetadataDictionary.get(originalSurface)
+        || runtimeState.loanwordMetadataDictionary.get(normalizeKanjiForLookup(originalSurface))
+        || null;
+}
+
+function isReviewedCountryNameLoanword(surface) {
+    return getLoanwordMetadata(surface)?.category === 'country-name';
+}
+
+function hasReviewedCountryLanguageLoanword(surface) {
+    const originalSurface = String(surface || '');
+    const output = runtimeState.loanwordDictionary.get(originalSurface)
+        || runtimeState.loanwordDictionary.get(normalizeKanjiForLookup(originalSurface));
+    return Boolean(output && getLoanwordMetadata(originalSurface)?.category === 'country-language');
+}
+
+function shouldSuppressCountryNameLoanwordBeforeLanguageSuffix(tokens, startIndex, matchLength, matchedSurface) {
+    if (!isReviewedCountryNameLoanword(matchedSurface)) return false;
+    const nextToken = tokens?.[startIndex + matchLength];
+    if (String(nextToken?.surface_form || '') !== '語') return false;
+    return !hasReviewedCountryLanguageLoanword(String(matchedSurface || '') + '語');
+}
+
+function makeMechanicalCountryNameFallbackToken(tokens, startIndex, bestMatch) {
+    const matchedTokens = tokens.slice(startIndex, startIndex + bestMatch.length);
+    const combinedReading = matchedTokens.map(token => getKuromojiDictionaryReading(token) || String(token?.surface_form || '')).join('');
+    return {
+        ...tokens[startIndex],
+        surface_form: bestMatch.surface,
+        reading: combinedReading || bestMatch.surface,
+        pronunciation: combinedReading || bestMatch.surface,
+        suppressLoanwordSourceSpelling: true
+    };
+}
+
 function findLongestLoanword(tokens, startIndex) {
     let bestMatch = null;
     let candidateSurface = '';
@@ -679,6 +716,11 @@ function mergeLoanwordTokens(tokens) {
             const split = splitReviewedLoanwordToken(tokens[index]);
             if (split) merged.push(...split);
             else merged.push(tokens[index]);
+            continue;
+        }
+        if (shouldSuppressCountryNameLoanwordBeforeLanguageSuffix(tokens, index, bestMatch.length, bestMatch.surface)) {
+            merged.push(makeMechanicalCountryNameFallbackToken(tokens, index, bestMatch));
+            index += bestMatch.length - 1;
             continue;
         }
         merged.push({ ...tokens[index], surface_form: bestMatch.surface, loanwordMatched: true, loanwordOutput: bestMatch.output });

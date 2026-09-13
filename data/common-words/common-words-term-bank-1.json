@@ -306,7 +306,7 @@
   {
     "surface": "まぞく",
     "reading": "まぞく",
-    "source": "Project-reviewed ordinary lexical kana spelling of 魔族; added during exact-override decomposition"
+    "source": "Project-reviewed ordinary lexical kana spelling of 魔族"
   },
   {
     "surface": "かげき",
@@ -322,7 +322,7 @@
   {
     "surface": "やつら",
     "reading": "やつら",
-    "source": "Project-reviewed/manual; ordinary kana lexical form 奴ら, added during exact-override decomposition"
+    "source": "Project-reviewed/manual; ordinary kana lexical form 奴ら"
   },
   {
     "surface": "うみねこ",
@@ -358,5 +358,11 @@
     "reading": "こころ",
     "pattern": "心が叫びたがってるんだ。",
     "source": "Project-reviewed title-context lexical reading; this title selects 心 こころ"
+  },
+  {
+    "surface": "奇譚",
+    "reading": "きたん",
+    "source": "Project-reviewed/manual",
+    "pattern": "奇譚"
   }
 ]

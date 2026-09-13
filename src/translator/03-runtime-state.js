@@ -22,6 +22,7 @@ function createRuntimeState() {
         kanaLexicalReadingDictionary: new Map(),
         kanaLexicalReadingPrefixes: new Set(),
         loanwordDictionary: new Map(),
+        loanwordMetadataDictionary: new Map(),
         loanwordPrefixes: new Set(),
         compoundWordDictionary: new Map(),
         atejiDictionary: new Map(),

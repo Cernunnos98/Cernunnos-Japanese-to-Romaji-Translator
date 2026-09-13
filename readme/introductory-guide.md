@@ -115,6 +115,19 @@ Itai no wa Iya nano de Bougyoryoku ni Kyokufuri Shitai to Omoimasu.
 
 When a test expectation is disputed, check Rule 0 first.
 
+Reviewed foreign-derived expressions are whole-expression decisions, not formatting hints. For example:
+
+```text
+デスノート → Death Note
+ワンピース → One Piece
+ロシア語 → Russia-go
+トルコ語 → Turkey-go
+```
+
+The reviewed output's recognition span, spacing and capitalisation are authoritative. CJ2R must not turn `デスノート` into a phonetic `Desunooto`/`Desu Nooto`, or re-case an established spelling such as `eBay` or `SpaceX`. Foreign-source spellings use the project's conventional unaccented Latin/ASCII runtime form; original accented spellings are retained in provenance/audit evidence.
+
+`country + 語` is not generated mechanically. Only explicitly reviewed modern language-name compounds receive forms such as `Russia-go` or `Turkey-go`; a bare country mapping does not authorise a nonstandard language name.
+
 ## 4. Translation flow
 
 A normal translation follows this broad path:
@@ -139,7 +152,7 @@ capitalisation, spacing and punctuation
 final Romaji
 ```
 
-The complete normalised sentence must reach Kuromoji before ordinary lexical decisions are made. Do not cut recognised words out of the raw Japanese before tokenisation. CJ2R performs lexical repair and merging afterwards so Kuromoji retains sentence context.
+The complete normalised sentence must reach Kuromoji before ordinary lexical decisions are made. Do not cut recognised words out of the raw Japanese before tokenisation. CJ2R performs lexical repair and merging afterwards so Kuromoji retains sentence context. Reviewed loanword/name spans can therefore cross or replace Kuromoji boundaries after tokenisation without allowing those boundaries to invent spaces or capitalisation inside the authoritative output.
 
 For the exact pass order and resolver precedence, use `readme/cj2r-architectural-control-flow.md`.
 
@@ -295,7 +308,7 @@ Many corrections belong in data rather than JavaScript.
 
 A normal JSON edit does not require rebuilding `translator-engine.js`. Rebuild only when JavaScript loading, schema or interpretation code changes.
 
-Some externally derived files have recorded provenance hashes. Follow `readme/translator-guide.md` when changing one of those files.
+Some externally derived files have recorded provenance hashes. Follow `readme/translator-guide.md` and the maintained provenance manifests when changing one of those files.
 
 ## 9. Changing QA
 

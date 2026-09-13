@@ -120,7 +120,7 @@ flowchart TD
     TS29 --> TS30[30 Merge scoped title-reading evidence\n[M06 loader + M07 mergeTitleReadingEvidenceTokens]\n[DATA data/title-readings/title-reading-evidence.json]]
     TS30 --> TS31[31 Merge known phrase / compound spans\n[M09 mergeKnownPhraseTokens]]
     TS31 --> TS32[32 Merge attested Rendaku / non-Rendaku evidence\n[M07 mergeRendakuEvidenceTokens]\n[DATA data/rendaku/rendaku-evidence.json]]
-    TS32 --> TS33[33 Merge source-language loanwords\n[M07 mergeLoanwordTokens]\nAmbiguous partial-token segmentations stay unsplit]
+    TS32 --> TS33[33 Merge source-language loanwords\n[M07 mergeLoanwordTokens]\nLongest reviewed whole span wins; preserve reviewed spacing/casing\nAmbiguous partial-token segmentations stay unsplit]
     TS33 --> TS34[34 General-word span rescue/fallback\n[M07 mergeGeneralWordTokens]\nPreserve existing numeral + 助数詞 structure; general-word evidence cannot replace it\n[DATA data/general-words/general-words-term-bank-1.json]]
     TS34 --> TS35[35 Annotate contextual legitimate-reading evidence\n[M08 annotateContextualReadingEvidence]\nToken-neighbour feature scores; insufficient margin stays ambiguous\n[DATA data/reading-evidence/contextual-reading-evidence.json]]
     TS35 --> TS36[36 Annotate morphological output boundaries\n[M09 annotateMorphologicalOutputBoundaries]\nCarry explicit same-word/conjunctive joins while preserving separate auxiliaries]
@@ -158,7 +158,7 @@ flowchart TD
     RR7 -->|no| RR8{13 True grammatical particle?}
     RR8 -->|yes| RPART[Particle pronunciation\nは→wa / へ→e / を→o only grammatically\n[M10 getParticleReading]]
     RR8 -->|no| RR9{14 Loanword evidence?}
-    RR9 -->|yes| RLOAN[Use source-language output\n[M08 lookup + token evidence]\nDATA loanwords]
+    RR9 -->|yes| RLOAN[Use reviewed source-language output\nPreserve stored spacing/casing; typed country-language scope stays whole-span only\n[M08 lookup + token evidence]\nDATA loanwords]
     RR9 -->|no| RR10{15 Reviewed/common whole-word reading already matched?}
     RR10 -->|yes| RCOMMON[Use reviewed contextual whole-word reading]
     RR10 -->|no| RR11{16 Historical-kana evidence?}
@@ -351,7 +351,7 @@ Only refines an existing join boundary; never replaces a structural space]
 | **M04** | `src/translator/04-data-and-kanji-loaders.js` | JSON loading/failure policy, Kanji variant normalisation, Japanese-use Han scope classification, structured Kanji Readings data/rendering, overrides. |
 | **M05** | `src/translator/05-romaji-core.js` | Input normalisation and deterministic kana→Romaji Rule 0 mechanics. |
 | **M06** | `src/translator/06-lexical-and-evidence-loaders.js` | Loads lexical/evidence banks, proper-noun candidates and builds the authoritative span index. |
-| **M07** | `src/translator/07-token-merging.js` | Evidence-driven token/span merging: common/general words, names, ateji, loanwords, Rendaku, historical kana and variants; reviewed loanword tokens may be uniquely decomposed only when the whole token lacks reviewed spelling. |
+| **M07** | `src/translator/07-token-merging.js` | Evidence-driven token/span merging: common/general words, names, ateji, loanwords, Rendaku, historical kana and variants; reviewed loanwords use longest complete matching, safe width-normalised aliases and unique decomposition only when the whole token lacks reviewed spelling. |
 | **M08** | `src/translator/08-reading-resolver.js` | Proper-noun ranking, exact dictionary rescue, orthographic pronunciations, lexical/evidence lookups and contextual candidate scoring. |
 | **M09** | `src/translator/09-token-repair-and-grammar.js` | Typed temporal/numeric analysis, morphology, sokuon/kana/role boundary repairs, Latin passthrough, grammar, context overrides, phrases and output-boundary annotations. |
 | **M10** | `src/translator/10-output-and-translation-pipeline.js` | Exact override, authoritative-span rescue, resolver precedence, final sentence-level resolution verification, token conversion, casing/joining/punctuation, unresolved-Han guard and diagnostics. |
@@ -407,7 +407,7 @@ A single input can therefore be:
 | Wrong output symptom | First place to investigate | Do not solve it by… |
 |---|---|---|
 | Entire reviewed title has a special spelling | Exact override (`overrides.json`) | Hiding a reusable lower-level bug with an override. |
-| Foreign name/loanword is phonetic instead of official/source spelling | Loanword evidence / Latin passthrough | Guessing source spelling from katakana. |
+| Foreign name/loanword is phonetic, mis-spaced or re-cased instead of using its reviewed source form | Loanword evidence / Latin passthrough / protected source-output formatting | Guessing source spelling from katakana or rebuilding an authoritative mapping from tokenizer pieces. |
 | Japanese name is split or read wrongly | Reviewed whole-name spans first (crossing Kuromoji boundaries and preserving Japanese name order) → proper-noun candidates → name variants; title-only names stay scoped to title evidence and unresolved name ambiguity remains reviewable. | Joining individual Kanji readings or promoting a context-only name reading globally. |
 | Counter/date/age/numeral reading is wrong | Counter/date evidence | Creating a blanket sound-change rule. |
 | Compound needs/blocks Rendaku | Rendaku evidence | Blanket consonant voicing. |

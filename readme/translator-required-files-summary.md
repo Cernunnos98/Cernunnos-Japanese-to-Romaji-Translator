@@ -53,7 +53,8 @@ The browser does not fetch these during normal translation, but maintained relea
 
 - `data/external-evidence-source-provenance.json` — pinned hashes and source/licence records for tracked external evidence;
 - `data/translator-data-provenance-classification.json` — provenance classification for every maintained file under `data/`;
-- `readme/translator-data-provenance-classification-audit.md` — human-readable provenance summary.
+- `readme/translator-data-provenance-classification-audit.md` — human-readable provenance summary;
+- `licenses and sources/NINJAL Loanword Survey Attribution.md` — documents NINJAL's corroborative/non-donor role and the project's non-redistribution policy for survey rows.
 
 Every maintained `data/` file must have a complete provenance classification.
 

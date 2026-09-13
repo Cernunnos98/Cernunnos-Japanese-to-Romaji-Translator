@@ -181,7 +181,9 @@ When extending a repair layer, begin with a reproducible real-world failure and 
 
 Every maintained `data/` file is classified in `data/translator-data-provenance-classification.json`; maintained classifications must not remain `partial`.
 
-Externally derived evidence with a sufficiently specific source basis is pinned in `data/external-evidence-source-provenance.json`. After intentionally changing a tracked file, refresh its recorded hash with:
+Externally derived evidence with a sufficiently specific source basis is pinned in `data/external-evidence-source-provenance.json`. NINJAL survey material is corroborative/non-donor evidence only and must not be copied into runtime rows without independently distributable authoritative spelling evidence.
+
+After intentionally changing a tracked file, refresh its recorded hash with:
 
 ```bash
 node tools/qa/update-external-evidence-source-provenance-hashes.js
@@ -588,7 +590,7 @@ Tokenisation-mutation QA deliberately supplies alternative artificial token part
 
 - **Owner:** M07 `mergeLoanwordTokens`
 - **Flow:** T32 tokens → loanword output spans
-- **Rules / constraints:** Prefer reviewed whole-token source spelling. Partial-token decomposition only when no whole-token spelling exists and exactly one reviewed complete segmentation is possible. If only part of a contiguous Katakana span has reviewed source-language spelling, preserve the mechanically romanised remainder and require review rather than presenting a hybrid result as authoritative.
+- **Rules / constraints:** Prefer the longest reviewed complete surface and treat its direct Romaji as an atomic source-language output: internal spacing and casing come from the reviewed row, not from Kuromoji boundaries or later title-casing. Width-normalised aliases may point to the same reviewed surface/output for mixed/full-width Latin and digit spellings. Partial-token decomposition is allowed only when no whole-token spelling exists and exactly one reviewed complete segmentation is possible. If only part of a contiguous Katakana span has reviewed source-language spelling, preserve the mechanically romanised remainder and require review rather than presenting a hybrid result as authoritative. Typed `country-name`/`country-language` rows are narrowly scoped metadata: only reviewed whole `country + 語` expressions may emit `Country-go`, and a bare country mapping must be suppressed inside an unapproved language compound rather than leaking a hybrid such as `United Kingdom-go`.
 - **Uses:** `data/loanwords/loanwords-term-bank-1.json`
 - **Focused QA:** `names-and-loanwords.js`
 
@@ -726,7 +728,7 @@ Use this phase when the token stream is already correct but CJ2R chooses the **w
 
 - **Owner:** M10 + M08 lookup
 - **Flow:** reviewed loanword → source-language output
-- **Rules / constraints:** Source spelling beats kana-derived output where reviewed.
+- **Rules / constraints:** Reviewed source spelling beats kana-derived output. Preserve the bank's reviewed word boundaries and casing exactly; runtime foreign spellings are ASCII-safe project forms, while original accented/source spellings belong in provenance/audit evidence. `country-language` evidence applies only to the complete reviewed surface and must not be synthesised from a bare country row.
 - **Uses:** loanword bank
 - **Focused QA:** `names-and-loanwords.js`
 
@@ -982,9 +984,9 @@ Use this phase when individual token outputs are correct but the **final sentenc
 
 - **Owner:** M10 `capitalizeRomaji`/formatting
 - **Flow:** lexical token → title-cased token
-- **Rules / constraints:** Apply project casing after reading resolution; direct source spellings retain their reviewed form where specified.
+- **Rules / constraints:** Apply project casing after reading resolution to ordinary lexical Romaji only. Direct reviewed source-language output is already formatted evidence and must retain its stored casing and internal spacing (`eBay`, `SpaceX`, multiword titles/brands, etc.); never run generic title-casing over it.
 - **Uses:** Rule 0
-- **Focused QA:** `romaji-core.js`
+- **Focused QA:** `romaji-core.js` + `names-and-loanwords.js`
 
 **O06 — Compact title-number boundary**
 

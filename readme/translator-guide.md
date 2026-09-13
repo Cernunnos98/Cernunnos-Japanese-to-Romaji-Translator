@@ -97,14 +97,21 @@ Contains reviewed whole-word ateji readings. Ateji is resolved as a lexical unit
 
 ### `data/loanwords/`
 
-Contains reviewed source-language spellings where Rule 0 requires them.
+Contains reviewed source-language mappings where Rule 0 requires them. The maintained bank is a **mixed** evidence set: existing CJ2R-reviewed decisions retain precedence, while conservatively accepted JMdict/Jitendex and JMnedict evidence expands lexical loanwords, companies, products, works, organisations and similar established foreign-derived expressions.
+
+A reviewed whole-expression mapping is atomic. The stored output controls its word recognition, internal spacing and capitalisation; CJ2R must not reconstruct that output from Kuromoji pieces or title-case it afterwards. Longest complete reviewed matches therefore outrank shorter loanword components. Normalised input aliases may be registered for width-equivalent spellings so mixed/full-width Latin or digit forms still reach the same reviewed mapping.
+
+Runtime foreign-source output uses CJ2R's conventional unaccented Latin/ASCII form. The original source spelling, including diacritics, belongs in provenance/audit evidence rather than being silently discarded. For example, reviewed evidence may produce `デビュー → Debut` and `メルヘン → Marchen` while retaining the accented donor spelling in the audit record.
+
+The bank also supports narrowly typed `country-name` and `country-language` rows. A reviewed modern language-name compound such as `ロシア語 → Russia-go` or `トルコ語 → Turkey-go` is an explicit whole-expression decision, not a productive rule. A bare country mapping must not leak into an unreviewed `country + 語` string; for example, `イギリス → United Kingdom` does not authorise `イギリス語 → United Kingdom-go`.
 
 Do not guess a foreign spelling from katakana. If Kuromoji emits several reviewed loanwords as one katakana token, CJ2R may split it only when:
 
 - no reviewed whole-token spelling exists; and
 - exactly one complete segmentation into reviewed loanword entries is possible.
 
-Ambiguous segmentations remain unsplit.
+Ambiguous segmentations, conflicting homographs, unverifiable partial-source records and descriptive/non-name outputs remain excluded or reviewable rather than being promoted for coverage.
+
 
 ### `data/nouns/`
 
@@ -215,7 +222,9 @@ Keep the established schema and any source, confidence, category, variant-scope 
 
 ### Do not import dictionaries wholesale
 
-External dictionaries are candidate/reference sources, not automatic runtime authority. Broad imports can introduce ambiguous names, uncommon readings or conventions that conflict with Rule 0.
+External dictionaries are candidate/reference sources, not automatic runtime authority. Broad imports can introduce ambiguous names, uncommon readings or conventions that conflict with Rule 0. Existing project-reviewed mappings take precedence over bulk-derived candidates, and any candidate whose complete source scope, identity or formatting cannot be justified should stay out of the runtime bank.
+
+For loanwords specifically, preserve the distinction between the compact runtime bank and its audit evidence. Do not copy descriptive JMnedict glosses, multiple aliases, unresolved homographs or uncertain partial-source etymologies into `loanwords-term-bank-1.json` merely to increase coverage.
 
 Use the controlled review paths:
 
@@ -242,6 +251,8 @@ CJ2R uses two project-level records:
 - `data/translator-data-provenance-classification.json` classifies every maintained file under `data/`.
 
 The human-readable summary is `readme/translator-data-provenance-classification-audit.md`.
+
+NINJAL loanword surveys are used only as usage/recognition and coverage-gap corroboration. They do not supply runtime source spelling, and CJ2R does not redistribute the survey rows. See `licenses and sources/NINJAL Loanword Survey Attribution.md`.
 
 A `partial` classification may be used while investigating provenance, but it cannot ship in a release tree.
 

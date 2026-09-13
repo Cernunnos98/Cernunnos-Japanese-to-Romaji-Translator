@@ -1003,28 +1003,6 @@
         ];
     }
 
-    function runAuthoritativeSpanGateFixture({ surface, lookupSurface = surface, category, tokens, nameVariant = false }) {
-        const originalDictionary = runtimeState.authoritativeSpanDictionary;
-        const originalPrefixes = runtimeState.authoritativeSpanPrefixes;
-        const originalGeneralVariants = runtimeState.generalKanjiVariantDictionary;
-        const originalNameVariants = runtimeState.nameKanjiVariantDictionary;
-        try {
-            runtimeState.authoritativeSpanDictionary = new Map([[lookupSurface, {
-                reading: 'あ', source: 'qa-authoritative-gate', confidence: 1, priority: 100, category, nameVariants: nameVariant
-            }]]);
-            runtimeState.authoritativeSpanPrefixes = new Set();
-            addSurfacePrefixes(runtimeState.authoritativeSpanPrefixes, lookupSurface);
-            runtimeState.generalKanjiVariantDictionary = new Map();
-            runtimeState.nameKanjiVariantDictionary = nameVariant ? new Map([[surface, lookupSurface]]) : new Map();
-            return findLongestAuthoritativeSpan(tokens, 0);
-        } finally {
-            runtimeState.authoritativeSpanDictionary = originalDictionary;
-            runtimeState.authoritativeSpanPrefixes = originalPrefixes;
-            runtimeState.generalKanjiVariantDictionary = originalGeneralVariants;
-            runtimeState.nameKanjiVariantDictionary = originalNameVariants;
-        }
-    }
-    
     function getTokenisationAndMergingRegressionChecks() {
         return [
             { id: 'MECH-TOKENISATION-SOURCE-SPAN-OFFSETS', suite: 'unit', rule: 'Every token remains traceable to its original continuous Japanese source offsets', input: 'ぼん / の / うじ', expected: '0-2|2-3|3-5', run: () => attachSourceTokenSpans([{ surface_form: 'ぼん' }, { surface_form: 'の' }, { surface_form: 'うじ' }], 'ぼんのうじ').map(token => `${token.sourceStart}-${token.sourceEnd}`).join('|') },
@@ -1057,10 +1035,6 @@
             { id: 'PERF-COMMON-WORD-PREFIX', suite: 'unit', rule: 'Common-word span scans stop when no dictionary prefix remains possible', input: 'common-word prefix index', expected: 'indexed', run: () => { const surface = [...runtimeState.commonWordDictionary.keys()].find(value => Array.from(value).length > 1); return surface && runtimeState.commonWordPrefixes.has(Array.from(surface)[0]) ? 'indexed' : 'missing'; } },
             { id: 'CHECK-LONG-KUROMOJI-RESCUE-9', suite: 'unit', rule: 'Exact Kuromoji rescue is dictionary-prefix bounded rather than capped at eight tokens', input: '9-token exact lexical rescue', expected: '9', run: () => { const original = runtimeState.tokenizer; const surface = 'あいうえおかきくけ'; const tokens = Array.from(surface).map(value => ({ surface_form: value, pos: '名詞', pos_detail_1: '一般' })); try { runtimeState.tokenizer = { viterbi_builder: { trie: { lookup: value => value === surface ? 7 : -1, commonPrefixSearch: value => value.startsWith(surface) ? [{ k: surface, v: 7 }] : [] } }, token_info_dictionary: { target_map: { 7: [1] }, getFeatures: () => `${surface},連体詞,*,*,*,*,*,${surface},${surface},${surface}` } }; return String(findLongestExactDictionaryRescue(tokens, 0, surface)?.length || 0); } finally { runtimeState.tokenizer = original; } } },
             { id: 'CHECK-LONG-AUTHORITATIVE-SPAN-13', suite: 'unit', rule: 'Authoritative spans terminate on their prefix index rather than a twelve-token ceiling', input: '13-token authoritative span', expected: '13', run: () => { const originalDictionary = runtimeState.authoritativeSpanDictionary; const originalPrefixes = runtimeState.authoritativeSpanPrefixes; const surface = '亜亜亜亜亜亜亜亜亜亜亜亜亜'; const tokens = Array.from(surface).map(value => ({ surface_form: value, pos: '名詞', reading: '*' })); try { runtimeState.authoritativeSpanDictionary = new Map([[surface, { reading: 'あ', source: 'qa', confidence: 1, priority: 100, category: 'ateji' }]]); runtimeState.authoritativeSpanPrefixes = new Set(); addSurfacePrefixes(runtimeState.authoritativeSpanPrefixes, surface); return String(findLongestAuthoritativeSpan(tokens, 0)?.length || 0); } finally { runtimeState.authoritativeSpanDictionary = originalDictionary; runtimeState.authoritativeSpanPrefixes = originalPrefixes; } } },
-            { id: 'AUTH-SPAN-GATE-DIRECT-CATEGORY', suite: 'unit', rule: 'Direct-authority categories can authorise an exact single-token span without relying on multi-token or variant gates', input: 'single-token ateji authority', expected: '1', run: () => String(runAuthoritativeSpanGateFixture({ surface: '亜', category: 'ateji', tokens: [{ surface_form: '亜', pos: '名詞', reading: 'ア' }] })?.length || 0) },
-            { id: 'AUTH-SPAN-GATE-GENERAL-WORD-RESCUE', suite: 'unit', rule: 'General-word evidence is authoritative only when the candidate token still needs authoritative reading rescue', input: 'single unresolved general-word token', expected: '1', run: () => String(runAuthoritativeSpanGateFixture({ surface: '𰻞', category: 'general-word', tokens: [{ surface_form: '𰻞', pos: '名詞', pos_detail_1: '一般', reading: '*', pronunciation: '*' }] })?.length || 0) },
-            { id: 'AUTH-SPAN-GATE-MULTI-TOKEN-NON-GENERAL', suite: 'unit', rule: 'A non-general authoritative entry spanning multiple tokens is accepted independently of the direct-category and variant gates', input: 'two-token compound authority', expected: '2', run: () => String(runAuthoritativeSpanGateFixture({ surface: '甲乙', category: 'compound-word', tokens: [{ surface_form: '甲', pos: '名詞', reading: 'コウ' }, { surface_form: '乙', pos: '名詞', reading: 'オツ' }] })?.length || 0) },
-            { id: 'AUTH-SPAN-GATE-VARIANT-SINGLE-TOKEN', suite: 'unit', rule: 'A variant-normalised non-general entry can authorise a single token even when no other authoritative-span gate applies', input: '髙 → 高 reviewed-name authority', expected: '1', run: () => String(runAuthoritativeSpanGateFixture({ surface: '髙', lookupSurface: '高', category: 'reviewed-name', nameVariant: true, tokens: [{ surface_form: '髙', pos: '名詞', reading: 'タカ' }] })?.length || 0) },
             { id: 'SRC-GENERAL-WORD-BANK-LOADED', suite: 'unit', rule: 'General whole-word evidence is loaded as a substantial fallback bank without replacing reviewed sources', input: 'general-word bank', expected: 'true', run: () => String(runtimeState.generalWordDictionary.size > 10000) },
             { id: 'SRC-GENERAL-WORD-UNIQUE-FALLBACK', suite: 'unit', rule: 'Rule 0 may use a high-priority complete-word reading when Kuromoji supplies no reading', input: '大人 / no Kuromoji reading', expected: 'おとな', run: () => normalizeKanaReading(resolveGeneralWordFallback({ surface_form: '大人', pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*', reading: '*', pronunciation: '*' })?.reading || '') },
             { id: 'R0-GENERAL-WORD-SINGLE-TOKEN-AUTHORITY', suite: 'engine', rule: 'Single-reading whole-word evidence rescues an unresolved single Kuromoji token', input: '且', expected: 'Katsu' },
@@ -1575,7 +1549,22 @@
             { id: 'CHECK-TITLE-GINTAMA-YOROZUYA-SCOPE', suite: 'unit', rule: 'Gintama Yorozuya evidence is constrained to the reviewed full-title context and does not rewrite generic 万事屋', input: 'reviewed title / generic 万事屋', expected: 'match|no-match', run: () => { const rule = (runtimeState.titleReadingDictionary.get('万事屋') || []).find(item => item.romaji === 'Yorozuya'); return `${rule?.pattern?.test('劇場版 銀魂 完結篇 万事屋よ永遠なれ') ? 'match' : 'no-match'}|${rule?.pattern?.test('万事屋') ? 'match' : 'no-match'}`; } },
             { id: 'CHECK-SENGOKU-YOUKO', suite: 'engine', rule: 'Attested lexical 妖狐 evidence resolves 戦国妖狐 without a generic override', input: '戦国妖狐', expected: 'Sengoku Youko', expectedRequiresReview: false },
             { id: 'CHECK-NUE-NO-ISHIBUMI', suite: 'engine', rule: 'Publisher-backed scoped whole-title evidence preserves 鵼の碑 as Nue no Ishibumi without a generic override', input: '鵼の碑', expected: 'Nue no Ishibumi', expectedRequiresReview: false },
-            { id: 'CHECK-TOUHAI', suite: 'engine', rule: 'Scoped title-reading evidence resolves 凍牌 and 闘牌録 while Rule 0 preserves Rate and Maajan', input: '凍牌～裏レート麻雀闘牌録～', expected: 'Touhai ~Ura Rate Maajan Touhairoku~', expectedRequiresReview: true }
+            { id: 'CHECK-TOUHAI', suite: 'engine', rule: 'Scoped title-reading evidence resolves 凍牌 and 闘牌録 while Rule 0 preserves Rate and Maajan', input: '凍牌～裏レート麻雀闘牌録～', expected: 'Touhai ~Ura Rate Maajan Touhairoku~', expectedRequiresReview: true },
+            { id: 'MECH-LOANWORD-DEATH-NOTE-REVIEWED-OUTPUT', suite: 'engine', rule: 'Reviewed loanword output preserves Death Note for デスノート rather than falling back to mechanical kana romanisation', input: 'デスノート', expected: 'Death Note', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-GUNDAM-TOKEN-SPLIT', suite: 'engine', rule: 'Reviewed whole-span Katakana evidence prevents Kuromoji ガン and ダム segmentation from inserting a false output space', input: '機動戦士ガンダム', expected: 'Kidou Senshi Gundam', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-ONE-PIECE-REVIEWED-OUTPUT', suite: 'engine', rule: 'Reviewed loanword output preserves One Piece for ワンピース rather than falling back to mechanical kana romanisation', input: 'ワンピース', expected: 'One Piece', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-STRAY-DOGS-REVIEWED-OUTPUT', suite: 'engine', rule: 'Reviewed loanword output preserves Stray Dogs for ストレイドッグス inside a mixed-script title', input: '文豪ストレイドッグス', expected: 'Bungou Stray Dogs', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-ASCII-FOLD-MARCHEN', suite: 'engine', rule: 'Reviewed foreign-source spellings are emitted in CJ2R ASCII form while preserving the authoritative lexical identity', input: 'メルヘン', expected: 'Marchen', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-ASCII-FOLD-DEBUT', suite: 'engine', rule: 'Reviewed French source spelling is emitted using the approved unaccented CJ2R runtime form rather than mechanical Katakana', input: 'デビュー', expected: 'Debut', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-GERMAN-SOURCE', suite: 'engine', rule: 'Reviewed German-source lexical evidence wins over phonetic Katakana romanisation for a safe full-source loanword', input: 'アルバイト', expected: 'Arbeit', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-FRENCH-SOURCE', suite: 'engine', rule: 'Reviewed French-source lexical evidence wins over phonetic Katakana romanisation for a safe full-source loanword', input: 'アンケート', expected: 'Enquete', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-PORTUGUESE-SOURCE', suite: 'engine', rule: 'Reviewed Portuguese-source lexical evidence wins over phonetic Katakana romanisation for a safe full-source loanword', input: 'ヨーロッパ', expected: 'Europa', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-DUTCH-SOURCE', suite: 'engine', rule: 'Reviewed Dutch-source lexical evidence wins over phonetic Katakana romanisation for a safe full-source loanword', input: 'ガラス', expected: 'Glas', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-AUTHORITATIVE-CASE-EBAY', suite: 'engine', rule: 'Reviewed source-language brand casing is preserved exactly and is not rewritten by title-style output capitalisation', input: 'イーベイ', expected: 'eBay', expectedRequiresReview: false },
+            { id: 'MECH-MIXED-SCRIPT-LOANWORD-SPACEX-ALIAS', suite: 'engine', rule: 'Normalised mixed-script aliases resolve to the same reviewed source-language spelling without losing internal brand casing', input: 'スペースX', expected: 'SpaceX', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-HOMOGRAPH-BUS-PRECEDENCE', suite: 'engine', rule: 'Existing reviewed CJ2R homograph decisions retain precedence over conflicting external source-language candidates', input: 'バス', expected: 'Bus', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-AUTHORITY-UNCTAD', suite: 'engine', rule: 'Reviewed organisation evidence preserves the established source acronym instead of expanding it into a descriptive English name', input: 'アンクタッド', expected: 'UNCTAD', expectedRequiresReview: false },
+            { id: 'MECH-LOANWORD-UNVERIFIED-PARTIAL-SOURCE-EXCLUDED', suite: 'engine', rule: 'A source-language phrase whose full-versus-partial status cannot be proven is excluded instead of being promoted as authoritative output', input: 'カボチャ', expected: 'Kabocha', expectedRequiresReview: false }
         ];
     }
 
@@ -1900,7 +1889,14 @@
             { id: 'OVERRIDE-EXACT-HELPER', suite: 'unit', rule: 'Rule 0 compatible exact-override infrastructure', input: '例', expected: 'Rei', run: () => findExactOverride('例', { '例': 'Rei' })?.value || '' },
             { id: 'R0-COMMON-KAKURIYO-YADOMESHI', suite: 'engine', rule: 'R0.1 reviewed context-scoped whole-word evidence preserves Kakuriyo and Yadomeshi', input: 'かくりよの宿飯', expected: 'Kakuriyo no Yadomeshi' },
             { id: 'CHECK-MOTOKANO', suite: 'engine', rule: 'Reviewed common-word Romaji preserves the lexical boundary in 元カノ without a generic override', input: '元カノ', expected: 'Moto Kano', expectedRequiresReview: false },
-            { id: 'CHECK-ROSHIAGO', suite: 'engine', rule: 'Language-name compounds with 語 remain one lexical Romaji word', input: 'ロシア語', expected: 'Roshiago', expectedRequiresReview: false },
+            { id: 'CHECK-RUSSIA-COUNTRY', suite: 'engine', rule: 'Reviewed foreign country names use the conventional English country name', input: 'ロシア', expected: 'Russia', expectedRequiresReview: false },
+            { id: 'CHECK-RUSSIA-GO', suite: 'engine', rule: 'Current established country-derived language names preserve the reviewed English country name plus Japanese -go', input: 'ロシア語', expected: 'Russia-go', expectedRequiresReview: false },
+            { id: 'CHECK-GERMANY-GO', suite: 'engine', rule: 'Established country-derived language names use reviewed whole-span evidence', input: 'ドイツ語', expected: 'Germany-go', expectedRequiresReview: false },
+            { id: 'CHECK-FRANCE-GO', suite: 'engine', rule: 'Established country-derived language names use reviewed whole-span evidence', input: 'フランス語', expected: 'France-go', expectedRequiresReview: false },
+            { id: 'CHECK-TURKEY-GO', suite: 'engine', rule: 'Conventional English exonyms are retained inside established country-derived language names', input: 'トルコ語', expected: 'Turkey-go', expectedRequiresReview: false },
+            { id: 'CHECK-THAILAND-GO', suite: 'engine', rule: 'An ambiguous bare country surface may still have authoritative whole-span language evidence', input: 'タイ語', expected: 'Thailand-go', expectedRequiresReview: false },
+            { id: 'CHECK-UK-GO-NONSTANDARD', suite: 'engine', rule: 'Unapproved country-plus-go compounds must not inherit a bare country source-language mapping', input: 'イギリス語', expected: 'Igirisugo', expectedRequiresReview: true },
+            { id: 'CHECK-AMERICA-GO-NONSTANDARD', suite: 'engine', rule: 'Unapproved country-plus-go compounds fall back to Japanese romanisation instead of fabricated English-country hybrids', input: 'アメリカ語', expected: 'Amerikago', expectedRequiresReview: true },
             { id: 'TITLE-BAKEMONOGATARI', suite: 'engine', rule: 'Scoped official title-reading evidence preserves Bakemonogatari without a generic override', input: '化物語', expected: 'Bakemonogatari' },
             { id: 'CHECK-GINTAMA', suite: 'engine', rule: 'Scoped title-reading evidence preserves Gintama without a generic override', input: '銀魂', expected: 'Gintama', expectedRequiresReview: false },
             { id: 'CHECK-JUJUTSUKAISEN', suite: 'engine', rule: 'Scoped title-reading evidence preserves Jujutsu Kaisen without a generic override', input: '呪術廻戦', expected: 'Jujutsu Kaisen', expectedRequiresReview: false },
@@ -2454,7 +2450,14 @@
         "TITLE-RANMA-SEGMENT-BOUNDARY",
         "TITLE-RANMA-COMPACT-NONLEAK",
         "CHECK-MOTOKANO",
-        "CHECK-ROSHIAGO",
+        "CHECK-RUSSIA-COUNTRY",
+        "CHECK-RUSSIA-GO",
+        "CHECK-GERMANY-GO",
+        "CHECK-FRANCE-GO",
+        "CHECK-TURKEY-GO",
+        "CHECK-THAILAND-GO",
+        "CHECK-UK-GO-NONSTANDARD",
+        "CHECK-AMERICA-GO-NONSTANDARD",
         "CHECK-BAKEMONOGATARI",
         "CHECK-GINTAMA",
         "CHECK-JUJUTSUKAISEN",
@@ -2517,6 +2520,21 @@
         "CHECK-NUE-NO-ISHIBUMI",
         "CHECK-TOUHAI",
         "CHECK-KOMI-CONTEXT",
+        "MECH-LOANWORD-DEATH-NOTE-REVIEWED-OUTPUT",
+        "MECH-LOANWORD-GUNDAM-TOKEN-SPLIT",
+        "MECH-LOANWORD-ONE-PIECE-REVIEWED-OUTPUT",
+        "MECH-LOANWORD-STRAY-DOGS-REVIEWED-OUTPUT",
+        "MECH-LOANWORD-ASCII-FOLD-MARCHEN",
+        "MECH-LOANWORD-ASCII-FOLD-DEBUT",
+        "MECH-LOANWORD-GERMAN-SOURCE",
+        "MECH-LOANWORD-FRENCH-SOURCE",
+        "MECH-LOANWORD-PORTUGUESE-SOURCE",
+        "MECH-LOANWORD-DUTCH-SOURCE",
+        "MECH-LOANWORD-AUTHORITATIVE-CASE-EBAY",
+        "MECH-MIXED-SCRIPT-LOANWORD-SPACEX-ALIAS",
+        "MECH-LOANWORD-HOMOGRAPH-BUS-PRECEDENCE",
+        "MECH-LOANWORD-AUTHORITY-UNCTAD",
+        "MECH-LOANWORD-UNVERIFIED-PARTIAL-SOURCE-EXCLUDED",
     ]);
 
     const regressionAreaDefinitions = Object.freeze([

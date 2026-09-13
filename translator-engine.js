@@ -37,7 +37,7 @@
  *   variantProperNounMatched?: boolean, variantCanonicalRetokenized?: boolean, variantOriginalSurface?: string, variantLookupSurface?: string, variantMappings?: any[],
  *   latinPassthroughMatched?: boolean, latinPassthroughOutput?: string,
  *   knownPhraseMatched?: boolean, knownPhraseValue?: string, knownPhraseSource?: string,
- *   loanwordMatched?: boolean, loanwordOutput?: string,
+ *   loanwordMatched?: boolean, loanwordOutput?: string, suppressLoanwordSourceSpelling?: boolean,
  *   commonWordMatched?: boolean, commonWordReading?: string|null, commonWordRomaji?: string|null,
  *   contextualReadingEvidenceMatched?: boolean, contextualReadingEvidenceReading?: string|null, contextualReadingEvidenceRomaji?: string|null, contextualReadingEvidenceSource?: string, contextualReadingEvidenceScore?: number, contextualReadingEvidenceMargin?: number, contextualReadingEvidenceAmbiguous?: boolean, contextualReadingEvidenceCandidates?: CJ2RReadingCandidate[],
  *   historicalKanaEvidenceMatched?: boolean, historicalKanaEvidenceReading?: string|null,
@@ -70,7 +70,7 @@
  *   titleReadingDictionary: Map<string, any>, titleReadingPrefixes: Set<string>, kanjiDictionary: Record<string, {on: string[], kun: string[]}>, tokenizer: CJ2RTokenizer|null,
  *   commonWordDictionary: Map<string, any>, commonWordPrefixes: Set<string>, commonWordInflectionDictionary: Map<string, any>, commonWordInflectionPrefixes: Set<string>,
  *   generalWordDictionary: Map<string, any>, generalWordPrefixes: Set<string>, kanaLexicalReadingDictionary: Map<string, any>, kanaLexicalReadingPrefixes: Set<string>,
- *   loanwordDictionary: Map<string, any>, loanwordPrefixes: Set<string>, compoundWordDictionary: Map<string, any>, atejiDictionary: Map<string, any>, atejiPrefixes: Set<string>,
+ *   loanwordDictionary: Map<string, any>, loanwordMetadataDictionary: Map<string, any>, loanwordPrefixes: Set<string>, compoundWordDictionary: Map<string, any>, atejiDictionary: Map<string, any>, atejiPrefixes: Set<string>,
  *   properNounDictionary: Map<string, any>, properNounPrefixes: Set<string>, reviewedProperNameSpanDictionary: Map<string, any>, reviewedProperNameSpanPrefixes: Set<string>,
  *   readingEvidenceDictionary: Map<string, any>, contextualReadingDictionary: Map<string, any>, contextFeatureGroups: Map<string, any>, reviewedReadingPreferenceDictionary: Map<string, any>, reviewedReadingSpanDictionary: Map<string, any>,
  *   rendakuEvidenceDictionary: Map<string, any>, rendakuEvidencePrefixes: Set<string>, historicalKanaEvidenceDictionary: Map<string, any>, historicalKanaEvidencePrefixes: Set<string>, counterDateReadingDictionary: Map<string, any>,
@@ -454,7 +454,8 @@ const assetSchemaValidators = Object.freeze({
         && hasNoConflictingRows(data, entry => entry[0], entry => entry[1]),
     'loanword-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry)
         ? isText(entry[0]) && isRule0RomajiEvidence(entry[1])
-        : isPlainObject(entry) && isText(entry.surface) && isRule0RomajiEvidence(entry.output))
+        : isPlainObject(entry) && isText(entry.surface) && isRule0RomajiEvidence(entry.output)
+            && (entry.category == null || ['country-name', 'country-language'].includes(String(entry.category))))
         && hasNoConflictingRows(data, entry => Array.isArray(entry) ? entry[0] : entry.surface, entry => normalizeReviewedRomaji(Array.isArray(entry) ? entry[1] : entry.output)),
     'compound-word-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry) && isText(entry[0]) && isSemanticKanaReading(entry[1])),
     'ateji-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry) && isText(entry[0]) && isSemanticKanaReading(entry[1]))
@@ -618,6 +619,7 @@ function createRuntimeState() {
         kanaLexicalReadingDictionary: new Map(),
         kanaLexicalReadingPrefixes: new Set(),
         loanwordDictionary: new Map(),
+        loanwordMetadataDictionary: new Map(),
         loanwordPrefixes: new Set(),
         compoundWordDictionary: new Map(),
         atejiDictionary: new Map(),
@@ -1645,7 +1647,10 @@ async function loadLoanwordDictionary() {
         for (const entry of data) {
             const surface = String(Array.isArray(entry) ? entry[0] : entry?.surface || '').trim();
             const output = normalizeDictionaryRomaji(Array.isArray(entry) ? entry[1] : entry?.output);
-            if (surface && output) setUniqueDictionaryEntry(runtimeState.loanwordDictionary, surface, output, 'loanword');
+            if (!surface || !output) continue;
+            setUniqueDictionaryEntry(runtimeState.loanwordDictionary, surface, output, 'loanword');
+            const category = Array.isArray(entry) ? '' : String(entry?.category || '').trim();
+            if (category) setUniqueDictionaryEntry(runtimeState.loanwordMetadataDictionary, surface, { category }, 'loanword metadata');
         }
     }
 }
@@ -1811,6 +1816,21 @@ function buildLexicalPrefixIndexes() {
         addSurfacePrefixes(runtimeState.titleReadingPrefixes, normalizedSurface);
     }
 
+    const loanwordEntries = [...runtimeState.loanwordDictionary.entries()];
+    for (const [surface, output] of loanwordEntries) {
+        const normalizedSurface = normalizeTranslatorInputText(surface);
+        if (normalizedSurface && normalizedSurface !== surface) {
+            const existingOutput = runtimeState.loanwordDictionary.get(normalizedSurface);
+            if (!existingOutput) {
+                runtimeState.loanwordDictionary.set(normalizedSurface, output);
+                const metadata = runtimeState.loanwordMetadataDictionary.get(surface);
+                if (metadata) runtimeState.loanwordMetadataDictionary.set(normalizedSurface, metadata);
+            } else if (existingOutput !== output) {
+                runtimeState.resourceWarnings.add(`Loanword normalization alias conflict: ${surface} -> ${normalizedSurface}`);
+            }
+        }
+    }
+
     for (const surface of runtimeState.loanwordDictionary.keys()) {
         addSurfacePrefixes(runtimeState.loanwordPrefixes, surface);
         addSurfacePrefixes(runtimeState.loanwordPrefixes, normalizeKanjiForLookup(surface));
@@ -1966,7 +1986,8 @@ function buildAuthoritativeSpanIndex() {
             source: 'source-language-loanword',
             confidence: 1,
             priority: 90,
-            category: 'loanword'
+            category: 'loanword',
+            loanwordCategory: runtimeState.loanwordMetadataDictionary.get(surface)?.category || null
         });
     }
     for (const [surface, entry] of runtimeState.reviewedProperNameSpanDictionary.entries()) {
@@ -2748,6 +2769,43 @@ function canContinueLoanword(surface) {
         || runtimeState.loanwordPrefixes.has(normalizeKanjiForLookup(originalSurface));
 }
 
+function getLoanwordMetadata(surface) {
+    const originalSurface = String(surface || '');
+    return runtimeState.loanwordMetadataDictionary.get(originalSurface)
+        || runtimeState.loanwordMetadataDictionary.get(normalizeKanjiForLookup(originalSurface))
+        || null;
+}
+
+function isReviewedCountryNameLoanword(surface) {
+    return getLoanwordMetadata(surface)?.category === 'country-name';
+}
+
+function hasReviewedCountryLanguageLoanword(surface) {
+    const originalSurface = String(surface || '');
+    const output = runtimeState.loanwordDictionary.get(originalSurface)
+        || runtimeState.loanwordDictionary.get(normalizeKanjiForLookup(originalSurface));
+    return Boolean(output && getLoanwordMetadata(originalSurface)?.category === 'country-language');
+}
+
+function shouldSuppressCountryNameLoanwordBeforeLanguageSuffix(tokens, startIndex, matchLength, matchedSurface) {
+    if (!isReviewedCountryNameLoanword(matchedSurface)) return false;
+    const nextToken = tokens?.[startIndex + matchLength];
+    if (String(nextToken?.surface_form || '') !== '語') return false;
+    return !hasReviewedCountryLanguageLoanword(String(matchedSurface || '') + '語');
+}
+
+function makeMechanicalCountryNameFallbackToken(tokens, startIndex, bestMatch) {
+    const matchedTokens = tokens.slice(startIndex, startIndex + bestMatch.length);
+    const combinedReading = matchedTokens.map(token => getKuromojiDictionaryReading(token) || String(token?.surface_form || '')).join('');
+    return {
+        ...tokens[startIndex],
+        surface_form: bestMatch.surface,
+        reading: combinedReading || bestMatch.surface,
+        pronunciation: combinedReading || bestMatch.surface,
+        suppressLoanwordSourceSpelling: true
+    };
+}
+
 function findLongestLoanword(tokens, startIndex) {
     let bestMatch = null;
     let candidateSurface = '';
@@ -2824,6 +2882,11 @@ function mergeLoanwordTokens(tokens) {
             const split = splitReviewedLoanwordToken(tokens[index]);
             if (split) merged.push(...split);
             else merged.push(tokens[index]);
+            continue;
+        }
+        if (shouldSuppressCountryNameLoanwordBeforeLanguageSuffix(tokens, index, bestMatch.length, bestMatch.surface)) {
+            merged.push(makeMechanicalCountryNameFallbackToken(tokens, index, bestMatch));
+            index += bestMatch.length - 1;
             continue;
         }
         merged.push({ ...tokens[index], surface_form: bestMatch.surface, loanwordMatched: true, loanwordOutput: bestMatch.output });
@@ -3649,7 +3712,7 @@ function getCommonWordReadingForToken(token, sourceText) {
 }
 
 function getLoanwordOutputForToken(token) {
-    if (!token) return null;
+    if (!token || token.suppressLoanwordSourceSpelling) return null;
     const surface = String(token.surface_form || '');
     return runtimeState.loanwordDictionary.get(surface) || runtimeState.loanwordDictionary.get(normalizeKanjiForLookup(surface)) || null;
 }
@@ -5190,6 +5253,13 @@ function findLongestAuthoritativeSpan(tokens, startIndex) {
         if (token.pos === '記号' && !isIdeographicVariationSelectorSequence(tokenSurface) && !evidenceBackedSymbol) break;
         candidateSurface = nextCandidateSurface;
         const lookup = getAuthoritativeSpanLookup(candidateSurface);
+        const nextToken = tokens[end + 1];
+        const suppressCountryNameAuthority = Boolean(
+            lookup?.evidence?.category === 'loanword'
+            && lookup?.evidence?.loanwordCategory === 'country-name'
+            && String(nextToken?.surface_form || '') === '語'
+            && !hasReviewedCountryLanguageLoanword(candidateSurface + '語')
+        );
         const changedForLookup = Boolean(lookup?.variant?.changed);
         const spansMultipleTokens = end > startIndex;
         const category = lookup?.evidence?.category || '';
@@ -5200,7 +5270,7 @@ function findLongestAuthoritativeSpan(tokens, startIndex) {
         const unconditionalSpanAuthority = category !== 'general-word' && spansMultipleTokens;
         const variantNormalizedAuthority = changedForLookup && category !== 'general-word';
         // General-word evidence is rescue-only; reviewed non-general evidence may also authorise spans or variant-normalised single tokens.
-        if (lookup && (categoryAllowsDirectAuthority || generalWordRescue || unconditionalSpanAuthority || variantNormalizedAuthority)) {
+        if (lookup && !suppressCountryNameAuthority && (categoryAllowsDirectAuthority || generalWordRescue || unconditionalSpanAuthority || variantNormalizedAuthority)) {
             bestMatch = {
                 surface: candidateSurface,
                 lookupSurface: lookup.lookupSurface,
@@ -6243,7 +6313,7 @@ function classifyTokenOutputBoundary(previousToken, token) {
 
 function formatOutputTokenValue(previousToken, token, boundary) {
     if (token.titleSeparator) return token.value;
-    if (token.readingResolution?.source === 'latin-source-passthrough') return token.value;
+    if (['latin-source-passthrough', 'loanword-lexicon', 'source-language-loanword'].includes(token.readingResolution?.source)) return token.value;
     if (token.nameContinuation) return token.nameGivenStart ? capitalizeRomaji(token.value) : token.value.toLowerCase();
     if (previousToken?.pos === '形容詞' && token.surface_form === 'な') return token.value;
     if (shouldSeparateNumericTokens(previousToken, token)) return capitalizeRomaji(token.value);

@@ -207,7 +207,10 @@ async function loadLoanwordDictionary() {
         for (const entry of data) {
             const surface = String(Array.isArray(entry) ? entry[0] : entry?.surface || '').trim();
             const output = normalizeDictionaryRomaji(Array.isArray(entry) ? entry[1] : entry?.output);
-            if (surface && output) setUniqueDictionaryEntry(runtimeState.loanwordDictionary, surface, output, 'loanword');
+            if (!surface || !output) continue;
+            setUniqueDictionaryEntry(runtimeState.loanwordDictionary, surface, output, 'loanword');
+            const category = Array.isArray(entry) ? '' : String(entry?.category || '').trim();
+            if (category) setUniqueDictionaryEntry(runtimeState.loanwordMetadataDictionary, surface, { category }, 'loanword metadata');
         }
     }
 }
@@ -373,6 +376,21 @@ function buildLexicalPrefixIndexes() {
         addSurfacePrefixes(runtimeState.titleReadingPrefixes, normalizedSurface);
     }
 
+    const loanwordEntries = [...runtimeState.loanwordDictionary.entries()];
+    for (const [surface, output] of loanwordEntries) {
+        const normalizedSurface = normalizeTranslatorInputText(surface);
+        if (normalizedSurface && normalizedSurface !== surface) {
+            const existingOutput = runtimeState.loanwordDictionary.get(normalizedSurface);
+            if (!existingOutput) {
+                runtimeState.loanwordDictionary.set(normalizedSurface, output);
+                const metadata = runtimeState.loanwordMetadataDictionary.get(surface);
+                if (metadata) runtimeState.loanwordMetadataDictionary.set(normalizedSurface, metadata);
+            } else if (existingOutput !== output) {
+                runtimeState.resourceWarnings.add(`Loanword normalization alias conflict: ${surface} -> ${normalizedSurface}`);
+            }
+        }
+    }
+
     for (const surface of runtimeState.loanwordDictionary.keys()) {
         addSurfacePrefixes(runtimeState.loanwordPrefixes, surface);
         addSurfacePrefixes(runtimeState.loanwordPrefixes, normalizeKanjiForLookup(surface));
@@ -528,7 +546,8 @@ function buildAuthoritativeSpanIndex() {
             source: 'source-language-loanword',
             confidence: 1,
             priority: 90,
-            category: 'loanword'
+            category: 'loanword',
+            loanwordCategory: runtimeState.loanwordMetadataDictionary.get(surface)?.category || null
         });
     }
     for (const [surface, entry] of runtimeState.reviewedProperNameSpanDictionary.entries()) {

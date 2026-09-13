@@ -54,6 +54,13 @@ function findLongestAuthoritativeSpan(tokens, startIndex) {
         if (token.pos === '記号' && !isIdeographicVariationSelectorSequence(tokenSurface) && !evidenceBackedSymbol) break;
         candidateSurface = nextCandidateSurface;
         const lookup = getAuthoritativeSpanLookup(candidateSurface);
+        const nextToken = tokens[end + 1];
+        const suppressCountryNameAuthority = Boolean(
+            lookup?.evidence?.category === 'loanword'
+            && lookup?.evidence?.loanwordCategory === 'country-name'
+            && String(nextToken?.surface_form || '') === '語'
+            && !hasReviewedCountryLanguageLoanword(candidateSurface + '語')
+        );
         const changedForLookup = Boolean(lookup?.variant?.changed);
         const spansMultipleTokens = end > startIndex;
         const category = lookup?.evidence?.category || '';
@@ -64,7 +71,7 @@ function findLongestAuthoritativeSpan(tokens, startIndex) {
         const unconditionalSpanAuthority = category !== 'general-word' && spansMultipleTokens;
         const variantNormalizedAuthority = changedForLookup && category !== 'general-word';
         // General-word evidence is rescue-only; reviewed non-general evidence may also authorise spans or variant-normalised single tokens.
-        if (lookup && (categoryAllowsDirectAuthority || generalWordRescue || unconditionalSpanAuthority || variantNormalizedAuthority)) {
+        if (lookup && !suppressCountryNameAuthority && (categoryAllowsDirectAuthority || generalWordRescue || unconditionalSpanAuthority || variantNormalizedAuthority)) {
             bestMatch = {
                 surface: candidateSurface,
                 lookupSurface: lookup.lookupSurface,
@@ -1107,7 +1114,7 @@ function classifyTokenOutputBoundary(previousToken, token) {
 
 function formatOutputTokenValue(previousToken, token, boundary) {
     if (token.titleSeparator) return token.value;
-    if (token.readingResolution?.source === 'latin-source-passthrough') return token.value;
+    if (['latin-source-passthrough', 'loanword-lexicon', 'source-language-loanword'].includes(token.readingResolution?.source)) return token.value;
     if (token.nameContinuation) return token.nameGivenStart ? capitalizeRomaji(token.value) : token.value.toLowerCase();
     if (previousToken?.pos === '形容詞' && token.surface_form === 'な') return token.value;
     if (shouldSeparateNumericTokens(previousToken, token)) return capitalizeRomaji(token.value);
