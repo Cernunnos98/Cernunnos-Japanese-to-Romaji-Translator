@@ -2,7 +2,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { spawn } = require('child_process');
-const { positiveInteger, signalProcessGroup, processGroupExists } = require('./browser/cdp-harness');
+const { positiveInteger, signalProcessGroup, processGroupExists, stopProcessGroup } = require('./browser/cdp-harness');
 
 const root = path.resolve(process.argv[2] || path.join(__dirname, '../..'));
 const runner = path.join(__dirname, 'run-translator-failure-injection-cdp.js');
@@ -60,13 +60,8 @@ async function shutdown(reason, exitCode) {
     if (shuttingDown) return;
     shuttingDown = true;
     console.error(`\n${reason}`);
-    for (const child of activeChildren) {
-        try { signalProcessGroup(child, 'SIGTERM'); } catch (_) {}
-    }
-    await new Promise(resolve => setTimeout(resolve, 250));
-    for (const child of activeChildren) {
-        try { if (processGroupExists(child)) signalProcessGroup(child, 'SIGKILL'); } catch (_) {}
-    }
+    await Promise.allSettled(Array.from(activeChildren, child => stopProcessGroup(child)));
+    activeChildren.clear();
     removeTemporaryDirectories();
     process.exit(exitCode);
 }

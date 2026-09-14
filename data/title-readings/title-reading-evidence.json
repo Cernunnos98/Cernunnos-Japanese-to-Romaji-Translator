@@ -153,7 +153,7 @@
   },
   {
     "surface": "銀魂",
-    "pattern": "銀魂",
+    "pattern": "(?:劇場版)?銀魂",
     "reading": "ぎんたま",
     "romaji": "Gintama",
     "kind": "title-reading",

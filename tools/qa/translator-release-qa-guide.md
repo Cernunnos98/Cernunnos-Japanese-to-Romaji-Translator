@@ -143,6 +143,82 @@ Default timing can be overridden for genuinely slow CI with the documented `TRAN
 
 Browser smoke covers the reusable runtime surface as well as translation output. Its lifecycle checks include stale/unbound/rebound `bind()` protection, built-in and custom Kanji Readings rendering, direct Kanji API access, late custom-target registration/removal through `refreshUi()`, operation without a readings target, single-refresh behaviour, host-global diagnostics isolation, destroy/hot-reload, CSP nonce propagation and supported cross-origin asset loading. Development smoke also opens the maintained `translator.html` and `translator-hook-example.html` directly so the supplied integrations are verified rather than inferred from a synthetic fixture. The `translator.html` check also verifies that the page owns its override checkbox/label and sources/licences notice, while direct engine override API calls do not mutate those page controls.
 
+## Lexical-candidate coverage audit
+
+`run-lexical-candidate-coverage-audit.js` is the maintained whole-bank audit for source-span candidate discovery. It is intentionally separate from ordinary regression QA: final Romaji can be correct while a maintained lexical interpretation is still missing from candidate discovery.
+
+The audit inventories maintained lexical/reading sources and derived candidate indexes, then assigns each entry to a deterministic SHA-256 partition. The default is 32 partitions. Completed partition reports are written atomically and can be reused, so an outer wrapper timeout or interrupted shell does not turn completed work into a test failure or require it to be repeated.
+
+Typical commands:
+
+```bash
+# Inspect partition sizes and inventory metadata without running entries.
+node tools/qa/run-lexical-candidate-coverage-audit.js --list
+
+# Run one partition.
+node tools/qa/run-lexical-candidate-coverage-audit.js --partition 7 --output-dir /path/to/reports
+
+# Run an inclusive range.
+node tools/qa/run-lexical-candidate-coverage-audit.js --range 8:12 --output-dir /path/to/reports
+
+# Run all missing/stale partitions; valid completed reports are reused.
+node tools/qa/run-lexical-candidate-coverage-audit.js --all --output-dir /path/to/reports
+
+# Aggregate previously completed reports without running new partitions.
+node tools/qa/run-lexical-candidate-coverage-audit.js --aggregate --output-dir /path/to/reports
+```
+
+The aggregate report distinguishes `passed`, `failed`, `not-executed` and `infrastructure-error` partition states. Unrequested/not-executed partitions do not make the command fail. Exit code 2 means a genuine audit failure was found; exit code 3 means audit infrastructure/report integrity failed. A shell/IDE timeout outside the runner is not a QA failure.
+
+For applicable boundary-owning evidence, the audit checks standalone discovery, linguistically valid embedded contexts, punctuation/wrapper contexts and synthetic tokenisation mutations. Context-scoped/title/gikun evidence remains scoped: the audit verifies authored valid contexts instead of weakening it into global lexical evidence. Reading-arbitration-only sources are reported as intentional non-candidate evidence. Same-surface cross-bank collisions are always enumerated so equivalent duplicates, legitimate ambiguity and precedence remain visible even when valid.
+
+Machine-readable aggregate fields include authoritative/total entries examined, unique source surfaces, candidate-generating entries, context-restricted entries, entries with no reachable candidate path, ambiguous surfaces, cross-bank collisions, analyser-partition-sensitive failures and failures grouped by mechanism/source.
+
+## Performance and memory harness
+
+`run-translator-performance-qa.js` is the QA-only measurement entry point. It does not change translation behaviour and is not a production dependency. It measures:
+
+- cold Node initialisation, including engine evaluation and readiness/data/tokenizer wait separately;
+- warm steady-state translation latency;
+- source-span candidate-discovery latency with tokenisation prepared outside the timed probe;
+- post-GC heap plateaux under a fixed translation workload;
+- browser input-to-output latency through the supplied `translator.html` UI.
+
+Run all supported measurements:
+
+```bash
+node tools/qa/run-translator-performance-qa.js
+```
+
+Or select one mode:
+
+```bash
+node tools/qa/run-translator-performance-qa.js --mode node
+node tools/qa/run-translator-performance-qa.js --mode memory
+node tools/qa/run-translator-performance-qa.js --mode browser
+```
+
+Defaults are 24 Node warm-up iterations, 120 measured Node samples, 3 fresh cold-initialisation samples, 60 memory warm-up translations, 1,000 translations per memory plateau, 4 memory plateaux, 12 browser warm-up inputs and 60 browser samples. Override these only for a documented measurement reason; warm-up iterations are never included in steady-state latency samples. The report records sample count, median, p95, p99 when at least 100 samples are available, and min/max for debugging.
+
+The memory mode always runs in an isolated worker under the same Node executable with `--expose-gc`. Calling the internal `--memory-worker` entry point directly without explicit GC fails before measurement with an exact command diagnostic. It never performs a partial memory test or labels missing GC as a product regression. Post-GC baseline noise is measured before workload plateaux; continuing growth must exceed that measured noise across successive plateaux before the built-in leak signal is raised. An initial allocation plateau by itself is not treated as a leak.
+
+Every report records Node version, platform, architecture, timestamp, Node flags, benchmark mode and GC exposure. Browser results additionally record the browser product/version and protocol version, but not user-specific profile paths. Browser launch/profile cleanup is verified after normal runs. To exercise the failure cleanup path deliberately:
+
+```bash
+node tools/qa/run-translator-performance-qa.js --cleanup-self-test
+```
+
+Result states are machine-readable:
+
+- `pass` — the requested measurement completed without a configured regression or memory-instability signal;
+- `performance-failure` — a measured latency exceeded a maintainer-supplied baseline-derived upper limit;
+- `memory-instability` — continuing post-GC growth was detected or a supplied memory-growth limit was exceeded;
+- `harness-error` — the measurement could not be performed correctly;
+- `unsupported-environment` — a requested environment dependency, such as Chromium, is unavailable;
+- `not-run` — that benchmark mode was not requested.
+
+No absolute release-performance thresholds are built in. If a release needs fail/pass latency limits, first take repeated measurements from the accepted release on the comparison environment, account for observed variance, then provide those documented upper limits in a JSON file with `--limits PATH`. Supported keys are `coldInitialisationP95Ms`, `translationP95Ms`, `candidateDiscoveryP95Ms`, `browserInputToOutputP95Ms` and `memoryCumulativeGrowthBytes`. Harness/environment errors remain distinct from product-performance failures.
+
 ## 4. Partitioned punctuation QA
 
 `run-translator-punctuation-boundary-partitioned.js` is the release wrapper for the exhaustive punctuation/boundary matrix. It runs bounded partitions and verifies the complete expected coverage.
@@ -220,6 +296,8 @@ See `tools/edrdg-update/cj2r-edrdg-updater-guide.md`.
 | `translator-qa.js` | Generated browser-facing QA aggregate |
 | `build-translator-qa.js` | Build/parity check for the aggregate |
 | `run-translator-node-qa.js` | Canonical/generated/differential Node QA |
+| `run-lexical-candidate-coverage-audit.js` | Deterministic resumable whole-bank source-span candidate-discovery audit |
+| `run-translator-performance-qa.js` | Node/candidate/memory/browser performance harness with machine-readable result states |
 | `run-translator-focused-qa.js` | One selected translator functional-area regression scan |
 | `run-translator-typecheck.js` | Version-bounded TypeScript `checkJs` + explicit `strictNullChecks` validation (`>=5.8 <7`) |
 | `run-translator-dependency-check.js` | Symbol-resolved acyclic source-dependency validation |

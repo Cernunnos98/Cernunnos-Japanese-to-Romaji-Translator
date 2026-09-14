@@ -2723,34 +2723,57 @@ function contextualPatternContainsRange(pattern, sourceText, range) {
     return false;
 }
 
-const titleMentionLeftBoundaryPattern = /[\s「『（【〔〈《〝“‘"'~～〜〰。、！？!?:：；;]/u;
-const titleMentionRightBoundaryPattern = /^[\s」』）】〕〉》〟”’"'~～〜〰。、！？!?:：；;]/u;
+function isTitleMentionSourceBoundaryAt(sourceText, index) {
+    const source = String(sourceText || '');
+    const character = source[index] || '';
+    return Boolean(character) && (/^\s$/u.test(character) || isCanonicalHardBoundaryAt(source, index));
+}
 
 function titleReadingEvidenceAppliesToRange(evidence, sourceText, range, boundaryContext = {}) {
     if (!evidence?.pattern || !range) return false;
     const source = canonicalizeTokenizerBoundaryCharacters(String(sourceText || ''));
-    if (contextualPatternContainsRange(evidence.pattern, source, range)) return true;
+    const reviewedSurface = canonicalizeTokenizerBoundaryCharacters(normalizeTranslatorInputText(String(evidence.surface || '')));
+    if (!reviewedSurface || source.slice(range.start, range.end) !== reviewedSurface) return false;
+
+    // Fragment rules remain valid only inside their authored larger title/context.
+    // Complete-title rules need a stronger check: an unanchored regex equal to the
+    // title surface must not become a raw-string prefix match inside another word.
+    const exactFlags = evidence.pattern.flags.replace(/g/gu, '');
+    const exactReviewedSurfacePattern = new RegExp(`^(?:${evidence.pattern.source})$`, exactFlags);
+    const patternDescribesCompleteSurface = exactReviewedSurfacePattern.test(reviewedSurface);
+    const matchFlags = evidence.pattern.flags.includes('g') ? evidence.pattern.flags : `${evidence.pattern.flags}g`;
+    const matcher = new RegExp(evidence.pattern.source, matchFlags);
+    let match;
+    while ((match = matcher.exec(source)) !== null) {
+        const matchStart = match.index;
+        const matchEnd = matchStart + match[0].length;
+        if (range.start >= matchStart && range.end <= matchEnd) {
+            if (!patternDescribesCompleteSurface) return true;
+            // Authored punctuation/context extending beyond the reviewed surface is
+            // independent evidence and remains valid without grammatical inference.
+            if (matchStart < range.start || matchEnd > range.end) return true;
+            break;
+        }
+        if (!match[0].length) matcher.lastIndex += 1;
+    }
+
+    if (!patternDescribesCompleteSurface) return false;
 
     // A rule authored for the complete reviewed title remains valid when that exact
     // title is mentioned as a syntactically bounded noun in a larger sentence. This
-    // does not broaden title-fragment rules whose pattern only works in a longer title.
-    const reviewedSurface = canonicalizeTokenizerBoundaryCharacters(String(evidence.surface || ''));
-    if (!reviewedSurface || source.slice(range.start, range.end) !== reviewedSurface) return false;
-    evidence.pattern.lastIndex = 0;
-    if (!evidence.pattern.test(reviewedSurface)) return false;
-
+    // extension must use source-aligned morphology, never a raw following kana prefix.
     const left = source.slice(0, range.start);
     const right = source.slice(range.end);
     const leftBoundary = !left
-        || titleMentionLeftBoundaryPattern.test(left.slice(-1))
+        || isTitleMentionSourceBoundaryAt(left, left.length - 1)
         || Boolean(boundaryContext.leftGrammaticalBoundary);
     const rightBoundary = !right
-        || titleMentionRightBoundaryPattern.test(right)
+        || isTitleMentionSourceBoundaryAt(source, range.end)
         || Boolean(boundaryContext.rightGrammaticalBoundary);
     return leftBoundary && rightBoundary;
 }
 
-function getTitleMentionBoundaryContext(tokens, sourceRanges, range) {
+function getTitleMentionBoundaryContext(tokens, sourceRanges, range, sourceText = '') {
     if (!range) return { leftGrammaticalBoundary: false, rightGrammaticalBoundary: false };
     let leftGrammaticalBoundary = false;
     let rightGrammaticalBoundary = false;
@@ -2763,6 +2786,25 @@ function getTitleMentionBoundaryContext(tokens, sourceRanges, range) {
         if (!tokenRange) continue;
         if (tokenRange.end === range.start && isParticle(token)) leftGrammaticalBoundary = true;
         if (tokenRange.start === range.end && isGrammaticalToken(token)) rightGrammaticalBoundary = true;
+    }
+
+    // Whole-sentence Kuromoji boundaries are useful evidence but must not be a
+    // single point of failure. Re-tokenise only the exact source slice touching
+    // the candidate boundary when the original partition swallowed a particle
+    // into an adjacent lexical token. This remains analyser-backed evidence: a
+    // lexical word such as はちみつ stays a noun and cannot masquerade as は.
+    const source = String(sourceText || '');
+    if (runtimeState.tokenizer && source) {
+        if (!rightGrammaticalBoundary && range.end < source.length) {
+            const suffixTokens = runtimeState.tokenizer.tokenize(source.slice(range.end));
+            const first = suffixTokens[0] || null;
+            if (first && isGrammaticalToken(first)) rightGrammaticalBoundary = true;
+        }
+        if (!leftGrammaticalBoundary && range.start > 0) {
+            const prefixTokens = runtimeState.tokenizer.tokenize(source.slice(0, range.start));
+            const last = prefixTokens[prefixTokens.length - 1] || null;
+            if (last && isParticle(last)) leftGrammaticalBoundary = true;
+        }
     }
     return { leftGrammaticalBoundary, rightGrammaticalBoundary };
 }
@@ -2946,7 +2988,7 @@ function findLongestTitleReadingEvidence(tokens, startIndex, sourceText, sourceR
         const endRange = sourceRanges[end];
         const candidateRange = startRange && endRange ? { start: startRange.start, end: endRange.end } : null;
         for (const evidence of runtimeState.titleReadingDictionary.get(candidateSurface) || []) {
-            if (!titleReadingEvidenceAppliesToRange(evidence, sourceText, candidateRange, getTitleMentionBoundaryContext(tokens, sourceRanges, candidateRange))) continue;
+            if (!titleReadingEvidenceAppliesToRange(evidence, sourceText, candidateRange, getTitleMentionBoundaryContext(tokens, sourceRanges, candidateRange, sourceText))) continue;
             bestMatch = { ...evidence, lookupSurface: candidateSurface, surface: evidence.surface || candidateSurface, length: end - startIndex + 1 };
         }
     }
@@ -6923,7 +6965,7 @@ function discoverSourceSpanCandidates(sourceText, tokens = [], options = {}) {
     scanSourceByPrefixes(source, runtimeState.titleReadingPrefixes, surface => runtimeState.titleReadingDictionary.get(surface), (rules, surface, start, end) => {
         for (const rule of rules || []) {
             if (!(rule?.pattern instanceof RegExp)) continue;
-            if (!titleReadingEvidenceAppliesToRange(rule, source, { start, end }, getTitleMentionBoundaryContext(tokens, null, { start, end }))) continue;
+            if (!titleReadingEvidenceAppliesToRange(rule, source, { start, end }, getTitleMentionBoundaryContext(tokens, null, { start, end }, source))) continue;
             emit(makeSourceSpanCandidate(source, start, end, {
                 category: 'title', kind: rule.kind || 'title-reading', semanticRole: 'title-reading',
                 evidenceSource: rule.source || 'reviewed-title-reading', reading: rule.reading || null, romaji: rule.romaji ?? null,

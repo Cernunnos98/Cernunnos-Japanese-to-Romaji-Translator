@@ -77,6 +77,14 @@ function processGroupExists(child) {
     }
 }
 
+async function waitForProcessGroupExit(child, timeout = 2000) {
+    const deadline = Date.now() + timeout;
+    while (processGroupExists(child) && Date.now() < deadline) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+    }
+    return !processGroupExists(child);
+}
+
 async function stopProcessGroup(child, killAfterMs = 2000) {
     if (!child?.pid) return;
     signalProcessGroup(child, 'SIGTERM');
@@ -97,6 +105,7 @@ async function stopProcessGroup(child, killAfterMs = 2000) {
         });
     }
     if (processGroupExists(child)) signalProcessGroup(child, 'SIGKILL');
+    await waitForProcessGroupExit(child, killAfterMs);
 }
 
 async function launchChromium(chromium, options = {}) {
@@ -247,6 +256,7 @@ module.exports = {
     positiveInteger,
     processGroupExists,
     signalProcessGroup,
+    waitForProcessGroupExit,
     stopBrowserSession,
     stopProcessGroup,
     waitForCdp,

@@ -306,7 +306,7 @@ function discoverSourceSpanCandidates(sourceText, tokens = [], options = {}) {
     scanSourceByPrefixes(source, runtimeState.titleReadingPrefixes, surface => runtimeState.titleReadingDictionary.get(surface), (rules, surface, start, end) => {
         for (const rule of rules || []) {
             if (!(rule?.pattern instanceof RegExp)) continue;
-            if (!titleReadingEvidenceAppliesToRange(rule, source, { start, end }, getTitleMentionBoundaryContext(tokens, null, { start, end }))) continue;
+            if (!titleReadingEvidenceAppliesToRange(rule, source, { start, end }, getTitleMentionBoundaryContext(tokens, null, { start, end }, source))) continue;
             emit(makeSourceSpanCandidate(source, start, end, {
                 category: 'title', kind: rule.kind || 'title-reading', semanticRole: 'title-reading',
                 evidenceSource: rule.source || 'reviewed-title-reading', reading: rule.reading || null, romaji: rule.romaji ?? null,

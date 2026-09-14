@@ -157,5 +157,9 @@ registerRuntimeDiagnosticsTools({
     runRegressionChecks,
     runTranslatorGeneratedQA,
     runTranslatorDifferentialChecks,
-    runTranslatorReadingAudit
+    runTranslatorReadingAudit,
+    getLexicalCandidateAuditInventory,
+    runLexicalCandidateAuditEntries,
+    getLexicalCandidateCollisionReport,
+    prepareCandidateDiscoveryProbeForQa
 });

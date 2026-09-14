@@ -21,6 +21,7 @@ const sourceFiles = [
     'runtime-and-api.js',
     'regression-mechanisms.js',
     'qa-check-order.js',
+    'lexical-candidate-audit.js',
     'qa-runner.js'
 ];
 const missing = sourceFiles.filter(file => !fs.existsSync(path.join(sourceDir, file)));
