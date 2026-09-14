@@ -66,8 +66,6 @@ Runtime diagnostics are **not a UI mode**. They do not add, remove or control th
 
 This runtime diagnostic mode is also separate from the QA Dashboard and release QA under `tools/qa/`, which are used to test and certify the maintained project. Production pages should normally omit `runtimeDiagnostics`. When it is omitted or `false`, `tools/qa/` is not a browser runtime dependency.
 
-You do **not** need to enable `runtimeDiagnostics` in the host page before running QA. Dashboard and command-line QA runners that need the diagnostic hooks set `runtimeDiagnostics: true` inside their own isolated test context before loading the engine; other QA stages deliberately exercise normal production behaviour with diagnostics disabled. Running QA therefore does not require changing the production configuration.
-
 If the engine and its assets are stored in different locations, set `assetBaseUrl`:
 
 ```html
@@ -108,12 +106,6 @@ if (RomajiTranslator.isReady()) {
 ```
 
 Calling `translateSync()` too early throws a readiness error rather than attempting a reduced translation.
-
-### Preserve CJ2R output as returned
-
-A host should treat the returned Romaji as final translator output. Do not apply generic title-casing, word splitting/joining or punctuation cleanup after `translate()`/`translateSync()`: reviewed foreign names and loanwords can intentionally contain source-language spacing and casing such as `Death Note`, `eBay` or `SpaceX`, and those decisions may span several Kuromoji tokens internally.
-
-If a host needs a different presentation convention, keep that transformation outside CJ2R and do not treat the transformed text as CJ2R's Rule 0 result.
 
 ### Readiness, status and lifecycle
 
@@ -281,7 +273,7 @@ Important QA files include:
 - `tools/qa/browser/translator-failure-injection.html` — isolated resource-failure fixture;
 - `tools/qa/translator-differential-review-decisions.json` — reviewed disagreement ledger.
 
-Direct command-line QA is the secondary/manual path for automation, non-Windows environments and advanced troubleshooting. The full release gate requires Node.js, Python 3, TypeScript (`tsc`), Chromium/Chrome and Graphviz `dot`. CJ2R supports TypeScript >=5.8.0 and <7.0.0 for this gate; the checker explicitly applies `checkJs` + `strictNullChecks` rather than inheriting broad strict-mode defaults. The release gate remains available as:
+Direct command-line QA is the secondary/manual path for automation, non-Windows environments and advanced troubleshooting. The full release gate requires Node.js, Python 3, TypeScript (`tsc`), Chromium/Chrome and Graphviz `dot`, and remains available as:
 
 ```bash
 node tools/qa/run-translator-release-qa.js
@@ -306,7 +298,7 @@ Neither tool promotes unreviewed dictionary content directly into live runtime d
 
 Before handing CJ2R to another site:
 
-1. Keep `translator-engine.js`, `kuromoji.js` and `data/` together as one tested release; do not mix engine/data/dictionaries from different releases. The expanded loanword bank depends on matching engine/schema behaviour for reviewed whole-span recognition, normalised aliases and protected source-language casing.
+1. Keep `translator-engine.js`, `kuromoji.js` and `data/` together as one tested release; do not mix engine/data/dictionaries from different releases.
 2. Keep `licenses and sources/` with redistributed copies of the corresponding software/data, or provide the applicable equivalent notices/links where permitted.
 3. Ensure the host site's source/licence presentation satisfies the obligations applicable to the deployed material; omitting CJ2R's built-in notice does not remove them.
 4. Omit `runtimeDiagnostics` in production; enable `runtimeDiagnostics: true` only for development or troubleshooting.

@@ -240,7 +240,7 @@
     },
     {
       "path": "data/loanwords/loanwords-term-bank-1.json",
-      "sha256": "5fc43ef4f863abee4498c76e8e627431bc172eca69ad783464e863c7081aa745",
+      "sha256": "389617cb0695ec9398e39f6adaa5fbf71b7324b0fd6ae3ddd69b4d3819440476",
       "sources": [
         {
           "name": "CJ2R project review",
@@ -267,6 +267,12 @@
           "surveyPeriod": "2002-11 to 2004-08",
           "role": "usage/recognition/coverage-gap corroboration only; no NINJAL survey rows are redistributed in the runtime bank",
           "reuseNote": "NINJAL retains copyright; its legacy site requires prior contact for commercial reproduction. CJ2R therefore uses the survey only as non-donor review evidence."
+        },
+        {
+          "name": "NINJAL Report 126",
+          "issued": "2007-03-31",
+          "doi": "10.15084/00001287",
+          "role": "independent frequency-oriented coverage audit only; not source-spelling authority"
         }
       ],
       "licenceRefs": [
@@ -275,7 +281,7 @@
         "licenses and sources/Electronic Dictionary Research and Development Group License.md",
         "licenses and sources/NINJAL Loanword Survey Attribution.md"
       ],
-      "note": "Mixed reviewed loanword/source-spelling bank. Existing CJ2R decisions retain precedence. Ambiguous homographs, unverifiable partial-source cases, descriptive JMnedict outputs and unsafe formatting cases are excluded rather than guessed."
+      "note": "Mixed reviewed loanword/source-spelling bank. Existing CJ2R decisions retain precedence. Independently corroborated ordinary mappings may supplement explicit source-language metadata; metadata-only requiresReview rows preserve unresolved homographs, clippings, abbreviations and wasei-eigo without guessing a global spelling."
     },
     {
       "path": "data/nouns/jmnedict-bank-1.json",

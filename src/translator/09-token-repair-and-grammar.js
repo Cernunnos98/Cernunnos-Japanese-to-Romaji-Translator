@@ -528,18 +528,104 @@ function annotateOrdinaryCompoundReadingContext(tokens) {
     });
 }
 
+function isDirectNegativeAuxiliaryContinuation(previous, token) {
+    if (!previous || !token) return false;
+    const previousStem = previous.pos === '動詞' || previous.pos === '形容詞' || previous.pos === '助動詞';
+    if (!previousStem) return false;
+    return tokenBasicForm(token) === 'ない'
+        && String(token.conjugated_type || '') === '特殊・ナイ';
+}
+
+function isContractedCausativePassiveBridge(tokens, index) {
+    const token = tokens?.[index];
+    const previous = tokens?.[index - 1];
+    const next = tokens?.[index + 1];
+    if (!token || !previous || !next) return false;
+    return previous.pos === '動詞'
+        && String(previous.conjugated_form || '') === '未然形'
+        && token.pos === '動詞'
+        && token.pos_detail_1 === '自立'
+        && String(token.surface_form || '') === 'さ'
+        && tokenBasicForm(token) === 'する'
+        && String(token.conjugated_type || '') === 'サ変・スル'
+        && String(token.conjugated_form || '') === '未然レル接続'
+        && next.pos === '動詞'
+        && next.pos_detail_1 === '接尾'
+        && tokenBasicForm(next) === 'れる';
+}
+
+const reviewedAspectualCompoundVerbBasicForms = new Set(['続ける', '始める', '終える', '終わる']);
+const reviewedTeDeMotionContinuationBasicForms = new Set(['行く', 'いく', 'ゆく', '来る', 'くる']);
+const godanContinuativeStemDictionaryEndings = new Map([
+    ['い', 'う'], ['き', 'く'], ['ぎ', 'ぐ'], ['し', 'す'], ['ち', 'つ'],
+    ['に', 'ぬ'], ['び', 'ぶ'], ['み', 'む'], ['り', 'る']
+]);
+
+function getReviewedNounMisparsedContinuativeStem(token) {
+    if (!token || token.pos !== '名詞' || token.pos_detail_1 === '固有名詞') return null;
+    const surface = String(token.surface_form || '');
+    if (!surface) return null;
+    const final = surface.slice(-1);
+    const dictionaryEnding = godanContinuativeStemDictionaryEndings.get(final);
+    if (!dictionaryEnding) return null;
+    const dictionarySurface = surface.slice(0, -1) + dictionaryEnding;
+    const lookup = getGeneralWordLookup(dictionarySurface);
+    const selected = selectGeneralWordReading(lookup);
+    if (!selected?.reading) return null;
+    const standalone = getStandaloneSingleToken(dictionarySurface);
+    if (!standalone || standalone.pos !== '動詞' || standalone.pos_detail_1 === '接尾') return null;
+    return { surface: dictionarySurface, reading: selected.reading };
+}
+
 function annotateMorphologicalOutputBoundaries(tokens) {
     return (tokens || []).map((token, index) => {
         if (index === 0) return token;
         const previous = tokens[index - 1];
         const surface = String(token?.surface_form || '');
+        const previousSurface = String(previous?.surface_form || '');
         const previousConjugation = String(previous?.conjugated_form || '');
         const separateAuxiliary = token?.pos === '動詞' && token?.pos_detail_1 === '非自立' && startsSeparateAuxiliaryUnit(token);
-        const compoundVerb = token?.pos === '動詞' && previous?.pos === '動詞' && previousConjugation.startsWith('連用') && !separateAuxiliary;
+        const teDeLinkedSequence = /[てで]$/u.test(previousSurface);
+        const compoundVerb = token?.pos === '動詞'
+            && previous?.pos === '動詞'
+            && previousConjugation.startsWith('連用')
+            && !separateAuxiliary
+            && !teDeLinkedSequence;
+        const recoveredStem = token?.pos === '動詞'
+            && reviewedAspectualCompoundVerbBasicForms.has(tokenBasicForm(token))
+            && sourceTokensAreContiguous(previous, token)
+            ? getReviewedNounMisparsedContinuativeStem(previous)
+            : null;
+        const recoveredAspectualCompound = Boolean(recoveredStem && !separateAuxiliary && !teDeLinkedSequence);
+        const teDeMotionContinuation = token?.pos === '動詞'
+            && previous?.pos === '動詞'
+            && reviewedTeDeMotionContinuationBasicForms.has(tokenBasicForm(token))
+            && /[てで]$/u.test(previousSurface)
+            && sourceTokensAreContiguous(previous, token);
         const attachedConjunctive = token?.pos === '助詞' && token?.pos_detail_1 === '接続助詞'
             && morphologicalJoinParticleSurfaces.has(surface)
             && Boolean(previous && (previous.pos === '動詞' || previous.pos === '形容詞' || previous.pos === '助動詞'));
-        return compoundVerb || attachedConjunctive ? { ...token, morphologicalJoinLeft: true } : token;
+        const negativeAuxiliary = isDirectNegativeAuxiliaryContinuation(previous, token);
+        const causativePassiveBridge = isContractedCausativePassiveBridge(tokens, index);
+        if (!compoundVerb && !recoveredAspectualCompound && !teDeMotionContinuation && !attachedConjunctive && !negativeAuxiliary && !causativePassiveBridge) return token;
+        const reason = negativeAuxiliary
+            ? 'direct-negative-inflection'
+            : causativePassiveBridge
+                ? 'contracted-causative-passive-bridge'
+                : recoveredAspectualCompound
+                    ? 'reviewed-continuative-stem-aspectual-compound'
+                    : teDeMotionContinuation
+                        ? 'te-de-motion-continuation'
+                        : compoundVerb
+                            ? 'continuative-stem-compound-verb'
+                            : 'attached-conjunctive-particle';
+        return {
+            ...token,
+            morphologicalJoinLeft: true,
+            morphologicalJoinReason: reason,
+            morphologicalJoinAuthority: compoundVerb || recoveredAspectualCompound || teDeMotionContinuation || causativePassiveBridge ? 'strong-morphology' : 'grammar',
+            recoveredContinuativeStem: recoveredAspectualCompound ? recoveredStem?.surface : undefined
+        };
     });
 }
 
@@ -751,7 +837,13 @@ function findLongestKanaLexicalReading(tokens, startIndex) {
         if (end === startIndex) continue;
         const evidence = runtimeState.kanaLexicalReadingDictionary.get(normalizedReading);
         if (evidence && !hasUnsafeKanaLexicalRightBoundary(tokens, startIndex, end)) {
-            bestMatch = { surface: candidateSurface, reading: normalizedReading, evidence, length: end - startIndex + 1 };
+            bestMatch = {
+                surface: candidateSurface,
+                reading: normalizedReading,
+                evidence,
+                length: end - startIndex + 1,
+                strong: Boolean(evidence.strongSources?.size)
+            };
         }
     }
     return bestMatch;
@@ -819,6 +911,59 @@ function tokenizeHardBoundarySegment(segment, sourceOffset) {
         .map(token => offsetTokenWordPosition(token, sourceOffset + coreOffset));
 }
 
+const grammarTransparentBoundaryCharacters = new Set([
+    '「','」','『','』','（','）','(',')','［','］','[',']','【','】','〈','〉','《','》','〔','〕','〖','〗','〘','〙','〚','〛',
+    '“','”','‘','’','"',"'",'«','»','‹','›','\n','\r','\t','\u2028','\u2029','\u3000'
+]);
+
+function hasAdjacentTransparentGrammarBoundary(sourceText, token) {
+    const source = String(sourceText || '');
+    const start = Number(token?.sourceStart);
+    const end = Number(token?.sourceEnd);
+    const transparentRunAt = (index, direction) => {
+        let sawBoundary = false;
+        for (let cursor = index; cursor >= 0 && cursor < source.length; cursor += direction) {
+            const character = source[cursor];
+            const sourceWhitespace = /[\s\u3000]/u.test(character);
+            const hardBoundary = isCanonicalHardBoundaryAt(source, cursor);
+            if (!sourceWhitespace && !hardBoundary) break;
+            sawBoundary = true;
+            if (!sourceWhitespace && !grammarTransparentBoundaryCharacters.has(character)) return false;
+        }
+        return sawBoundary;
+    };
+    return (Number.isInteger(start) && start > 0 && transparentRunAt(start - 1, -1))
+        || (Number.isInteger(end) && end < source.length && transparentRunAt(end, 1));
+}
+
+function restoreTransparentBoundaryGrammaticalRoles(rebuiltTokens, originalTokens, sourceText) {
+    const originalBySpan = new Map();
+    for (const token of originalTokens || []) {
+        if (!token || (!isGrammaticalToken(token) && !isNominalizer(token))) continue;
+        if (!hasAdjacentTransparentGrammarBoundary(sourceText, token)) continue;
+        const key = `${token.sourceStart}:${token.sourceEnd}:${String(token.surface_form || '')}`;
+        originalBySpan.set(key, token);
+    }
+    return attachSourceTokenSpans(rebuiltTokens, sourceText).map(token => {
+        const key = `${token.sourceStart}:${token.sourceEnd}:${String(token.surface_form || '')}`;
+        const original = originalBySpan.get(key);
+        if (!original) return token;
+        return {
+            ...token,
+            pos: original.pos,
+            pos_detail_1: original.pos_detail_1,
+            pos_detail_2: original.pos_detail_2,
+            pos_detail_3: original.pos_detail_3,
+            conjugated_type: original.conjugated_type,
+            conjugated_form: original.conjugated_form,
+            basic_form: original.basic_form,
+            reading: original.reading,
+            pronunciation: original.pronunciation,
+            transparentBoundaryGrammarRoleRestored: true
+        };
+    });
+}
+
 function stabilizeHardBoundaryTokenization(tokens, sourceText) {
     const text = String(sourceText || '');
     const boundaries = getCanonicalHardBoundaryRuns(text);
@@ -832,7 +977,8 @@ function stabilizeHardBoundaryTokenization(tokens, sourceText) {
         cursor = boundary.end;
     }
     rebuilt.push(...tokenizeHardBoundarySegment(text.slice(cursor), cursor));
-    return classifyCanonicalBoundaryTokens(rebuilt);
+    const classified = classifyCanonicalBoundaryTokens(rebuilt);
+    return restoreTransparentBoundaryGrammaticalRoles(classified, tokens, text);
 }
 
 function isSourceSpanGrammarAnchor(token) {
@@ -852,7 +998,15 @@ function getKanaRunLexicalReadingSpan(runTokens) {
         if (!runtimeState.kanaLexicalReadingPrefixes.has(normalized)) break;
         if (runtimeState.kanaLexicalReadingDictionary.has(normalized)) bestLength = length;
     }
-    return bestLength > 0 ? { start: 0, end: bestLength, surface: characters.slice(0, bestLength).join('') } : null;
+    if (bestLength <= 0) return null;
+    const reading = normalizeKanaReading(characters.slice(0, bestLength).join(''));
+    const evidence = runtimeState.kanaLexicalReadingDictionary.get(reading) || null;
+    return {
+        start: 0,
+        end: bestLength,
+        surface: characters.slice(0, bestLength).join(''),
+        strong: Boolean(evidence?.strongSources?.size)
+    };
 }
 
 function lexicalKanaEvidenceCoversToken(runTokens, tokenIndex, lexicalSpan) {
@@ -869,7 +1023,7 @@ function isStrongKanaGrammarToken(tokens, absoluteIndex, runStart, runEnd, lexic
 
     const runTokens = tokens.slice(runStart, runEnd + 1);
     const runIndex = absoluteIndex - runStart;
-    if (lexicalKanaEvidenceCoversToken(runTokens, runIndex, lexicalSpan)) return false;
+    if (lexicalSpan?.strong && lexicalKanaEvidenceCoversToken(runTokens, runIndex, lexicalSpan)) return false;
 
     const surface = String(token.surface_form || '');
     const previous = tokens[absoluteIndex - 1] || null;
@@ -1015,7 +1169,8 @@ function mergeKanaLexicalReadingTokens(tokens) {
             pos_detail_3: '*',
             kanaLexicalSpanMatched: true,
             kanaLexicalSpanReading: bestMatch.reading,
-            kanaLexicalSpanEvidenceSurfaces: [...bestMatch.evidence.surfaces]
+            kanaLexicalSpanEvidenceSurfaces: [...bestMatch.evidence.surfaces],
+            kanaLexicalSpanEvidenceStrength: bestMatch.strong ? 'strong' : 'weak'
         });
         index += bestMatch.length - 1;
     }
@@ -1168,6 +1323,16 @@ function mergeReviewedNameHonorificTokens(tokens) {
     return merged;
 }
 
+function hasWholeNameStructureEvidence(surface) {
+    const originalSurface = String(surface || '').replace(/\s+/gu, ' ').trim();
+    if (!originalSurface) return false;
+    const normalizedSurface = normalizeKanjiForLookup(originalSurface, { names: true });
+    if (runtimeState.reviewedProperNameSpanDictionary.has(originalSurface)
+        || runtimeState.reviewedProperNameSpanDictionary.has(normalizedSurface)) return true;
+    return Boolean(runtimeState.properNounDictionary.get(originalSurface)?.size
+        || runtimeState.properNounDictionary.get(normalizedSurface)?.size);
+}
+
 function markUnreviewedNameContextTokens(tokens) {
     const marked = (tokens || []).map(token => ({ ...token }));
     for (let index = 0; index < marked.length; index += 1) {
@@ -1183,6 +1348,39 @@ function markUnreviewedNameContextTokens(tokens) {
         if (!sawWhitespace || !candidate || !containsHan(candidate.surface_form) || isProperNounToken(candidate)) continue;
         candidate.nameContextAmbiguous = true;
         candidate.nameContextSurname = surname.surface_form;
+    }
+
+    // A proper-name token followed directly by a common name-forming generic can
+    // create a presentation boundary that Kuromoji alone cannot authorise. Exact
+    // whole-name evidence settles the structure; otherwise retain the current
+    // output while making the boundary reviewable rather than guessing a space.
+    const structuralNameSuffixes = new Set([
+        '駅','空港','大学','都','道','府','県','市','区','町','村','山','川','河','湖','島',
+        '線','港','公園','城','寺','神社','病院','学校','高校','中学校','小学校','研究所',
+        '支店','本店','本社','支社'
+    ]);
+    for (let index = 1; index < marked.length; index += 1) {
+        const candidate = marked[index];
+        const surface = String(candidate?.surface_form || '');
+        if (!candidate || !structuralNameSuffixes.has(surface) || candidate.reviewedProperNameSpanMatched) continue;
+        const previous = marked[index - 1];
+        if (!previous || previous.pos === '記号' || !(isProperNounToken(previous) || previous.reviewedProperNameSpanMatched || previous.variantProperNounMatched)) continue;
+
+        let wholeNameAttested = false;
+        let candidateSurface = surface;
+        for (let cursor = index - 1, steps = 0; cursor >= 0 && steps < 8; cursor -= 1, steps += 1) {
+            const token = marked[cursor];
+            if (!token || token.pos === '記号' || isParticle(token) || token.pos === '助動詞') break;
+            candidateSurface = String(token.surface_form || '') + candidateSurface;
+            if (hasWholeNameStructureEvidence(candidateSurface)) {
+                wholeNameAttested = true;
+                break;
+            }
+        }
+        if (wholeNameAttested) continue;
+        candidate.nameContextAmbiguous = true;
+        candidate.nameContextBase = String(previous.surface_form || '');
+        candidate.nameContextStructure = 'proper-name-generic-boundary';
     }
     return marked;
 }

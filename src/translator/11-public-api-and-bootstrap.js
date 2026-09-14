@@ -10,6 +10,7 @@ function getRuntimeDiagnosticsInternals() {
         classifyCanonicalBoundaryTokens,
         classifyHanCharacterScope,
         classifyTokenOutputBoundary,
+        classifyTokenOutputBoundaryDecision,
         compileReviewedPattern,
         containsHan,
         convertToRomaji,
@@ -27,6 +28,10 @@ function getRuntimeDiagnosticsInternals() {
         getCommonWordReadingForToken,
         getContextualReadingEvidenceForToken,
         evaluateContextualReadingEvidence,
+        getLoanwordMetadataForToken,
+        evaluateContextualLoanwordEvidence,
+        annotateContextualLoanwordEvidence,
+        annotateMorphologicalOutputBoundaries,
         getGeneralWordCandidates,
         getGeneralWordLookup,
         getHanOccurrences,
@@ -86,7 +91,8 @@ function getRuntimeDiagnosticsInternals() {
         registerRuntimeDiagnosticsTools,
         resolveConfiguredAssetBaseUrl,
         updateRuntimeDiagnostics,
-        validateAssetSchema
+        validateAssetSchema,
+        validateFinalOutputEvidenceConsistency
     });
 }
 

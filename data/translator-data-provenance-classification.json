@@ -403,7 +403,9 @@
         "Jitendex/JMdict snapshot 2026-08-11 (revision 2026.08.11.0): explicit source-language spelling evidence for conservatively accepted lexical loanwords; non-wasei multiword source strings are excluded when full-versus-partial source status cannot be proven from the export.",
         "JMnedict snapshot 2026-08-10: conservatively filtered established company, product, work, organisation and group names; descriptive, conflicting and unsafe rows are rejected.",
         "Jiten global frequency snapshot 2026-09-12 (revision Jiten 26-09-08): supporting frequency/prioritisation evidence only.",
-        "NINJAL loanword surveys: usage, recognition and coverage-gap corroboration only; survey presence never supplies source spelling and NINJAL survey rows are not redistributed in the runtime bank."
+        "NINJAL loanword surveys: usage, recognition and coverage-gap corroboration only; survey presence never supplies source spelling and NINJAL survey rows are not redistributed in the runtime bank.",
+        "Metadata-only requiresReview rows establish foreign-derived status while deliberately withholding an unresolved source spelling; runtime retains mechanical Rule-0 Romaji until stronger evidence exists.",
+        "NINJAL Report 126 and Japanese word-boundary/frequency research are used for independent coverage measurement and linguistic design only; they do not supply runtime source spellings."
       ],
       "licenceRefs": [
         "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",

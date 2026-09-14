@@ -15,9 +15,9 @@ A `complete` entry is sufficiently documented for maintained release use. `parti
 
 `data/translator-data-provenance-classification.json` contains **39** entries:
 
-- project-authored/manual: **10**
+- project-authored/manual: **11**
 - externally-derived: **22**
-- mixed: **7**
+- mixed: **6**
 - complete: **39**
 - partial: **0**
 
@@ -30,19 +30,6 @@ A `complete` entry is sufficiently documented for maintained release use. `parti
 ### Compound fallback bank
 
 `data/compound-words/compound-words-term-bank-1.json` is a small project-reviewed fallback set. It stores factual surface/reading data only and does not redistribute forum explanations or presentation content.
-
-### Expanded loanword/source-spelling bank
-
-`data/loanwords/loanwords-term-bank-1.json` is classified as **mixed**. Existing CJ2R-reviewed mappings retain precedence over conservatively accepted external candidates. The expansion uses explicit JMdict/Jitendex source-language evidence plus a filtered JMnedict subset for established company, product, work, organisation and group names; Jiten frequency is supporting/prioritisation evidence only. Ambiguous homographs, descriptive/non-name outputs and unverifiable partial-source records are excluded rather than guessed.
-
-Runtime foreign-source output uses the project's conventional unaccented Latin/ASCII form. Typed `country-name`/`country-language` rows support only explicitly reviewed whole expressions such as `ロシア語 → Russia-go`; country mappings are not productively extended to arbitrary `～語` strings.
-
-NINJAL loanword surveys are used only for usage/recognition and coverage-gap corroboration; CJ2R does not redistribute NINJAL survey rows or use survey presence as source-spelling authority. Relevant notices include:
-
-- `licenses and sources/Jitendex-Jiten-JMnedict Attribution.md`
-- `licenses and sources/CC BY-SA 4.0 Notice.md`
-- `licenses and sources/Electronic Dictionary Research and Development Group License.md`
-- `licenses and sources/NINJAL Loanword Survey Attribution.md`
 
 ### Japanese-use Han scope
 
@@ -89,7 +76,7 @@ Relevant notices include:
 
 ## External-evidence hash coverage
 
-`data/external-evidence-source-provenance.json` pins **15** externally-derived or mixed files whose source/licence basis is specific enough for automatic verification. Structural QA checks each stored SHA-256 and referenced notice.
+`data/external-evidence-source-provenance.json` pins **14** externally-derived or mixed files whose source/licence basis is specific enough for automatic verification. Structural QA checks each stored SHA-256 and referenced notice.
 
 Project-authored/manual banks do not need an external-source hash entry merely because an external reference was consulted during review.
 

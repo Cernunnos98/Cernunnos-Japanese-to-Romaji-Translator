@@ -80,10 +80,6 @@ CHROMIUM=/path/to/chromium node tools/qa/run-translator-release-qa.js
 
 This is an environment issue, not a translation failure.
 
-## TypeScript version rejected or typecheck behaviour changed
-
-`run-translator-typecheck.js` supports TypeScript >=5.8.0 and <7.0.0 and prints the compiler version on success. The gate intentionally checks JavaScript with null safety; it does not enable full TypeScript strict mode. If the runner rejects a newer compiler major version, review the compiler changes before widening the supported range rather than bypassing the check. Use `TSC=/path/to/tsc` when the supported compiler is installed outside `PATH`.
-
 ## Canonical regression failure
 
 Treat the expected result as a project requirement unless Rule 0 or an explicitly reviewed policy change says otherwise.

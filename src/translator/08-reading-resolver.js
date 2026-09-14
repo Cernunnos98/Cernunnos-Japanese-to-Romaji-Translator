@@ -271,9 +271,8 @@ function getContextTokenTerms(token) {
     return terms;
 }
 
-function scoreContextFeatureGroup(tokens, targetIndex, groupId, windowSize) {
-    const terms = runtimeState.contextFeatureGroups.get(groupId) || [];
-    if (!terms.length) return 0;
+function scoreWeightedContextTerms(tokens, targetIndex, terms, windowSize, sourceText = '') {
+    if (!Array.isArray(terms) || !terms.length) return 0;
     const start = Math.max(0, targetIndex - windowSize);
     const end = Math.min(tokens.length - 1, targetIndex + windowSize);
     const matchedTerms = new Set();
@@ -287,7 +286,19 @@ function scoreContextFeatureGroup(tokens, targetIndex, groupId, windowSize) {
             score += Number(evidence.weight || 0);
         }
     }
+    if (!sourceText) return score;
+    const sourceWindow = getContextSourceWindow(tokens, targetIndex, windowSize, sourceText);
+    const targetSurface = String(tokens[targetIndex]?.surface_form || '');
+    for (const evidence of terms) {
+        if (matchedTerms.has(evidence.term) || evidence.term === targetSurface || !sourceWindow.includes(evidence.term)) continue;
+        matchedTerms.add(evidence.term);
+        score += Number(evidence.weight || 0);
+    }
     return score;
+}
+
+function scoreContextFeatureGroup(tokens, targetIndex, groupId, windowSize) {
+    return scoreWeightedContextTerms(tokens, targetIndex, runtimeState.contextFeatureGroups.get(groupId) || [], windowSize);
 }
 
 function getContextualReadingEvidenceForToken(token) {
@@ -295,6 +306,14 @@ function getContextualReadingEvidenceForToken(token) {
     const normalized = normalizeKanjiForLookup(surface);
     return runtimeState.contextualReadingDictionary.get(surface)
         || (normalized !== surface ? runtimeState.contextualReadingDictionary.get(normalized) : null)
+        || null;
+}
+
+function getLoanwordMetadataForToken(token) {
+    const surface = String(token?.surface_form || '');
+    const normalized = normalizeKanjiForLookup(surface);
+    return runtimeState.loanwordMetadataDictionary.get(surface)
+        || (normalized !== surface ? runtimeState.loanwordMetadataDictionary.get(normalized) : null)
         || null;
 }
 
@@ -315,29 +334,7 @@ function getContextSourceWindow(tokens, targetIndex, windowSize, sourceText) {
 }
 
 function scoreFinalContextFeatureGroup(tokens, targetIndex, groupId, windowSize, sourceText) {
-    const terms = runtimeState.contextFeatureGroups.get(groupId) || [];
-    if (!terms.length) return 0;
-    const start = Math.max(0, targetIndex - windowSize);
-    const end = Math.min(tokens.length - 1, targetIndex + windowSize);
-    const matchedTerms = new Set();
-    let score = 0;
-    for (let index = start; index <= end; index += 1) {
-        if (index === targetIndex) continue;
-        const tokenTerms = getContextTokenTerms(tokens[index]);
-        for (const evidence of terms) {
-            if (matchedTerms.has(evidence.term) || !tokenTerms.has(evidence.term)) continue;
-            matchedTerms.add(evidence.term);
-            score += Number(evidence.weight || 0);
-        }
-    }
-    const sourceWindow = getContextSourceWindow(tokens, targetIndex, windowSize, sourceText);
-    const targetSurface = String(tokens[targetIndex]?.surface_form || '');
-    for (const evidence of terms) {
-        if (matchedTerms.has(evidence.term) || evidence.term === targetSurface || !sourceWindow.includes(evidence.term)) continue;
-        matchedTerms.add(evidence.term);
-        score += Number(evidence.weight || 0);
-    }
-    return score;
+    return scoreWeightedContextTerms(tokens, targetIndex, runtimeState.contextFeatureGroups.get(groupId) || [], windowSize, sourceText);
 }
 
 function evaluateContextualReadingEvidence(tokens, targetIndex, evidence, options = {}) {
@@ -365,6 +362,26 @@ function evaluateContextualReadingEvidence(tokens, targetIndex, evidence, option
     return { candidates, selected, margin };
 }
 
+function evaluateContextualLoanwordEvidence(tokens, targetIndex, metadata, options = {}) {
+    const evidence = metadata?.context;
+    if (!evidence) return { candidates: [], selected: null, margin: 0 };
+    const sourceText = options.finalPass ? String(options.sourceText || '') : '';
+    const candidates = evidence.candidates.map(candidate => ({
+        output: candidate.output,
+        romaji: candidate.output,
+        weight: scoreWeightedContextTerms(tokens, targetIndex, candidate.terms, evidence.window, sourceText),
+        rank: Number.POSITIVE_INFINITY,
+        categories: new Set([options.finalPass ? 'sentence-context-verification' : 'contextual-loanword']),
+        sources: new Set([evidence.source]),
+        minScore: candidate.minScore
+    })).sort((left, right) => right.weight - left.weight);
+    const top = candidates[0] || null;
+    const second = candidates[1] || null;
+    const margin = top ? top.weight - Number(second?.weight || 0) : 0;
+    const selected = top && top.weight >= Number(top.minScore || 0) && margin >= Number(evidence.minMargin || 0) ? top : null;
+    return { candidates, selected, margin };
+}
+
 function annotateContextualReadingEvidence(tokens) {
     return (tokens || []).map((token, index) => {
         const evidence = getContextualReadingEvidenceForToken(token);
@@ -386,6 +403,28 @@ function annotateContextualReadingEvidence(tokens) {
         };
     });
 }
+
+function annotateContextualLoanwordEvidence(tokens) {
+    return (tokens || []).map((token, index) => {
+        const metadata = getLoanwordMetadataForToken(token);
+        if (!metadata?.context) return token;
+        const evaluation = evaluateContextualLoanwordEvidence(tokens, index, metadata);
+        const { candidates, selected, margin } = evaluation;
+        return {
+            ...token,
+            contextualLoanwordEvidenceCandidates: candidates,
+            contextualLoanwordEvidenceAmbiguous: !selected,
+            ...(selected ? {
+                contextualLoanwordEvidenceMatched: true,
+                contextualLoanwordEvidenceOutput: selected.output,
+                contextualLoanwordEvidenceSource: metadata.context.source,
+                contextualLoanwordEvidenceScore: selected.weight,
+                contextualLoanwordEvidenceMargin: margin
+            } : {})
+        };
+    });
+}
+
 
 function getCommonWordRuleForToken(token, sourceText) {
     if (!token) return null;

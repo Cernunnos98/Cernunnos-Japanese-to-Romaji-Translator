@@ -8,7 +8,8 @@ const permanentQaMechanisms = Object.freeze([
     { id: 'proper-names', label: 'Proper names', prefix: 'MECH-PROPER-NAME-' },
     { id: 'loanwords', label: 'Loanwords', prefix: 'MECH-LOANWORD-' },
     { id: 'uncertainty-propagation', label: 'Uncertainty propagation', prefix: 'MECH-UNCERTAINTY-' },
-    { id: 'mixed-script-handling', label: 'Mixed-script handling', prefix: 'MECH-MIXED-SCRIPT-' }
+    { id: 'mixed-script-handling', label: 'Mixed-script handling', prefix: 'MECH-MIXED-SCRIPT-' },
+    { id: 'final-output-consistency', label: 'Final output/evidence consistency', prefix: 'MECH-FINAL-OUTPUT-' }
 ]);
 
 function permanentQaMechanismForId(id) {

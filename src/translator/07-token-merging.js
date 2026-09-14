@@ -636,7 +636,8 @@ function makeMechanicalCountryNameFallbackToken(tokens, startIndex, bestMatch) {
         surface_form: bestMatch.surface,
         reading: combinedReading || bestMatch.surface,
         pronunciation: combinedReading || bestMatch.surface,
-        suppressLoanwordSourceSpelling: true
+        suppressLoanwordSourceSpelling: true,
+        countryLanguageReviewRequired: true
     };
 }
 

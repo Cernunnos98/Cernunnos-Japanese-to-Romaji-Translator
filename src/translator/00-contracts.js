@@ -11,10 +11,11 @@
  *   conjugated_form?: string, conjugated_type?: string, word_position?: number,
  *   sourceStart?: number, sourceEnd?: number, sourceSurface?: string,
  *   sourceSpanReconciled?: boolean, sourceSpanReconciliationReason?: string, sourceSpanGrammarBoundary?: boolean, sourceSpanGrammarBoundaryBefore?: boolean,
+ *   outputBoundaryBefore?: 'none'|'space'|'join'|'tight'|'apostrophe', outputBoundaryReason?: string, outputBoundaryAuthority?: string, outputBoundaryRequiresReview?: boolean,
  *   value?: string,
  *   particle?: boolean, prefix?: boolean, suffix?: boolean, nominalizer?: boolean, grammatical?: boolean,
  *   fullGrammaticalExpression?: boolean, titleSeparator?: boolean, crossNotationSymbol?: boolean, nameContinuation?: boolean, nameGivenStart?: boolean, canonicalBoundary?: boolean, hardBoundaryReconstructed?: boolean,
- *   morphologicalJoinLeft?: boolean, joinLeftAfterSokuon?: boolean, startsSeparateAuxiliaryUnit?: boolean, tokenizationRoleBoundaryBefore?: boolean, tokenizationRoleRepair?: string,
+ *   morphologicalJoinLeft?: boolean, morphologicalJoinReason?: string, morphologicalJoinAuthority?: string, joinLeftAfterSokuon?: boolean, startsSeparateAuxiliaryUnit?: boolean, tokenizationRoleBoundaryBefore?: boolean, tokenizationRoleRepair?: string,
  *   numericExpression?: boolean,
  *   contextualOverrideMatched?: boolean, contextualRomaji?: string,
  *   titleReadingEvidenceMatched?: boolean, titleReadingEvidenceReading?: string|null, titleReadingEvidenceRomaji?: string|null, titleReadingEvidenceKind?: string,
@@ -27,18 +28,19 @@
  *   variantProperNounMatched?: boolean, variantCanonicalRetokenized?: boolean, variantOriginalSurface?: string, variantLookupSurface?: string, variantMappings?: any[],
  *   latinPassthroughMatched?: boolean, latinPassthroughOutput?: string,
  *   knownPhraseMatched?: boolean, knownPhraseValue?: string, knownPhraseSource?: string,
- *   loanwordMatched?: boolean, loanwordOutput?: string, suppressLoanwordSourceSpelling?: boolean,
+ *   loanwordMatched?: boolean, loanwordOutput?: string, suppressLoanwordSourceSpelling?: boolean, countryLanguageReviewRequired?: boolean,
+ *   contextualLoanwordEvidenceMatched?: boolean, contextualLoanwordEvidenceOutput?: string|null, contextualLoanwordEvidenceSource?: string, contextualLoanwordEvidenceScore?: number, contextualLoanwordEvidenceMargin?: number, contextualLoanwordEvidenceAmbiguous?: boolean, contextualLoanwordEvidenceCandidates?: CJ2RReadingCandidate[],
  *   commonWordMatched?: boolean, commonWordReading?: string|null, commonWordRomaji?: string|null,
  *   contextualReadingEvidenceMatched?: boolean, contextualReadingEvidenceReading?: string|null, contextualReadingEvidenceRomaji?: string|null, contextualReadingEvidenceSource?: string, contextualReadingEvidenceScore?: number, contextualReadingEvidenceMargin?: number, contextualReadingEvidenceAmbiguous?: boolean, contextualReadingEvidenceCandidates?: CJ2RReadingCandidate[],
  *   historicalKanaEvidenceMatched?: boolean, historicalKanaEvidenceReading?: string|null,
  *   rendakuEvidenceMatched?: boolean, rendakuEvidenceReading?: string|null, rendakuApplied?: boolean,
  *   exactDictionaryRescueMatched?: boolean, exactDictionaryRescueSource?: string, exactDictionaryRescueConfidence?: number,
- *   kanaLexicalSpanMatched?: boolean, kanaLexicalSpanReading?: string|null,
+ *   kanaLexicalSpanMatched?: boolean, kanaLexicalSpanReading?: string|null, kanaLexicalSpanEvidenceStrength?: 'strong'|'weak',
  *   atejiMatched?: boolean, atejiReading?: string|null,
  *   generalWordMatched?: boolean, generalWordReading?: string|null, generalWordAmbiguous?: boolean, generalWordCandidates?: CJ2RReadingCandidate[], generalWordVariantMappings?: any[],
  *   ordinaryCompoundReadingMatched?: boolean, ordinaryCompoundReading?: string|null, ordinaryCompoundReadingCandidates?: CJ2RReadingCandidate[],
  *   iterationMarkFallbackMatched?: boolean, iterationMarkFallbackReading?: string|null,
- *   nameContextAmbiguous?: boolean,
+ *   nameContextAmbiguous?: boolean, nameContextSurname?: string, nameContextBase?: string, nameContextStructure?: string,
  *   readingResolution?: CJ2RReadingResolution,
  *   getReading?: (() => string|null)|undefined
  * }} CJ2RToken
@@ -48,7 +50,7 @@
 /** @typedef {'candidate'|'active'|'resolved'|'superseded'|'final-active'} CJ2RReviewSignalState */
 /** @typedef {{surface: string, flag: string, source: string, confidence: number, category: string, policyRequiresReview: boolean, requiresReview: boolean, rationale: string, state: CJ2RReviewSignalState, lifecycle: CJ2RReviewSignalState[], resolutionReason?: string|null, supersededBy?: string|null}} CJ2RReviewSignal */
 /** @typedef {{requiresReview: boolean, resolvedOutputRequiresReview: boolean, literalUnresolved: number, hasLiteralUnresolved: boolean, unresolvedJapaneseReadings: number, unresolvedJapaneseHan: number, outOfScopeInput: number, unknownJapaneseScopeStatus: number}} CJ2RAuditStatistics */
-/** @typedef {{sourceText: string, normalizedSourceText: string, output: string, readings: any[], sourceCounts: Record<string, number>, redFlags: CJ2RReviewSignal[], requiresReview: boolean, statistics: CJ2RAuditStatistics}} CJ2RTranslationDiagnostics */
+/** @typedef {{sourceText: string, normalizedSourceText: string, output: string, readings: any[], sourceCounts: Record<string, number>, redFlags: CJ2RReviewSignal[], structuralValidation?: {valid: boolean, violations: any[]}, requiresReview: boolean, statistics: CJ2RAuditStatistics}} CJ2RTranslationDiagnostics */
 /** @typedef {{field: Element|string, button: Element|string, output?: Element|string|null, overridesEnabled?: boolean}} CJ2RBindingOptions */
 
 /** @typedef {{tokenize: (text: string) => CJ2RToken[], viterbi_builder?: any, token_info_dictionary?: any}} CJ2RTokenizer */

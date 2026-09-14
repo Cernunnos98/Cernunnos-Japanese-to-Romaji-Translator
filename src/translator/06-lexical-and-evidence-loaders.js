@@ -162,13 +162,16 @@ function buildReviewedCommonWordInflectionIndex() {
     }
 }
 
-function registerKanaLexicalReadingEvidence(surface, reading, source) {
+function registerKanaLexicalReadingEvidence(surface, reading, source, options = {}) {
     const cleanSurface = String(surface || '').trim();
     const normalizedReading = normalizeKanaReading(reading || '').trim();
     if (!cleanSurface || !normalizedReading || !/^[ぁ-ゖー]+$/u.test(normalizedReading) || !containsHan(cleanSurface)) return;
-    const existing = runtimeState.kanaLexicalReadingDictionary.get(normalizedReading) || { surfaces: new Set(), sources: new Set() };
+    const strong = options.strong !== false;
+    const existing = runtimeState.kanaLexicalReadingDictionary.get(normalizedReading) || { surfaces: new Set(), sources: new Set(), strongSources: new Set() };
+    if (!existing.strongSources) existing.strongSources = new Set();
     existing.surfaces.add(cleanSurface);
     existing.sources.add(source);
+    if (strong) existing.strongSources.add(source);
     runtimeState.kanaLexicalReadingDictionary.set(normalizedReading, existing);
     addSurfacePrefixes(runtimeState.kanaLexicalReadingPrefixes, normalizedReading);
 }
@@ -189,8 +192,8 @@ async function loadGeneralWordDictionary() {
             })).filter(item => item.reading).sort((a, b) => b.score - a.score);
             if (!readings.length) continue;
             setUniqueDictionaryEntry(runtimeState.generalWordDictionary, surface, { readings, mergeSafe }, 'general-word');
-            if (mergeSafe) {
-                for (const item of readings) registerKanaLexicalReadingEvidence(surface, item.reading, 'general-word');
+            for (const item of readings) {
+                registerKanaLexicalReadingEvidence(surface, item.reading, mergeSafe ? 'general-word' : 'general-word-reading-alias', { strong: mergeSafe });
             }
             const chars = Array.from(surface);
             for (let length = 1; length <= chars.length; length += 1) {
@@ -207,10 +210,40 @@ async function loadLoanwordDictionary() {
         for (const entry of data) {
             const surface = String(Array.isArray(entry) ? entry[0] : entry?.surface || '').trim();
             const output = normalizeDictionaryRomaji(Array.isArray(entry) ? entry[1] : entry?.output);
-            if (!surface || !output) continue;
-            setUniqueDictionaryEntry(runtimeState.loanwordDictionary, surface, output, 'loanword');
-            const category = Array.isArray(entry) ? '' : String(entry?.category || '').trim();
-            if (category) setUniqueDictionaryEntry(runtimeState.loanwordMetadataDictionary, surface, { category }, 'loanword metadata');
+            if (!surface) continue;
+            if (output) setUniqueDictionaryEntry(runtimeState.loanwordDictionary, surface, output, 'loanword');
+            if (Array.isArray(entry)) continue;
+            const category = String(entry?.category || '').trim();
+            const requiresReview = Boolean(entry?.requiresReview);
+            const reviewReason = String(entry?.reviewReason || '').trim();
+            const ambiguitySignificance = String(entry?.ambiguitySignificance || '').trim();
+            const alternates = Array.isArray(entry?.alternates) ? entry.alternates.map(item => ({
+                output: normalizeDictionaryRomaji(item?.output),
+                significance: String(item?.significance || '').trim()
+            })).filter(item => item.output && item.significance) : [];
+            const context = entry?.context ? {
+                window: Number(entry.context.window),
+                minMargin: Number(entry.context.minMargin),
+                source: String(entry.context.source || '').trim(),
+                candidates: Array.isArray(entry.context.candidates) ? entry.context.candidates.map(candidate => ({
+                    output: normalizeDictionaryRomaji(candidate?.output),
+                    minScore: Number(candidate?.minScore),
+                    terms: Array.isArray(candidate?.terms) ? candidate.terms.map(term => ({
+                        term: String(term?.term || ''),
+                        weight: Number(term?.weight)
+                    })).filter(term => term.term && Number.isFinite(term.weight) && term.weight > 0) : []
+                })).filter(candidate => candidate.output && candidate.terms.length) : []
+            } : null;
+            if (category || requiresReview || reviewReason || ambiguitySignificance || alternates.length || context) {
+                setUniqueDictionaryEntry(runtimeState.loanwordMetadataDictionary, surface, {
+                    category: category || null,
+                    requiresReview,
+                    reviewReason: reviewReason || null,
+                    ambiguitySignificance: ambiguitySignificance || null,
+                    alternates,
+                    context
+                }, 'loanword metadata');
+            }
         }
     }
 }
@@ -391,6 +424,15 @@ function buildLexicalPrefixIndexes() {
         }
     }
 
+    const loanwordMetadataEntries = [...runtimeState.loanwordMetadataDictionary.entries()];
+    for (const [surface, metadata] of loanwordMetadataEntries) {
+        const normalizedSurface = normalizeTranslatorInputText(surface);
+        if (!normalizedSurface || normalizedSurface === surface) continue;
+        const existingMetadata = runtimeState.loanwordMetadataDictionary.get(normalizedSurface);
+        if (!existingMetadata) runtimeState.loanwordMetadataDictionary.set(normalizedSurface, metadata);
+        else if (JSON.stringify(existingMetadata) !== JSON.stringify(metadata)) runtimeState.resourceWarnings.add(`Loanword metadata normalization alias conflict: ${surface} -> ${normalizedSurface}`);
+    }
+
     for (const surface of runtimeState.loanwordDictionary.keys()) {
         addSurfacePrefixes(runtimeState.loanwordPrefixes, surface);
         addSurfacePrefixes(runtimeState.loanwordPrefixes, normalizeKanjiForLookup(surface));
@@ -517,7 +559,8 @@ function buildAuthoritativeSpanIndex() {
             source: 'single-reading-general-word-evidence',
             confidence: 0.98,
             priority: 70,
-            category: 'general-word'
+            category: 'general-word',
+            mergeSafe: Boolean(entry.mergeSafe)
         });
     }
     for (const [surface, entry] of runtimeState.compoundWordDictionary.entries()) {
@@ -548,6 +591,19 @@ function buildAuthoritativeSpanIndex() {
             priority: 90,
             category: 'loanword',
             loanwordCategory: runtimeState.loanwordMetadataDictionary.get(surface)?.category || null
+        });
+    }
+    for (const [surface, metadata] of runtimeState.loanwordMetadataDictionary.entries()) {
+        if (!metadata?.requiresReview || runtimeState.loanwordDictionary.has(surface)) continue;
+        registerAuthoritativeSpanEvidence(surface, {
+            reading: surface,
+            source: 'reviewed-loanword-surface',
+            confidence: 0.85,
+            priority: 85,
+            category: 'loanword-review',
+            loanwordCategory: metadata.category || null,
+            reviewRequired: true,
+            reviewReason: metadata.reviewReason || 'source-spelling-unresolved'
         });
     }
     for (const [surface, entry] of runtimeState.reviewedProperNameSpanDictionary.entries()) {

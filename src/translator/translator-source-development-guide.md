@@ -2,7 +2,7 @@
 
 `src/translator/` is the editable JavaScript source for CJ2R. `translator-engine.js` is generated from these ordered modules and should not be edited directly.
 
-`00-contracts.js` contains shared JSDoc contracts only. The generated engine is checked with TypeScript `checkJs`, so keep the contracts aligned with annotations actually written by the pipeline and prefer accurate JSDoc types over broad casts that weaken the static checks.
+`00-contracts.js` contains shared JSDoc contracts only. The generated engine is checked with TypeScript `checkJs`, so prefer accurate JSDoc types over broad casts that weaken the static checks.
 
 ## 1. Normal workflow
 
@@ -25,7 +25,7 @@ Or rebuild and test in one command:
 node tools/qa/run-translator-release-qa.js --build
 ```
 
-The complete gate requires Node.js, Python 3, TypeScript (`tsc`), Chromium/Chrome and Graphviz `dot`. Static checking supports TypeScript >=5.8.0 and <7.0.0; the runner rejects versions outside that range so compiler-default changes cannot silently redefine the release gate. `CJ2R_PYTHON`/`PYTHON` and `CHROMIUM` may be used when those executables are installed in non-standard locations.
+The complete gate requires Node.js, Python 3, TypeScript (`tsc`), Chromium/Chrome and Graphviz `dot`. `CJ2R_PYTHON`/`PYTHON` and `CHROMIUM` may be used when those executables are installed in non-standard locations.
 
 Ordinary JSON changes under `data/` do not require an engine rebuild unless JavaScript loading/schema/interpretation code also changes.
 
@@ -57,8 +57,6 @@ Run the static check directly with:
 ```bash
 node tools/qa/run-translator-typecheck.js
 ```
-
-The static gate intentionally uses `checkJs` plus `strictNullChecks`; it does not claim full TypeScript strict-mode coverage. The runner passes that policy explicitly (`strict=false`, `noImplicitAny=false`, `strictNullChecks=true`) rather than inheriting TypeScript defaults. A future migration to full strict typing would be a separate reviewed change, not an incidental compiler upgrade.
 
 ## 3. Development and production runtime
 
@@ -181,9 +179,7 @@ When extending a repair layer, begin with a reproducible real-world failure and 
 
 Every maintained `data/` file is classified in `data/translator-data-provenance-classification.json`; maintained classifications must not remain `partial`.
 
-Externally derived evidence with a sufficiently specific source basis is pinned in `data/external-evidence-source-provenance.json`. NINJAL survey material is corroborative/non-donor evidence only and must not be copied into runtime rows without independently distributable authoritative spelling evidence.
-
-After intentionally changing a tracked file, refresh its recorded hash with:
+Externally derived evidence with a sufficiently specific source basis is pinned in `data/external-evidence-source-provenance.json`. After intentionally changing a tracked file, refresh its recorded hash with:
 
 ```bash
 node tools/qa/update-external-evidence-source-provenance-hashes.js
@@ -590,7 +586,7 @@ Tokenisation-mutation QA deliberately supplies alternative artificial token part
 
 - **Owner:** M07 `mergeLoanwordTokens`
 - **Flow:** T32 tokens → loanword output spans
-- **Rules / constraints:** Prefer the longest reviewed complete surface and treat its direct Romaji as an atomic source-language output: internal spacing and casing come from the reviewed row, not from Kuromoji boundaries or later title-casing. Width-normalised aliases may point to the same reviewed surface/output for mixed/full-width Latin and digit spellings. Partial-token decomposition is allowed only when no whole-token spelling exists and exactly one reviewed complete segmentation is possible. If only part of a contiguous Katakana span has reviewed source-language spelling, preserve the mechanically romanised remainder and require review rather than presenting a hybrid result as authoritative. Typed `country-name`/`country-language` rows are narrowly scoped metadata: only reviewed whole `country + 語` expressions may emit `Country-go`, and a bare country mapping must be suppressed inside an unapproved language compound rather than leaking a hybrid such as `United Kingdom-go`.
+- **Rules / constraints:** Prefer reviewed whole-token source spelling. Partial-token decomposition only when no whole-token spelling exists and exactly one reviewed complete segmentation is possible. If only part of a contiguous Katakana span has reviewed source-language spelling, preserve the mechanically romanised remainder and require review rather than presenting a hybrid result as authoritative.
 - **Uses:** `data/loanwords/loanwords-term-bank-1.json`
 - **Focused QA:** `names-and-loanwords.js`
 
@@ -728,7 +724,7 @@ Use this phase when the token stream is already correct but CJ2R chooses the **w
 
 - **Owner:** M10 + M08 lookup
 - **Flow:** reviewed loanword → source-language output
-- **Rules / constraints:** Reviewed source spelling beats kana-derived output. Preserve the bank's reviewed word boundaries and casing exactly; runtime foreign spellings are ASCII-safe project forms, while original accented/source spellings belong in provenance/audit evidence. `country-language` evidence applies only to the complete reviewed surface and must not be synthesised from a bare country row.
+- **Rules / constraints:** Source spelling beats kana-derived output where reviewed.
 - **Uses:** loanword bank
 - **Focused QA:** `names-and-loanwords.js`
 
@@ -984,9 +980,9 @@ Use this phase when individual token outputs are correct but the **final sentenc
 
 - **Owner:** M10 `capitalizeRomaji`/formatting
 - **Flow:** lexical token → title-cased token
-- **Rules / constraints:** Apply project casing after reading resolution to ordinary lexical Romaji only. Direct reviewed source-language output is already formatted evidence and must retain its stored casing and internal spacing (`eBay`, `SpaceX`, multiword titles/brands, etc.); never run generic title-casing over it.
+- **Rules / constraints:** Apply project casing after reading resolution; direct source spellings retain their reviewed form where specified.
 - **Uses:** Rule 0
-- **Focused QA:** `romaji-core.js` + `names-and-loanwords.js`
+- **Focused QA:** `romaji-core.js`
 
 **O06 — Compact title-number boundary**
 

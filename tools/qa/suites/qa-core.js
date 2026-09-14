@@ -4,6 +4,7 @@ if (!qaInternals) throw new Error('CJ2R runtime diagnostic internals are unavail
 const {
     addSurfacePrefixes,
     attachSourceTokenSpans,
+    annotateMorphologicalOutputBoundaries,
     blockUnresolvedHanFromRomaji,
     buildTranslationDiagnostics,
     capitalizeRomaji,
@@ -87,7 +88,8 @@ const {
     registerRuntimeDiagnosticsTools,
     resolveConfiguredAssetBaseUrl,
     updateRuntimeDiagnostics,
-    validateAssetSchema
+    validateAssetSchema,
+    validateFinalOutputEvidenceConsistency
 } = qaInternals;
 
 // Developer-only regression and QA tools.

@@ -84,6 +84,123 @@
     "Otzi the Iceman"
   ],
   {
+    "surface": "ベース",
+    "output": "Base",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Base/Bass",
+    "alternates": [
+      {
+        "output": "Bass",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Bass",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "音楽",
+              "weight": 4
+            },
+            {
+              "term": "楽器",
+              "weight": 4
+            },
+            {
+              "term": "ベースギター",
+              "weight": 5
+            },
+            {
+              "term": "バンド",
+              "weight": 3
+            },
+            {
+              "term": "ギター",
+              "weight": 2
+            },
+            {
+              "term": "低音",
+              "weight": 4
+            },
+            {
+              "term": "演奏",
+              "weight": 3
+            },
+            {
+              "term": "弾く",
+              "weight": 5
+            },
+            {
+              "term": "奏者",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Base",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "基礎",
+              "weight": 5
+            },
+            {
+              "term": "土台",
+              "weight": 5
+            },
+            {
+              "term": "基地",
+              "weight": 5
+            },
+            {
+              "term": "拠点",
+              "weight": 4
+            },
+            {
+              "term": "基準",
+              "weight": 3
+            },
+            {
+              "term": "ベースキャンプ",
+              "weight": 5
+            },
+            {
+              "term": "データ",
+              "weight": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "バター",
+    "Butter"
+  ],
+  [
+    "テーブル",
+    "Table"
+  ],
+  [
+    "スープ",
+    "Soup"
+  ],
+  [
+    "アニメ",
+    "Anime"
+  ],
+  [
+    "エアコン",
+    "Eakon"
+  ],
+  {
     "surface": "アイスランド語",
     "output": "Iceland-go",
     "category": "country-language"
@@ -4880,7 +4997,7 @@
   ],
   [
     "カテゴリー",
-    "Kategorie"
+    "Category"
   ],
   [
     "カテドラル",
@@ -22182,7 +22299,7 @@
   ],
   [
     "プロフィール",
-    "Profil"
+    "Profile"
   ],
   [
     "プロブレムチャイルド２",
@@ -26527,7 +26644,7 @@
   ],
   [
     "ヨーロッパ",
-    "Europa"
+    "Europe"
   ],
   [
     "ライオンズクラブ",
@@ -29733,5 +29850,4922 @@
   [
     "ｗｉｔｈコロナ",
     "With Corona"
+  ],
+  [
+    "アピール",
+    "Appeal"
+  ],
+  [
+    "イメージ",
+    "Image"
+  ],
+  [
+    "インタビュー",
+    "Interview"
+  ],
+  [
+    "エンジン",
+    "Engine"
+  ],
+  [
+    "オーケストラ",
+    "Orchestra"
+  ],
+  [
+    "オープン",
+    "Open"
+  ],
+  [
+    "キャンプ",
+    "Camp"
+  ],
+  [
+    "グループ",
+    "Group"
+  ],
+  [
+    "ケース",
+    "Case"
+  ],
+  [
+    "コスト",
+    "Cost"
+  ],
+  [
+    "コメント",
+    "Comment"
+  ],
+  [
+    "コンサート",
+    "Concert"
+  ],
+  [
+    "ゴルフ",
+    "Golf"
+  ],
+  [
+    "サミット",
+    "Summit"
+  ],
+  [
+    "サービス",
+    "Service"
+  ],
+  [
+    "システム",
+    "System"
+  ],
+  [
+    "ショップ",
+    "Shop"
+  ],
+  [
+    "シリーズ",
+    "Series"
+  ],
+  [
+    "シンポジウム",
+    "Symposium"
+  ],
+  [
+    "シーズン",
+    "Season"
+  ],
+  [
+    "スキー",
+    "Ski"
+  ],
+  [
+    "スタート",
+    "Start"
+  ],
+  [
+    "スピード",
+    "Speed"
+  ],
+  [
+    "スポーツ",
+    "Sports"
+  ],
+  [
+    "セット",
+    "Set"
+  ],
+  [
+    "センター",
+    "Center"
+  ],
+  [
+    "タイトル",
+    "Title"
+  ],
+  [
+    "チェック",
+    "Check"
+  ],
+  [
+    "チャンス",
+    "Chance"
+  ],
+  [
+    "チーム",
+    "Team"
+  ],
+  [
+    "デザイン",
+    "Design"
+  ],
+  [
+    "デジタル",
+    "Digital"
+  ],
+  [
+    "データ",
+    "Data"
+  ],
+  [
+    "トラブル",
+    "Trouble"
+  ],
+  [
+    "ドル",
+    "Dollar"
+  ],
+  [
+    "ドーム",
+    "Dome"
+  ],
+  [
+    "ネットワーク",
+    "Network"
+  ],
+  [
+    "バランス",
+    "Balance"
+  ],
+  [
+    "ヒット",
+    "Hit"
+  ],
+  [
+    "ベテラン",
+    "Veteran"
+  ],
+  [
+    "ボランティア",
+    "Volunteer"
+  ],
+  [
+    "ポイント",
+    "Point"
+  ],
+  [
+    "マイナス",
+    "Minus"
+  ],
+  [
+    "ミサイル",
+    "Missile"
+  ],
+  [
+    "メッセージ",
+    "Message"
+  ],
+  [
+    "メディア",
+    "Media"
+  ],
+  [
+    "メンバー",
+    "Member"
+  ],
+  [
+    "メーカー",
+    "Maker"
+  ],
+  [
+    "モデル",
+    "Model"
+  ],
+  [
+    "ルール",
+    "Rule"
+  ],
+  {
+    "surface": "カード",
+    "output": "Card",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "incidental",
+    "alternates": [
+      {
+        "output": "Curd",
+        "significance": "incidental"
+      }
+    ]
+  },
+  {
+    "surface": "ソウル",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling: soul/Seoul"
+  },
+  {
+    "surface": "タイ",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling-or-native-reading: tie/Thai/鯛"
+  },
+  {
+    "surface": "ビル",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling: building clipping/bill"
+  },
+  {
+    "surface": "ファン",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling: fan/fun"
+  },
+  {
+    "surface": "ベスト",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling: best/vest"
+  },
+  [
+    "ホーム",
+    "Home"
+  ],
+  {
+    "surface": "ホール",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling: hall/hole/whole"
+  },
+  {
+    "surface": "ボール",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling: ball/bowl/board"
+  },
+  [
+    "マラソン",
+    "Marathon"
+  ],
+  {
+    "surface": "リード",
+    "requiresReview": true,
+    "reviewReason": "ambiguous-source-spelling: lead/reed"
+  },
+  [
+    "レベル",
+    "Level"
+  ],
+  [
+    "エイズ",
+    "AIDS"
+  ],
+  [
+    "キロ",
+    "Kilo"
+  ],
+  [
+    "コース",
+    "Course"
+  ],
+  [
+    "サリン",
+    "Sarin"
+  ],
+  [
+    "スーパー",
+    "Super"
+  ],
+  {
+    "surface": "センチ",
+    "requiresReview": true,
+    "reviewReason": "multiple established clipped expansions"
+  },
+  [
+    "ゼロ",
+    "Zero"
+  ],
+  {
+    "surface": "ソフト",
+    "output": "Soft",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Soft/Software",
+    "alternates": [
+      {
+        "output": "Software",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Software",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "開発",
+              "weight": 5
+            },
+            {
+              "term": "パソコン",
+              "weight": 5
+            },
+            {
+              "term": "コンピュータ",
+              "weight": 5
+            },
+            {
+              "term": "アプリ",
+              "weight": 4
+            },
+            {
+              "term": "プログラム",
+              "weight": 4
+            },
+            {
+              "term": "インストール",
+              "weight": 4
+            },
+            {
+              "term": "更新",
+              "weight": 3
+            },
+            {
+              "term": "発売",
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "output": "Soft",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "口調",
+              "weight": 5
+            },
+            {
+              "term": "素材",
+              "weight": 4
+            },
+            {
+              "term": "感触",
+              "weight": 4
+            },
+            {
+              "term": "印象",
+              "weight": 3
+            },
+            {
+              "term": "色",
+              "weight": 2
+            },
+            {
+              "term": "光",
+              "weight": 2
+            },
+            {
+              "term": "タッチ",
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "タイプ",
+    "Type"
+  ],
+  [
+    "テレビ",
+    "Terebi"
+  ],
+  [
+    "テロ",
+    "Tero"
+  ],
+  [
+    "トップ",
+    "Top"
+  ],
+  [
+    "トン",
+    "Ton"
+  ],
+  [
+    "ドラマ",
+    "Drama"
+  ],
+  [
+    "ネット",
+    "Net"
+  ],
+  [
+    "バブル",
+    "Bubble"
+  ],
+  [
+    "パソコン",
+    "Pasokon"
+  ],
+  [
+    "ビデオ",
+    "Video"
+  ],
+  {
+    "surface": "ブッシュ",
+    "requiresReview": true,
+    "reviewReason": "multiple source-language lexical origins/senses"
+  },
+  [
+    "プロ",
+    "Pro"
+  ],
+  [
+    "ホームページ",
+    "Home Page"
+  ],
+  [
+    "マスコミ",
+    "Masukomi"
+  ],
+  [
+    "マーク",
+    "Mark"
+  ],
+  {
+    "surface": "ミス",
+    "requiresReview": true,
+    "reviewReason": "multiple source spellings/senses: miss/Miss/myth"
+  },
+  {
+    "surface": "メール",
+    "output": "Mail",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "incidental",
+    "alternates": [
+      {
+        "output": "Male",
+        "significance": "incidental"
+      }
+    ]
+  },
+  [
+    "リストラ",
+    "Risutora"
+  ],
+  [
+    "ボタン",
+    "Button"
+  ],
+  [
+    "カルタ",
+    "Carta"
+  ],
+  {
+    "surface": "コップ",
+    "category": "ordinary-gairaigo",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Portuguese copo / Dutch kop"
+  },
+  [
+    "ホッチキス",
+    "Hotchkiss"
+  ],
+  [
+    "ホチキス",
+    "Hotchkiss"
+  ],
+  [
+    "コロッケ",
+    "Croquette"
+  ],
+  [
+    "ソフトランディング",
+    "Soft Landing"
+  ],
+  [
+    "パソコンソフト",
+    "Pasokon Software"
+  ],
+  [
+    "プロファイル",
+    "Profile"
+  ],
+  [
+    "リラックス",
+    "Relax"
+  ],
+  [
+    "カロリー",
+    "Calorie"
+  ],
+  [
+    "ビタミン",
+    "Vitamin"
+  ],
+  [
+    "ミネラル",
+    "Mineral"
+  ],
+  [
+    "ミュージック",
+    "Music"
+  ],
+  [
+    "アート",
+    "Art"
+  ],
+  [
+    "サウンド",
+    "Sound"
+  ],
+  [
+    "レッスン",
+    "Lesson"
+  ],
+  [
+    "スキャン",
+    "Scan"
+  ],
+  [
+    "フィルム",
+    "Film"
+  ],
+  [
+    "アナログ",
+    "Analog"
+  ],
+  [
+    "スクリーン",
+    "Screen"
+  ],
+  [
+    "コーディネート",
+    "Coordinate"
+  ],
+  [
+    "コーラ",
+    "Cola"
+  ],
+  [
+    "サッカー",
+    "Soccer"
+  ],
+  [
+    "テニス",
+    "Tennis"
+  ],
+  [
+    "ラグビー",
+    "Rugby"
+  ],
+  [
+    "バスケットボール",
+    "Basketball"
+  ],
+  [
+    "バレーボール",
+    "Volleyball"
+  ],
+  [
+    "スケート",
+    "Skate"
+  ],
+  [
+    "ボクシング",
+    "Boxing"
+  ],
+  {
+    "surface": "ソース",
+    "output": "Sauce",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Sauce/Source",
+    "alternates": [
+      {
+        "output": "Source",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Sauce",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "トマト",
+              "weight": 5
+            },
+            {
+              "term": "パスタ",
+              "weight": 4
+            },
+            {
+              "term": "料理",
+              "weight": 4
+            },
+            {
+              "term": "食品",
+              "weight": 3
+            },
+            {
+              "term": "味",
+              "weight": 2
+            },
+            {
+              "term": "調味料",
+              "weight": 4
+            }
+          ]
+        },
+        {
+          "output": "Source",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "コード",
+              "weight": 5
+            },
+            {
+              "term": "プログラム",
+              "weight": 4
+            },
+            {
+              "term": "開発",
+              "weight": 4
+            },
+            {
+              "term": "データ",
+              "weight": 3
+            },
+            {
+              "term": "引用",
+              "weight": 3
+            },
+            {
+              "term": "情報",
+              "weight": 2
+            },
+            {
+              "term": "ファイル",
+              "weight": 5
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "surface": "キャッシュ",
+    "output": "Cash",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Cash/Cache",
+    "alternates": [
+      {
+        "output": "Cache",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Cash",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "現金",
+              "weight": 5
+            },
+            {
+              "term": "支払",
+              "weight": 4
+            },
+            {
+              "term": "決済",
+              "weight": 4
+            },
+            {
+              "term": "カード",
+              "weight": 3
+            },
+            {
+              "term": "ATM",
+              "weight": 4
+            },
+            {
+              "term": "会計",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Cache",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "メモリ",
+              "weight": 5
+            },
+            {
+              "term": "ブラウザ",
+              "weight": 4
+            },
+            {
+              "term": "データ",
+              "weight": 4
+            },
+            {
+              "term": "コンピュータ",
+              "weight": 4
+            },
+            {
+              "term": "CPU",
+              "weight": 3
+            },
+            {
+              "term": "保存",
+              "weight": 2
+            },
+            {
+              "term": "削除",
+              "weight": 5
+            },
+            {
+              "term": "消去",
+              "weight": 5
+            },
+            {
+              "term": "クリア",
+              "weight": 4
+            },
+            {
+              "term": "一時",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "surface": "ロック",
+    "output": "Rock",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Rock/Lock",
+    "alternates": [
+      {
+        "output": "Lock",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Rock",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "音楽",
+              "weight": 5
+            },
+            {
+              "term": "バンド",
+              "weight": 4
+            },
+            {
+              "term": "ギター",
+              "weight": 4
+            },
+            {
+              "term": "曲",
+              "weight": 3
+            },
+            {
+              "term": "ミュージック",
+              "weight": 4
+            },
+            {
+              "term": "歌",
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "output": "Lock",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "解除",
+              "weight": 5
+            },
+            {
+              "term": "鍵",
+              "weight": 5
+            },
+            {
+              "term": "ドア",
+              "weight": 4
+            },
+            {
+              "term": "画面",
+              "weight": 4
+            },
+            {
+              "term": "セキュリティ",
+              "weight": 4
+            },
+            {
+              "term": "固定",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "surface": "パス",
+    "output": "Pass",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Pass/Path",
+    "alternates": [
+      {
+        "output": "Path",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Pass",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "サッカー",
+              "weight": 5
+            },
+            {
+              "term": "ボール",
+              "weight": 4
+            },
+            {
+              "term": "チケット",
+              "weight": 4
+            },
+            {
+              "term": "定期券",
+              "weight": 4
+            },
+            {
+              "term": "試験",
+              "weight": 3
+            },
+            {
+              "term": "通行",
+              "weight": 3
+            },
+            {
+              "term": "提示",
+              "weight": 4
+            }
+          ]
+        },
+        {
+          "output": "Path",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "ファイル",
+              "weight": 5
+            },
+            {
+              "term": "ディレクトリ",
+              "weight": 5
+            },
+            {
+              "term": "フォルダ",
+              "weight": 4
+            },
+            {
+              "term": "環境変数",
+              "weight": 4
+            },
+            {
+              "term": "ルート",
+              "weight": 3
+            },
+            {
+              "term": "絶対",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "surface": "レース",
+    "output": "Race",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Race/Lace",
+    "alternates": [
+      {
+        "output": "Lace",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Race",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "競技",
+              "weight": 5
+            },
+            {
+              "term": "サーキット",
+              "weight": 5
+            },
+            {
+              "term": "車",
+              "weight": 4
+            },
+            {
+              "term": "馬",
+              "weight": 4
+            },
+            {
+              "term": "走",
+              "weight": 3
+            },
+            {
+              "term": "選手",
+              "weight": 3
+            },
+            {
+              "term": "カー",
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "output": "Lace",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "生地",
+              "weight": 5
+            },
+            {
+              "term": "布",
+              "weight": 4
+            },
+            {
+              "term": "ドレス",
+              "weight": 4
+            },
+            {
+              "term": "下着",
+              "weight": 4
+            },
+            {
+              "term": "刺繍",
+              "weight": 3
+            },
+            {
+              "term": "リボン",
+              "weight": 2
+            },
+            {
+              "term": "カーテン",
+              "weight": 5
+            },
+            {
+              "term": "衣装",
+              "weight": 3
+            },
+            {
+              "term": "縁飾り",
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "surface": "フォーム",
+    "output": "Form",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Form/Foam",
+    "alternates": [
+      {
+        "output": "Foam",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Form",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "入力",
+              "weight": 5
+            },
+            {
+              "term": "登録",
+              "weight": 4
+            },
+            {
+              "term": "申請",
+              "weight": 4
+            },
+            {
+              "term": "書類",
+              "weight": 4
+            },
+            {
+              "term": "送信",
+              "weight": 3
+            },
+            {
+              "term": "姿勢",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Foam",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "泡",
+              "weight": 5
+            },
+            {
+              "term": "ウレタン",
+              "weight": 5
+            },
+            {
+              "term": "素材",
+              "weight": 4
+            },
+            {
+              "term": "クッション",
+              "weight": 4
+            },
+            {
+              "term": "断熱",
+              "weight": 3
+            },
+            {
+              "term": "洗顔",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "surface": "コード",
+    "output": "Code",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Code/Cord/Chord",
+    "alternates": [
+      {
+        "output": "Cord",
+        "significance": "material"
+      },
+      {
+        "output": "Chord",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Code",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "プログラム",
+              "weight": 5
+            },
+            {
+              "term": "ソース",
+              "weight": 4
+            },
+            {
+              "term": "暗号",
+              "weight": 4
+            },
+            {
+              "term": "規則",
+              "weight": 3
+            },
+            {
+              "term": "データ",
+              "weight": 3
+            },
+            {
+              "term": "コンピュータ",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Cord",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "電源",
+              "weight": 5
+            },
+            {
+              "term": "ケーブル",
+              "weight": 4
+            },
+            {
+              "term": "電気",
+              "weight": 4
+            },
+            {
+              "term": "延長",
+              "weight": 3
+            },
+            {
+              "term": "ひも",
+              "weight": 3
+            },
+            {
+              "term": "紐",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Chord",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "音楽",
+              "weight": 5
+            },
+            {
+              "term": "ギター",
+              "weight": 4
+            },
+            {
+              "term": "和音",
+              "weight": 4
+            },
+            {
+              "term": "ピアノ",
+              "weight": 3
+            },
+            {
+              "term": "演奏",
+              "weight": 3
+            },
+            {
+              "term": "楽譜",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "メモリ",
+    "Memory"
+  ],
+  [
+    "ファイル",
+    "File"
+  ],
+  [
+    "アーカイブ",
+    "Archive"
+  ],
+  [
+    "アイデンティティー",
+    "Identity"
+  ],
+  [
+    "アウトソーシング",
+    "Outsourcing"
+  ],
+  [
+    "アカウンタビリティー",
+    "Accountability"
+  ],
+  [
+    "アクションプログラム",
+    "Action Program"
+  ],
+  [
+    "アクセシビリティー",
+    "Accessibility"
+  ],
+  [
+    "アクセス",
+    "Access"
+  ],
+  [
+    "アジェンダ",
+    "Agenda"
+  ],
+  [
+    "アセスメント",
+    "Assessment"
+  ],
+  [
+    "アナリスト",
+    "Analyst"
+  ],
+  [
+    "アミューズメント",
+    "Amusement"
+  ],
+  [
+    "アメニティー",
+    "Amenity"
+  ],
+  [
+    "イニシアチブ",
+    "Initiative"
+  ],
+  [
+    "イノベーション",
+    "Innovation"
+  ],
+  [
+    "インキュベーション",
+    "Incubation"
+  ],
+  [
+    "インサイダー",
+    "Insider"
+  ],
+  [
+    "インセンティブ",
+    "Incentive"
+  ],
+  [
+    "インターンシップ",
+    "Internship"
+  ],
+  [
+    "インタラクティブ",
+    "Interactive"
+  ],
+  [
+    "インパクト",
+    "Impact"
+  ],
+  [
+    "インフォームドコンセント",
+    "Informed Consent"
+  ],
+  [
+    "インフラ",
+    "Infura"
+  ],
+  [
+    "エンパワーメント",
+    "Empowerment"
+  ],
+  [
+    "エンフォースメント",
+    "Enforcement"
+  ],
+  [
+    "オーガナイザー",
+    "Organizer"
+  ],
+  [
+    "オーナーシップ",
+    "Ownership"
+  ],
+  [
+    "オピニオンリーダー",
+    "Opinion Leader"
+  ],
+  [
+    "オブザーバー",
+    "Observer"
+  ],
+  [
+    "オフサイトセンター",
+    "Off-site Center"
+  ],
+  [
+    "オペレーション",
+    "Operation"
+  ],
+  [
+    "オンデマンド",
+    "On Demand"
+  ],
+  [
+    "ガイドライン",
+    "Guideline"
+  ],
+  [
+    "カウンターパート",
+    "Counterpart"
+  ],
+  [
+    "カスタムメード",
+    "Custom-made"
+  ],
+  [
+    "ガバナンス",
+    "Governance"
+  ],
+  [
+    "キャッチアップ",
+    "Catch-up"
+  ],
+  [
+    "キャピタルゲイン",
+    "Capital Gain"
+  ],
+  [
+    "クライアント",
+    "Client"
+  ],
+  [
+    "グランドデザイン",
+    "Grand Design"
+  ],
+  [
+    "グローバリゼーション",
+    "Globalization"
+  ],
+  [
+    "グローバル",
+    "Global"
+  ],
+  [
+    "ケア",
+    "Care"
+  ],
+  [
+    "ケーススタディー",
+    "Case Study"
+  ],
+  [
+    "コア",
+    "Core"
+  ],
+  [
+    "コージェネレーション",
+    "Cogeneration"
+  ],
+  [
+    "コミット",
+    "Commit"
+  ],
+  [
+    "コミットメント",
+    "Commitment"
+  ],
+  [
+    "コミュニケ",
+    "Communique"
+  ],
+  [
+    "コミュニティー",
+    "Community"
+  ],
+  [
+    "コラボレーション",
+    "Collaboration"
+  ],
+  [
+    "コンセプト",
+    "Concept"
+  ],
+  [
+    "コンセンサス",
+    "Consensus"
+  ],
+  [
+    "コンソーシアム",
+    "Consortium"
+  ],
+  [
+    "コンテンツ",
+    "Contents"
+  ],
+  [
+    "コンファレンス",
+    "Conference"
+  ],
+  [
+    "コンプライアンス",
+    "Compliance"
+  ],
+  [
+    "コンポスト",
+    "Compost"
+  ],
+  [
+    "サーベイランス",
+    "Surveillance"
+  ],
+  [
+    "サプライサイド",
+    "Supply-side"
+  ],
+  [
+    "サプリメント",
+    "Supplement"
+  ],
+  [
+    "サマリー",
+    "Summary"
+  ],
+  [
+    "サムターン",
+    "Thumb Turn"
+  ],
+  [
+    "シーズ",
+    "Seeds"
+  ],
+  [
+    "シェア",
+    "Share"
+  ],
+  [
+    "シフト",
+    "Shift"
+  ],
+  [
+    "シミュレーション",
+    "Simulation"
+  ],
+  [
+    "シンクタンク",
+    "Think Tank"
+  ],
+  [
+    "スキーム",
+    "Scheme"
+  ],
+  [
+    "スクーリング",
+    "Schooling"
+  ],
+  [
+    "スクリーニング",
+    "Screening"
+  ],
+  [
+    "スタンス",
+    "Stance"
+  ],
+  [
+    "ステレオタイプ",
+    "Stereotype"
+  ],
+  [
+    "ストックヤード",
+    "Stockyard"
+  ],
+  [
+    "セーフガード",
+    "Safeguard"
+  ],
+  [
+    "セーフティーネット",
+    "Safety Net"
+  ],
+  [
+    "セカンドオピニオン",
+    "Second Opinion"
+  ],
+  [
+    "セキュリティー",
+    "Security"
+  ],
+  [
+    "セクター",
+    "Sector"
+  ],
+  [
+    "セットバック",
+    "Setback"
+  ],
+  [
+    "ゼロエミッション",
+    "Zero Emission"
+  ],
+  [
+    "センサス",
+    "Census"
+  ],
+  [
+    "ソリューション",
+    "Solution"
+  ],
+  [
+    "タイムラグ",
+    "Time Lag"
+  ],
+  [
+    "タスク",
+    "Task"
+  ],
+  [
+    "タスクフォース",
+    "Task Force"
+  ],
+  [
+    "ダンピング",
+    "Dumping"
+  ],
+  [
+    "ツール",
+    "Tool"
+  ],
+  [
+    "デジタルデバイド",
+    "Digital Divide"
+  ],
+  [
+    "デフォルト",
+    "Default"
+  ],
+  [
+    "デポジット",
+    "Deposit"
+  ],
+  [
+    "デリバリー",
+    "Delivery"
+  ],
+  [
+    "ドクトリン",
+    "Doctrine"
+  ],
+  [
+    "ドナー",
+    "Donor"
+  ],
+  [
+    "トラウマ",
+    "Trauma"
+  ],
+  [
+    "トレーサビリティー",
+    "Traceability"
+  ],
+  [
+    "トレンド",
+    "Trend"
+  ],
+  [
+    "ナノテクノロジー",
+    "Nanotechnology"
+  ],
+  [
+    "ネグレクト",
+    "Neglect"
+  ],
+  [
+    "ノーマライゼーション",
+    "Normalization"
+  ],
+  [
+    "バーチャル",
+    "Virtual"
+  ],
+  [
+    "パートナーシップ",
+    "Partnership"
+  ],
+  [
+    "ハーモナイゼーション",
+    "Harmonization"
+  ],
+  [
+    "バイオテクノロジー",
+    "Biotechnology"
+  ],
+  [
+    "バイオマス",
+    "Biomass"
+  ],
+  [
+    "ハイブリッド",
+    "Hybrid"
+  ],
+  [
+    "ハザードマップ",
+    "Hazard Map"
+  ],
+  [
+    "バックアップ",
+    "Backup"
+  ],
+  [
+    "バックオフィス",
+    "Back Office"
+  ],
+  [
+    "パブリックインボルブメント",
+    "Public Involvement"
+  ],
+  [
+    "パブリックコメント",
+    "Public Comment"
+  ],
+  [
+    "バリアフリー",
+    "Barrier-free"
+  ],
+  [
+    "ヒートアイランド",
+    "Heat Island"
+  ],
+  [
+    "ビジョン",
+    "Vision"
+  ],
+  [
+    "フィルタリング",
+    "Filtering"
+  ],
+  [
+    "フェローシップ",
+    "Fellowship"
+  ],
+  [
+    "フォローアップ",
+    "Follow-up"
+  ],
+  [
+    "プライオリティー",
+    "Priority"
+  ],
+  [
+    "フリーランス",
+    "Freelance"
+  ],
+  [
+    "ブレークスルー",
+    "Breakthrough"
+  ],
+  [
+    "フレームワーク",
+    "Framework"
+  ],
+  [
+    "プレゼンス",
+    "Presence"
+  ],
+  [
+    "プレゼンテーション",
+    "Presentation"
+  ],
+  [
+    "フレックスタイム",
+    "Flextime"
+  ],
+  [
+    "プロトタイプ",
+    "Prototype"
+  ],
+  [
+    "フロンティア",
+    "Frontier"
+  ],
+  [
+    "ベンチャー",
+    "Venture"
+  ],
+  [
+    "ボーダーレス",
+    "Borderless"
+  ],
+  [
+    "ポートフォリオ",
+    "Portfolio"
+  ],
+  [
+    "ポジティブ",
+    "Positive"
+  ],
+  [
+    "ポテンシャル",
+    "Potential"
+  ],
+  [
+    "ボトルネック",
+    "Bottleneck"
+  ],
+  [
+    "マーケティング",
+    "Marketing"
+  ],
+  [
+    "マクロ",
+    "Macro"
+  ],
+  [
+    "マスタープラン",
+    "Master Plan"
+  ],
+  [
+    "マネジメント",
+    "Management"
+  ],
+  [
+    "マルチメディア",
+    "Multimedia"
+  ],
+  [
+    "マンパワー",
+    "Manpower"
+  ],
+  [
+    "ミスマッチ",
+    "Mismatch"
+  ],
+  [
+    "ミッション",
+    "Mission"
+  ],
+  [
+    "メンタルヘルス",
+    "Mental Health"
+  ],
+  [
+    "モータリゼーション",
+    "Motorization"
+  ],
+  [
+    "モチベーション",
+    "Motivation"
+  ],
+  [
+    "モニタリング",
+    "Monitoring"
+  ],
+  [
+    "モビリティー",
+    "Mobility"
+  ],
+  [
+    "モラトリアム",
+    "Moratorium"
+  ],
+  [
+    "モラルハザード",
+    "Moral Hazard"
+  ],
+  [
+    "ユニバーサルサービス",
+    "Universal Service"
+  ],
+  [
+    "ユニバーサルデザイン",
+    "Universal Design"
+  ],
+  [
+    "ライフサイクル",
+    "Life Cycle"
+  ],
+  [
+    "ライフライン",
+    "Lifeline"
+  ],
+  [
+    "ライブラリー",
+    "Library"
+  ],
+  [
+    "リアルタイム",
+    "Real Time"
+  ],
+  [
+    "リードタイム",
+    "Lead Time"
+  ],
+  [
+    "リーフレット",
+    "Leaflet"
+  ],
+  [
+    "リターナブル",
+    "Returnable"
+  ],
+  [
+    "リデュース",
+    "Reduce"
+  ],
+  [
+    "リテラシー",
+    "Literacy"
+  ],
+  [
+    "リニューアル",
+    "Renewal"
+  ],
+  [
+    "リバウンド",
+    "Rebound"
+  ],
+  [
+    "リユース",
+    "Reuse"
+  ],
+  [
+    "リリース",
+    "Release"
+  ],
+  [
+    "レシピエント",
+    "Recipient"
+  ],
+  [
+    "ロードプライシング",
+    "Road Pricing"
+  ],
+  [
+    "ログイン",
+    "Login"
+  ],
+  [
+    "ワーキンググループ",
+    "Working Group"
+  ],
+  [
+    "ワークシェアリング",
+    "Work-sharing"
+  ],
+  [
+    "ワークショップ",
+    "Workshop"
+  ],
+  [
+    "ワンストップ",
+    "One-stop"
+  ],
+  [
+    "コンピュータ",
+    "Computer"
+  ],
+  [
+    "ウェブ",
+    "Web"
+  ],
+  [
+    "ウェブサイト",
+    "Website"
+  ],
+  [
+    "ブラウザ",
+    "Browser"
+  ],
+  [
+    "サーバー",
+    "Server"
+  ],
+  [
+    "サーバ",
+    "Server"
+  ],
+  [
+    "データベース",
+    "Database"
+  ],
+  [
+    "アプリケーション",
+    "Application"
+  ],
+  [
+    "アプリ",
+    "App"
+  ],
+  [
+    "ソフトウェア",
+    "Software"
+  ],
+  [
+    "ハードウェア",
+    "Hardware"
+  ],
+  [
+    "プログラム",
+    "Program"
+  ],
+  [
+    "プログラミング",
+    "Programming"
+  ],
+  [
+    "コーディング",
+    "Coding"
+  ],
+  [
+    "アルゴリズム",
+    "Algorithm"
+  ],
+  [
+    "プラットフォーム",
+    "Platform"
+  ],
+  [
+    "インターフェース",
+    "Interface"
+  ],
+  [
+    "インタフェース",
+    "Interface"
+  ],
+  [
+    "ユーザー",
+    "User"
+  ],
+  [
+    "アカウント",
+    "Account"
+  ],
+  [
+    "パスワード",
+    "Password"
+  ],
+  [
+    "フォルダー",
+    "Folder"
+  ],
+  [
+    "フォルダ",
+    "Folder"
+  ],
+  [
+    "ディレクトリ",
+    "Directory"
+  ],
+  [
+    "クラウド",
+    "Cloud"
+  ],
+  [
+    "ストレージ",
+    "Storage"
+  ],
+  [
+    "プロセッサー",
+    "Processor"
+  ],
+  [
+    "プロセッサ",
+    "Processor"
+  ],
+  [
+    "チップ",
+    "Chip"
+  ],
+  [
+    "モニター",
+    "Monitor"
+  ],
+  [
+    "モニタ",
+    "Monitor"
+  ],
+  [
+    "ディスプレイ",
+    "Display"
+  ],
+  [
+    "キーボード",
+    "Keyboard"
+  ],
+  [
+    "マウス",
+    "Mouse"
+  ],
+  [
+    "タッチパッド",
+    "Touchpad"
+  ],
+  [
+    "プリンター",
+    "Printer"
+  ],
+  [
+    "プリンタ",
+    "Printer"
+  ],
+  [
+    "スキャナー",
+    "Scanner"
+  ],
+  [
+    "スキャナ",
+    "Scanner"
+  ],
+  [
+    "センサー",
+    "Sensor"
+  ],
+  [
+    "センサ",
+    "Sensor"
+  ],
+  [
+    "バッテリー",
+    "Battery"
+  ],
+  [
+    "チャージャー",
+    "Charger"
+  ],
+  [
+    "ケーブル",
+    "Cable"
+  ],
+  [
+    "コネクター",
+    "Connector"
+  ],
+  [
+    "コネクタ",
+    "Connector"
+  ],
+  [
+    "ポート",
+    "Port"
+  ],
+  [
+    "ルーター",
+    "Router"
+  ],
+  [
+    "ルータ",
+    "Router"
+  ],
+  [
+    "モデム",
+    "Modem"
+  ],
+  [
+    "ワイヤレス",
+    "Wireless"
+  ],
+  [
+    "リアル",
+    "Real"
+  ],
+  [
+    "オンライン",
+    "Online"
+  ],
+  [
+    "オフライン",
+    "Offline"
+  ],
+  [
+    "ダウンロード",
+    "Download"
+  ],
+  [
+    "アップロード",
+    "Upload"
+  ],
+  [
+    "インストール",
+    "Install"
+  ],
+  [
+    "アンインストール",
+    "Uninstall"
+  ],
+  [
+    "アップデート",
+    "Update"
+  ],
+  [
+    "アップグレード",
+    "Upgrade"
+  ],
+  [
+    "パッチ",
+    "Patch"
+  ],
+  [
+    "バージョン",
+    "Version"
+  ],
+  [
+    "ベータ",
+    "Beta"
+  ],
+  [
+    "アルファ",
+    "Alpha"
+  ],
+  [
+    "デバッグ",
+    "Debug"
+  ],
+  [
+    "バグ",
+    "Bug"
+  ],
+  [
+    "エラー",
+    "Error"
+  ],
+  [
+    "ワーニング",
+    "Warning"
+  ],
+  [
+    "セキュリティ",
+    "Security"
+  ],
+  [
+    "ファイアウォール",
+    "Firewall"
+  ],
+  [
+    "ウイルス",
+    "Virus"
+  ],
+  [
+    "マルウェア",
+    "Malware"
+  ],
+  [
+    "スパム",
+    "Spam"
+  ],
+  [
+    "ハッカー",
+    "Hacker"
+  ],
+  [
+    "ハッキング",
+    "Hacking"
+  ],
+  [
+    "エンコード",
+    "Encode"
+  ],
+  [
+    "デコード",
+    "Decode"
+  ],
+  [
+    "フォーマット",
+    "Format"
+  ],
+  [
+    "プリント",
+    "Print"
+  ],
+  [
+    "コピー",
+    "Copy"
+  ],
+  [
+    "ペースト",
+    "Paste"
+  ],
+  [
+    "クリック",
+    "Click"
+  ],
+  [
+    "タップ",
+    "Tap"
+  ],
+  [
+    "スワイプ",
+    "Swipe"
+  ],
+  [
+    "ドラッグ",
+    "Drag"
+  ],
+  [
+    "ドロップ",
+    "Drop"
+  ],
+  [
+    "スクロール",
+    "Scroll"
+  ],
+  [
+    "ズーム",
+    "Zoom"
+  ],
+  [
+    "リンク",
+    "Link"
+  ],
+  [
+    "メニュー",
+    "Menu"
+  ],
+  [
+    "アイコン",
+    "Icon"
+  ],
+  [
+    "ウィンドウ",
+    "Window"
+  ],
+  [
+    "タブ",
+    "Tab"
+  ],
+  [
+    "ページ",
+    "Page"
+  ],
+  [
+    "サイト",
+    "Site"
+  ],
+  [
+    "ポータル",
+    "Portal"
+  ],
+  [
+    "チャット",
+    "Chat"
+  ],
+  [
+    "オーディオ",
+    "Audio"
+  ],
+  [
+    "ストリーム",
+    "Stream"
+  ],
+  [
+    "ストリーミング",
+    "Streaming"
+  ],
+  [
+    "ライブ",
+    "Live"
+  ],
+  [
+    "ポッドキャスト",
+    "Podcast"
+  ],
+  [
+    "ブログ",
+    "Blog"
+  ],
+  [
+    "フォーラム",
+    "Forum"
+  ],
+  [
+    "コミュニティ",
+    "Community"
+  ],
+  [
+    "アバター",
+    "Avatar"
+  ],
+  [
+    "フィード",
+    "Feed"
+  ],
+  [
+    "フォロー",
+    "Follow"
+  ],
+  [
+    "タグ",
+    "Tag"
+  ],
+  [
+    "ハッシュタグ",
+    "Hashtag"
+  ],
+  [
+    "チェア",
+    "Chair"
+  ],
+  [
+    "ソファ",
+    "Sofa"
+  ],
+  [
+    "ベッド",
+    "Bed"
+  ],
+  [
+    "マットレス",
+    "Mattress"
+  ],
+  [
+    "クッション",
+    "Cushion"
+  ],
+  [
+    "カーテン",
+    "Curtain"
+  ],
+  [
+    "カーペット",
+    "Carpet"
+  ],
+  [
+    "ラグ",
+    "Rug"
+  ],
+  [
+    "ランプ",
+    "Lamp"
+  ],
+  {
+    "surface": "ライト",
+    "output": "Light",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Light/Right",
+    "alternates": [
+      {
+        "output": "Right",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Light",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "照明",
+              "weight": 5
+            },
+            {
+              "term": "電球",
+              "weight": 4
+            },
+            {
+              "term": "明るい",
+              "weight": 4
+            },
+            {
+              "term": "光",
+              "weight": 3
+            },
+            {
+              "term": "ランプ",
+              "weight": 3
+            },
+            {
+              "term": "軽い",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Right",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "野球",
+              "weight": 5
+            },
+            {
+              "term": "右翼",
+              "weight": 4
+            },
+            {
+              "term": "右",
+              "weight": 4
+            },
+            {
+              "term": "外野",
+              "weight": 3
+            },
+            {
+              "term": "守備",
+              "weight": 3
+            },
+            {
+              "term": "レフト",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "ミラー",
+    "Mirror"
+  ],
+  [
+    "ノブ",
+    "Knob"
+  ],
+  [
+    "ハンドル",
+    "Handle"
+  ],
+  [
+    "キッチン",
+    "Kitchen"
+  ],
+  [
+    "リビング",
+    "Living"
+  ],
+  [
+    "ダイニング",
+    "Dining"
+  ],
+  [
+    "バスルーム",
+    "Bathroom"
+  ],
+  [
+    "トイレ",
+    "Toilet"
+  ],
+  [
+    "シャワー",
+    "Shower"
+  ],
+  [
+    "バスタブ",
+    "Bathtub"
+  ],
+  [
+    "タオル",
+    "Towel"
+  ],
+  [
+    "ブラシ",
+    "Brush"
+  ],
+  [
+    "スポンジ",
+    "Sponge"
+  ],
+  [
+    "シャンプー",
+    "Shampoo"
+  ],
+  [
+    "コンディショナー",
+    "Conditioner"
+  ],
+  [
+    "ドライヤー",
+    "Dryer"
+  ],
+  [
+    "アイロン",
+    "Iron"
+  ],
+  [
+    "ハンガー",
+    "Hanger"
+  ],
+  [
+    "クローゼット",
+    "Closet"
+  ],
+  [
+    "ボックス",
+    "Box"
+  ],
+  [
+    "バスケット",
+    "Basket"
+  ],
+  [
+    "バッグ",
+    "Bag"
+  ],
+  [
+    "ボトル",
+    "Bottle"
+  ],
+  [
+    "カップ",
+    "Cup"
+  ],
+  [
+    "グラス",
+    "Glass"
+  ],
+  [
+    "プレート",
+    "Plate"
+  ],
+  [
+    "ボウル",
+    "Bowl"
+  ],
+  [
+    "スプーン",
+    "Spoon"
+  ],
+  [
+    "フォーク",
+    "Fork"
+  ],
+  [
+    "ナイフ",
+    "Knife"
+  ],
+  [
+    "トレイ",
+    "Tray"
+  ],
+  [
+    "ポット",
+    "Pot"
+  ],
+  [
+    "ケトル",
+    "Kettle"
+  ],
+  [
+    "フライパン",
+    "Frying Pan"
+  ],
+  [
+    "オーブン",
+    "Oven"
+  ],
+  [
+    "トースター",
+    "Toaster"
+  ],
+  [
+    "ミキサー",
+    "Mixer"
+  ],
+  [
+    "ブレンダー",
+    "Blender"
+  ],
+  [
+    "コーヒーメーカー",
+    "Coffee Maker"
+  ],
+  [
+    "フィルター",
+    "Filter"
+  ],
+  [
+    "ラップ",
+    "Wrap"
+  ],
+  [
+    "ホイル",
+    "Foil"
+  ],
+  [
+    "ペーパー",
+    "Paper"
+  ],
+  [
+    "ティッシュ",
+    "Tissue"
+  ],
+  [
+    "トイレットペーパー",
+    "Toilet Paper"
+  ],
+  [
+    "クリーナー",
+    "Cleaner"
+  ],
+  [
+    "バキューム",
+    "Vacuum"
+  ],
+  [
+    "モップ",
+    "Mop"
+  ],
+  [
+    "バケツ",
+    "Bucket"
+  ],
+  [
+    "ランドリー",
+    "Laundry"
+  ],
+  [
+    "マシン",
+    "Machine"
+  ],
+  [
+    "スイッチ",
+    "Switch"
+  ],
+  [
+    "プラグ",
+    "Plug"
+  ],
+  [
+    "ソケット",
+    "Socket"
+  ],
+  [
+    "ファンヒーター",
+    "Fan Heater"
+  ],
+  [
+    "ヒーター",
+    "Heater"
+  ],
+  [
+    "クーラー",
+    "Cooler"
+  ],
+  [
+    "ストーブ",
+    "Stove"
+  ],
+  [
+    "スピーカー",
+    "Speaker"
+  ],
+  [
+    "ヘッドフォン",
+    "Headphone"
+  ],
+  [
+    "ヘッドホン",
+    "Headphone"
+  ],
+  [
+    "イヤホン",
+    "Earphone"
+  ],
+  [
+    "クロック",
+    "Clock"
+  ],
+  [
+    "タイマー",
+    "Timer"
+  ],
+  [
+    "アラーム",
+    "Alarm"
+  ],
+  [
+    "カレンダー",
+    "Calendar"
+  ],
+  [
+    "ペン",
+    "Pen"
+  ],
+  [
+    "ペンシル",
+    "Pencil"
+  ],
+  [
+    "マーカー",
+    "Marker"
+  ],
+  [
+    "クリップ",
+    "Clip"
+  ],
+  [
+    "ステープラー",
+    "Stapler"
+  ],
+  [
+    "ドライバー",
+    "Driver"
+  ],
+  [
+    "ハンマー",
+    "Hammer"
+  ],
+  [
+    "スクリュー",
+    "Screw"
+  ],
+  [
+    "ボルト",
+    "Bolt"
+  ],
+  [
+    "ナット",
+    "Nut"
+  ],
+  [
+    "レンチ",
+    "Wrench"
+  ],
+  [
+    "プライヤー",
+    "Pliers"
+  ],
+  [
+    "ドリル",
+    "Drill"
+  ],
+  [
+    "カッター",
+    "Cutter"
+  ],
+  [
+    "テープ",
+    "Tape"
+  ],
+  [
+    "ロープ",
+    "Rope"
+  ],
+  [
+    "チェーン",
+    "Chain"
+  ],
+  [
+    "フック",
+    "Hook"
+  ],
+  [
+    "ブラケット",
+    "Bracket"
+  ],
+  [
+    "パネル",
+    "Panel"
+  ],
+  [
+    "パイプ",
+    "Pipe"
+  ],
+  [
+    "ホース",
+    "Hose"
+  ],
+  [
+    "バルブ",
+    "Valve"
+  ],
+  [
+    "タンク",
+    "Tank"
+  ],
+  [
+    "モーター",
+    "Motor"
+  ],
+  [
+    "ギア",
+    "Gear"
+  ],
+  [
+    "ベアリング",
+    "Bearing"
+  ],
+  [
+    "スプリング",
+    "Spring"
+  ],
+  [
+    "ワイヤー",
+    "Wire"
+  ],
+  [
+    "チーズ",
+    "Cheese"
+  ],
+  [
+    "ミルク",
+    "Milk"
+  ],
+  [
+    "クリーム",
+    "Cream"
+  ],
+  [
+    "キャンディ",
+    "Candy"
+  ],
+  [
+    "ガム",
+    "Gum"
+  ],
+  [
+    "クッキー",
+    "Cookie"
+  ],
+  [
+    "ビスケット",
+    "Biscuit"
+  ],
+  {
+    "surface": "パイ",
+    "output": "Pie",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Pie/Pi",
+    "alternates": [
+      {
+        "output": "Pi",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Pie",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "アップル",
+              "weight": 5
+            },
+            {
+              "term": "ケーキ",
+              "weight": 4
+            },
+            {
+              "term": "デザート",
+              "weight": 4
+            },
+            {
+              "term": "焼く",
+              "weight": 3
+            },
+            {
+              "term": "クリーム",
+              "weight": 3
+            },
+            {
+              "term": "料理",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Pi",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "数学",
+              "weight": 5
+            },
+            {
+              "term": "円周率",
+              "weight": 4
+            },
+            {
+              "term": "数式",
+              "weight": 4
+            },
+            {
+              "term": "計算",
+              "weight": 3
+            },
+            {
+              "term": "3.14",
+              "weight": 3
+            },
+            {
+              "term": "半径",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "ドーナツ",
+    "Donut"
+  ],
+  [
+    "プリン",
+    "Pudding"
+  ],
+  [
+    "ゼリー",
+    "Jelly"
+  ],
+  [
+    "ジャム",
+    "Jam"
+  ],
+  [
+    "シリアル",
+    "Cereal"
+  ],
+  [
+    "ホットドッグ",
+    "Hot Dog"
+  ],
+  [
+    "ピザ",
+    "Pizza"
+  ],
+  [
+    "パスタ",
+    "Pasta"
+  ],
+  [
+    "スパゲッティ",
+    "Spaghetti"
+  ],
+  [
+    "マカロニ",
+    "Macaroni"
+  ],
+  [
+    "サラダ",
+    "Salad"
+  ],
+  [
+    "ケチャップ",
+    "Ketchup"
+  ],
+  [
+    "マヨネーズ",
+    "Mayonnaise"
+  ],
+  [
+    "ドレッシング",
+    "Dressing"
+  ],
+  [
+    "マスタード",
+    "Mustard"
+  ],
+  [
+    "スパイス",
+    "Spice"
+  ],
+  [
+    "ペッパー",
+    "Pepper"
+  ],
+  [
+    "ソルト",
+    "Salt"
+  ],
+  [
+    "シュガー",
+    "Sugar"
+  ],
+  [
+    "ティー",
+    "Tea"
+  ],
+  [
+    "ジュース",
+    "Juice"
+  ],
+  [
+    "ソーダ",
+    "Soda"
+  ],
+  [
+    "レモネード",
+    "Lemonade"
+  ],
+  [
+    "ミネラルウォーター",
+    "Mineral Water"
+  ],
+  [
+    "カクテル",
+    "Cocktail"
+  ],
+  [
+    "ウイスキー",
+    "Whisky"
+  ],
+  [
+    "ブランデー",
+    "Brandy"
+  ],
+  [
+    "シャンパン",
+    "Champagne"
+  ],
+  [
+    "フルーツ",
+    "Fruit"
+  ],
+  [
+    "メロン",
+    "Melon"
+  ],
+  [
+    "パイナップル",
+    "Pineapple"
+  ],
+  [
+    "マンゴー",
+    "Mango"
+  ],
+  [
+    "キウイ",
+    "Kiwi"
+  ],
+  [
+    "アボカド",
+    "Avocado"
+  ],
+  [
+    "トマト",
+    "Tomato"
+  ],
+  [
+    "ポテト",
+    "Potato"
+  ],
+  [
+    "レタス",
+    "Lettuce"
+  ],
+  [
+    "セロリ",
+    "Celery"
+  ],
+  [
+    "パセリ",
+    "Parsley"
+  ],
+  [
+    "ブロッコリー",
+    "Broccoli"
+  ],
+  [
+    "カリフラワー",
+    "Cauliflower"
+  ],
+  [
+    "コーン",
+    "Corn"
+  ],
+  [
+    "オニオン",
+    "Onion"
+  ],
+  [
+    "ガーリック",
+    "Garlic"
+  ],
+  [
+    "ハーブ",
+    "Herb"
+  ],
+  [
+    "バジル",
+    "Basil"
+  ],
+  [
+    "ピクルス",
+    "Pickles"
+  ],
+  [
+    "オリーブ",
+    "Olive"
+  ],
+  [
+    "ナッツ",
+    "Nuts"
+  ],
+  [
+    "アーモンド",
+    "Almond"
+  ],
+  [
+    "ピーナッツ",
+    "Peanuts"
+  ],
+  [
+    "チキン",
+    "Chicken"
+  ],
+  [
+    "ビーフ",
+    "Beef"
+  ],
+  [
+    "ポーク",
+    "Pork"
+  ],
+  [
+    "ベーコン",
+    "Bacon"
+  ],
+  [
+    "ハム",
+    "Ham"
+  ],
+  [
+    "ソーセージ",
+    "Sausage"
+  ],
+  [
+    "ステーキ",
+    "Steak"
+  ],
+  [
+    "シーフード",
+    "Seafood"
+  ],
+  [
+    "サーモン",
+    "Salmon"
+  ],
+  [
+    "ツナ",
+    "Tuna"
+  ],
+  [
+    "ロブスター",
+    "Lobster"
+  ],
+  [
+    "フライ",
+    "Fry"
+  ],
+  [
+    "グリル",
+    "Grill"
+  ],
+  [
+    "ロースト",
+    "Roast"
+  ],
+  [
+    "トースト",
+    "Toast"
+  ],
+  [
+    "ブラウス",
+    "Blouse"
+  ],
+  {
+    "surface": "コート",
+    "output": "Coat",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Coat/Court",
+    "alternates": [
+      {
+        "output": "Court",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Coat",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "冬",
+              "weight": 5
+            },
+            {
+              "term": "服",
+              "weight": 4
+            },
+            {
+              "term": "着る",
+              "weight": 4
+            },
+            {
+              "term": "防寒",
+              "weight": 3
+            },
+            {
+              "term": "ジャケット",
+              "weight": 3
+            },
+            {
+              "term": "衣料",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Court",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "テニス",
+              "weight": 5
+            },
+            {
+              "term": "バスケット",
+              "weight": 4
+            },
+            {
+              "term": "バレー",
+              "weight": 4
+            },
+            {
+              "term": "競技",
+              "weight": 3
+            },
+            {
+              "term": "試合",
+              "weight": 3
+            },
+            {
+              "term": "芝",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "スーツ",
+    "Suit"
+  ],
+  [
+    "ドレス",
+    "Dress"
+  ],
+  [
+    "パンツ",
+    "Pants"
+  ],
+  [
+    "ジーンズ",
+    "Jeans"
+  ],
+  [
+    "デニム",
+    "Denim"
+  ],
+  [
+    "カーディガン",
+    "Cardigan"
+  ],
+  [
+    "パーカー",
+    "Parka"
+  ],
+  [
+    "フーディー",
+    "Hoodie"
+  ],
+  [
+    "タンクトップ",
+    "Tank Top"
+  ],
+  [
+    "キャミソール",
+    "Camisole"
+  ],
+  [
+    "レギンス",
+    "Leggings"
+  ],
+  [
+    "タイツ",
+    "Tights"
+  ],
+  [
+    "ソックス",
+    "Socks"
+  ],
+  [
+    "ストッキング",
+    "Stockings"
+  ],
+  [
+    "シューズ",
+    "Shoes"
+  ],
+  [
+    "スニーカー",
+    "Sneakers"
+  ],
+  [
+    "ブーツ",
+    "Boots"
+  ],
+  [
+    "サンダル",
+    "Sandals"
+  ],
+  [
+    "スリッパ",
+    "Slippers"
+  ],
+  [
+    "ヒール",
+    "Heel"
+  ],
+  [
+    "パンプス",
+    "Pumps"
+  ],
+  [
+    "ハット",
+    "Hat"
+  ],
+  [
+    "キャップ",
+    "Cap"
+  ],
+  [
+    "マフラー",
+    "Muffler"
+  ],
+  [
+    "スカーフ",
+    "Scarf"
+  ],
+  [
+    "ネクタイ",
+    "Necktie"
+  ],
+  [
+    "ベルト",
+    "Belt"
+  ],
+  {
+    "surface": "グローブ",
+    "output": "Glove",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Glove/Globe",
+    "alternates": [
+      {
+        "output": "Globe",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Glove",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "野球",
+              "weight": 5
+            },
+            {
+              "term": "ボクシング",
+              "weight": 4
+            },
+            {
+              "term": "手袋",
+              "weight": 4
+            },
+            {
+              "term": "バット",
+              "weight": 3
+            },
+            {
+              "term": "投手",
+              "weight": 3
+            },
+            {
+              "term": "捕手",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Globe",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "地球",
+              "weight": 5
+            },
+            {
+              "term": "世界",
+              "weight": 4
+            },
+            {
+              "term": "球体",
+              "weight": 4
+            },
+            {
+              "term": "ランプ",
+              "weight": 3
+            },
+            {
+              "term": "ガラス",
+              "weight": 3
+            },
+            {
+              "term": "電球",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "ハンドバッグ",
+    "Handbag"
+  ],
+  [
+    "バックパック",
+    "Backpack"
+  ],
+  [
+    "ウォレット",
+    "Wallet"
+  ],
+  [
+    "ポーチ",
+    "Pouch"
+  ],
+  [
+    "アクセサリー",
+    "Accessory"
+  ],
+  [
+    "ネックレス",
+    "Necklace"
+  ],
+  [
+    "ブレスレット",
+    "Bracelet"
+  ],
+  [
+    "リング",
+    "Ring"
+  ],
+  [
+    "イヤリング",
+    "Earring"
+  ],
+  [
+    "ブローチ",
+    "Brooch"
+  ],
+  [
+    "ウォッチ",
+    "Watch"
+  ],
+  [
+    "ファッション",
+    "Fashion"
+  ],
+  [
+    "スタイル",
+    "Style"
+  ],
+  [
+    "ブランド",
+    "Brand"
+  ],
+  [
+    "サイズ",
+    "Size"
+  ],
+  [
+    "パターン",
+    "Pattern"
+  ],
+  [
+    "ストライプ",
+    "Stripe"
+  ],
+  [
+    "ドット",
+    "Dot"
+  ],
+  [
+    "リボン",
+    "Ribbon"
+  ],
+  [
+    "ジッパー",
+    "Zipper"
+  ],
+  [
+    "ポケット",
+    "Pocket"
+  ],
+  [
+    "フード",
+    "Hood"
+  ],
+  [
+    "スリーブ",
+    "Sleeve"
+  ],
+  [
+    "カフ",
+    "Cuff"
+  ],
+  [
+    "コットン",
+    "Cotton"
+  ],
+  [
+    "ウール",
+    "Wool"
+  ],
+  [
+    "シルク",
+    "Silk"
+  ],
+  [
+    "ナイロン",
+    "Nylon"
+  ],
+  [
+    "ポリエステル",
+    "Polyester"
+  ],
+  [
+    "レザー",
+    "Leather"
+  ],
+  [
+    "ファー",
+    "Fur"
+  ],
+  [
+    "フリース",
+    "Fleece"
+  ],
+  [
+    "ベルベット",
+    "Velvet"
+  ],
+  [
+    "キャンバス",
+    "Canvas"
+  ],
+  [
+    "ラバー",
+    "Rubber"
+  ],
+  [
+    "プラスチック",
+    "Plastic"
+  ],
+  [
+    "メタル",
+    "Metal"
+  ],
+  [
+    "ステンレス",
+    "Stainless"
+  ],
+  [
+    "フットボール",
+    "Football"
+  ],
+  [
+    "ベースボール",
+    "Baseball"
+  ],
+  [
+    "バドミントン",
+    "Badminton"
+  ],
+  [
+    "クリケット",
+    "Cricket"
+  ],
+  [
+    "ホッケー",
+    "Hockey"
+  ],
+  [
+    "アイスホッケー",
+    "Ice Hockey"
+  ],
+  [
+    "レスリング",
+    "Wrestling"
+  ],
+  [
+    "キックボクシング",
+    "Kickboxing"
+  ],
+  [
+    "フェンシング",
+    "Fencing"
+  ],
+  [
+    "アーチェリー",
+    "Archery"
+  ],
+  [
+    "ボウリング",
+    "Bowling"
+  ],
+  [
+    "ビリヤード",
+    "Billiards"
+  ],
+  [
+    "ダーツ",
+    "Darts"
+  ],
+  [
+    "スノーボード",
+    "Snowboard"
+  ],
+  [
+    "サーフィン",
+    "Surfing"
+  ],
+  [
+    "スイミング",
+    "Swimming"
+  ],
+  [
+    "ダイビング",
+    "Diving"
+  ],
+  [
+    "シュノーケリング",
+    "Snorkeling"
+  ],
+  [
+    "セーリング",
+    "Sailing"
+  ],
+  [
+    "ヨット",
+    "Yacht"
+  ],
+  [
+    "カヌー",
+    "Canoe"
+  ],
+  [
+    "カヤック",
+    "Kayak"
+  ],
+  [
+    "ラフティング",
+    "Rafting"
+  ],
+  [
+    "ランニング",
+    "Running"
+  ],
+  [
+    "ジョギング",
+    "Jogging"
+  ],
+  [
+    "ウォーキング",
+    "Walking"
+  ],
+  [
+    "ハイキング",
+    "Hiking"
+  ],
+  [
+    "トレッキング",
+    "Trekking"
+  ],
+  [
+    "クライミング",
+    "Climbing"
+  ],
+  [
+    "ボルダリング",
+    "Bouldering"
+  ],
+  [
+    "サイクリング",
+    "Cycling"
+  ],
+  [
+    "バイク",
+    "Bike"
+  ],
+  [
+    "ドライブ",
+    "Drive"
+  ],
+  [
+    "トレーニング",
+    "Training"
+  ],
+  [
+    "ワークアウト",
+    "Workout"
+  ],
+  [
+    "フィットネス",
+    "Fitness"
+  ],
+  [
+    "エクササイズ",
+    "Exercise"
+  ],
+  [
+    "ストレッチ",
+    "Stretch"
+  ],
+  [
+    "ヨガ",
+    "Yoga"
+  ],
+  [
+    "ダンス",
+    "Dance"
+  ],
+  [
+    "バレエ",
+    "Ballet"
+  ],
+  [
+    "ジム",
+    "Gym"
+  ],
+  [
+    "プレイヤー",
+    "Player"
+  ],
+  [
+    "コーチ",
+    "Coach"
+  ],
+  [
+    "キャプテン",
+    "Captain"
+  ],
+  [
+    "スコア",
+    "Score"
+  ],
+  [
+    "ゴール",
+    "Goal"
+  ],
+  [
+    "マッチ",
+    "Match"
+  ],
+  [
+    "ラウンド",
+    "Round"
+  ],
+  [
+    "リーグ",
+    "League"
+  ],
+  [
+    "トーナメント",
+    "Tournament"
+  ],
+  [
+    "チャンピオン",
+    "Champion"
+  ],
+  [
+    "チャンピオンシップ",
+    "Championship"
+  ],
+  [
+    "メダル",
+    "Medal"
+  ],
+  [
+    "トロフィー",
+    "Trophy"
+  ],
+  [
+    "スタジアム",
+    "Stadium"
+  ],
+  [
+    "アリーナ",
+    "Arena"
+  ],
+  [
+    "フィールド",
+    "Field"
+  ],
+  {
+    "surface": "トラック",
+    "output": "Track",
+    "category": "ordinary-gairaigo",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Track/Truck",
+    "alternates": [
+      {
+        "output": "Truck",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Track",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "陸上",
+              "weight": 5
+            },
+            {
+              "term": "競技",
+              "weight": 4
+            },
+            {
+              "term": "音楽",
+              "weight": 4
+            },
+            {
+              "term": "アルバム",
+              "weight": 3
+            },
+            {
+              "term": "録音",
+              "weight": 3
+            },
+            {
+              "term": "CD",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Truck",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "荷物",
+              "weight": 5
+            },
+            {
+              "term": "運送",
+              "weight": 4
+            },
+            {
+              "term": "配送",
+              "weight": 4
+            },
+            {
+              "term": "貨物",
+              "weight": 3
+            },
+            {
+              "term": "大型",
+              "weight": 3
+            },
+            {
+              "term": "運転",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "プール",
+    "Pool"
+  ],
+  [
+    "バット",
+    "Bat"
+  ],
+  [
+    "ラケット",
+    "Racket"
+  ],
+  [
+    "ヘルメット",
+    "Helmet"
+  ],
+  [
+    "ユニフォーム",
+    "Uniform"
+  ],
+  [
+    "スパイク",
+    "Spike"
+  ],
+  [
+    "ソング",
+    "Song"
+  ],
+  [
+    "メロディ",
+    "Melody"
+  ],
+  [
+    "リズム",
+    "Rhythm"
+  ],
+  [
+    "ビート",
+    "Beat"
+  ],
+  [
+    "テンポ",
+    "Tempo"
+  ],
+  [
+    "ハーモニー",
+    "Harmony"
+  ],
+  [
+    "ボーカル",
+    "Vocal"
+  ],
+  [
+    "ボーカリスト",
+    "Vocalist"
+  ],
+  [
+    "シンガー",
+    "Singer"
+  ],
+  [
+    "バンド",
+    "Band"
+  ],
+  [
+    "ステージ",
+    "Stage"
+  ],
+  [
+    "アルバム",
+    "Album"
+  ],
+  [
+    "シングル",
+    "Single"
+  ],
+  [
+    "プレイリスト",
+    "Playlist"
+  ],
+  [
+    "レコード",
+    "Record"
+  ],
+  [
+    "ディスク",
+    "Disc"
+  ],
+  [
+    "カセット",
+    "Cassette"
+  ],
+  [
+    "ドラム",
+    "Drum"
+  ],
+  [
+    "ドラムス",
+    "Drums"
+  ],
+  [
+    "バイオリン",
+    "Violin"
+  ],
+  [
+    "チェロ",
+    "Cello"
+  ],
+  [
+    "フルート",
+    "Flute"
+  ],
+  [
+    "トランペット",
+    "Trumpet"
+  ],
+  [
+    "サックス",
+    "Sax"
+  ],
+  [
+    "サクソフォン",
+    "Saxophone"
+  ],
+  [
+    "クラリネット",
+    "Clarinet"
+  ],
+  [
+    "オーボエ",
+    "Oboe"
+  ],
+  [
+    "ハープ",
+    "Harp"
+  ],
+  [
+    "シンセサイザー",
+    "Synthesizer"
+  ],
+  [
+    "ムービー",
+    "Movie"
+  ],
+  [
+    "コミック",
+    "Comic"
+  ],
+  [
+    "キャラクター",
+    "Character"
+  ],
+  [
+    "アイテム",
+    "Item"
+  ],
+  [
+    "モンスター",
+    "Monster"
+  ],
+  [
+    "ドラゴン",
+    "Dragon"
+  ],
+  [
+    "エルフ",
+    "Elf"
+  ],
+  [
+    "ロボット",
+    "Robot"
+  ],
+  [
+    "アンドロイド",
+    "Android"
+  ],
+  [
+    "アイドル",
+    "Idol"
+  ],
+  [
+    "メイド",
+    "Maid"
+  ],
+  [
+    "ナース",
+    "Nurse"
+  ],
+  [
+    "ストーリー",
+    "Story"
+  ],
+  [
+    "シナリオ",
+    "Scenario"
+  ],
+  [
+    "プロット",
+    "Plot"
+  ],
+  [
+    "シーン",
+    "Scene"
+  ],
+  [
+    "カット",
+    "Cut"
+  ],
+  [
+    "テイク",
+    "Take"
+  ],
+  [
+    "キャスト",
+    "Cast"
+  ],
+  [
+    "スタッフ",
+    "Staff"
+  ],
+  [
+    "ディレクター",
+    "Director"
+  ],
+  [
+    "プロデューサー",
+    "Producer"
+  ],
+  [
+    "アクター",
+    "Actor"
+  ],
+  [
+    "アクトレス",
+    "Actress"
+  ],
+  [
+    "スター",
+    "Star"
+  ],
+  [
+    "ヒーロー",
+    "Hero"
+  ],
+  [
+    "ヒロイン",
+    "Heroine"
+  ],
+  [
+    "ヴィラン",
+    "Villain"
+  ],
+  [
+    "エキストラ",
+    "Extra"
+  ],
+  [
+    "スタジオ",
+    "Studio"
+  ],
+  [
+    "レンズ",
+    "Lens"
+  ],
+  [
+    "フラッシュ",
+    "Flash"
+  ],
+  [
+    "フォーカス",
+    "Focus"
+  ],
+  [
+    "エフェクト",
+    "Effect"
+  ],
+  [
+    "アニメーション",
+    "Animation"
+  ],
+  [
+    "グラフィック",
+    "Graphic"
+  ],
+  [
+    "イラスト",
+    "Illustration"
+  ],
+  [
+    "ポスター",
+    "Poster"
+  ],
+  [
+    "トレーラー",
+    "Trailer"
+  ],
+  [
+    "ティーザー",
+    "Teaser"
+  ],
+  [
+    "エピソード",
+    "Episode"
+  ],
+  [
+    "ジャンル",
+    "Genre"
+  ],
+  [
+    "ファンタジー",
+    "Fantasy"
+  ],
+  [
+    "ホラー",
+    "Horror"
+  ],
+  [
+    "コメディ",
+    "Comedy"
+  ],
+  [
+    "ミステリー",
+    "Mystery"
+  ],
+  [
+    "スリラー",
+    "Thriller"
+  ],
+  [
+    "アクション",
+    "Action"
+  ],
+  [
+    "アドベンチャー",
+    "Adventure"
+  ],
+  [
+    "ドキュメンタリー",
+    "Documentary"
+  ],
+  [
+    "フィギュア",
+    "Figure"
+  ],
+  [
+    "コレクション",
+    "Collection"
+  ],
+  [
+    "コレクター",
+    "Collector"
+  ],
+  [
+    "ホビー",
+    "Hobby"
+  ],
+  [
+    "トイ",
+    "Toy"
+  ],
+  [
+    "ドール",
+    "Doll"
+  ],
+  [
+    "キット",
+    "Kit"
+  ],
+  [
+    "パーツ",
+    "Parts"
+  ],
+  [
+    "アクセサリ",
+    "Accessory"
+  ],
+  [
+    "スケール",
+    "Scale"
+  ],
+  [
+    "プロポーション",
+    "Proportion"
+  ],
+  [
+    "ポーズ",
+    "Pose"
+  ],
+  [
+    "スタンド",
+    "Stand"
+  ],
+  [
+    "パッケージ",
+    "Package"
+  ],
+  [
+    "ボックスアート",
+    "Box Art"
+  ],
+  [
+    "ブリスター",
+    "Blister"
+  ],
+  [
+    "プロトタイプモデル",
+    "Prototype Model"
+  ],
+  [
+    "カラーリング",
+    "Coloring"
+  ],
+  [
+    "ペイント",
+    "Paint"
+  ],
+  [
+    "ブラシペイント",
+    "Brush Paint"
+  ],
+  [
+    "エアブラシ",
+    "Airbrush"
+  ],
+  [
+    "デカール",
+    "Decal"
+  ],
+  [
+    "ステッカー",
+    "Sticker"
+  ],
+  [
+    "レジン",
+    "Resin"
+  ],
+  [
+    "ビニール",
+    "Vinyl"
+  ],
+  [
+    "ポリストーン",
+    "Polystone"
+  ],
+  [
+    "ダイキャスト",
+    "Die-cast"
+  ],
+  [
+    "スクール",
+    "School"
+  ],
+  [
+    "クラス",
+    "Class"
+  ],
+  [
+    "クイズ",
+    "Quiz"
+  ],
+  [
+    "ホームワーク",
+    "Homework"
+  ],
+  [
+    "テキスト",
+    "Text"
+  ],
+  [
+    "リサーチ",
+    "Research"
+  ],
+  [
+    "キャンパス",
+    "Campus"
+  ],
+  [
+    "ラボ",
+    "Lab"
+  ],
+  [
+    "ラボラトリー",
+    "Laboratory"
+  ],
+  [
+    "サイエンス",
+    "Science"
+  ],
+  [
+    "テクノロジー",
+    "Technology"
+  ],
+  [
+    "エンジニアリング",
+    "Engineering"
+  ],
+  [
+    "ドクター",
+    "Doctor"
+  ],
+  [
+    "クリニック",
+    "Clinic"
+  ],
+  [
+    "ホスピタル",
+    "Hospital"
+  ],
+  [
+    "カウンセリング",
+    "Counseling"
+  ],
+  [
+    "セラピー",
+    "Therapy"
+  ],
+  [
+    "メンタル",
+    "Mental"
+  ],
+  [
+    "ストレス",
+    "Stress"
+  ],
+  [
+    "バクテリア",
+    "Bacteria"
+  ],
+  [
+    "プロテイン",
+    "Protein"
+  ],
+  [
+    "エネルギードリンク",
+    "Energie Drink"
+  ],
+  [
+    "ヘルス",
+    "Health"
+  ],
+  [
+    "ヘルスケア",
+    "Healthcare"
+  ],
+  [
+    "フィットネスクラブ",
+    "Fitness Club"
+  ],
+  [
+    "ホワイト",
+    "White"
+  ],
+  [
+    "ブラック",
+    "Black"
+  ],
+  [
+    "レッド",
+    "Red"
+  ],
+  [
+    "ブルー",
+    "Blue"
+  ],
+  [
+    "グリーン",
+    "Green"
+  ],
+  [
+    "イエロー",
+    "Yellow"
+  ],
+  [
+    "オレンジカラー",
+    "Orange Color"
+  ],
+  [
+    "ピンク",
+    "Pink"
+  ],
+  [
+    "パープル",
+    "Purple"
+  ],
+  [
+    "バイオレット",
+    "Violet"
+  ],
+  [
+    "ブラウン",
+    "Brown"
+  ],
+  [
+    "グレー",
+    "Gray"
+  ],
+  [
+    "ゴールド",
+    "Gold"
+  ],
+  [
+    "シルバー",
+    "Silver"
+  ],
+  [
+    "クリア",
+    "Clear"
+  ],
+  [
+    "ライトブルー",
+    "Light Blue"
+  ],
+  [
+    "ダークブルー",
+    "Dark Blue"
+  ],
+  [
+    "ライトグリーン",
+    "Light Green"
+  ],
+  [
+    "ダークグリーン",
+    "Dark Green"
+  ],
+  [
+    "ナチュラル",
+    "Natural"
+  ],
+  [
+    "シンプル",
+    "Simple"
+  ],
+  [
+    "カジュアル",
+    "Casual"
+  ],
+  [
+    "フォーマル",
+    "Formal"
+  ],
+  [
+    "ベーシック",
+    "Basic"
+  ],
+  [
+    "スタンダードタイプ",
+    "Standard Type"
+  ],
+  [
+    "プレミアム",
+    "Premium"
+  ],
+  [
+    "デラックス",
+    "Deluxe"
+  ],
+  [
+    "スペシャル",
+    "Special"
+  ],
+  [
+    "オリジナル",
+    "Original"
+  ],
+  [
+    "クラシック",
+    "Classic"
+  ],
+  [
+    "モダン",
+    "Modern"
+  ],
+  [
+    "レトロ",
+    "Retro"
+  ],
+  [
+    "ヴィンテージ",
+    "Vintage"
+  ],
+  [
+    "アンティーク",
+    "Antique"
+  ],
+  [
+    "ポップ",
+    "Pop"
+  ],
+  [
+    "クール",
+    "Cool"
+  ],
+  [
+    "キュート",
+    "Cute"
+  ],
+  [
+    "エレガント",
+    "Elegant"
+  ],
+  [
+    "スマート",
+    "Smart"
+  ],
+  [
+    "コンパクト",
+    "Compact"
+  ],
+  [
+    "ワイド",
+    "Wide"
+  ],
+  [
+    "スリム",
+    "Slim"
+  ],
+  [
+    "ミニ",
+    "Mini"
+  ],
+  [
+    "ビッグ",
+    "Big"
+  ],
+  [
+    "ラージ",
+    "Large"
+  ],
+  [
+    "スモール",
+    "Small"
+  ],
+  [
+    "ロング",
+    "Long"
+  ],
+  [
+    "ショート",
+    "Short"
+  ],
+  [
+    "ハイ",
+    "High"
+  ],
+  [
+    "ロー",
+    "Low"
+  ],
+  [
+    "ボトム",
+    "Bottom"
+  ],
+  [
+    "フロント",
+    "Front"
+  ],
+  [
+    "リア",
+    "Rear"
+  ],
+  [
+    "サイド",
+    "Side"
+  ],
+  [
+    "センターライン",
+    "Center Line"
+  ],
+  [
+    "カーボン",
+    "Carbon"
+  ],
+  [
+    "セラミック",
+    "Ceramic"
+  ],
+  [
+    "チタン",
+    "Titanium"
+  ],
+  [
+    "クローム",
+    "Chrome"
+  ],
+  [
+    "シリコン",
+    "Silicon"
+  ],
+  [
+    "フォームラバー",
+    "Foam Rubber"
+  ],
+  [
+    "ファイバー",
+    "Fiber"
+  ],
+  [
+    "グラスファイバー",
+    "Glass Fiber"
+  ],
+  {
+    "surface": "ベーススタンド",
+    "output": "Base Stand",
+    "category": "loanword-compound",
+    "ambiguitySignificance": "material",
+    "requiresReview": true,
+    "reviewReason": "material-source-ambiguity: Base Stand/Bass Stand",
+    "alternates": [
+      {
+        "output": "Bass Stand",
+        "significance": "material"
+      }
+    ],
+    "context": {
+      "window": 6,
+      "minMargin": 2,
+      "source": "Project-reviewed source-spelling context",
+      "candidates": [
+        {
+          "output": "Base Stand",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "フィギュア",
+              "weight": 5
+            },
+            {
+              "term": "模型",
+              "weight": 4
+            },
+            {
+              "term": "展示",
+              "weight": 4
+            },
+            {
+              "term": "台座",
+              "weight": 3
+            },
+            {
+              "term": "ディスプレイ",
+              "weight": 3
+            },
+            {
+              "term": "支柱",
+              "weight": 3
+            }
+          ]
+        },
+        {
+          "output": "Bass Stand",
+          "minScore": 3,
+          "terms": [
+            {
+              "term": "音楽",
+              "weight": 5
+            },
+            {
+              "term": "楽器",
+              "weight": 4
+            },
+            {
+              "term": "ギター",
+              "weight": 3
+            },
+            {
+              "term": "演奏",
+              "weight": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  [
+    "アップルパイ",
+    "Apple Pie"
+  ],
+  [
+    "レインコート",
+    "Raincoat"
+  ],
+  [
+    "サッカーボール",
+    "Soccer Ball"
+  ],
+  [
+    "マウスパッド",
+    "Mouse Pad"
+  ],
+  [
+    "パッド",
+    "Pad"
+  ],
+  [
+    "カバー",
+    "Cover"
+  ],
+  [
+    "エスカレーター",
+    "Escalator"
+  ],
+  [
+    "トンネル",
+    "Tunnel"
+  ],
+  [
+    "ガソリン",
+    "Gasoline"
+  ],
+  [
+    "レシート",
+    "Receipt"
+  ],
+  [
+    "スケジュール",
+    "Schedule"
+  ],
+  [
+    "ログアウト",
+    "Logout"
+  ],
+  [
+    "フォント",
+    "Font"
+  ],
+  [
+    "カーソル",
+    "Cursor"
+  ],
+  [
+    "バルコニー",
+    "Balcony"
+  ],
+  [
+    "カレー",
+    "Curry"
+  ],
+  [
+    "カー",
+    "Car"
+  ],
+  [
+    "パスポート",
+    "Passport"
+  ],
+  [
+    "ビザ",
+    "Visa"
+  ],
+  [
+    "チケット",
+    "Ticket"
+  ],
+  [
+    "スーツケース",
+    "Suitcase"
   ]
 ]

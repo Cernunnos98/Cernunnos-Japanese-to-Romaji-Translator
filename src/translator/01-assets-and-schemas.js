@@ -195,7 +195,7 @@ const translatorAssets = Object.freeze({
     japaneseHanScope: { paths: ['data/kanji/japanese-han-scope.json'], criticality: ASSET_CRITICALITY.OPTIONAL, type: 'json', schema: 'japanese-han-scope-v1' },
     commonWords: { paths: ['data/common-words/common-words-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'common-word-bank-v1' },
     generalWords: { paths: ['data/general-words/general-words-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'general-word-bank-v1' },
-    loanwords: { paths: ['data/loanwords/loanwords-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'loanword-bank-v1' },
+    loanwords: { paths: ['data/loanwords/loanwords-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'loanword-bank-v2' },
     compoundWords: { paths: ['data/compound-words/compound-words-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'compound-word-bank-v1' },
     ateji: { paths: ['data/ateji/ateji-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'ateji-bank-v1' },
     properNouns: { paths: ['data/nouns/nouns-term-bank-1.json', 'data/nouns/jmnedict-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'proper-noun-bank-v1' },
@@ -312,6 +312,67 @@ function hasNoConflictingRows(data, keySelector, valueSelector) {
     return true;
 }
 
+function isWeightedContextTerms(terms) {
+    return Array.isArray(terms) && terms.length > 0
+        && terms.every(item => isPlainObject(item) && isText(item.term)
+            && Number.isFinite(Number(item.weight)) && Number(item.weight) > 0);
+}
+
+function isLoanwordAlternate(item) {
+    return isPlainObject(item)
+        && isRule0RomajiEvidence(item.output)
+        && ['incidental', 'material'].includes(String(item.significance || ''));
+}
+
+function isLoanwordContextEvidence(context, allowedOutputs) {
+    if (!isPlainObject(context)
+        || !Number.isInteger(Number(context.window)) || Number(context.window) < 1 || Number(context.window) > 12
+        || !Number.isFinite(Number(context.minMargin)) || Number(context.minMargin) < 0
+        || !isText(context.source)
+        || !Array.isArray(context.candidates) || context.candidates.length < 1) return false;
+    const seen = new Set();
+    for (const candidate of context.candidates) {
+        if (!isPlainObject(candidate) || !isRule0RomajiEvidence(candidate.output)
+            || !allowedOutputs.has(normalizeReviewedRomaji(candidate.output))
+            || !isWeightedContextTerms(candidate.terms)
+            || !Number.isFinite(Number(candidate.minScore)) || Number(candidate.minScore) <= 0) return false;
+        const key = normalizeReviewedRomaji(candidate.output);
+        if (seen.has(key)) return false;
+        seen.add(key);
+    }
+    return true;
+}
+
+function isLoanwordBankEntryV2(entry) {
+    if (Array.isArray(entry)) return isText(entry[0]) && isRule0RomajiEvidence(entry[1]);
+    if (!isPlainObject(entry) || !isText(entry.surface)) return false;
+    const hasOutput = isRule0RomajiEvidence(entry.output);
+    const reviewOnly = entry.output == null && entry.requiresReview === true && isText(entry.reviewReason);
+    if (!hasOutput && !reviewOnly) return false;
+    if (entry.category != null && !isText(entry.category)) return false;
+    if (entry.requiresReview != null && typeof entry.requiresReview !== 'boolean') return false;
+    if (entry.reviewReason != null && !isText(entry.reviewReason)) return false;
+    if (entry.ambiguitySignificance != null && !['none', 'incidental', 'material'].includes(String(entry.ambiguitySignificance))) return false;
+    const alternates = entry.alternates == null ? [] : entry.alternates;
+    if (!Array.isArray(alternates) || !alternates.every(isLoanwordAlternate)) return false;
+    if (hasOutput) {
+        const canonical = normalizeReviewedRomaji(entry.output);
+        const seen = new Set([canonical]);
+        for (const alternate of alternates) {
+            const output = normalizeReviewedRomaji(alternate.output);
+            if (seen.has(output)) return false;
+            seen.add(output);
+        }
+        const materialAlternate = alternates.some(item => item.significance === 'material');
+        if (materialAlternate && entry.ambiguitySignificance === 'incidental') return false;
+        if (entry.requiresReview === true && !isText(entry.reviewReason)) return false;
+        if (entry.context != null && !isLoanwordContextEvidence(entry.context, seen)) return false;
+    } else if (alternates.length || entry.context != null || entry.ambiguitySignificance != null) {
+        return false;
+    }
+    return true;
+}
+
 function isContextualReadingEvidence(data) {
     if (!isPlainObject(data) || data.version !== 1 || !Array.isArray(data.featureGroups) || !Array.isArray(data.entries)) return false;
     const featureIds = new Set();
@@ -371,9 +432,33 @@ const assetSchemaValidators = Object.freeze({
         && hasNoConflictingRows(data, entry => entry[0], entry => entry[1]),
     'loanword-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry)
         ? isText(entry[0]) && isRule0RomajiEvidence(entry[1])
-        : isPlainObject(entry) && isText(entry.surface) && isRule0RomajiEvidence(entry.output)
-            && (entry.category == null || ['country-name', 'country-language'].includes(String(entry.category))))
-        && hasNoConflictingRows(data, entry => Array.isArray(entry) ? entry[0] : entry.surface, entry => normalizeReviewedRomaji(Array.isArray(entry) ? entry[1] : entry.output)),
+        : isPlainObject(entry) && isText(entry.surface)
+            && ((isRule0RomajiEvidence(entry.output)
+                    && (entry.category == null || ['country-name', 'country-language'].includes(String(entry.category))))
+                || (entry.output == null && entry.requiresReview === true && isText(entry.reviewReason))))
+        && hasNoConflictingRows(
+            data,
+            entry => Array.isArray(entry) ? entry[0] : entry.surface,
+            entry => Array.isArray(entry)
+                ? [normalizeReviewedRomaji(entry[1]), false, null]
+                : [entry.output == null ? null : normalizeReviewedRomaji(entry.output), Boolean(entry.requiresReview), entry.reviewReason || null]
+        ),
+    'loanword-bank-v2': data => isNonEmptyRowBank(data, isLoanwordBankEntryV2)
+        && hasNoConflictingRows(
+            data,
+            entry => Array.isArray(entry) ? entry[0] : entry.surface,
+            entry => Array.isArray(entry)
+                ? [normalizeReviewedRomaji(entry[1]), [], false, null]
+                : [
+                    entry.output == null ? null : normalizeReviewedRomaji(entry.output),
+                    (entry.alternates || []).map(item => [normalizeReviewedRomaji(item.output), item.significance]),
+                    Boolean(entry.requiresReview),
+                    entry.reviewReason || null,
+                    entry.ambiguitySignificance || null,
+                    entry.context || null,
+                    entry.category || null
+                ]
+        ),
     'compound-word-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry) && isText(entry[0]) && isSemanticKanaReading(entry[1])),
     'ateji-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry) && isText(entry[0]) && isSemanticKanaReading(entry[1]))
         && hasNoConflictingRows(data, entry => entry[0], entry => normalizeEvidenceReading(entry[1])),
