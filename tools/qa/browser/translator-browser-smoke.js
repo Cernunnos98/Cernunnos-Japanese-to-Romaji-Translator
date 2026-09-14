@@ -39,6 +39,7 @@
             <div id="status-banner">Loading</div>
             <textarea id="input" disabled></textarea>
             <div id="output"></div>
+            <div id="translation-review" hidden></div>
             <div id="kanji-readings" data-cj2r-kanji-readings data-cj2r-kanji-source="#input" data-cj2r-kanji-search="#kanji-search"></div>
             <input id="kanji-search" type="text">
             <label id="override-control">
@@ -95,6 +96,17 @@
                 && Array.isArray(auditProbe.audit.readings)
                 && typeof auditProbe.audit.requiresReview === 'boolean'
             );
+            const reviewField = document.getElementById('input');
+            const reviewStatus = document.getElementById('translation-review');
+            reviewField.value = '克寿';
+            reviewField.dispatchEvent(new Event('input', { bubbles: true }));
+            await new Promise(resolve => setTimeout(resolve, 60));
+            const activeReviewReasons = (auditProbe.audit.redFlags || [])
+                .filter(signal => signal?.state === 'final-active' && signal?.requiresReview)
+                .map(signal => String(signal.reasonCode || signal.flag || 'review-required'));
+            result.checks.reviewUiApiConsistency = Boolean(reviewStatus)
+                && auditProbe.audit.requiresReview === (reviewStatus.hidden === false)
+                && activeReviewReasons.every(reason => reviewStatus.textContent.includes(reason));
             const historicalAuditProbe = window.RomajiTranslator.translateWithAuditSync('をかし', { historicalKana: true });
             result.checks.auditHistorical = historicalAuditProbe?.romaji === expected.historicalWokashi
                 && historicalAuditProbe?.audit?.sourceText === 'をかし';

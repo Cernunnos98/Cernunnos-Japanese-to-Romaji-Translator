@@ -36,19 +36,144 @@ function splitStructuredNumericUnitTokens(tokens) {
         if (!matchedUnit) { split.push(token); continue; }
         const numeralSurface = surface.slice(0, -matchedUnit.length);
         const position = Number(token.word_position || 0);
-        split.push({
-            ...token, surface_form: numeralSurface, reading: '*', pronunciation: '*',
+        const numeralLength = Array.from(numeralSurface).length;
+        const fullLength = Array.from(surface).length;
+        split.push(makeDerivedSubspanToken(token, 0, numeralLength, {
+            surface_form: numeralSurface, reading: '*', pronunciation: '*',
             pos: '名詞', pos_detail_1: '数', pos_detail_2: '*', pos_detail_3: '*',
             structuredNumericSplit: true
-        });
-        split.push({
-            ...token, surface_form: matchedUnit, reading: '*', pronunciation: '*',
+        }, {
+            annotations: ['structuredNumericSplit'], evidenceSource: 'numeric-unit-structure', semanticRole: 'numeric-head'
+        }));
+        split.push(makeDerivedSubspanToken(token, numeralLength, fullLength, {
+            surface_form: matchedUnit, reading: '*', pronunciation: '*',
             pos: '名詞', pos_detail_1: '接尾', pos_detail_2: '助数詞', pos_detail_3: '*',
             word_position: position > 0 ? position + numeralSurface.length : position,
             structuredNumericSplit: true
-        });
+        }, {
+            annotations: ['structuredNumericSplit'], evidenceSource: 'numeric-unit-structure', semanticRole: 'numeric-unit'
+        }));
     }
     return split;
+}
+
+
+const structuredFractionNumeralPattern = /^[0-9０-９〇零一二三四五六七八九十百千万億兆]+$/u;
+
+function getStructuredFractionCandidateParts(candidate) {
+    if (candidate?.kind !== 'fraction-structure' || candidate?.semanticRole !== 'fraction') return null;
+    const surface = String(candidate.sourceSurface || '');
+    const match = surface.match(/^([0-9０-９〇零一二三四五六七八九十百千万億兆]+)分の([0-9０-９〇零一二三四五六七八九十百千万億兆]+)$/u);
+    if (!match || !Number.isInteger(candidate.sourceStart) || !Number.isInteger(candidate.sourceEnd)) return null;
+    const denominator = match[1];
+    const unitStart = candidate.sourceStart + denominator.length;
+    const connectorStart = unitStart + 1;
+    return {
+        sourceStart: candidate.sourceStart,
+        sourceEnd: candidate.sourceEnd,
+        denominatorStart: candidate.sourceStart,
+        unitStart,
+        connectorStart,
+        connectorEnd: connectorStart + 1,
+        numeratorStart: connectorStart + 1
+    };
+}
+
+function sourceOffsetToCharacterIndex(surface, sourceOffset) {
+    if (!Number.isInteger(sourceOffset) || sourceOffset < 0 || sourceOffset > String(surface || '').length) return null;
+    const characters = Array.from(String(surface || ''));
+    let units = 0;
+    for (let index = 0; index <= characters.length; index += 1) {
+        if (units === sourceOffset) return index;
+        if (index === characters.length) break;
+        units += characters[index].length;
+        if (units > sourceOffset) return null;
+    }
+    return null;
+}
+
+/** @param {CJ2RToken[]} tokens @param {ReadonlyArray<CJ2RSourceSpanCandidate>} [sourceSpanCandidates] */
+function applyStructuredFractionOutputTokens(tokens, sourceSpanCandidates = []) {
+    const structures = [];
+    for (const candidate of sourceSpanCandidates || []) {
+        const structure = getStructuredFractionCandidateParts(candidate);
+        if (structure) structures.push(structure);
+    }
+    if (!structures.length) return tokens || [];
+    const boundaries = new Set();
+    for (const structure of structures) {
+        boundaries.add(structure.unitStart);
+        boundaries.add(structure.connectorStart);
+        boundaries.add(structure.connectorEnd);
+    }
+
+    const segmented = [];
+    for (const token of tokens || []) {
+        const tokenStart = token?.sourceStart;
+        const tokenEnd = token?.sourceEnd;
+        if (typeof tokenStart !== 'number' || typeof tokenEnd !== 'number' || !Number.isInteger(tokenStart) || !Number.isInteger(tokenEnd) || tokenEnd <= tokenStart) {
+            segmented.push(token);
+            continue;
+        }
+        const cuts = [...boundaries].filter(boundary => boundary > tokenStart && boundary < tokenEnd).sort((a, b) => a - b);
+        if (!cuts.length) { segmented.push(token); continue; }
+        const surface = String(token.sourceSurface ?? token.surface_form ?? '');
+        const absolute = [tokenStart, ...cuts, tokenEnd];
+        let valid = true;
+        const pieces = [];
+        for (let index = 0; index < absolute.length - 1; index += 1) {
+            const startCharacter = sourceOffsetToCharacterIndex(surface, absolute[index] - tokenStart);
+            const endCharacter = sourceOffsetToCharacterIndex(surface, absolute[index + 1] - tokenStart);
+            if (typeof startCharacter !== 'number' || typeof endCharacter !== 'number' || endCharacter <= startCharacter) { valid = false; break; }
+            pieces.push(makeDerivedSubspanToken(token, startCharacter, endCharacter, {
+                reading: '*', pronunciation: '*'
+            }, { evidenceSource: 'fraction-output-structure', semanticRole: 'fraction-structural-segment' }));
+        }
+        if (valid) segmented.push(...pieces);
+        else segmented.push(token);
+    }
+
+    return segmented.map(token => {
+        const tokenStart = token.sourceStart;
+        const tokenEnd = token.sourceEnd;
+        if (typeof tokenStart !== 'number' || typeof tokenEnd !== 'number') return token;
+        const structure = structures.find(item => tokenStart >= item.sourceStart && tokenEnd <= item.sourceEnd);
+        if (!structure) return token;
+        const length = Array.from(String(token.surface_form || '')).length;
+        if (tokenStart === structure.unitStart && tokenEnd === structure.connectorStart && token.surface_form === '分') {
+            return makeDerivedSubspanToken(token, 0, length, {
+                surface_form: '分', reading: 'ブン', pronunciation: 'ブン',
+                pos: '名詞', pos_detail_1: '接尾', pos_detail_2: '助数詞', pos_detail_3: '*',
+                structuredFractionRole: 'denominator-unit', structuredFractionReading: 'ぶん', structuredFractionSource: 'fraction-structure'
+            }, {
+                annotations: ['structuredFractionRole', 'structuredFractionReading', 'structuredFractionSource'],
+                evidenceSource: 'fraction-structure', semanticRole: 'fraction-denominator-unit'
+            });
+        }
+        if (tokenStart === structure.connectorStart && tokenEnd === structure.connectorEnd && token.surface_form === 'の') {
+            return makeDerivedSubspanToken(token, 0, length, {
+                surface_form: 'の', reading: 'ノ', pronunciation: 'ノ',
+                pos: '助詞', pos_detail_1: '連体化', pos_detail_2: '*', pos_detail_3: '*',
+                structuredFractionRole: 'connector', structuredFractionSource: 'fraction-structure'
+            }, {
+                annotations: ['structuredFractionRole', 'structuredFractionSource'],
+                evidenceSource: 'fraction-structure', semanticRole: 'fraction-connector'
+            });
+        }
+        if (structuredFractionNumeralPattern.test(String(token.surface_form || ''))
+            && ((tokenStart >= structure.denominatorStart && tokenEnd <= structure.unitStart)
+                || (tokenStart >= structure.numeratorStart && tokenEnd <= structure.sourceEnd))) {
+            const role = tokenEnd <= structure.unitStart ? 'denominator-numeral' : 'numerator-numeral';
+            return makeDerivedSubspanToken(token, 0, length, {
+                pos: '名詞', pos_detail_1: '数', pos_detail_2: '*', pos_detail_3: '*',
+                structuredFractionRole: role, structuredFractionSource: 'fraction-structure'
+            }, {
+                annotations: ['structuredFractionRole', 'structuredFractionSource'],
+                evidenceSource: 'fraction-structure', semanticRole: `fraction-${role}`
+            });
+        }
+        return token;
+    });
 }
 
 
@@ -73,27 +198,36 @@ function getTokenizerReadingForSurface(surface) {
 }
 
 function makeTypedTemporalSuffixToken(token) {
-    return {
-        ...token,
+    return makeDerivedSubspanToken(token, 0, 1, {
         surface_form: '中', reading: 'ジュウ', pronunciation: 'ジュウ',
         pos: '名詞', pos_detail_1: '接尾', pos_detail_2: '*', pos_detail_3: '*',
         typedTemporalSuffix: true
-    };
+    }, {
+        annotations: ['typedTemporalSuffix'], evidenceSource: 'typed-temporal-boundary', semanticRole: 'temporal-suffix'
+    });
 }
 
 function retokenizeTypedBoundaryRemainder(token, remainder) {
     const originalPosition = Number(token?.word_position || 0);
     const basePosition = originalPosition > 0 ? originalPosition + 1 : originalPosition;
+    const originalCharacters = Array.from(String(token?.surface_form || ''));
+    const startOffset = Math.max(0, originalCharacters.length - Array.from(remainder).length);
     const retokenized = runtimeState.tokenizer ? runtimeState.tokenizer.tokenize(remainder) : [];
-    if (!retokenized.length) return [{
-        ...token, surface_form: remainder, reading: '*', pronunciation: '*',
+    if (!retokenized.length) return [makeDerivedSubspanToken(token, startOffset, originalCharacters.length, {
+        surface_form: remainder, reading: '*', pronunciation: '*',
         word_position: basePosition, tokenizationRoleBoundaryBefore: true
-    }];
-    return retokenized.map((item, index) => ({
-        ...item,
-        word_position: basePosition > 0 && Number(item.word_position || 0) > 0 ? basePosition + Number(item.word_position) - 1 : Number(item.word_position || 0),
-        tokenizationRoleBoundaryBefore: index === 0 || Boolean(item.tokenizationRoleBoundaryBefore)
-    }));
+    }, { evidenceSource: 'typed-temporal-boundary', semanticRole: 'temporal-remainder' })];
+    let consumed = 0;
+    return retokenized.map((item, index) => {
+        const length = Array.from(String(item?.surface_form || '')).length;
+        const derived = makeDerivedSubspanToken(token, startOffset + consumed, startOffset + consumed + length, {
+            ...item,
+            word_position: basePosition > 0 && Number(item.word_position || 0) > 0 ? basePosition + Number(item.word_position) - 1 : Number(item.word_position || 0),
+            tokenizationRoleBoundaryBefore: index === 0 || Boolean(item.tokenizationRoleBoundaryBefore)
+        }, { evidenceSource: 'typed-temporal-boundary', semanticRole: 'temporal-remainder' });
+        consumed += length;
+        return derived;
+    });
 }
 
 function getTrailingTypedTemporalHeadSpan(tokens) {
@@ -116,14 +250,15 @@ function getTrailingTypedTemporalHeadSpan(tokens) {
 function makeStructuredTemporalHeadToken(tokens, span) {
     const members = tokens.slice(span.startIndex);
     const reading = normalizeKanaReading(members.map(getKuromojiDictionaryReading).filter(Boolean).join('') || getTokenizerReadingForSurface(span.surface) || '');
-    return {
-        ...span.token,
+    return makeDerivedSpanToken(tokens, span.startIndex, tokens.length - 1, {
         surface_form: span.surface,
         reading: reading || '*',
         pronunciation: reading || '*',
         pos: '名詞', pos_detail_1: '副詞可能', pos_detail_2: '*', pos_detail_3: '*',
         structuredTemporalHead: true
-    };
+    }, {
+        annotations: ['structuredTemporalHead'], evidenceSource: 'typed-temporal-structure', semanticRole: 'temporal-head'
+    });
 }
 
 function getStandaloneSingleToken(surface) {
@@ -165,7 +300,7 @@ function repairTypedTemporalExpressionBoundaries(tokens) {
             const headSpan = getTrailingTypedTemporalHeadSpan(repaired);
             if (headSpan && isStandaloneOrdinaryLexicalNoun(surface)) {
                 const collision = getAttestedTypedTemporalLexicalCollision(headSpan, token);
-                repaired.push(collision ? { ...token, typedTemporalSpanLexicalCollision: collision } : token);
+                repaired.push(collision ? makeDerivedSpanToken([token], 0, 0, { typedTemporalSpanLexicalCollision: collision }, { annotations: ['typedTemporalSpanLexicalCollision'], evidenceSource: 'typed-temporal-boundary', semanticRole: 'lexical-temporal-collision', reviewRequired: true }) : token);
                 continue;
             }
             if (headSpan) {
@@ -181,9 +316,9 @@ function repairTypedTemporalExpressionBoundaries(tokens) {
     return repaired;
 }
 
-function makeTypedTemporalSpanToken(head, surface, reading) {
-    return {
-        ...head,
+function makeTypedTemporalSpanToken(members, surface, reading) {
+    const spanTokens = Array.isArray(members) ? members : [members];
+    return makeDerivedSpanToken(spanTokens, 0, spanTokens.length - 1, {
         surface_form: surface,
         reading,
         pronunciation: reading,
@@ -192,7 +327,10 @@ function makeTypedTemporalSpanToken(head, surface, reading) {
         typedTemporalExpressionType: 'period-span',
         typedTemporalReading: reading,
         typedTemporalSource: 'typed-period-span'
-    };
+    }, {
+        annotations: ['typedTemporalExpressionMatched', 'typedTemporalExpressionType', 'typedTemporalReading', 'typedTemporalSource'],
+        evidenceSource: 'typed-period-span', semanticRole: 'temporal-period'
+    });
 }
 
 /** @param {string} surface @param {CJ2RToken|null} [token] */
@@ -238,7 +376,7 @@ function mergeTypedTemporalSpanTokens(tokens) {
             if (headSpan) {
                 const head = makeStructuredTemporalHeadToken(merged, headSpan);
                 merged.splice(headSpan.startIndex, merged.length - headSpan.startIndex);
-                merged.push(makeTypedTemporalSpanToken(head, headSpan.surface + '中', getTypedTemporalHeadReading(headSpan.surface, head) + 'じゅう'));
+                merged.push(makeTypedTemporalSpanToken([head, token], headSpan.surface + '中', getTypedTemporalHeadReading(headSpan.surface, head) + 'じゅう'));
                 continue;
             }
         }
@@ -247,7 +385,7 @@ function mergeTypedTemporalSpanTokens(tokens) {
             if (isTypedTemporalPeriodSurface(headSurface)) {
                 const headReading = getTypedTemporalHeadReading(headSurface);
                 if (headReading) {
-                    merged.push(makeTypedTemporalSpanToken(token, surface, headReading + 'じゅう'));
+                    merged.push(makeTypedTemporalSpanToken([token], surface, headReading + 'じゅう'));
                     continue;
                 }
             }
@@ -256,7 +394,7 @@ function mergeTypedTemporalSpanTokens(tokens) {
         if (isTypedTemporalPeriodSurface(surface) && String(next?.surface_form || '') === '中' && !hasReviewedLexicalBoundaryBefore(next)) {
             const headReading = getTypedTemporalHeadReading(surface, token);
             if (headReading) {
-                merged.push(makeTypedTemporalSpanToken(token, surface + '中', headReading + 'じゅう'));
+                merged.push(makeTypedTemporalSpanToken([token, next], surface + '中', headReading + 'じゅう'));
                 index += 1;
                 continue;
             }
@@ -313,6 +451,66 @@ function isOneDayDurationFollower(tokens, startIndex) {
         || hasFollowingPredicateAfterOneDayNominal(tokens, startIndex);
 }
 
+function isFrequencyCountStructureAt(tokens, startIndex) {
+    const token = tokens[startIndex] || null;
+    if (!token) return false;
+    const surface = String(token.surface_form || '');
+    if (/^[〇零一二三四五六七八九十百0-9]+(?:回|度)$/u.test(surface)) return true;
+    if (!isJapaneseNumeralSurface(surface)) return false;
+    let index = startIndex;
+    while (index < tokens.length && isJapaneseNumeralSurface(tokens[index]?.surface_form)) index += 1;
+    const unit = String(tokens[index]?.surface_form || '');
+    return unit === '回' || unit === '度';
+}
+
+function hasOneDayFrequencyContext(tokens, startIndex) {
+    const particle = tokens[startIndex] || null;
+    return Boolean(
+        particle
+        && isParticle(particle)
+        && String(particle.surface_form || '') === 'に'
+        && isFrequencyCountStructureAt(tokens, startIndex + 1)
+    );
+}
+
+function hasOnlyTerminalPunctuation(tokens, startIndex) {
+    for (let index = startIndex; index < (tokens || []).length; index += 1) {
+        const token = tokens[index];
+        if (!token) continue;
+        const surface = String(token.surface_form || '');
+        if (token.pos !== '記号' || /[\p{L}\p{N}]/u.test(surface)) return false;
+    }
+    return true;
+}
+
+function makeAmbiguousOneDayTemporalToken(tokens, startIndex, span) {
+    const endIndex = startIndex + span.length - 1;
+    const surface = span.length === 1 ? '一日' : String(tokens[startIndex].surface_form || '') + String(tokens[endIndex].surface_form || '');
+    const calendarEvidence = getReviewedCounterDateEvidence(surface, 'date');
+    const reading = normalizeKanaReading(calendarEvidence?.reading || 'ついたち') || 'ついたち';
+    return makeDerivedSpanToken(tokens, startIndex, endIndex, {
+        surface_form: surface,
+        reading, pronunciation: reading,
+        pos: '名詞', pos_detail_1: '副詞可能', pos_detail_2: '*', pos_detail_3: '*',
+        typedTemporalExpressionMatched: true,
+        typedTemporalExpressionType: 'ambiguous-day',
+        typedTemporalReading: reading,
+        typedTemporalSource: 'terminal-one-day-provisional-calendar',
+        typedTemporalRoleState: 'ambiguous',
+        typedTemporalRoleSource: 'terminal-one-day-role-conflict',
+        typedTemporalRoleReviewRequired: true,
+        typedTemporalRoleAlternatives: ['calendar-date', 'duration-day']
+    }, {
+        annotations: [
+            'typedTemporalExpressionMatched', 'typedTemporalExpressionType', 'typedTemporalReading', 'typedTemporalSource',
+            'typedTemporalRoleState', 'typedTemporalRoleSource', 'typedTemporalRoleReviewRequired', 'typedTemporalRoleAlternatives'
+        ],
+        evidenceSource: 'terminal-one-day-role-conflict',
+        semanticRole: 'temporal-role-ambiguous',
+        reviewRequired: true
+    });
+}
+
 function markTypedOneDayDurationTokens(tokens) {
     const resolved = [];
     for (let index = 0; index < (tokens || []).length; index += 1) {
@@ -329,11 +527,18 @@ function markTypedOneDayDurationTokens(tokens) {
             scan += 1;
             next = tokens[scan] || null;
         }
-        const durationContext = isOneDayDurationFollower(tokens, scan);
-        if (!durationContext) { resolved.push(tokens[index]); continue; }
+        const durationContext = isOneDayDurationFollower(tokens, scan) || hasOneDayFrequencyContext(tokens, scan);
+        if (!durationContext) {
+            if (hasOnlyTerminalPunctuation(tokens, index + span.length)) {
+                resolved.push(makeAmbiguousOneDayTemporalToken(tokens, index, span));
+                index += span.length - 1;
+                continue;
+            }
+            resolved.push(tokens[index]);
+            continue;
+        }
         const surface = span.length === 1 ? '一日' : String(tokens[index].surface_form || '') + String(tokens[index + 1].surface_form || '');
-        resolved.push({
-            ...span.head,
+        resolved.push(makeDerivedSpanToken(tokens, index, index + span.length - 1, {
             surface_form: surface,
             reading: 'イチニチ', pronunciation: 'イチニチ',
             pos: '名詞', pos_detail_1: '副詞可能', pos_detail_2: '*', pos_detail_3: '*',
@@ -341,37 +546,207 @@ function markTypedOneDayDurationTokens(tokens) {
             typedTemporalExpressionType: 'duration-day',
             typedTemporalReading: 'いちにち',
             typedTemporalSource: 'typed-duration-context'
-        });
+        }, {
+            annotations: ['typedTemporalExpressionMatched', 'typedTemporalExpressionType', 'typedTemporalReading', 'typedTemporalSource'],
+            evidenceSource: 'typed-duration-context', semanticRole: 'temporal-duration'
+        }));
         index += span.length - 1;
     }
     return resolved;
 }
 
-function makeTypedClockHourToken(token, surface, reading, source) {
-    return {
-        ...token,
-        surface_form: surface,
-        reading,
-        pronunciation: reading,
-        pos: '名詞', pos_detail_1: '数', pos_detail_2: '*', pos_detail_3: '*',
-        numericExpression: true,
-        typedNumericExpressionMatched: true,
-        typedNumericExpressionType: 'clock-hour',
-        typedNumericReading: reading,
-        typedNumericSource: source
-    };
+function getAttestedFrequencyCounterReading(tokens, startIndex, endIndex, surface) {
+    const members = (tokens || []).slice(startIndex, endIndex + 1);
+    const reviewed = getReviewedCounterDateEvidence(surface, 'counter');
+    if (reviewed?.reading) return reviewed.reading;
+    const analyserReading = normalizeKanaReading(members.map(item => getKuromojiDictionaryReading(item) || '').join(''));
+    if (!analyserReading) return null;
+    const lookup = getGeneralWordLookup(surface);
+    const matched = getGeneralWordCandidates(lookup).find(candidate => normalizeKanaReading(candidate?.reading || '') === analyserReading);
+    if (matched?.reading) return matched.reading;
+    const unit = members.at(-1) || null;
+    return members.length > 1 && unit?.pos_detail_2 === '助数詞' ? analyserReading : null;
 }
 
-function mergeTypedClockHourTokens(tokens) {
+function markTypedFrequencyCounterRoleTokens(tokens) {
+    const resolved = [];
+    for (let index = 0; index < (tokens || []).length; index += 1) {
+        const token = tokens[index];
+        const previous = tokens[index - 1] || null;
+        const beforePrevious = tokens[index - 2] || null;
+        const inOneDayFrequencyFrame = Boolean(
+            beforePrevious?.typedTemporalExpressionType === 'duration-day'
+            && isParticle(previous)
+            && String(previous.surface_form || '') === 'に'
+        );
+        if (!inOneDayFrequencyFrame) { resolved.push(token); continue; }
+
+        const directSurface = String(token?.surface_form || '');
+        let endIndex = index;
+        let surface = directSurface;
+        if (!/^[〇零一二三四五六七八九十百0-9]+(?:回|度)$/u.test(surface)) {
+            if (!isJapaneseNumeralSurface(directSurface)) { resolved.push(token); continue; }
+            let scan = index;
+            surface = '';
+            while (scan < tokens.length && isJapaneseNumeralSurface(tokens[scan]?.surface_form)) {
+                surface += String(tokens[scan].surface_form || '');
+                scan += 1;
+            }
+            const unitSurface = String(tokens[scan]?.surface_form || '');
+            if (unitSurface !== '回' && unitSurface !== '度') { resolved.push(token); continue; }
+            surface += unitSurface;
+            endIndex = scan;
+        }
+
+        const reading = getAttestedFrequencyCounterReading(tokens, index, endIndex, surface);
+        if (!reading) { resolved.push(token); continue; }
+        resolved.push(makeDerivedSpanToken(tokens, index, endIndex, {
+            surface_form: surface,
+            reading,
+            pronunciation: reading,
+            pos: '名詞', pos_detail_1: '数', pos_detail_2: '*', pos_detail_3: '*',
+            numericExpression: true,
+            typedNumericRoleSelected: true,
+            typedNumericRole: 'frequency-counter',
+            typedNumericRoleState: 'selected',
+            typedNumericRoleSource: 'duration-frequency-context',
+            typedNumericRoleReviewRequired: false,
+            typedNumericRoleAlternatives: ['frequency-counter'],
+            typedNumericExpressionMatched: true,
+            typedNumericExpressionType: 'frequency-counter',
+            typedNumericReading: reading,
+            typedNumericSource: 'duration-frequency-context+attested-reading'
+        }, {
+            annotations: ['numericExpression', 'typedNumericRoleSelected', 'typedNumericRole', 'typedNumericRoleState', 'typedNumericRoleSource', 'typedNumericRoleReviewRequired', 'typedNumericRoleAlternatives', 'typedNumericExpressionMatched', 'typedNumericExpressionType', 'typedNumericReading', 'typedNumericSource'],
+            evidenceSource: 'duration-frequency-context+attested-reading', semanticRole: 'frequency-counter', reviewRequired: false
+        }));
+        index = endIndex;
+    }
+    return resolved;
+}
+
+/** @param {string} surface @param {string|null} [role] */
+function getReviewedCounterDateEvidence(surface, role = null) {
+    const evidence = runtimeState.counterDateReadingDictionary.get(String(surface || '')) || null;
+    if (!evidence) return null;
+    if (role && String(evidence.role || '') !== String(role)) return null;
+    return evidence;
+}
+
+function hasConflictingGeneralWordReading(surface, proposedReading) {
+    const lookup = getGeneralWordLookup(String(surface || ''));
+    const candidates = getGeneralWordCandidates(lookup);
+    if (!candidates.length) return false;
+    const proposed = normalizeKanaReading(proposedReading || '');
+    return candidates.some(candidate => {
+        const reading = normalizeKanaReading(candidate?.reading || '');
+        return reading && proposed && reading !== proposed;
+    });
+}
+
+function getCompetingLexicalCandidateForSpan(candidates, members, proposedReading) {
+    const spanTokens = Array.isArray(members) ? members : [members];
+    const first = spanTokens[0] || {};
+    const last = spanTokens.at(-1) || first;
+    const start = Number(first.sourceStart);
+    const end = Number(last.sourceEnd);
+    const proposed = normalizeKanaReading(proposedReading || '');
+    if (!Number.isInteger(start) || !Number.isInteger(end)) return null;
+    return (candidates || []).find(candidate => {
+        if (candidate?.category !== 'lexical' || candidate?.kind !== 'general-word') return false;
+        if (candidate.sourceStart !== start || candidate.sourceEnd !== end) return false;
+        const reading = normalizeKanaReading(candidate.reading || '');
+        return reading && proposed && reading !== proposed;
+    }) || null;
+}
+
+function isAdverbialBunLexicalConflict(candidate) {
+    const reading = normalizeKanaReading(candidate?.reading || '');
+    return Boolean(reading && reading.endsWith('ぶん'));
+}
+
+/** @param {ReadonlyArray<CJ2RSourceSpanCandidate>} candidates @param {CJ2RToken[]|CJ2RToken} members @param {string} proposedReading */
+function getContextualCommonWordCandidateForSpan(candidates, members, proposedReading) {
+    const spanTokens = Array.isArray(members) ? members : [members];
+    const first = spanTokens[0] || {};
+    const last = spanTokens.at(-1) || first;
+    const start = Number(first.sourceStart);
+    const end = Number(last.sourceEnd);
+    const proposed = normalizeKanaReading(proposedReading || '');
+    if (!Number.isInteger(start) || !Number.isInteger(end)) return null;
+    return (candidates || []).find(candidate => {
+        if (candidate?.category !== 'lexical' || candidate?.kind !== 'common-word' || !candidate?.metadata?.contextPattern) return false;
+        if (candidate.sourceStart !== start || candidate.sourceEnd !== end) return false;
+        const reading = normalizeKanaReading(candidate.reading || '');
+        return reading && proposed && reading !== proposed;
+    }) || null;
+}
+
+function followsSahenSuru(tokens, unitIndex) {
+    const follower = tokens?.[unitIndex + 1] || null;
+    return Boolean(follower && follower.pos === '動詞' && tokenBasicForm(follower) === 'する');
+}
+
+function makeTypedNumericRoleToken(members, surface, role, source, options = {}) {
+    const spanTokens = Array.isArray(members) ? members : [members];
+    const state = options.state === 'ambiguous' ? 'ambiguous' : 'selected';
+    const alternatives = [...new Set(Array.isArray(options.alternatives) ? options.alternatives.filter(Boolean) : [])];
+    return makeDerivedSpanToken(spanTokens, 0, spanTokens.length - 1, {
+        surface_form: surface,
+        ...(options.fallbackReading ? { reading: options.fallbackReading, pronunciation: options.fallbackReading } : {}),
+        pos: state === 'selected' ? '名詞' : (spanTokens[0]?.pos || '名詞'),
+        pos_detail_1: state === 'selected' ? '数' : (spanTokens[0]?.pos_detail_1 || '一般'),
+        pos_detail_2: state === 'selected' ? '*' : (spanTokens[0]?.pos_detail_2 || '*'), pos_detail_3: '*',
+        numericExpression: state === 'selected',
+        typedNumericRoleSelected: state === 'selected',
+        typedNumericRole: state === 'selected' ? role : null,
+        typedNumericRoleState: state,
+        typedNumericRoleSource: source,
+        typedNumericRoleReviewRequired: state === 'ambiguous',
+        typedNumericRoleAlternatives: alternatives
+    }, {
+        annotations: ['numericExpression', 'typedNumericRoleSelected', 'typedNumericRole', 'typedNumericRoleState', 'typedNumericRoleSource', 'typedNumericRoleReviewRequired', 'typedNumericRoleAlternatives'],
+        evidenceSource: source, semanticRole: role, reviewRequired: state === 'ambiguous'
+    });
+}
+
+/** @param {CJ2RToken[]} tokens @param {ReadonlyArray<CJ2RSourceSpanCandidate>} [sourceSpanCandidates] */
+function markAmbiguousNumericRoleTokens(tokens, sourceSpanCandidates = []) {
+    return (tokens || []).map((token, index) => {
+        if (token?.typedNumericRole || token?.typedTemporalExpressionMatched) return token;
+        const surface = String(token?.surface_form || '');
+        const minuteMatch = surface.match(/^([0-9０-９〇零一二三四五六七八九十百]+)分$/u);
+        if (!minuteMatch) return token;
+        const resolvedMinute = resolveMinuteCounterReading(minuteMatch[1]);
+        if (!resolvedMinute?.reading || !hasConflictingGeneralWordReading(surface, resolvedMinute.reading)) return token;
+        const lexical = getGeneralWordCandidates(getGeneralWordLookup(surface)).find(candidate => normalizeKanaReading(candidate?.reading || '') !== normalizeKanaReading(resolvedMinute.reading));
+        if (!lexical || !normalizeKanaReading(lexical.reading || '').endsWith('ぶん')) return token;
+        if (getContextualCommonWordCandidateForSpan(sourceSpanCandidates, [token], resolvedMinute.reading)) return token;
+        return makeDerivedSpanToken([token], 0, 0, {
+            reading: lexical.reading, pronunciation: lexical.reading,
+            typedNumericRoleSelected: false,
+            typedNumericRole: null,
+            typedNumericRoleState: 'ambiguous',
+            typedNumericRoleSource: 'numeric-role-conflict',
+            typedNumericRoleReviewRequired: true,
+            typedNumericRoleAlternatives: ['minute-counter', 'lexical']
+        }, {
+            annotations: ['typedNumericRoleSelected', 'typedNumericRole', 'typedNumericRoleState', 'typedNumericRoleSource', 'typedNumericRoleReviewRequired', 'typedNumericRoleAlternatives'],
+            evidenceSource: 'numeric-role-conflict', semanticRole: 'unresolved-numeric-role', reviewRequired: true
+        });
+    });
+}
+
+function markTypedClockHourRoleTokens(tokens) {
     const merged = [];
     for (let index = 0; index < (tokens || []).length; index += 1) {
         const token = tokens[index];
         const directSurface = String(token?.surface_form || '');
-        const directEvidence = runtimeState.counterDateReadingDictionary.get(directSurface);
+        const directEvidence = getReviewedCounterDateEvidence(directSurface, 'clock-hour');
         if (/^[0-9０-９〇零一二三四五六七八九十百]+時$/u.test(directSurface)
-            && directEvidence?.reading
+            && directEvidence
             && String(tokens[index + 1]?.surface_form || '') !== '間') {
-            merged.push(makeTypedClockHourToken(token, directSurface, directEvidence.reading, 'counter-date-reading-evidence'));
+            merged.push(makeTypedNumericRoleToken([token], directSurface, 'clock-hour', 'counter-date-role-evidence'));
             continue;
         }
         if (!isJapaneseNumeralSurface(directSurface)) { merged.push(token); continue; }
@@ -389,9 +764,8 @@ function mergeTypedClockHourTokens(tokens) {
             continue;
         }
         const surface = numeralSurface + '時';
-        const reviewed = runtimeState.counterDateReadingDictionary.get(surface);
-        if (!reviewed?.reading) { merged.push(token); continue; }
-        merged.push(makeTypedClockHourToken(token, surface, reviewed.reading, 'counter-date-reading-evidence'));
+        if (!getReviewedCounterDateEvidence(surface, 'clock-hour')) { merged.push(token); continue; }
+        merged.push(makeTypedNumericRoleToken(tokens.slice(index, end + 1), surface, 'clock-hour', 'counter-date-role-evidence'));
         index = end;
     }
     return merged;
@@ -405,9 +779,11 @@ function getMinuteCounterFinalDigit(surface) {
     return Object.prototype.hasOwnProperty.call(map, last) ? map[last] : null;
 }
 
+// Minute morphology is deliberately scoped to the already-selected minute role.
+// It is not a universal counter sound-change heuristic.
 function resolveMinuteCounterReading(numeralSurface) {
     const fullSurface = String(numeralSurface || '') + '分';
-    const reviewed = runtimeState.counterDateReadingDictionary.get(fullSurface);
+    const reviewed = getReviewedCounterDateEvidence(fullSurface, 'minute-counter');
     if (reviewed?.reading) return { reading: reviewed.reading, source: 'counter-date-reading-evidence' };
     const numeralReading = normalizeKanaReading(getTokenizerReadingForSurface(numeralSurface) || '');
     const finalDigit = getMinuteCounterFinalDigit(numeralSurface);
@@ -420,7 +796,8 @@ function resolveMinuteCounterReading(numeralSurface) {
     return { reading: numeralReading + 'ふん', source: 'minute-counter-morphology' };
 }
 
-function mergeTypedMinuteCounterTokens(tokens) {
+/** @param {CJ2RToken[]} tokens @param {ReadonlyArray<CJ2RSourceSpanCandidate>} [sourceSpanCandidates] */
+function markTypedMinuteCounterRoleTokens(tokens, sourceSpanCandidates = []) {
     const merged = [];
     for (let index = 0; index < (tokens || []).length; index += 1) {
         const token = tokens[index];
@@ -432,28 +809,70 @@ function mergeTypedMinuteCounterTokens(tokens) {
             end += 1;
         }
         const unit = tokens[end] || null;
-        if (String(unit?.surface_form || '') !== '分' || hasReviewedLexicalBoundaryBefore(unit)) {
+        if (String(unit?.surface_form || '') !== '分' || unit?.structuredFractionRole === 'denominator-unit' || hasReviewedLexicalBoundaryBefore(unit)) {
             merged.push(token);
             continue;
         }
         const resolvedMinute = resolveMinuteCounterReading(numeralSurface);
         if (!resolvedMinute) { merged.push(token); continue; }
         const surface = numeralSurface + '分';
-        merged.push({
-            ...token,
-            surface_form: surface,
-            reading: resolvedMinute.reading,
-            pronunciation: resolvedMinute.reading,
-            pos: '名詞', pos_detail_1: '数', pos_detail_2: '*', pos_detail_3: '*',
-            numericExpression: true,
-            typedNumericExpressionMatched: true,
-            typedNumericExpressionType: 'minute-counter',
-            typedNumericReading: resolvedMinute.reading,
-            typedNumericSource: resolvedMinute.source
-        });
+        const members = tokens.slice(index, end + 1);
+        const contextualLexical = getContextualCommonWordCandidateForSpan(sourceSpanCandidates, members, resolvedMinute.reading);
+        if (contextualLexical) {
+            // Reviewed context-specific lexical evidence owns this numeric-looking
+            // span. Leave the source tokens intact so the common-word stage can
+            // merge the lexical head without swallowing its following context.
+            merged.push(token);
+            continue;
+        }
+        const lexicalConflict = getCompetingLexicalCandidateForSpan(sourceSpanCandidates, members, resolvedMinute.reading);
+        const unresolvedRole = isAdverbialBunLexicalConflict(lexicalConflict);
+        merged.push(makeTypedNumericRoleToken(members, surface, 'minute-counter', unresolvedRole ? 'numeric-role-conflict' : 'numeric-role-structure', {
+            state: unresolvedRole ? 'ambiguous' : 'selected',
+            alternatives: unresolvedRole ? ['minute-counter', 'lexical'] : ['minute-counter'],
+            fallbackReading: unresolvedRole ? lexicalConflict.reading : null
+        }));
         index = end;
     }
     return merged;
+}
+
+function applyTypedNumericRoleReadings(tokens) {
+    return (tokens || []).map(token => {
+        const role = String(token?.typedNumericRole || '');
+        if (!role || (role !== 'clock-hour' && role !== 'minute-counter')) return token;
+        let resolved = null;
+        if (role === 'clock-hour') {
+            const reviewed = getReviewedCounterDateEvidence(token.surface_form, 'clock-hour');
+            if (reviewed?.reading) resolved = { reading: reviewed.reading, source: 'counter-date-reading-evidence' };
+        } else if (role === 'minute-counter') {
+            const surface = String(token.surface_form || '');
+            resolved = resolveMinuteCounterReading(surface.endsWith('分') ? surface.slice(0, -1) : surface);
+        }
+        if (!resolved?.reading) return token;
+        return makeDerivedSpanToken([token], 0, 0, {
+            reading: resolved.reading,
+            pronunciation: resolved.reading,
+            typedNumericExpressionMatched: true,
+            typedNumericExpressionType: role,
+            typedNumericReading: resolved.reading,
+            typedNumericSource: resolved.source
+        }, {
+            annotations: ['typedNumericExpressionMatched', 'typedNumericExpressionType', 'typedNumericReading', 'typedNumericSource'],
+            evidenceSource: resolved.source, semanticRole: role,
+            reviewRequired: Boolean(token.typedNumericRoleReviewRequired)
+        });
+    });
+}
+
+// Compatibility wrappers retained for internal callers while the pipeline now
+// makes role selection and reading generation explicit as separate stages.
+function mergeTypedClockHourTokens(tokens) {
+    return applyTypedNumericRoleReadings(markTypedClockHourRoleTokens(tokens));
+}
+
+function mergeTypedMinuteCounterTokens(tokens) {
+    return applyTypedNumericRoleReadings(markTypedMinuteCounterRoleTokens(tokens));
 }
 
 function getStandaloneLexicalToken(surface) {
@@ -486,17 +905,15 @@ function repairCaseMarkedCounterFollowerTokens(tokens) {
 function getOrdinaryCompoundReadingEvidence(token) {
     if (!token || !isProperNounToken(token) || !containsHan(token.surface_form)) return null;
     const lookup = getGeneralWordLookup(token.surface_form);
-    const selected = selectGeneralWordReading(lookup);
-    if (!selected?.reading) return null;
-    const normalizedSelected = normalizeKanaReading(selected.reading);
-    const exactOrdinaryMatch = getKuromojiExactDictionaryCandidates(token.surface_form).some(candidate =>
-        candidate.pos === '名詞'
-        && candidate.pos_detail_1 === '接尾'
-        && candidate.pos_detail_2 === '助数詞'
-        && normalizeKanaReading(candidate.reading) === normalizedSelected
-    );
-    if (!exactOrdinaryMatch) return null;
-    return { reading: selected.reading, candidates: getGeneralWordCandidates(lookup) };
+    const candidates = getGeneralWordCandidates(lookup);
+    if (!candidates.length) return null;
+    const exactOrdinaryReadings = new Set(getKuromojiExactDictionaryCandidates(token.surface_form)
+        .filter(candidate => candidate.pos === '名詞' && candidate.pos_detail_1 === '接尾' && candidate.pos_detail_2 === '助数詞')
+        .map(candidate => normalizeKanaReading(candidate.reading))
+        .filter(Boolean));
+    const supported = candidates.filter(candidate => exactOrdinaryReadings.has(normalizeKanaReading(candidate.reading)));
+    if (supported.length !== 1) return null;
+    return { reading: supported[0].reading, candidates };
 }
 
 function annotateOrdinaryCompoundReadingContext(tokens) {
@@ -570,11 +987,28 @@ function getReviewedNounMisparsedContinuativeStem(token) {
     if (!dictionaryEnding) return null;
     const dictionarySurface = surface.slice(0, -1) + dictionaryEnding;
     const lookup = getGeneralWordLookup(dictionarySurface);
-    const selected = selectGeneralWordReading(lookup);
-    if (!selected?.reading) return null;
+    const candidates = getGeneralWordCandidates(lookup);
+    if (!candidates.length) return null;
     const standalone = getStandaloneSingleToken(dictionarySurface);
     if (!standalone || standalone.pos !== '動詞' || standalone.pos_detail_1 === '接尾') return null;
-    return { surface: dictionarySurface, reading: selected.reading };
+    const standaloneReading = normalizeKanaReading(getKuromojiDictionaryReading(standalone) || standalone.reading || standalone.pronunciation || '');
+    const supported = candidates.filter(candidate => normalizeKanaReading(candidate.reading) === standaloneReading);
+    if (supported.length !== 1) return null;
+    return { surface: dictionarySurface, reading: supported[0].reading };
+}
+
+function getReviewedSingleTokenCompoundVerbRecovery(previous, token) {
+    if (!previous || !token || token.pos !== '動詞' || !sourceTokensAreContiguous(previous, token)) return null;
+    const recoveredStem = getReviewedNounMisparsedContinuativeStem(previous);
+    if (!recoveredStem) return null;
+    const compoundSurface = String(previous.surface_form || '') + String(token.surface_form || '');
+    const compound = getStandaloneSingleToken(compoundSurface);
+    if (!compound || compound.pos !== '動詞' || compound.pos_detail_1 === '接尾') return null;
+    const compoundReading = normalizeKanaReading(getKuromojiDictionaryReading(compound) || compound.reading || compound.pronunciation || '');
+    const stemReading = normalizeKanaReading(getKuromojiDictionaryReading(previous) || previous.reading || previous.pronunciation || '');
+    const followerReading = normalizeKanaReading(getKuromojiDictionaryReading(token) || token.reading || token.pronunciation || '');
+    if (!compoundReading || !stemReading || !followerReading || compoundReading !== stemReading + followerReading) return null;
+    return { ...recoveredStem, compoundSurface, compoundReading };
 }
 
 function annotateMorphologicalOutputBoundaries(tokens) {
@@ -591,12 +1025,16 @@ function annotateMorphologicalOutputBoundaries(tokens) {
             && previousConjugation.startsWith('連用')
             && !separateAuxiliary
             && !teDeLinkedSequence;
-        const recoveredStem = token?.pos === '動詞'
+        const recoveredAspectualStem = token?.pos === '動詞'
             && reviewedAspectualCompoundVerbBasicForms.has(tokenBasicForm(token))
             && sourceTokensAreContiguous(previous, token)
             ? getReviewedNounMisparsedContinuativeStem(previous)
             : null;
-        const recoveredAspectualCompound = Boolean(recoveredStem && !separateAuxiliary && !teDeLinkedSequence);
+        const recoveredSingleTokenCompound = token?.pos === '動詞'
+            ? getReviewedSingleTokenCompoundVerbRecovery(previous, token)
+            : null;
+        const recoveredContinuativeCompound = Boolean((recoveredAspectualStem || recoveredSingleTokenCompound) && !separateAuxiliary && !teDeLinkedSequence);
+        const recoveredAspectualCompound = Boolean(recoveredAspectualStem && recoveredContinuativeCompound);
         const teDeMotionContinuation = token?.pos === '動詞'
             && previous?.pos === '動詞'
             && reviewedTeDeMotionContinuationBasicForms.has(tokenBasicForm(token))
@@ -607,13 +1045,13 @@ function annotateMorphologicalOutputBoundaries(tokens) {
             && Boolean(previous && (previous.pos === '動詞' || previous.pos === '形容詞' || previous.pos === '助動詞'));
         const negativeAuxiliary = isDirectNegativeAuxiliaryContinuation(previous, token);
         const causativePassiveBridge = isContractedCausativePassiveBridge(tokens, index);
-        if (!compoundVerb && !recoveredAspectualCompound && !teDeMotionContinuation && !attachedConjunctive && !negativeAuxiliary && !causativePassiveBridge) return token;
+        if (!compoundVerb && !recoveredContinuativeCompound && !teDeMotionContinuation && !attachedConjunctive && !negativeAuxiliary && !causativePassiveBridge) return token;
         const reason = negativeAuxiliary
             ? 'direct-negative-inflection'
             : causativePassiveBridge
                 ? 'contracted-causative-passive-bridge'
-                : recoveredAspectualCompound
-                    ? 'reviewed-continuative-stem-aspectual-compound'
+                : recoveredContinuativeCompound
+                    ? (recoveredAspectualCompound ? 'reviewed-continuative-stem-aspectual-compound' : 'reviewed-continuative-stem-single-token-compound')
                     : teDeMotionContinuation
                         ? 'te-de-motion-continuation'
                         : compoundVerb
@@ -623,8 +1061,8 @@ function annotateMorphologicalOutputBoundaries(tokens) {
             ...token,
             morphologicalJoinLeft: true,
             morphologicalJoinReason: reason,
-            morphologicalJoinAuthority: compoundVerb || recoveredAspectualCompound || teDeMotionContinuation || causativePassiveBridge ? 'strong-morphology' : 'grammar',
-            recoveredContinuativeStem: recoveredAspectualCompound ? recoveredStem?.surface : undefined
+            morphologicalJoinAuthority: compoundVerb || recoveredContinuativeCompound || teDeMotionContinuation || causativePassiveBridge ? 'strong-morphology' : 'grammar',
+            recoveredContinuativeStem: recoveredContinuativeCompound ? (recoveredAspectualStem || recoveredSingleTokenCompound)?.surface : undefined
         };
     });
 }
@@ -716,15 +1154,17 @@ function findReviewedKanaCommonWordBoundarySplit(tokens, startIndex, sourceText)
 function makeKanaCommonWordBoundaryFragment(token, surface, characterOffset = 0) {
     const fragment = String(surface || '');
     const position = Number(token?.word_position || 0);
-    return {
-        ...token,
+    const length = Array.from(fragment).length;
+    return makeDerivedSubspanToken(token, characterOffset, characterOffset + length, {
         surface_form: fragment,
         basic_form: fragment,
         reading: fragment,
         pronunciation: fragment,
         word_position: position > 0 ? position + characterOffset : position,
         kanaCommonWordBoundaryFragment: true
-    };
+    }, {
+        annotations: ['kanaCommonWordBoundaryFragment'], evidenceSource: 'reviewed-kana-common-word-boundary', semanticRole: 'lexical-boundary-fragment'
+    });
 }
 
 function tokenizeKanaCommonWordBoundaryRemainder(token, surface, characterOffset, evidenceSurface) {
@@ -733,22 +1173,29 @@ function tokenizeKanaCommonWordBoundaryRemainder(token, surface, characterOffset
     const originalPosition = Number(token?.word_position || 0);
     const retokenized = runtimeState.tokenizer ? runtimeState.tokenizer.tokenize(remainder) : [];
     const reconstructed = retokenized.map(item => String(item?.surface_form || '')).join('');
-    const tokens = retokenized.length && reconstructed === remainder
-        ? retokenized
-        : [makeKanaCommonWordBoundaryFragment(token, remainder, characterOffset)];
+    const rawTokens = retokenized.length && reconstructed === remainder ? retokenized : null;
+    if (!rawTokens) {
+        const fallback = makeKanaCommonWordBoundaryFragment(token, remainder, characterOffset);
+        fallback.reviewedLexicalBoundaryBefore = true;
+        fallback.reviewedLexicalBoundaryEvidenceSurface = evidenceSurface;
+        return [fallback];
+    }
     let consumed = 0;
-    return tokens.map((item, index) => {
+    return rawTokens.map((item, index) => {
         const surfaceForm = String(item?.surface_form || '');
-        const adjusted = {
+        const length = Array.from(surfaceForm).length;
+        const adjusted = makeDerivedSubspanToken(token, characterOffset + consumed, characterOffset + consumed + length, {
             ...item,
             word_position: originalPosition > 0 ? originalPosition + characterOffset + consumed : Number(item?.word_position || 0),
             kanaCommonWordBoundaryFragment: true
-        };
+        }, {
+            annotations: ['kanaCommonWordBoundaryFragment'], evidenceSource: 'reviewed-kana-common-word-boundary', semanticRole: 'lexical-boundary-fragment'
+        });
         if (index === 0) {
             adjusted.reviewedLexicalBoundaryBefore = true;
             adjusted.reviewedLexicalBoundaryEvidenceSurface = evidenceSurface;
         }
-        consumed += Array.from(surfaceForm).length;
+        consumed += length;
         return adjusted;
     });
 }
@@ -805,8 +1252,7 @@ function mergeKanaCommonWordBoundaryHonorificTokens(tokens) {
         if (endMatch < index) { merged.push(token); continue; }
         const surface = tokens.slice(index, endMatch + 1).map(item => String(item.surface_form || '')).join('');
         const reading = kanaCommonWordFragmentHonorificReadings.get(surface);
-        merged.push({
-            ...token,
+        merged.push(makeDerivedSpanToken(tokens, index, endMatch, {
             surface_form: surface,
             basic_form: surface,
             reading,
@@ -816,7 +1262,9 @@ function mergeKanaCommonWordBoundaryHonorificTokens(tokens) {
             pos_detail_2: '人名',
             pos_detail_3: '*',
             kanaCommonWordBoundaryHonorific: true
-        });
+        }, {
+            annotations: ['kanaCommonWordBoundaryHonorific'], evidenceSource: 'reviewed-kana-honorific', semanticRole: 'name-honorific'
+        }));
         index = endMatch;
     }
     return merged;
@@ -1074,23 +1522,26 @@ function makeBoundaryNeutralKanaToken(members) {
     const surface = members.map(token => String(token.surface_form || '')).join('');
     const lexical = members.find(token => isSourceSpanGrammarAnchor(token)) || members[0];
     const first = members[0];
-    const last = members[members.length - 1];
-    return {
-        ...lexical,
+    return makeDerivedSpanToken(members, 0, members.length - 1, {
         surface_form: surface,
         reading: surface,
         pronunciation: surface,
+        pos: lexical?.pos,
+        pos_detail_1: lexical?.pos_detail_1,
+        pos_detail_2: lexical?.pos_detail_2,
+        pos_detail_3: lexical?.pos_detail_3,
+        basic_form: lexical?.basic_form,
         word_position: first.word_position,
-        sourceStart: first.sourceStart,
-        sourceEnd: last.sourceEnd,
-        sourceSurface: surface,
         sourceSpanReconciled: true,
         sourceSpanReconciliationReason: 'kuromoji-kana-boundary-neutralised',
         sourceSpanGrammarBoundary: false,
         sourceSpanGrammarBoundaryBefore: Boolean(first.sourceSpanGrammarBoundaryBefore),
         tokenizationRoleBoundaryBefore: Boolean(first.tokenizationRoleBoundaryBefore),
         reviewedLexicalBoundaryBefore: Boolean(first.reviewedLexicalBoundaryBefore)
-    };
+    }, {
+        annotations: ['sourceSpanReconciled', 'sourceSpanReconciliationReason'],
+        evidenceSource: 'source-span-reconciliation', semanticRole: 'token-boundary-repair'
+    });
 }
 
 function shouldNeutralizeKanaBoundary(left, right) {
@@ -1111,7 +1562,28 @@ function shouldNeutralizeKanaBoundary(left, right) {
     return false;
 }
 
-function reconcileKanaSourceTokenBoundaries(tokens, sourceText) {
+function findOrthographicKatakanaNoCandidate(sourceSpanCandidates, token) {
+    if (!token || String(token.surface_form || '') !== 'ノ') return null;
+    if (!Number.isInteger(token.sourceStart) || !Number.isInteger(token.sourceEnd)) return null;
+    return (sourceSpanCandidates || []).find(candidate => candidate?.category === 'grammar'
+        && candidate?.kind === 'orthographic-katakana-no'
+        && candidate?.sourceStart === token.sourceStart
+        && candidate?.sourceEnd === token.sourceEnd) || null;
+}
+
+function hasStrongerLexicalSpanAcrossToken(sourceSpanCandidates, token) {
+    if (!token || !Number.isInteger(token.sourceStart) || !Number.isInteger(token.sourceEnd)) return false;
+    const lexicalCategories = new Set(['lexical', 'name', 'title', 'contextual']);
+    return (sourceSpanCandidates || []).some(candidate => lexicalCategories.has(candidate?.category)
+        && Number.isInteger(candidate?.sourceStart)
+        && Number.isInteger(candidate?.sourceEnd)
+        && candidate.sourceStart <= token.sourceStart
+        && candidate.sourceEnd >= token.sourceEnd
+        && (candidate.sourceStart < token.sourceStart || candidate.sourceEnd > token.sourceEnd));
+}
+
+/** @param {CJ2RToken[]} tokens @param {string} sourceText @param {ReadonlyArray<CJ2RSourceSpanCandidate>} [sourceSpanCandidates] */
+function reconcileKanaSourceTokenBoundaries(tokens, sourceText, sourceSpanCandidates = []) {
     const working = attachSourceTokenSpans(tokens, sourceText).map(token => ({ ...token }));
     for (let runStart = 0; runStart < working.length;) {
         if (!isKanaSurface(working[runStart]?.surface_form) || working[runStart]?.canonicalBoundary) { runStart += 1; continue; }
@@ -1129,6 +1601,23 @@ function reconcileKanaSourceTokenBoundaries(tokens, sourceText) {
         }
         const lexicalSpan = getKanaRunLexicalReadingSpan(runTokens);
         for (let index = runStart; index <= runEnd; index += 1) {
+            const orthographicNoCandidate = findOrthographicKatakanaNoCandidate(sourceSpanCandidates, working[index]);
+            if (orthographicNoCandidate && !hasStrongerLexicalSpanAcrossToken(sourceSpanCandidates, working[index])) {
+                working[index] = {
+                    ...working[index],
+                    pos: '助詞',
+                    pos_detail_1: '格助詞',
+                    pos_detail_2: '一般',
+                    pos_detail_3: '*',
+                    basic_form: 'の',
+                    reading: 'ノ',
+                    pronunciation: 'ノ',
+                    orthographicParticleInferred: true,
+                    orthographicParticleCanonicalSurface: 'の',
+                    orthographicParticleEvidenceSource: orthographicNoCandidate.evidenceSource,
+                    orthographicParticleReviewRequired: Boolean(orthographicNoCandidate.reviewRequired)
+                };
+            }
             if (!isStrongKanaGrammarToken(working, index, runStart, runEnd, lexicalSpan)) continue;
             working[index].sourceSpanGrammarBoundary = true;
             working[index].sourceSpanReconciliationReason = 'syntactically-supported-grammar-boundary';
@@ -1158,8 +1647,7 @@ function mergeKanaLexicalReadingTokens(tokens) {
     for (let index = 0; index < (tokens || []).length; index += 1) {
         const bestMatch = findLongestKanaLexicalReading(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
             surface_form: bestMatch.surface,
             reading: bestMatch.reading,
             pronunciation: bestMatch.reading,
@@ -1171,7 +1659,10 @@ function mergeKanaLexicalReadingTokens(tokens) {
             kanaLexicalSpanReading: bestMatch.reading,
             kanaLexicalSpanEvidenceSurfaces: [...bestMatch.evidence.surfaces],
             kanaLexicalSpanEvidenceStrength: bestMatch.strong ? 'strong' : 'weak'
-        });
+        }, {
+            annotations: ['kanaLexicalSpanMatched', 'kanaLexicalSpanReading', 'kanaLexicalSpanEvidenceSurfaces', 'kanaLexicalSpanEvidenceStrength'],
+            evidenceSource: bestMatch.strong ? 'kana-lexical-strong-evidence' : 'kana-lexical-evidence', semanticRole: 'kana-lexical-span'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -1179,8 +1670,7 @@ function mergeKanaLexicalReadingTokens(tokens) {
 
 function mergeKanaBoundaryPair(left, right) {
     const surface = String(left?.surface_form || '') + String(right?.surface_form || '');
-    return {
-        ...left,
+    return makeDerivedSpanToken([left, right], 0, 1, {
         surface_form: surface,
         reading: surface,
         pronunciation: surface,
@@ -1189,7 +1679,9 @@ function mergeKanaBoundaryPair(left, right) {
         pos_detail_2: '*',
         pos_detail_3: '*',
         orthographicKanaBoundaryRepaired: true
-    };
+    }, {
+        annotations: ['orthographicKanaBoundaryRepaired'], evidenceSource: 'orthographic-kana-boundary', semanticRole: 'orthographic-kana'
+    });
 }
 
 function mergeOrthographicKanaBoundaryTokens(tokens) {
@@ -1266,8 +1758,7 @@ function mergeLatinPassthroughTokens(tokens) {
             end += 1;
         }
         if (!hasContent) { merged.push(token); continue; }
-        merged.push({
-            ...token,
+        merged.push(makeDerivedSpanToken(tokens, index, end, {
             surface_form: span,
             latinPassthroughMatched: true,
             latinPassthroughOutput: span,
@@ -1275,7 +1766,9 @@ function mergeLatinPassthroughTokens(tokens) {
             pos_detail_1: '一般',
             pos_detail_2: '*',
             pos_detail_3: '*'
-        });
+        }, {
+            annotations: ['latinPassthroughMatched', 'latinPassthroughOutput'], evidenceSource: 'latin-source-passthrough', semanticRole: 'latin-passthrough', allowWhitespaceGaps: true
+        }));
         index = end;
     }
     return merged;
@@ -1306,8 +1799,7 @@ function mergeReviewedNameHonorificTokens(tokens) {
         }
         const surface = tokens.slice(index, endMatch + 1).map(token => String(token.surface_form || '')).join('');
         const honorificReading = getReviewedNameHonorificReading(surface);
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedSpanToken(tokens, index, endMatch, {
             surface_form: surface,
             reading: honorificReading || surface,
             pronunciation: honorificReading || surface,
@@ -1317,7 +1809,9 @@ function mergeReviewedNameHonorificTokens(tokens) {
             pos_detail_3: '*',
             reviewedNameHonorificMatched: true,
             reviewedNameHonorificReading: honorificReading || surface
-        });
+        }, {
+            annotations: ['reviewedNameHonorificMatched', 'reviewedNameHonorificReading'], evidenceSource: 'reviewed-name-honorific', semanticRole: 'name-honorific'
+        }));
         index = endMatch;
     }
     return merged;
@@ -1388,10 +1882,8 @@ function markUnreviewedNameContextTokens(tokens) {
 function mergeDesiderativeGaruTokens(tokens) {
     const output = [];
     const joinRange = (start, end) => {
-        const first = tokens[start];
         const slice = tokens.slice(start, end + 1);
-        return {
-            ...first,
+        return makeDerivedSpanToken(tokens, start, end, {
             surface_form: slice.map(token => String(token?.surface_form || '')).join(''),
             reading: slice.map(token => String(token?.reading || token?.surface_form || '')).join(''),
             pronunciation: slice.map(token => String(token?.pronunciation || token?.reading || token?.surface_form || '')).join(''),
@@ -1399,7 +1891,9 @@ function mergeDesiderativeGaruTokens(tokens) {
             pos_detail_1: '自立',
             pos_detail_2: '*',
             desiderativeGaruMatched: true
-        };
+        }, {
+            annotations: ['desiderativeGaruMatched'], evidenceSource: 'productive-desiderative-garu', semanticRole: 'verbal-morphology'
+        });
     };
     for (let index = 0; index < tokens.length; index += 1) {
         const stem = tokens[index];
@@ -1425,7 +1919,7 @@ function mergeDesiderativeGaruTokens(tokens) {
             && !hasReviewedLexicalBoundaryBefore(garu)
             && !hasReviewedLexicalBoundaryBefore(misparsedTte);
         if (misparsedGaruChain) {
-            output.push({ ...joinRange(index, index + 3), desiderativeGaruRecoveredFromSurface: true });
+            { const joined = joinRange(index, index + 3); joined.desiderativeGaruRecoveredFromSurface = true; if (joined.semanticAnnotationOwnership?.[0]) joined.semanticAnnotationOwnership[0].annotations.push('desiderativeGaruRecoveredFromSurface'); output.push(joined); }
             index += 3;
             continue;
         }
@@ -1459,11 +1953,12 @@ function mergeDesiderativeGaruTokens(tokens) {
 
 function mergeCasualSpeechTokens(tokens) {
     const merged = [];
-    const joinToken = (left, right) => ({
-        ...left,
+    const joinToken = (left, right) => makeDerivedSpanToken([left, right], 0, 1, {
         surface_form: String(left.surface_form || '') + String(right.surface_form || ''),
         reading: String(left.reading || left.surface_form || '') + String(right.reading || right.surface_form || ''),
         pronunciation: String(left.pronunciation || left.reading || left.surface_form || '') + String(right.pronunciation || right.reading || right.surface_form || '')
+    }, {
+        evidenceSource: 'productive-casual-morphology', semanticRole: 'verbal-morphology'
     });
     for (let index = 0; index < tokens.length; index += 1) {
         const token = tokens[index];
@@ -1513,7 +2008,7 @@ function mergeRecognizedGrammaticalExpressions(tokens) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestGrammaticalExpression(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({ ...tokens[index], surface_form: bestMatch.surface, reading: bestMatch.surface, pronunciation: bestMatch.surface, pos: '助詞', pos_detail_1: '接続助詞', pos_detail_2: '*', fullGrammaticalExpression: true, value: bestMatch.value });
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, { surface_form: bestMatch.surface, reading: bestMatch.surface, pronunciation: bestMatch.surface, pos: '助詞', pos_detail_1: '接続助詞', pos_detail_2: '*', fullGrammaticalExpression: true, value: bestMatch.value }, { annotations: ['fullGrammaticalExpression', 'value'], evidenceSource: 'grammatical-expression-bank', semanticRole: 'grammatical-expression' }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -1549,13 +2044,14 @@ function mergeContextualOverrideTokens(tokens, sourceText, options = {}) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestContextualOverride(tokens, index, sourceText, sourceRanges, options);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
             surface_form: bestMatch.surface,
             contextualOverrideMatched: true,
             contextualRomaji: bestMatch.romaji,
             ...(bestMatch.length > 1 ? { pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*' } : {})
-        });
+        }, {
+            annotations: ['contextualOverrideMatched', 'contextualRomaji'], evidenceSource: 'context-override', semanticRole: 'contextual-override'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -1584,7 +2080,7 @@ function mergeKnownPhraseTokens(tokens) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestKnownPhrase(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({ ...tokens[index], surface_form: bestMatch.surface, knownPhraseMatched: true, knownPhraseValue: bestMatch.value, knownPhraseSource: bestMatch.source });
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, { surface_form: bestMatch.surface, knownPhraseMatched: true, knownPhraseValue: bestMatch.value, knownPhraseSource: bestMatch.source }, { annotations: ['knownPhraseMatched', 'knownPhraseValue', 'knownPhraseSource'], evidenceSource: bestMatch.source || 'known-phrase', semanticRole: 'known-phrase' }));
         index += bestMatch.length - 1;
     }
     return merged;

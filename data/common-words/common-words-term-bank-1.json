@@ -364,5 +364,34 @@
     "reading": "きたん",
     "source": "Project-reviewed/manual",
     "pattern": "奇譚"
+  },
+  {
+    "surface": "三分",
+    "reading": "さんぶん",
+    "pattern": "三分(?=(?:する|すれば|し(?:た|て|ない|なかった|ます|ました|よう|ろ|なさい|つつ|ながら)|せよ|さ(?:れる|れた|れて|れない|れなかった|れます|れました|せる|せた|せて|せない|せなかった|せます|せました)))",
+    "source": "Project-reviewed contextual lexical reading; Digital Daijisen/Kotobank attests 三分 さんぶん as a サ変 noun meaning division into three"
+  },
+  {
+    "surface": "四分",
+    "reading": "しぶん",
+    "pattern": "四分(?=(?:する|すれば|し(?:た|て|ない|なかった|ます|ました|よう|ろ|なさい|つつ|ながら)|せよ|さ(?:れる|れた|れて|れない|れなかった|れます|れました|せる|せた|せて|せない|せなかった|せます|せました)))",
+    "source": "Project-reviewed contextual lexical reading; Digital Daijisen/Kotobank attests 四分 しぶん as a サ変 noun meaning division into four"
+  },
+  {
+    "surface": "十分",
+    "reading": "じゅうぶん",
+    "pattern": "十分(?=に[^〇零一二三四五六七八九十百0-9０-９])",
+    "source": "Project-reviewed contextual adjectival reading; Digital Daijisen/Kotobank attests 十分 じゅうぶん in adverbial 十分に constructions"
+  },
+  {
+    "surface": "十二分",
+    "reading": "じゅうにぶん",
+    "pattern": "十二分(?=に[^〇零一二三四五六七八九十百0-9０-９])",
+    "source": "Project-reviewed contextual adjectival reading; Digital Daijisen/Kotobank attests 十二分 じゅうにぶん in 十二分に constructions"
+  },
+  {
+    "surface": "もののけ",
+    "reading": "もののけ",
+    "source": "Project-reviewed lexical boundary and reading; Digital Daijisen via Kotobank attests 物の怪（もののけ） as an established noun"
   }
 ]

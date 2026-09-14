@@ -25,7 +25,7 @@
     },
     {
       "path": "data/common-words/common-words-term-bank-1.json",
-      "sha256": "aa4e66fe33806199a46d88901c051b19eebc07d1d4d962321d5add0d2c43c389",
+      "sha256": "91cf364958018110c7b19419c97c6f31a3d3c051703b9da822af23169ca5cd03",
       "sources": [
         {
           "name": "CJ2R project review",
@@ -35,6 +35,11 @@
           "name": "Jitendex",
           "snapshot": "2026-08-11",
           "revision": "2026.08.11.0"
+        },
+        {
+          "name": "Digital Daijisen via Kotobank",
+          "snapshot": "consulted 2026-09-14",
+          "role": "research-only lexical verification for project-reviewed もののけ boundary/reading; no dictionary definitions redistributed"
         }
       ],
       "licenceRefs": [
@@ -42,11 +47,11 @@
         "licenses and sources/CC BY-SA 4.0 Notice.md",
         "licenses and sources/Electronic Dictionary Research and Development Group License.md"
       ],
-      "note": "Mixed compact bank. Each row identifies whether it is project-reviewed/manual or Jitendex-derived."
+      "note": "Mixed compact bank. Each row identifies whether it is project-reviewed/manual or Jitendex-derived; selected project-reviewed rows may cite research-only dictionary verification documented in the research-sources guide."
     },
     {
       "path": "data/general-words/general-words-term-bank-1.json",
-      "sha256": "5ea76568c3117f223264811652a83af40dde808f1be59e86e67ad843cf6631bc",
+      "sha256": "b816692778cdfb804210c3267568a9f1d56132002adca5449af94679fae4868f",
       "sources": [
         {
           "name": "Jitendex",
@@ -59,7 +64,7 @@
         "licenses and sources/CC BY-SA 4.0 Notice.md",
         "licenses and sources/Electronic Dictionary Research and Development Group License.md"
       ],
-      "note": "Compact whole-word fallback bank derived from positive-priority surface/reading pairs."
+      "note": "Schema-v2 general-word fallback bank derived from the legacy positive-priority Jitendex surface/reading subset. Scores are popularity/search-order only; compact omissions do not prove uniqueness. Coverage/applicability metadata is reconstructed by the maintained EDRDG updater when a complete source snapshot is supplied."
     },
     {
       "path": "data/grammar/conjugation-patterns.json",
@@ -240,7 +245,7 @@
     },
     {
       "path": "data/loanwords/loanwords-term-bank-1.json",
-      "sha256": "389617cb0695ec9398e39f6adaa5fbf71b7324b0fd6ae3ddd69b4d3819440476",
+      "sha256": "8ff831957f3f3cd0fa62e9c008d16ee108d9bea656ea00242d59fd95624ca08d",
       "sources": [
         {
           "name": "CJ2R project review",
@@ -273,6 +278,18 @@
           "issued": "2007-03-31",
           "doi": "10.15084/00001287",
           "role": "independent frequency-oriented coverage audit only; not source-spelling authority"
+        },
+        {
+          "name": "Paramount Japan STAR TREK official site",
+          "snapshot": "2026-09-14",
+          "url": "https://paramount.jp/startrek/",
+          "role": "manual verification for the reviewed スター・トレック → Star Trek mapping only; no site content is redistributed"
+        },
+        {
+          "name": "Sakura Quest official site",
+          "snapshot": "2026-09-14",
+          "url": "https://sakura-quest.com/",
+          "role": "manual verification for the reviewed サクラクエスト → Sakura Quest mapping only; no site content is redistributed"
         }
       ],
       "licenceRefs": [

@@ -191,18 +191,61 @@ function termPairMap(snapshotDir) {
     return map;
 }
 
+function buildTermEvidenceIndex(map) {
+    const bySurface = new Map();
+    const bySequence = new Map();
+    for (const item of map.values()) {
+        if (!bySurface.has(item.surface)) bySurface.set(item.surface, []);
+        bySurface.get(item.surface).push(item);
+        for (const sequence of item.sequences || []) {
+            if (!bySequence.has(sequence)) bySequence.set(sequence, new Map());
+            const surfaces = bySequence.get(sequence);
+            if (!surfaces.has(item.surface)) surfaces.set(item.surface, new Set());
+            surfaces.get(item.surface).add(item.reading);
+        }
+    }
+    for (const items of bySurface.values()) items.sort((a, b) => b.score - a.score || a.reading.localeCompare(b.reading, 'ja'));
+    return { bySurface, bySequence };
+}
+
+function readingHasSpellingSpecificApplicability(item, evidenceIndex) {
+    for (const sequence of item.sequences || []) {
+        const surfaces = evidenceIndex.bySequence.get(sequence);
+        if (!surfaces || surfaces.size < 2) continue;
+        for (const [surface, readings] of surfaces) {
+            if (surface !== item.surface && !readings.has(item.reading)) return true;
+        }
+    }
+    return false;
+}
+
+function readGeneralWordBank(file) {
+    const raw = JSON.parse(fs.readFileSync(file, 'utf8'));
+    if (Array.isArray(raw)) return { _meta: { schemaVersion: 1 }, entries: raw };
+    if (!raw || typeof raw !== 'object' || !Array.isArray(raw.entries)) throw new Error('General-word bank has an unsupported shape.');
+    return raw;
+}
+
 function latestScore(map, surface, reading) {
     return map.get(`${surface}\u0000${reading}`)?.score ?? null;
 }
 
 function updateGeneralBank(project, jitendexMap, jmdictMap, report) {
     const file = path.join(project, 'data/general-words/general-words-term-bank-1.json');
-    const rows = JSON.parse(fs.readFileSync(file, 'utf8'));
+    const bank = readGeneralWordBank(file);
+    const rows = bank.entries;
+    const jitendexEvidence = buildTermEvidenceIndex(jitendexMap);
+    const jmdictEvidence = buildTermEvidenceIndex(jmdictMap);
     let scoreChanges = 0;
+    let completeSurfaces = 0;
+    let filteredSurfaces = 0;
+    let spellingSpecificReadings = 0;
     for (const row of rows) {
         const surface = row[0];
+        const retainedReadings = new Set();
         for (const readingRow of row[1] || []) {
             const reading = readingRow[0];
+            retainedReadings.add(reading);
             const jScore = latestScore(jitendexMap, surface, reading);
             const mScore = latestScore(jmdictMap, surface, reading);
             if (jScore == null) {
@@ -210,11 +253,52 @@ function updateGeneralBank(project, jitendexMap, jmdictMap, report) {
                 continue;
             }
             if (mScore == null) report.jmdictCrossCheckMissing.push({ bank: 'general-words', surface, reading });
-            if (readingRow[1] !== jScore) { report.scoreChanges.push({ bank: 'general-words', surface, reading, from: readingRow[1], to: jScore }); readingRow[1] = jScore; scoreChanges += 1; }
+            if (readingRow[1] !== jScore) { report.scoreChanges.push({ bank: 'general-words', surface, reading, from: readingRow[1], to: jScore, semantics: 'popularity-ranking-only' }); readingRow[1] = jScore; scoreChanges += 1; }
+        }
+        const sourceCandidates = jitendexEvidence.bySurface.get(surface) || [];
+        if (!sourceCandidates.length) continue;
+        const readingEvidence = sourceCandidates.map(item => {
+            const spellingSpecificApplicability = readingHasSpellingSpecificApplicability(item, jitendexEvidence);
+            if (spellingSpecificApplicability) spellingSpecificReadings += 1;
+            return {
+                reading: item.reading,
+                retained: retainedReadings.has(item.reading),
+                popularityScore: item.score,
+                sequences: item.sequences || [],
+                spellingSpecificApplicability
+            };
+        });
+        const unretainedCount = readingEvidence.filter(item => !item.retained).length;
+        const readingCoverage = unretainedCount ? 'filtered-source-surface' : 'complete-source-surface';
+        if (unretainedCount) filteredSurfaces += 1; else completeSurfaces += 1;
+        row[3] = {
+            readingCoverage,
+            sourceReadingCount: readingEvidence.length,
+            restrictionStatus: 'surface-pair-evidence',
+            readingEvidence
+        };
+        // Cross-check complete source pairs against JMdict without treating a
+        // missing cross-check as proof that the Jitendex pair is invalid.
+        for (const item of sourceCandidates) {
+            if (!jmdictEvidence.bySurface.get(surface)?.some(candidate => candidate.reading === item.reading)) {
+                report.jmdictCrossCheckMissing.push({ bank: 'general-words-source-coverage', surface, reading: item.reading });
+            }
         }
     }
+    bank._meta = {
+        ...(bank._meta || {}),
+        schemaVersion: 2,
+        scoreSemantics: 'popularity-ranking-only',
+        defaultReadingCoverage: 'unknown',
+        defaultRestrictionStatus: 'unknown',
+        defaultApplicability: 'retained-surface-reading-pair',
+        mergeSafeSemantics: 'span-boundary eligibility only; not evidence that one reading is uniquely correct'
+    };
     report.updatedCounts.generalWordScores = scoreChanges;
-    fs.writeFileSync(file, `${JSON.stringify(rows)}\n`);
+    report.updatedCounts.generalWordCompleteSurfaceCoverage = completeSurfaces;
+    report.updatedCounts.generalWordFilteredSurfaceCoverage = filteredSurfaces;
+    report.updatedCounts.generalWordSpellingSpecificReadings = spellingSpecificReadings;
+    fs.writeFileSync(file, `${JSON.stringify(bank)}\n`);
 }
 
 function updateAtejiBank(project, jitendexMap, jmdictMap, report) {
@@ -508,5 +592,8 @@ module.exports = {
     readIndex,
     safeRel,
     snapshotIdentity,
-    termPairMap
+    termPairMap,
+    buildTermEvidenceIndex,
+    readingHasSpellingSpecificApplicability,
+    readGeneralWordBank
 };

@@ -8,7 +8,7 @@ function getHistoricalKanaRegressionChecks() {
         { id: 'HIST-WIRU', suite: 'historical', rule: 'Historical mode resolves obsolete ゐ in a verb from attested word evidence', input: 'ゐる', expected: 'Iru' },
         { id: 'HIST-MAWIRU', suite: 'historical', rule: 'Historical mode resolves obsolete medial ゐ without changing the modern pipeline', input: 'まゐる', expected: 'Mairu' },
         { id: 'HIST-OMOHIDE', suite: 'historical', rule: 'Historical mode keeps a mixed-script historical lexical form together', input: '思ひ出を語る', expected: 'Omoide o Kataru' },
-        { id: 'HIST-KOWE', suite: 'historical', rule: 'Historical evidence may repair a token boundary that overshoots into a following modern particle', input: 'こゑを聞く', expected: 'Koe o Kiku' },
+        { id: 'HIST-KOWE', suite: 'historical', rule: 'Historical evidence may repair a token boundary that overshoots into a following modern particle', input: 'こゑを聞く', expected: 'Koe o Kiku', expectedRequiresReview: false },
         { id: 'HIST-UWERU', suite: 'historical', rule: 'Historical mode resolves obsolete ゑ in a verb', input: '植ゑる', expected: 'Ueru' },
         { id: 'HIST-KANGAERU', suite: 'historical', rule: 'Historical mode maps attested へ spelling to the modern lexical reading without changing ordinary へ particles', input: '考へる', expected: 'Kangaeru' },
         { id: 'HIST-WOTOKO', suite: 'historical', rule: 'Historical mode distinguishes lexical を from the modern object particle', input: 'をとこ', expected: 'Otoko' },

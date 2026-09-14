@@ -36,7 +36,7 @@ class FakeElement {
 }
 
 function createNodeTranslatorContext(root) {
-    const ids = ['status-banner', 'input', 'output', 'kanji-readings', 'kanji-search', 'override-control', 'overrides-enabled', 'license-notice', 'override-text'];
+    const ids = ['status-banner', 'input', 'output', 'translation-review', 'kanji-readings', 'kanji-search', 'override-control', 'overrides-enabled', 'license-notice', 'override-text'];
     const elements = Object.fromEntries(ids.map(id => [id, new FakeElement(id, id.includes('input') || id.includes('search') ? 'input' : 'div')]));
     elements.input = new FakeElement('input', 'textarea');
     elements['overrides-enabled'] = new FakeElement('overrides-enabled', 'input');

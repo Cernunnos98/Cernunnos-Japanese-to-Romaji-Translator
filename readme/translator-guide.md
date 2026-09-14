@@ -8,6 +8,7 @@ For other systems, use the document that owns them:
 - JavaScript source: `src/translator/translator-source-development-guide.md`;
 - website integration: `readme/translator-integration-guide.md`;
 - exact control-flow: `readme/cj2r-architectural-control-flow.md`;
+- Japanese word-division semantics: `readme/cj2r-japanese-word-boundary-specification.md`;
 - release QA: `tools/qa/translator-release-qa-guide.md`.
 
 Rule 0 is authoritative. Dictionaries, frequency data and external sources provide evidence; they do not automatically define CJ2R output.
@@ -97,14 +98,25 @@ Contains reviewed whole-word ateji readings. Ateji is resolved as a lexical unit
 
 ### `data/loanwords/`
 
-Contains reviewed source-language spellings where Rule 0 requires them.
+Contains reviewed source-language mappings where Rule 0 requires them. The maintained bank is a **mixed** evidence set: existing CJ2R-reviewed decisions retain precedence, while conservatively accepted JMdict/Jitendex and JMnedict evidence expands lexical loanwords, companies, products, works, organisations and similar established foreign-derived expressions.
+
+A reviewed whole-expression mapping is atomic. The stored output controls its word recognition, internal spacing and capitalisation; CJ2R must not reconstruct that output from Kuromoji pieces or title-case it afterwards. Longest complete reviewed matches therefore outrank shorter loanword components. Normalised input aliases may be registered for width-equivalent spellings so mixed/full-width Latin or digit forms still reach the same reviewed mapping.
+
+Runtime foreign-source output uses CJ2R's conventional unaccented Latin/ASCII form. The original source spelling, including diacritics, belongs in provenance/audit evidence rather than being silently discarded. For example, reviewed evidence may produce `デビュー → Debut` and `メルヘン → Marchen` while retaining the accented donor spelling in the audit record.
+
+The bank also supports narrowly typed `country-name` and `country-language` rows. A reviewed modern language-name compound such as `ロシア語 → Russia-go` or `トルコ語 → Turkey-go` is an explicit whole-expression decision, not a productive rule. A bare country mapping must not leak into an unreviewed `country + 語` string; for example, `イギリス → United Kingdom` does not authorise `イギリス語 → United Kingdom-go`.
+
+Source-language spelling remains evidence-driven. Explicit JMdict/Jitendex source-language metadata is strong evidence, but a common loanword may also be accepted when independent lexical evidence converges on one source form and materially competing spellings or senses have been excluded. Frequency evidence may identify coverage gaps; it is not spelling authority. Orthographic variants containing a middle dot are not inferred from an undotted entry: a dotted form receives source-language output only when that exact written form has its own reviewed evidence.
+
+When a surface is established as foreign-derived but one source spelling is not sufficiently established, the bank may store a metadata-only row with `requiresReview: true` and a `reviewReason`, without an authoritative `output`. Runtime then retains mechanical Rule-0 Romaji and a review signal rather than inventing a global foreign spelling. This is appropriate for unresolved homographs, clippings, abbreviations and wasei-eigo.
 
 Do not guess a foreign spelling from katakana. If Kuromoji emits several reviewed loanwords as one katakana token, CJ2R may split it only when:
 
 - no reviewed whole-token spelling exists; and
 - exactly one complete segmentation into reviewed loanword entries is possible.
 
-Ambiguous segmentations remain unsplit.
+Ambiguous segmentations, conflicting homographs, unverifiable partial-source records and descriptive/non-name outputs remain excluded or reviewable rather than being promoted for coverage.
+
 
 ### `data/nouns/`
 
@@ -122,7 +134,21 @@ Key files are:
 - `conjugation-patterns.json` — bounded conjugation and token-repair configuration;
 - `counter-date-reading-evidence.json` — reviewed irregular counter, date and numeral forms.
 
-Counter/date evidence records whole-form decisions. It is not a generic number or Rendaku engine.
+Counter/date evidence records whole-form decisions. It is not a generic number or Rendaku engine. A reviewed contextual lexical reading may suppress a competing minute interpretation only in the context it actually covers; the maintained `三分する → Sanbun Suru` and `四分する → Shibun Suru` evidence therefore does not change ordinary `三分待つ → Sanpun Matsu` or `四分待つ → Yonpun Matsu`.
+
+A bare terminal `一日` is role-ambiguous: both the calendar reading `ついたち` and the one-day duration reading `いちにち` are legitimate without resolving context. CJ2R keeps `Tsuitachi` as the provisional printable output but marks the final result review-required with `temporal-role-ambiguous`. Month/date context, duration predicates and recognised frequency structures continue to resolve the role normally; punctuation alone does not resolve it.
+
+
+Japanese fractions are handled structurally rather than by adding phrase overrides. An exact `[numeral]分の[numeral]` source span selects the fraction role, keeps denominator `分` as `ぶん`, and exposes grammatical `の` to the normal Rule 0 particle output policy (for example, `三分の一 → Sanbun no Ichi`). The rule does not apply when the material after `分の` is not a numeral.
+
+Katakana `ノ` is not assumed to be grammatical merely because of its shape. If the analyser labels a standalone `ノ` between lexical spans as a symbol, CJ2R may create a provisional reviewable `の` particle interpretation from source-span evidence only when no stronger reviewed lexical/name/title span contains it. If the final grammatical and boundary reconstruction confirms that role without an incompatible surviving interpretation, the provisional review signal is superseded rather than remaining active; its provenance remains in the audit. Unresolved or conflicting cases remain review-required. Output rendering follows the same boundary metadata used by ordinary particles, so symbol handling cannot bypass an explicit boundary. This covers cases such as `桃源郷ノ蜜事 → Tougenkyou no Mitsugoto` without breaking lexical forms such as `モノノ怪`, `山ノ手`, `くノ一` or `ノート`.
+
+A false split inside a compound verb is repaired only from converging evidence. If Kuromoji has misclassified a supported Godan continuative stem as a noun, the maintained lemma must prove that stem, standalone Kuromoji must independently recognise the exact contiguous combined surface as one ordinary verb, and the whole-token reading must equal the independently established stem and follower readings. Whitespace or a combined surface that is not recognised as one verb blocks this repair; CJ2R does not apply a generic `continuative form + verb = compound` rule.
+
+Compound morphology establishes a boundary, not automatically a pronunciation. If a normally tokenised continuative stem still has independently supported readings, joining it to a following lexical verb does not clear that reading ambiguity. Exact tokenisation-recovery evidence may clear only uncertainty created by the damaged partition when the complete recovered verb and its component readings independently agree.
+
+Review signals have explicit lifecycle ownership. An active signal records its source span, reason and evidence. A recognised structural, grammatical or morphological resolver may supersede only the uncertainty that it actually settles, while the earlier signal remains in audit provenance. For example, a non-basic Ichidan inflection may resolve a whole-lemma reading conflict only when conjugation metadata and the selected stem uniquely match one maintained candidate; the unresolved basic form remains review-required.
+
 
 ### `data/reviewed-reading/`
 
@@ -133,6 +159,7 @@ Counter/date evidence records whole-form decisions. It is not a generic number o
 Contains supporting evidence for competing or weak readings. Frequency can contribute to review, but frequency alone does not decide the reading of the current sentence.
 
 If context still does not distinguish legitimate alternatives, keep the case ambiguous.
+A selected Kuromoji reading does not erase an independently supported incompatible maintained reading for the same surface. Such cross-source disagreement remains reviewable, and the audit retains all supported readings. Surrounding words only clear ambiguity when a recognised contextual resolver actually selects one of those supported readings; their mere presence is not evidence of resolution.
 
 ### `data/rendaku/`
 
@@ -215,7 +242,9 @@ Keep the established schema and any source, confidence, category, variant-scope 
 
 ### Do not import dictionaries wholesale
 
-External dictionaries are candidate/reference sources, not automatic runtime authority. Broad imports can introduce ambiguous names, uncommon readings or conventions that conflict with Rule 0.
+External dictionaries are candidate/reference sources, not automatic runtime authority. Broad imports can introduce ambiguous names, uncommon readings or conventions that conflict with Rule 0. Existing project-reviewed mappings take precedence over bulk-derived candidates, and any candidate whose complete source scope, identity or formatting cannot be justified should stay out of the runtime bank.
+
+For loanwords specifically, preserve the distinction between the compact runtime bank and its audit evidence. Do not copy descriptive JMnedict glosses, multiple aliases, unresolved homographs or uncertain partial-source etymologies into `loanwords-term-bank-1.json` merely to increase coverage.
 
 Use the controlled review paths:
 
@@ -242,6 +271,8 @@ CJ2R uses two project-level records:
 - `data/translator-data-provenance-classification.json` classifies every maintained file under `data/`.
 
 The human-readable summary is `readme/translator-data-provenance-classification-audit.md`.
+
+NINJAL loanword surveys are used only as usage/recognition and coverage-gap corroboration. They do not supply runtime source spelling, and CJ2R does not redistribute the survey rows. See `licenses and sources/NINJAL Loanword Survey Attribution.md`.
 
 A `partial` classification may be used while investigating provenance, but it cannot ship in a release tree.
 

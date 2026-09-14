@@ -106,6 +106,70 @@
           "weight": 3
         }
       ]
+    },
+    {
+      "id": "hitome-glance-context",
+      "terms": [
+        {
+          "term": "見る",
+          "weight": 5
+        },
+        {
+          "term": "見せる",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "ichimoku-context",
+      "terms": [
+        {
+          "term": "置く",
+          "weight": 5
+        },
+        {
+          "term": "する",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "ninki-hitoke-negative-context",
+      "terms": [
+        {
+          "term": "ない",
+          "weight": 5
+        },
+        {
+          "term": "無い",
+          "weight": 5
+        },
+        {
+          "term": "なかった",
+          "weight": 5
+        },
+        {
+          "term": "なく",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "seika-ikebana-decoration-context",
+      "terms": [
+        {
+          "term": "飾る",
+          "weight": 5
+        },
+        {
+          "term": "飾った",
+          "weight": 5
+        },
+        {
+          "term": "飾り",
+          "weight": 4
+        }
+      ]
     }
   ],
   "entries": [
@@ -127,6 +191,72 @@
             "economic-market-context"
           ],
           "minScore": 2
+        }
+      ],
+      "source": "Project-reviewed/JMdict contextual sense distinction"
+    },
+    {
+      "surface": "一目",
+      "window": 2,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "ひとめ",
+          "features": [
+            "hitome-glance-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "いちもく",
+          "features": [
+            "ichimoku-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary sense distinction for 一目 (glance vs ichimoku senses)"
+    },
+    {
+      "surface": "人気",
+      "window": 3,
+      "minMargin": 1,
+      "candidates": [
+        {
+          "reading": "にんき",
+          "features": [
+            "ninki-hitoke-negative-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "ひとけ",
+          "features": [
+            "ninki-hitoke-negative-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed/JMdict contextual sense distinction"
+    },
+    {
+      "surface": "生花",
+      "window": 3,
+      "minMargin": 1,
+      "candidates": [
+        {
+          "reading": "せいか",
+          "features": [
+            "seika-ikebana-decoration-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "いけばな",
+          "features": [
+            "seika-ikebana-decoration-context"
+          ],
+          "minScore": 4
         }
       ],
       "source": "Project-reviewed/JMdict contextual sense distinction"

@@ -72,11 +72,14 @@ function finalizeCompoundWordDictionary() {
 }
 
 async function loadCompoundWordDictionary() {
+    runtimeState.compoundWordDictionary.clear();
+    runtimeState.compoundWordPrefixes.clear();
     for (const filePath of lexicalTermBankFiles.compoundWords) {
         const data = await fetchJsonAsset('compoundWords', filePath, `Compound-word term bank unavailable: ${filePath}`);
         if (Array.isArray(data)) parseCompoundWordMatrix(data);
     }
     finalizeCompoundWordDictionary();
+    for (const surface of runtimeState.compoundWordDictionary.keys()) addSurfacePrefixes(runtimeState.compoundWordPrefixes, surface);
 }
 
 
@@ -176,22 +179,86 @@ function registerKanaLexicalReadingEvidence(surface, reading, source, options = 
     addSurfacePrefixes(runtimeState.kanaLexicalReadingPrefixes, normalizedReading);
 }
 
+function canonicalizeKanaPronunciationForLexicalAlias(reading) {
+    // This key is used only to verify that two kana spellings represent the
+    // same pronunciation for an already-established lexical entry. It never
+    // replaces the written-kana form used for CJ2R output.
+    return convertToRomaji(normalizeKanaReading(reading || ''))
+        .toLowerCase()
+        .replace(/ou/gu, 'oo')
+        .replace(/ei/gu, 'ee');
+}
+
+function registerTokenizerConfirmedKanaLexicalReadingAliases() {
+    if (!runtimeState.tokenizer) return 0;
+    let registered = 0;
+    for (const [surface, entry] of runtimeState.generalWordDictionary.entries()) {
+        if (!entry?.mergeSafe || !containsHan(surface)) continue;
+        const longMarkReadings = (entry.readings || []).filter(item => normalizeKanaReading(item?.reading || '').includes('ー'));
+        if (!longMarkReadings.length) continue;
+
+        let tokens;
+        try {
+            tokens = runtimeState.tokenizer.tokenize(surface);
+        } catch (_) {
+            continue;
+        }
+        const tokenizerReading = (tokens || []).map(token => String(token?.reading || token?.pronunciation || '')).join('');
+        const normalizedAlias = normalizeKanaReading(tokenizerReading).trim();
+        if (!normalizedAlias || !/^[ぁ-ゖー]+$/u.test(normalizedAlias)) continue;
+
+        for (const item of longMarkReadings) {
+            const attestedReading = normalizeKanaReading(item?.reading || '');
+            if (!attestedReading || normalizedAlias === attestedReading) continue;
+            if (canonicalizeKanaPronunciationForLexicalAlias(normalizedAlias) !== canonicalizeKanaPronunciationForLexicalAlias(attestedReading)) continue;
+            const before = runtimeState.kanaLexicalReadingDictionary.get(normalizedAlias)?.sources?.size || 0;
+            registerKanaLexicalReadingEvidence(surface, normalizedAlias, 'general-word-tokenizer-orthographic-alias', { strong: true });
+            const after = runtimeState.kanaLexicalReadingDictionary.get(normalizedAlias)?.sources?.size || 0;
+            if (after > before) registered += 1;
+        }
+    }
+    return registered;
+}
+
 async function loadGeneralWordDictionary() {
     for (const filePath of lexicalTermBankFiles.generalWords) {
         const data = await fetchJsonAsset('generalWords', filePath, `General-word term bank unavailable: ${filePath}`);
-        if (!Array.isArray(data)) continue;
-        for (const entry of data) {
+        const bankMeta = data && !Array.isArray(data) && typeof data === 'object' ? (data._meta || {}) : {};
+        const entries = Array.isArray(data) ? data : (Array.isArray(data?.entries) ? data.entries : []);
+        if (!entries.length) continue;
+        for (const entry of entries) {
             if (!Array.isArray(entry)) continue;
             const surface = String(entry[0] || '').trim();
             const rawReadings = Array.isArray(entry[1]) ? entry[1] : [];
             const mergeSafe = Boolean(entry[2]);
+            const rowMeta = entry[3] && typeof entry[3] === 'object' && !Array.isArray(entry[3]) ? entry[3] : {};
             if (!surface || !rawReadings.length) continue;
-            const readings = rawReadings.map(item => ({
-                reading: normalizeDictionaryReading(Array.isArray(item) ? item[0] : ''),
-                score: Number(Array.isArray(item) ? item[1] || 0 : 0)
-            })).filter(item => item.reading).sort((a, b) => b.score - a.score);
+            const readings = rawReadings.map(item => {
+                const popularityScore = Number(Array.isArray(item) ? item[1] || 0 : 0);
+                return {
+                    reading: normalizeDictionaryReading(Array.isArray(item) ? item[0] : ''),
+                    popularityScore,
+                    score: popularityScore
+                };
+            }).filter(item => item.reading).sort((a, b) => b.popularityScore - a.popularityScore || a.reading.localeCompare(b.reading, 'ja'));
             if (!readings.length) continue;
-            setUniqueDictionaryEntry(runtimeState.generalWordDictionary, surface, { readings, mergeSafe }, 'general-word');
+            const readingEvidence = Array.isArray(rowMeta.readingEvidence) ? rowMeta.readingEvidence.map(item => ({
+                reading: normalizeDictionaryReading(item?.reading || ''),
+                retained: Boolean(item?.retained),
+                popularityScore: Number(item?.popularityScore || 0),
+                sequences: Array.isArray(item?.sequences) ? item.sequences.filter(Number.isInteger) : [],
+                spellingSpecificApplicability: item?.spellingSpecificApplicability === true
+            })).filter(item => item.reading) : [];
+            const retainedSet = new Set(readings.map(item => normalizeKanaReading(item.reading)));
+            const unretainedReadings = readingEvidence.filter(item => !item.retained && !retainedSet.has(normalizeKanaReading(item.reading)));
+            const readingCoverage = String(rowMeta.readingCoverage || bankMeta.defaultReadingCoverage || 'unknown');
+            const restrictionStatus = String(rowMeta.restrictionStatus || bankMeta.defaultRestrictionStatus || 'unknown');
+            setUniqueDictionaryEntry(runtimeState.generalWordDictionary, surface, {
+                readings, mergeSafe, readingCoverage, restrictionStatus,
+                sourceReadingCount: Number.isInteger(rowMeta.sourceReadingCount) ? rowMeta.sourceReadingCount : null,
+                readingEvidence, unretainedReadings,
+                scoreSemantics: String(bankMeta.scoreSemantics || 'unknown')
+            }, 'general-word');
             for (const item of readings) {
                 registerKanaLexicalReadingEvidence(surface, item.reading, mergeSafe ? 'general-word' : 'general-word-reading-alias', { strong: mergeSafe });
             }
@@ -553,14 +620,26 @@ function buildAuthoritativeSpanIndex() {
     runtimeState.authoritativeSpanPrefixes.clear();
 
     for (const [surface, entry] of runtimeState.generalWordDictionary.entries()) {
-        if (entry?.readings?.length !== 1) continue;
+        const retainedReadings = entry?.readings || [];
+        if (!retainedReadings.length) continue;
+        const completeCoverage = entry?.readingCoverage === 'complete-source-surface';
+        const sourceReadingCount = Number.isInteger(entry?.sourceReadingCount) ? entry.sourceReadingCount : null;
+        const provenUnique = completeCoverage
+            && sourceReadingCount === 1
+            && retainedReadings.length === 1
+            && !entry?.unretainedReadings?.length;
+        // mergeSafe is boundary evidence only. When reading coverage is incomplete
+        // or genuinely multi-reading, retain a provisional reading but require review.
+        const candidateCount = Math.max(sourceReadingCount || 0, retainedReadings.length + (entry?.unretainedReadings?.length || 0));
         registerAuthoritativeSpanEvidence(surface, {
-            reading: entry.readings[0].reading,
-            source: 'single-reading-general-word-evidence',
-            confidence: 0.98,
+            reading: retainedReadings[0].reading,
+            source: provenUnique ? 'complete-single-reading-general-word-evidence' : 'general-word-boundary-evidence',
+            confidence: provenUnique ? 0.98 : 0.64,
             priority: 70,
             category: 'general-word',
-            mergeSafe: Boolean(entry.mergeSafe)
+            mergeSafe: Boolean(entry.mergeSafe),
+            reviewRequired: !provenUnique,
+            reviewFlag: candidateCount > 1 ? 'general-word-ambiguous' : (!completeCoverage ? 'general-word-coverage-incomplete' : 'reviewed-reading-ambiguous')
         });
     }
     for (const [surface, entry] of runtimeState.compoundWordDictionary.entries()) {
@@ -624,7 +703,9 @@ function buildAuthoritativeSpanIndex() {
             source: 'counter-date-reading-evidence',
             confidence: 1,
             priority: 100,
-            category: 'counter-date'
+            category: 'counter-date',
+            counterRole: entry.role || null,
+            counterUnit: entry.unit || null
         });
     }
     for (const [surface, entry] of runtimeState.reviewedReadingSpanDictionary.entries()) {
@@ -644,14 +725,18 @@ async function loadCounterDateEvidence() {
     const data = await fetchJsonAsset('counterDateEvidence', getAssetPath('counterDateEvidence'), 'Counter/date reading evidence unavailable');
     if (!Array.isArray(data)) return;
     runtimeState.counterDateReadingDictionary.clear();
+    runtimeState.counterDateReadingPrefixes.clear();
     for (const entry of data) {
         const surface = String(entry?.surface || '').trim();
         const aliases = Array.isArray(entry?.aliases) ? entry.aliases.map(value => String(value || '').trim()).filter(Boolean) : [];
         const reading = normalizeDictionaryReading(entry?.reading);
         const romaji = normalizeDictionaryRomaji(entry?.romaji);
-        if (!surface || !reading || !romaji) continue;
+        const role = String(entry?.role || '').trim();
+        const unit = String(entry?.unit || '').trim() || null;
+        if (!surface || !reading || !romaji || !role) continue;
         for (const reviewedSurface of [surface, ...aliases]) {
-            setUniqueDictionaryEntry(runtimeState.counterDateReadingDictionary, reviewedSurface, { reading, romaji }, 'counter/date');
+            setUniqueDictionaryEntry(runtimeState.counterDateReadingDictionary, reviewedSurface, { reading, romaji, role, unit }, 'counter/date');
+            addSurfacePrefixes(runtimeState.counterDateReadingPrefixes, reviewedSurface);
         }
     }
 }

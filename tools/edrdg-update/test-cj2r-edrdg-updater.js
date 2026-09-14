@@ -59,7 +59,9 @@ function currentPairs(root) {
         const old = out.get(key);
         if (!old || score > old.score) out.set(key, { surface, reading, score });
     };
-    for (const row of JSON.parse(fs.readFileSync(path.join(root, 'data/general-words/general-words-term-bank-1.json'), 'utf8'))) {
+    const generalRaw = JSON.parse(fs.readFileSync(path.join(root, 'data/general-words/general-words-term-bank-1.json'), 'utf8'));
+    const generalRows = Array.isArray(generalRaw) ? generalRaw : generalRaw.entries;
+    for (const row of generalRows) {
         for (const reading of row[1] || []) add(row[0], reading[0], reading[1]);
     }
     for (const row of JSON.parse(fs.readFileSync(path.join(root, 'data/ateji/ateji-term-bank-1.json'), 'utf8'))) add(row[0], row[1], row[2]);
@@ -125,6 +127,18 @@ test('normalises snapshot identity from revision and KANJIDIC title', () => {
     assert.deepStrictEqual(updater.snapshotIdentity({ title: 'KANJIDIC [2026-222]', revision: 'kanjidic2.2026-222' }, 'x'), { title: 'KANJIDIC [2026-222]', snapshot: '2026-222', revision: 'kanjidic2.2026-222' });
 });
 
+test('general-word evidence index keeps popularity separate from surface applicability', () => {
+    const map = new Map([
+        ['語\u0000ご', { surface: '語', reading: 'ご', score: 200, sequences: [1] }],
+        ['語\u0000ぎょ', { surface: '語', reading: 'ぎょ', score: 20, sequences: [1] }],
+        ['言語\u0000ご', { surface: '言語', reading: 'ご', score: 150, sequences: [1] }]
+    ]);
+    const index = updater.buildTermEvidenceIndex(map);
+    assert.strictEqual(index.bySurface.get('語').length, 2);
+    assert.strictEqual(updater.readingHasSpellingSpecificApplicability(index.bySurface.get('語').find(item => item.reading === 'ぎょ'), index), true);
+    assert.strictEqual(updater.readingHasSpellingSpecificApplicability(index.bySurface.get('語').find(item => item.reading === 'ご'), index), false);
+});
+
 test('prepare accepts current evidence when latest snapshots still support it', async () => {
     const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'cj2r-edrdg-test-'));
     try {
@@ -142,6 +156,16 @@ test('prepare accepts current evidence when latest snapshots still support it', 
         });
         assert.strictEqual(result.report.blockers.length, 0);
         assert.strictEqual(result.report.updatedCounts.jmnedictEntriesRevalidated, 957);
+        const candidateGeneral = updater.readGeneralWordBank(path.join(result.candidateProject, 'data/general-words/general-words-term-bank-1.json'));
+        assert.strictEqual(candidateGeneral._meta.scoreSemantics, 'popularity-ranking-only');
+        assert.ok(candidateGeneral.entries.every(row => ['complete-source-surface', 'filtered-source-surface'].includes(row[3]?.readingCoverage)));
+        assert.ok(candidateGeneral.entries.every(row => row[3]?.restrictionStatus === 'surface-pair-evidence'));
+        assert.ok(candidateGeneral.entries.every(row => row[3]?.sourceReadingCount === row[3]?.readingEvidence?.length));
+        assert.ok(candidateGeneral.entries.every(row => row[3]?.readingEvidence?.every(item => typeof item.retained === 'boolean' && Number.isFinite(item.popularityScore))));
+        assert.strictEqual(
+            result.report.updatedCounts.generalWordCompleteSurfaceCoverage + result.report.updatedCounts.generalWordFilteredSurfaceCoverage,
+            candidateGeneral.entries.length
+        );
         assert.match(result.manifestSha256, /^[0-9a-f]{64}$/);
         assert.ok(fs.existsSync(result.manifestPath));
     } finally { fs.rmSync(temp, { recursive: true, force: true }); }

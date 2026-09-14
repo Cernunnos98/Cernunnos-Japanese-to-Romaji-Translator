@@ -243,8 +243,7 @@ function mergeExactDictionaryRescueTokens(tokens, sourceText) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestExactDictionaryRescue(tokens, index, sourceText);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
             surface_form: bestMatch.surface,
             reading: bestMatch.reading,
             pronunciation: bestMatch.pronunciation,
@@ -255,7 +254,12 @@ function mergeExactDictionaryRescueTokens(tokens, sourceText) {
             exactDictionaryRescueMatched: true,
             exactDictionaryRescueSource: bestMatch.source,
             exactDictionaryRescueConfidence: bestMatch.confidence
-        });
+        }, {
+            annotations: ['exactDictionaryRescueMatched', 'exactDictionaryRescueSource', 'exactDictionaryRescueConfidence'],
+            evidenceSource: bestMatch.source || 'kuromoji-exact-dictionary',
+            semanticRole: 'exact-dictionary-reading',
+            confidence: bestMatch.confidence
+        }));
         index += bestMatch.length - 1;
     }
     return merged;

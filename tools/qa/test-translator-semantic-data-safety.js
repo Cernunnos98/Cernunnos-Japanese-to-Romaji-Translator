@@ -50,7 +50,8 @@ function assertNoConflicts(rows, key, value, label) {
     }
 }
 
-const general = readJson('data/general-words/general-words-term-bank-1.json');
+const generalRaw = readJson('data/general-words/general-words-term-bank-1.json');
+const general = Array.isArray(generalRaw) ? generalRaw : generalRaw.entries;
 const loanwords = readJson('data/loanwords/loanwords-term-bank-1.json');
 const ateji = readJson('data/ateji/ateji-term-bank-1.json');
 const particles = readJson('data/grammar/particle-expressions.json');
@@ -88,10 +89,17 @@ assert.strictEqual(validateSchema('proper-noun-bank-v1', [['大坂城', 'おお�
 assert.strictEqual(validateSchema('proper-noun-bank-v1', [['大坂城', '大阪城']]), false);
 assert.strictEqual(validateSchema('loanword-bank-v1', [['春麗', 'Chun-Li']]), true);
 assert.strictEqual(validateSchema('loanword-bank-v1', [['春麗', '春麗']]), false);
-assert.strictEqual(validateSchema('general-word-bank-v1', [
-    ['猫', [['ねこ', 1]]],
-    ['猫', [['びょう', 1]]]
-]), false);
+assert.strictEqual(validateSchema('general-word-bank-v2', {
+    _meta: { schemaVersion: 2, scoreSemantics: 'popularity-ranking-only', defaultReadingCoverage: 'filtered-positive-priority' },
+    entries: [
+        ['猫', [['ねこ', 1]], 1],
+        ['猫', [['びょう', 1]], 1]
+    ]
+}), false);
+assert.strictEqual(validateSchema('general-word-bank-v2', {
+    _meta: { schemaVersion: 2, scoreSemantics: 'popularity-ranking-only', defaultReadingCoverage: 'filtered-positive-priority' },
+    entries: [['猫', [['ねこ', 1]], 1, { readingCoverage: 'filtered-positive-priority', restrictionStatus: 'unknown-from-compact-bank' }]]
+}), true);
 
 const loaderContext = vm.createContext({
     getAssetPaths: () => [],

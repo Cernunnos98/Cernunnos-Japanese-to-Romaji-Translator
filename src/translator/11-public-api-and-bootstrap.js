@@ -3,6 +3,9 @@ function getRuntimeDiagnosticsInternals() {
     return Object.freeze({
         addSurfacePrefixes,
         attachSourceTokenSpans,
+        makeDerivedSpanToken,
+        makeDerivedSubspanToken,
+        validateSourceTokenIntegrity,
         blockUnresolvedHanFromRomaji,
         buildTranslationDiagnostics,
         capitalizeRomaji,
@@ -17,6 +20,8 @@ function getRuntimeDiagnosticsInternals() {
         convertToken,
         createRuntimeState,
         createCoalescingScheduler,
+        discoverSourceSpanCandidates,
+        validateSourceSpanCandidates,
         deduplicateKanjiReadingsForDisplay,
         findExactOverride,
         findLongestAuthoritativeSpan,
@@ -51,6 +56,10 @@ function getRuntimeDiagnosticsInternals() {
         makeReadingResolution,
         markJapaneseSingleQuotes,
         markUnreviewedNameContextTokens,
+        markAmbiguousNumericRoleTokens,
+        markTypedClockHourRoleTokens,
+        markTypedMinuteCounterRoleTokens,
+        applyTypedNumericRoleReadings,
         mergeCasualSpeechTokens,
         mergeAtejiTokens,
         mergeCommonWordTokens,
@@ -82,6 +91,7 @@ function getRuntimeDiagnosticsInternals() {
         shouldJoinNumericTokens,
         shouldSeparateNumericTokens,
         splitStructuredNumericUnitTokens,
+        applyStructuredFractionOutputTokens,
         stripIdeographicVariationSelectors,
         translateText,
         translateTextFromTokenizationForQa,
@@ -296,6 +306,7 @@ async function initializeTranslator() {
         buildLexicalPrefixIndexes();
         buildAuthoritativeSpanIndex();
         runtimeState.tokenizer = await buildKuromojiTokenizer();
+        registerTokenizerConfirmedKanaLexicalReadingAliases();
 
         /** @type {CJ2RRegressionReport|null} */
         let regressionReport = null;
@@ -356,10 +367,35 @@ function createCoalescingScheduler(callback, delay = UI_INPUT_DEBOUNCE_MS, timer
     };
 }
 
+function renderBuiltInTranslationReview(audit) {
+    if (!translationReviewDiv) return;
+    const activeSignals = (audit?.redFlags || []).filter(signal => signal?.state === 'final-active' && signal?.requiresReview);
+    if (!activeSignals.length) {
+        translationReviewDiv.textContent = '';
+        setVisibility(translationReviewDiv, false);
+        return;
+    }
+    const summaries = [...new Set(activeSignals.map(signal => {
+        const reason = String(signal.reasonCode || signal.flag || 'review-required');
+        const surface = String(signal.sourceSurface || signal.surface || '');
+        return surface && surface !== '[output]' ? `${reason} (${surface})` : reason;
+    }))];
+    translationReviewDiv.textContent = `Review required: ${summaries.join(', ')}`;
+    setVisibility(translationReviewDiv, true);
+}
+
 const builtInInputScheduler = createCoalescingScheduler(() => {
     refreshBuiltInUiReferences();
     if (kanjiReadingConsumers.length) renderKanjiReadingConsumers();
-    if (outputDiv && runtimeState.tokenizer) outputDiv.innerText = translateText(inputArea?.value || '');
+    if (!outputDiv || !runtimeState.tokenizer) return;
+    const sourceText = inputArea?.value || '';
+    if (translationReviewDiv) {
+        const result = translateWithReadingAudit(sourceText);
+        outputDiv.innerText = result.romaji;
+        renderBuiltInTranslationReview(result.audit);
+    } else {
+        outputDiv.innerText = translateText(sourceText);
+    }
 });
 let builtInUiLifecycleActive = false;
 
@@ -549,6 +585,7 @@ function clearRuntimeStateForDestruction() {
     statusBanner = null;
     inputArea = null;
     outputDiv = null;
+    translationReviewDiv = null;
     kanjiReadingsDiv = null;
     kanjiSearchInput = null;
     kanjiReadingConsumers = [];

@@ -194,7 +194,7 @@ const translatorAssets = Object.freeze({
     kanjiVariants: { paths: ['data/kanji/kanji-variants.json'], criticality: ASSET_CRITICALITY.OPTIONAL, type: 'json', schema: 'kanji-variants-v1' },
     japaneseHanScope: { paths: ['data/kanji/japanese-han-scope.json'], criticality: ASSET_CRITICALITY.OPTIONAL, type: 'json', schema: 'japanese-han-scope-v1' },
     commonWords: { paths: ['data/common-words/common-words-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'common-word-bank-v1' },
-    generalWords: { paths: ['data/general-words/general-words-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'general-word-bank-v1' },
+    generalWords: { paths: ['data/general-words/general-words-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'general-word-bank-v2' },
     loanwords: { paths: ['data/loanwords/loanwords-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'loanword-bank-v2' },
     compoundWords: { paths: ['data/compound-words/compound-words-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'compound-word-bank-v1' },
     ateji: { paths: ['data/ateji/ateji-term-bank-1.json'], criticality: ASSET_CRITICALITY.CRITICAL, type: 'json', schema: 'ateji-bank-v1' },
@@ -430,6 +430,28 @@ const assetSchemaValidators = Object.freeze({
         && entry[1].length > 0
         && entry[1].every(reading => Array.isArray(reading) && isSemanticKanaReading(reading[0]) && Number.isFinite(Number(reading[1]))))
         && hasNoConflictingRows(data, entry => entry[0], entry => entry[1]),
+    'general-word-bank-v2': data => isPlainObject(data)
+        && isPlainObject(data._meta)
+        && Number(data._meta.schemaVersion) === 2
+        && data._meta.scoreSemantics === 'popularity-ranking-only'
+        && ['complete-source-surface', 'filtered-positive-priority', 'filtered-source-surface', 'unknown'].includes(String(data._meta.defaultReadingCoverage || 'unknown'))
+        && Array.isArray(data.entries) && data.entries.length > 0
+        && data.entries.every(entry => Array.isArray(entry)
+            && isText(entry[0])
+            && Array.isArray(entry[1]) && entry[1].length > 0
+            && entry[1].every(reading => Array.isArray(reading) && isSemanticKanaReading(reading[0]) && Number.isFinite(Number(reading[1])))
+            && (entry[2] == null || entry[2] === 0 || entry[2] === 1 || typeof entry[2] === 'boolean')
+            && (entry[3] == null || (isPlainObject(entry[3])
+                && ['complete-source-surface', 'filtered-source-surface', 'filtered-positive-priority', 'unknown'].includes(String(entry[3].readingCoverage || 'unknown'))
+                && (entry[3].sourceReadingCount == null || (Number.isInteger(entry[3].sourceReadingCount) && entry[3].sourceReadingCount >= entry[1].length))
+                && (entry[3].restrictionStatus == null || ['surface-pair-evidence', 'unknown-from-compact-bank', 'unknown'].includes(String(entry[3].restrictionStatus)))
+                && (entry[3].readingEvidence == null || (Array.isArray(entry[3].readingEvidence) && entry[3].readingEvidence.every(item => isPlainObject(item)
+                    && isSemanticKanaReading(item.reading)
+                    && typeof item.retained === 'boolean'
+                    && (item.popularityScore == null || Number.isFinite(Number(item.popularityScore)))
+                    && (item.sequences == null || (Array.isArray(item.sequences) && item.sequences.every(Number.isInteger)))
+                    && (item.spellingSpecificApplicability == null || typeof item.spellingSpecificApplicability === 'boolean')))))))
+        && hasNoConflictingRows(data.entries, entry => entry[0], entry => [entry[1], entry[2] || 0, entry[3] || null]),
     'loanword-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry)
         ? isText(entry[0]) && isRule0RomajiEvidence(entry[1])
         : isPlainObject(entry) && isText(entry.surface)
@@ -487,8 +509,10 @@ const assetSchemaValidators = Object.freeze({
     'counter-date-reading-evidence-v1': data => isNonEmptyRowBank(data, entry => isPlainObject(entry)
         && isText(entry.surface)
         && (entry.aliases == null || isTextArray(entry.aliases))
-        && isSemanticKanaReading(entry.reading) && isRule0RomajiEvidence(entry.romaji))
-        && hasNoConflictingRows(data, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), normalizeReviewedRomaji(entry.romaji), entry.aliases || []]),
+        && isSemanticKanaReading(entry.reading) && isRule0RomajiEvidence(entry.romaji)
+        && ['counter', 'calendar-date', 'calendar-month', 'duration-month', 'place-counter', 'clock-hour', 'minute-counter', 'numeric-component'].includes(String(entry.role || ''))
+        && (entry.unit == null || isText(entry.unit)))
+        && hasNoConflictingRows(data, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), normalizeReviewedRomaji(entry.romaji), entry.aliases || [], entry.role, entry.unit || null]),
     'contextual-reading-evidence-v1': data => isContextualReadingEvidence(data),
     'reading-evidence-v1': data => Array.isArray(data) && data.every(entry => isPlainObject(entry)
         && isText(entry.surface)

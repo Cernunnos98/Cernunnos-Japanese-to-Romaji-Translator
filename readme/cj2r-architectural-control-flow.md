@@ -81,20 +81,23 @@ flowchart TD
     %% ============================================================
     %% TOKEN STREAM PASSES — EXACT LIVE ORDER
     %% ============================================================
-    CONTEXT --> TS0[[POST-KUROMOJI SOURCE-SPAN + TOKEN-STREAM PASSES\nOriginal source offsets are retained across every pass; Kuromoji boundaries are proposals, not final spans]]
+    CONTEXT --> TS0[[POST-KUROMOJI SOURCE-SPAN + TOKEN-STREAM PASSES\nOriginal source offsets are retained across every pass; changed spans invalidate span-bound semantic state unless explicitly revalidated [M07 makeDerivedSpanToken / makeDerivedSubspanToken]; Kuromoji boundaries are proposals, not final spans]]
 
     TS0 --> TS1[1 Restore dropped sokuon っ/ッ tokens\n[M09 restoreDroppedSokuonTokens]\nRuns immediately on the complete Kuromoji token stream while source positions still match the original normalised sentence]
-    TS1 --> TS2[2 Stabilise canonical hard-boundary tokenisation\n[M09 stabilizeHardBoundaryTokenization]\nRetokenise only canonical hard-boundary segments; preserve whole-sentence context everywhere else]
+    TS1 --> CANDDISC[[1A NON-DESTRUCTIVE SOURCE-SPAN CANDIDATE DISCOVERY\n[M10 discoverSourceSpanCandidates + validateSourceSpanCandidates]\nScan immutable normalised-source offsets before destructive numeric/grammar/lexical merging\nLexical/kana-lexical/name/loanword/numeric/temporal/counter/grammar/historical/title/context evidence may overlap\nAll candidates remain selectionState=unselected; candidate creation does not change tokens, output or review state]]
+    CANDDISC --> TS2[2 Stabilise canonical hard-boundary tokenisation\n[M09 stabilizeHardBoundaryTokenization]\nRetokenise only canonical hard-boundary segments; preserve whole-sentence context everywhere else]
     TS2 --> TS3[3 Split structured numeric-unit tokens\n[M09 splitStructuredNumericUnitTokens]]
-    TS3 --> TS3A[3A Reconcile continuous kana source spans\n[M09 reconcileKanaSourceTokenBoundaries]\nProtect syntax-backed grammar/morphology; neutralise unsupported Kuromoji boundaries before lexical reading decisions]\n    TS3A --> TS4[4 Repair typed temporal-expression boundaries\n[M09 repairTypedTemporalExpressionBoundaries]\nRecover swallowed temporal suffixes without splitting complete standalone lexical 中-words; mark independently attested span/lexical collisions for review]
+    TS3 --> TS3A[3A Reconcile continuous kana source spans\n[M09 reconcileKanaSourceTokenBoundaries]\nProtect syntax-backed grammar/morphology; recover evidence-backed standalone Katakana ノ particle roles; neutralise unsupported Kuromoji boundaries before lexical reading decisions]\n    TS3A --> TS3B[3B Apply structured Japanese fraction output roles\n[M09 applyStructuredFractionOutputTokens]\nExact numeral+分の+numeral source candidate only; expose 分 + grammatical の with immutable source ownership; no post-render string split]\n    TS3B --> TS4[4 Repair typed temporal-expression boundaries\n[M09 repairTypedTemporalExpressionBoundaries]\nRecover swallowed temporal suffixes without splitting complete standalone lexical 中-words; mark independently attested span/lexical collisions for review]
     TS4 --> TS5[5 Merge typed temporal spans\n[M09 mergeTypedTemporalSpanTokens]\nRecognise normal [temporal head][中] as well as repaired spans; seal the right edge and independently re-evaluate suffix-like lexical followers]
     TS5 --> TS6[6 Classify one-day date vs duration role\n[M09 markTypedOneDayDurationTokens]\nPreserve legitimate calendar `ついたち`; recognise ordinary and サ変+する predicates, including through intervening nominal argument phrases]
-    TS6 --> TS7[7 Type reviewed clock-hour components, then merge complete minute-counter spans\n[M09 mergeTypedClockHourTokens + mergeTypedMinuteCounterTokens]\nClock hours use reviewed 0–23 evidence; adjacent hour/minute components remain separate; no generic numeric-pronunciation heuristic]
-    TS7 --> TS8[8 Repair case-marked counter-follower lexical roles\n[M09 repairCaseMarkedCounterFollowerTokens]\nRequire independent reading evidence + following case-particle syntax]
+    TS6 --> TS6A[6A Select explicit one-day frequency-counter role\n[M09 markTypedFrequencyCounterRoleTokens]\nRequire `一日` duration + に + numeral+回/度 structure; prefer reviewed counter reading, otherwise require analyser counter-suffix evidence]
+    TS6A --> TS7A[7A Select numeric/counter semantic roles before pronunciation\n[M09 markAmbiguousNumericRoleTokens + markTypedClockHourRoleTokens + markTypedMinuteCounterRoleTokens]\nUse immutable source-span candidates + role-aware evidence; counter pronunciation cannot prove the role; contextual reviewed する lexemes may retain lexical ownership; unresolved same-span lexical/counter conflicts remain reviewable]
+    TS7A --> TS7B[7B Generate role-scoped clock/minute pronunciation\n[M09 applyTypedNumericRoleReadings + resolveMinuteCounterReading]\nReviewed exceptions apply only to their selected role; productive minute onbin is scoped to minute-counter and is not a universal counter heuristic]
+    TS7B --> TS8[8 Repair case-marked counter-follower lexical roles\n[M09 repairCaseMarkedCounterFollowerTokens]\nRequire independent reading evidence + following case-particle syntax]
     TS8 --> TS9[9 Merge productive desiderative `たがる` chains\n[M09 mergeDesiderativeGaruTokens]\nStrong morphology/contiguity only; punctuation blocks bounded misparse recovery]
     TS9 --> TS10[10 Merge reviewed common-word inflections\n[M07 mergeReviewedCommonWordInflectionTokens]\n[DATA data/common-words/common-words-term-bank-1.json]]
     TS10 --> TS11[11 Reviewed kana common-word boundary split\n[M09 splitReviewedKanaCommonWordBoundaryTokens]\nRetokenise overshooting remainder + protect repaired boundary]
-    TS11 --> TS12[12 Recover kana-only lexical spans\n[M09 mergeKanaLexicalReadingTokens]]
+    TS11 --> TS12[12 Recover kana-only lexical spans\n[M09 mergeKanaLexicalReadingTokens]\nMaintained whole-word readings may contribute tokenizer-confirmed long-vowel orthographic aliases; written kana still controls final Rule 0 romanisation]
     TS12 --> TS13[13 Reassemble honorific fragments caused by reviewed boundary repair\n[M09 mergeKanaCommonWordBoundaryHonorificTokens]]
     TS13 --> TS14[14 Merge deterministic orthographic kana boundaries\n[M09 mergeOrthographicKanaBoundaryTokens]]
     TS14 --> TS15[15 Protect Latin / number / official-spelling spans\n[M09 mergeLatinPassthroughTokens]]
@@ -107,7 +110,7 @@ flowchart TD
     TS19 --> TS20[20 Mark unreviewed name-context tokens for audit\n[M09 markUnreviewedNameContextTokens]]
     TS20 --> TS21[21 Authoritative span rescue\n[M06 index + M10 mergeAuthoritativeSpanTokens]]
 
-    TS21 --> AUTHNOTE[Authoritative span sources\nPriority 100 reviewed names + counters/dates\n95 ateji\n90 loanwords\n80 compounds\n70 single-reading general words\n[M06]]
+    TS21 --> AUTHNOTE[Authoritative span sources\nPriority 100 reviewed names + role-aware counters/dates\n95 ateji\n90 loanwords\n80 compounds\n70 single-reading general words\n[M06]]
     AUTHNOTE -. evidence .-> AUTHDATA[DATA:\nreviewed proper-name spans\ncounter-date-reading-evidence.json\nateji-term-bank-1.json\nloanwords-term-bank-1.json\ncompound-words-term-bank-1.json\ngeneral-words-term-bank-1.json]
     TS21 --> TS22[22 Conservative 々 structural fallback\n[M07 mergeIterationMarkFallbackTokens]\nNo Rendaku guessing]
     TS22 --> TS23[23 Reviewed numeric orthographic aliases\n[M07 mergeReviewedNumericAliasTokens]]
@@ -120,9 +123,9 @@ flowchart TD
     TS29 --> TS30[30 Merge scoped title-reading evidence\n[M06 loader + M07 mergeTitleReadingEvidenceTokens]\n[DATA data/title-readings/title-reading-evidence.json]]
     TS30 --> TS31[31 Merge known phrase / compound spans\n[M09 mergeKnownPhraseTokens]]
     TS31 --> TS32[32 Merge attested Rendaku / non-Rendaku evidence\n[M07 mergeRendakuEvidenceTokens]\n[DATA data/rendaku/rendaku-evidence.json]]
-    TS32 --> TS33[33 Merge source-language loanwords\n[M07 mergeLoanwordTokens]\nAmbiguous partial-token segmentations stay unsplit]
-    TS33 --> TS34[34 General-word span rescue/fallback\n[M07 mergeGeneralWordTokens]\nPreserve existing numeral + 助数詞 structure; general-word evidence cannot replace it\n[DATA data/general-words/general-words-term-bank-1.json]]
-    TS34 --> TS35[35 Annotate contextual legitimate-reading evidence\n[M08 annotateContextualReadingEvidence]\nToken-neighbour feature scores; insufficient margin stays ambiguous\n[DATA data/reading-evidence/contextual-reading-evidence.json]]
+    TS32 --> TS33[33 Merge source-language loanwords\n[M07 mergeLoanwordTokens]\nLongest reviewed whole span wins; preserve reviewed spacing/casing\nAmbiguous partial-token segmentations stay unsplit]
+    TS33 --> TS34[34 General-word span rescue/fallback\n[M07 mergeGeneralWordTokens]\nPreserve existing numeral + 助数詞 structure; general-word evidence cannot replace it; false splits inside verbs require standalone-tokenizer + maintained-reading consensus\n[DATA data/general-words/general-words-term-bank-1.json]]
+    TS34 --> TS35[35 Annotate contextual legitimate-reading evidence\n[M08 annotateContextualReadingEvidence]\nToken-neighbour feature scores; shared support/ties and insufficient margin stay ambiguous\n[DATA data/reading-evidence/contextual-reading-evidence.json]]
     TS35 --> TS36[36 Annotate morphological output boundaries\n[M09 annotateMorphologicalOutputBoundaries]\nCarry explicit same-word/conjunctive joins while preserving separate auxiliaries]
 
     %% ============================================================
@@ -143,7 +146,10 @@ flowchart TD
     RR2T -->|yes| RTEMP[Use canonical typed temporal reading\nsource=typed-temporal-expression or recorded typed source]
     RR2T -->|no| RR2N{6 Typed numeric expression?}
     RR2N -->|yes| RTYPENUM[Use canonical typed numeric reading\nsource=typed-numeric-expression or recorded typed source]
-    RR2N -->|no| RR3{7 Authoritative span evidence?}
+    RR2N -->|no| RR2F{6A Structured fraction role?}
+    RR2F -->|denominator unit| RFRAC[Use role-scoped ぶん\nsource=fraction-structure]
+    RR2F -->|fraction numeral with tokenizer reading| RFRACNUM[Use numeric reading inside selected fraction role\nsource=fraction-numeral-structure]
+    RR2F -->|no| RR3{7 Authoritative span evidence?}
     RR3 -->|yes| RAUTH[Use authoritative reading and/or direct Romaji\nPreserve variant mappings/source/confidence]
     RR3 -->|no| RR3A{8 Reviewed numeric alias?}
     RR3A -->|yes| RNUM[Use canonical reviewed numeric reading/direct Romaji\nflag reviewed-numeric-alias]
@@ -158,7 +164,7 @@ flowchart TD
     RR7 -->|no| RR8{13 True grammatical particle?}
     RR8 -->|yes| RPART[Particle pronunciation\nは→wa / へ→e / を→o only grammatically\n[M10 getParticleReading]]
     RR8 -->|no| RR9{14 Loanword evidence?}
-    RR9 -->|yes| RLOAN[Use source-language output\n[M08 lookup + token evidence]\nDATA loanwords]
+    RR9 -->|yes| RLOAN[Use reviewed source-language output\nPreserve stored spacing/casing; typed country-language scope stays whole-span only\n[M08 lookup + token evidence]\nDATA loanwords]
     RR9 -->|no| RR10{15 Reviewed/common whole-word reading already matched?}
     RR10 -->|yes| RCOMMON[Use reviewed contextual whole-word reading]
     RR10 -->|no| RR11{16 Historical-kana evidence?}
@@ -193,7 +199,7 @@ flowchart TD
 
     RR20{28 Kuromoji whole-token reading available?}
     RR20 -->|yes| RKCTX[Use Kuromoji contextual reading\n[M08 + M10]]
-    RKCTX --> KASSESS[Assess against reading evidence and general-word candidates\nMay raise conflict/alternative flags\nDATA reading-evidence + general-words]
+    RKCTX --> KASSESS[Same-span reading arbitration\nMerge selected Kuromoji reading with independent maintained candidates\nIncompatible positive evidence => active conflict + review\nWeak alternatives may remain contextual candidates\nDATA reading-evidence + general-words]
     RR20 -->|no| RR21{29 Compound fallback available?}
     RR21 -->|yes| RCOMPF[Use whole-word compound fallback]
     RR21 -->|no| RR22{30 General-word fallback available?}
@@ -250,7 +256,7 @@ flowchart TD
 
     %% ============================================================
 
-    SENTVERIFY[[FINAL SENTENCE-LEVEL READING VERIFICATION\n[M10 verifySentenceLevelResolutions + M08 contextual evaluation]\nAll provisional resolutions are considered with the repaired token stream and full source\nOnly lower-confidence/fallback sources may change, and only to an already-attested contextual candidate\nReviewed/authoritative/typed decisions are protected\nInsufficient full-sentence margin => retain reading + lower confidence + require review\n[DATA data/reading-evidence/contextual-reading-evidence.json]]] --> CONVERTQ
+    SENTVERIFY[[FINAL SENTENCE-LEVEL READING VERIFICATION\n[M10 verifySentenceLevelResolutions + review-signal lifecycle]\nAll provisional resolutions are considered with the repaired token stream and full source\nOnly lower-confidence/fallback sources may change, and only to an already-attested contextual candidate\nOrdinary surrounding text cannot clear an independent same-span reading conflict\nRecognised contextual selection may supersede weak ambiguity; superseded provenance is retained\nShared contextual support or insufficient full-sentence margin => retain reading + lower confidence + require review\n[DATA data/reading-evidence/contextual-reading-evidence.json]]] --> CONVERTQ
 
     %% ROMAJI CONVERSION
     %% ============================================================
@@ -293,6 +299,7 @@ Only refines an existing join boundary; never replaces a structural space]
     P1 --> TILDE[～ and 〜 → ~]
     TILDE --> SPACE[Collapse repeated spaces + normalise sentence spacing]
     SPACE --> FINALHAN[Final unresolved-Han guard\n[M10]\nNo silent Kanji leakage]
+    FINALHAN --> FINALCONSISTENCY[Final Structural Validation\n[M07 validateSourceTokenIntegrity + M10 validateFinalOutputEvidenceConsistency]\nValidate source partition + semantic ownership, then compare rendered output with retained boundary provenance; never re-segment Latin output]
     FINALHAN --> ROMAJI([Final Romaji output])
 
     %% ============================================================
@@ -351,10 +358,10 @@ Only refines an existing join boundary; never replaces a structural space]
 | **M04** | `src/translator/04-data-and-kanji-loaders.js` | JSON loading/failure policy, Kanji variant normalisation, Japanese-use Han scope classification, structured Kanji Readings data/rendering, overrides. |
 | **M05** | `src/translator/05-romaji-core.js` | Input normalisation and deterministic kana→Romaji Rule 0 mechanics. |
 | **M06** | `src/translator/06-lexical-and-evidence-loaders.js` | Loads lexical/evidence banks, proper-noun candidates and builds the authoritative span index. |
-| **M07** | `src/translator/07-token-merging.js` | Evidence-driven token/span merging: common/general words, names, ateji, loanwords, Rendaku, historical kana and variants; reviewed loanword tokens may be uniquely decomposed only when the whole token lacks reviewed spelling. |
+| **M07** | `src/translator/07-token-merging.js` | Evidence-driven token/span merging: common/general words, names, ateji, loanwords, Rendaku, historical kana and variants; reviewed loanwords use longest complete matching, safe width-normalised aliases and unique decomposition only when the whole token lacks reviewed spelling. |
 | **M08** | `src/translator/08-reading-resolver.js` | Proper-noun ranking, exact dictionary rescue, orthographic pronunciations, lexical/evidence lookups and contextual candidate scoring. |
 | **M09** | `src/translator/09-token-repair-and-grammar.js` | Typed temporal/numeric analysis, morphology, sokuon/kana/role boundary repairs, Latin passthrough, grammar, context overrides, phrases and output-boundary annotations. |
-| **M10** | `src/translator/10-output-and-translation-pipeline.js` | Exact override, authoritative-span rescue, resolver precedence, final sentence-level resolution verification, token conversion, casing/joining/punctuation, unresolved-Han guard and diagnostics. |
+| **M10** | `src/translator/10-output-and-translation-pipeline.js` | Non-destructive immutable-source candidate discovery, exact override, authoritative-span rescue, resolver precedence, **Sentence-Level Reading Verification**, token conversion, casing/joining/punctuation, unresolved-Han guard, **Final Output/Evidence Consistency Validation**, and diagnostics. |
 | **M11** | `src/translator/11-public-api-and-bootstrap.js` | Initialisation, bounded runtime lifecycle, host binding, optional Kanji UI lifecycle, CJ2R-owned diagnostics, public/audit API. |
 
 ## Evidence/data map
@@ -399,15 +406,16 @@ A single input can therefore be:
 12. processed for yōon, sokuon, ん/apostrophe behaviour, written long vowels and ー;
 13. joined with person-name, particle, grammar, prefix/suffix and auxiliary spacing/casing rules, plus the explicitly reviewed compact title-prefix + ASCII-fraction boundary;
 14. normalised to project punctuation, including `～`/`〜` → `~`; single wave separators use `A ~ B`, while terminal paired wave wrappers remain tight inside (`Title ~Subtitle~`) and source-space-prefixed terminal ASCII hyphen wrappers preserve `Title -Subtitle-`; evidence-driven `×` handling distinguishes reviewed silent/rendered/title-span behaviour from literal reviewable fallback; paired segment-terminal source `―...―` subtitle delimiters become spaced em dashes while ordinary horizontal bars remain tight, and final sentence punctuation after the closing subtitle bar does not disable that spacing;
-15. passed through a final unresolved-Han guard; and
-16. optionally returned with an audit showing each reading's original source range, reconciliation provenance, evidence source, confidence/candidates/flags, review-signal lifecycle/provenance, source counts and whether any `final-active` uncertainty still requires review.
+15. passed through a final unresolved-Han guard;
+16. when diagnostics are captured, checked first by **Source/Annotation Integrity Validation** on the final annotated token stream for ordered/non-overlapping source coverage, source-surface fidelity and semantic ownership, then by **Final Output/Evidence Consistency Validation**, which compares retained boundary provenance with the actual rendered Romaji without re-segmenting the finished Latin text; and
+17. optionally returned with an audit showing the pre-arbitration source-span candidate inventory/category counts/validation plus each selected reading's original source range, semantic-annotation ownership, reconciliation provenance, evidence source, confidence/candidates/flags, boundary provenance, combined structural-validation results, review-signal lifecycle/provenance, source counts and whether any `final-active` uncertainty still requires review.
 
 ## Contributor diagnosis map
 
 | Wrong output symptom | First place to investigate | Do not solve it by… |
 |---|---|---|
 | Entire reviewed title has a special spelling | Exact override (`overrides.json`) | Hiding a reusable lower-level bug with an override. |
-| Foreign name/loanword is phonetic instead of official/source spelling | Loanword evidence / Latin passthrough | Guessing source spelling from katakana. |
+| Foreign name/loanword is phonetic, mis-spaced or re-cased instead of using its reviewed source form | Loanword evidence / Latin passthrough / protected source-output formatting | Guessing source spelling from katakana or rebuilding an authoritative mapping from tokenizer pieces. |
 | Japanese name is split or read wrongly | Reviewed whole-name spans first (crossing Kuromoji boundaries and preserving Japanese name order) → proper-noun candidates → name variants; title-only names stay scoped to title evidence and unresolved name ambiguity remains reviewable. | Joining individual Kanji readings or promoting a context-only name reading globally. |
 | Counter/date/age/numeral reading is wrong | Counter/date evidence | Creating a blanket sound-change rule. |
 | Compound needs/blocks Rendaku | Rendaku evidence | Blanket consonant voicing. |

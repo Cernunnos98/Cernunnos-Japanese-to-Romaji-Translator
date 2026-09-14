@@ -40,17 +40,237 @@ function findSourceTokenRanges(tokens, sourceText) {
 }
 
 function attachSourceTokenSpans(tokens, sourceText) {
-    const ranges = findSourceTokenRanges(tokens, sourceText);
+    const text = String(sourceText || '');
+    const ranges = findSourceTokenRanges(tokens, text);
+    let previousEnd = 0;
     return (tokens || []).map((token, index) => {
         const range = ranges[index];
         if (!range) return token;
+        const gapStart = Math.min(previousEnd, range.start);
+        const sourceGapBefore = text.slice(gapStart, range.start);
+        previousEnd = Math.max(previousEnd, range.end);
         return {
             ...token,
             sourceStart: range.start,
             sourceEnd: range.end,
-            sourceSurface: String(sourceText || '').slice(range.start, range.end)
+            sourceSurface: text.slice(range.start, range.end),
+            sourceGapBefore
         };
     });
+}
+
+const spanBoundSemanticAnnotationKeys = new Set([
+    'value', 'particle', 'prefix', 'suffix', 'nominalizer', 'grammatical', 'fullGrammaticalExpression',
+    'titleSeparator', 'crossNotationSymbol', 'nameContinuation', 'nameGivenStart', 'canonicalBoundary', 'hardBoundaryReconstructed',
+    'numericExpression', 'contextualOverrideMatched', 'contextualRomaji',
+    'titleReadingEvidenceMatched', 'titleReadingEvidenceReading', 'titleReadingEvidenceRomaji', 'titleReadingEvidenceKind', 'titleReadingEvidenceSource',
+    'sourceSpanLexicalCandidateMatched', 'sourceSpanLexicalCandidateReading', 'sourceSpanLexicalCandidateRomaji', 'sourceSpanLexicalCandidateKind', 'sourceSpanLexicalCandidateSource', 'sourceSpanLexicalCandidateConfidence',
+    'reviewedProperNameSpanMatched', 'reviewedProperNameSpanRomaji', 'reviewedProperNameLookupSurface', 'reviewedProperNameVariantMappings',
+    'reviewedNameHonorificMatched', 'reviewedNameHonorificReading',
+    'typedTemporalExpressionMatched', 'typedTemporalExpressionType', 'typedTemporalReading', 'typedTemporalSource', 'typedTemporalSpanLexicalCollision', 'typedTemporalSuffix', 'structuredTemporalHead',
+    'typedNumericExpressionMatched', 'typedNumericExpressionType', 'typedNumericReading', 'typedNumericSource', 'typedNumericRoleSelected', 'typedNumericRole', 'typedNumericRoleState', 'typedNumericRoleSource', 'typedNumericRoleReviewRequired', 'typedNumericRoleAlternatives', 'structuredNumericSplit',
+    'structuredFractionRole', 'structuredFractionReading', 'structuredFractionSource',
+    'authoritativeSpanMatched', 'authoritativeSpanCategory', 'authoritativeSpanReading', 'authoritativeSpanRomaji', 'authoritativeSpanSource', 'authoritativeSpanConfidence', 'authoritativeSpanReviewRequired', 'authoritativeSpanReviewReason', 'authoritativeSpanReviewFlag', 'authoritativeSpanVariantMappings',
+    'reviewedNumericAliasMatched', 'reviewedNumericAliasCanonicalSurface', 'reviewedNumericAliasReading', 'reviewedNumericAliasRomaji', 'reviewedNumericAliasSource',
+    'variantProperNounMatched', 'variantCanonicalRetokenized', 'variantOriginalSurface', 'variantLookupSurface', 'variantMappings',
+    'latinPassthroughMatched', 'latinPassthroughOutput',
+    'knownPhraseMatched', 'knownPhraseValue', 'knownPhraseSource',
+    'loanwordMatched', 'loanwordOutput', 'suppressLoanwordSourceSpelling', 'countryLanguageReviewRequired',
+    'contextualLoanwordEvidenceMatched', 'contextualLoanwordEvidenceOutput', 'contextualLoanwordEvidenceSource', 'contextualLoanwordEvidenceScore', 'contextualLoanwordEvidenceMargin', 'contextualLoanwordEvidenceAmbiguous', 'contextualLoanwordEvidenceCandidates',
+    'commonWordMatched', 'commonWordReading', 'commonWordRomaji', 'reviewedInflectionMatched',
+    'contextualReadingEvidenceMatched', 'contextualReadingEvidenceReading', 'contextualReadingEvidenceRomaji', 'contextualReadingEvidenceSource', 'contextualReadingEvidenceScore', 'contextualReadingEvidenceMargin', 'contextualReadingEvidenceAmbiguous', 'contextualReadingEvidenceCandidates',
+    'historicalKanaEvidenceMatched', 'historicalKanaEvidenceReading', 'historicalKanaEvidenceSource', 'historicalKanaEvidenceSourceType',
+    'rendakuEvidenceMatched', 'rendakuEvidenceReading', 'rendakuEvidenceSource', 'rendakuApplied',
+    'exactDictionaryRescueMatched', 'exactDictionaryRescueSource', 'exactDictionaryRescueConfidence',
+    'kanaLexicalSpanMatched', 'kanaLexicalSpanReading', 'kanaLexicalSpanEvidenceStrength', 'kanaLexicalSpanEvidenceSurfaces',
+    'atejiMatched', 'atejiReading',
+    'generalWordMatched', 'generalWordReading', 'generalWordAmbiguous', 'generalWordCoverageIncomplete', 'generalWordCandidates', 'generalWordVariantMappings',
+    'ordinaryCompoundReadingMatched', 'ordinaryCompoundReading', 'ordinaryCompoundReadingCandidates',
+    'iterationMarkFallbackMatched', 'iterationMarkFallbackReading',
+    'nameContextAmbiguous', 'nameContextSurname', 'nameContextBase', 'nameContextStructure',
+    'desiderativeGaruRecoveredFromSurface',
+    'readingResolution', 'outputBoundaryBefore', 'outputBoundaryReason', 'outputBoundaryAuthority', 'outputBoundaryRequiresReview',
+    'semanticAnnotationOwnership'
+]);
+
+function stripSpanBoundSemanticAnnotations(token) {
+    const stripped = { ...(token || {}) };
+    for (const key of spanBoundSemanticAnnotationKeys) delete stripped[key];
+    return stripped;
+}
+
+function getCompleteDerivedSourceSpan(tokens, startIndex, endIndex, options = {}) {
+    const members = (tokens || []).slice(startIndex, endIndex + 1);
+    if (!members.length) return null;
+    const first = members[0];
+    const last = members[members.length - 1];
+    if (!Number.isInteger(first?.sourceStart) || !Number.isInteger(last?.sourceEnd)) return null;
+    let sourceSurface = String(first?.sourceSurface ?? first?.surface_form ?? '');
+    for (let index = 1; index < members.length; index += 1) {
+        const previous = members[index - 1];
+        const current = members[index];
+        let gap = '';
+        if (!sourceTokensAreContiguous(previous, current)) {
+            if (!options.allowWhitespaceGaps
+                || !Number.isInteger(previous?.sourceEnd)
+                || !Number.isInteger(current?.sourceStart)
+                || current.sourceStart < previous.sourceEnd) return null;
+            gap = String(current.sourceGapBefore || '');
+            if (gap.length !== current.sourceStart - previous.sourceEnd || !/^[\s\u3000]+$/u.test(gap)) return null;
+        }
+        sourceSurface += gap + String(current?.sourceSurface ?? current?.surface_form ?? '');
+    }
+    return { sourceStart: first.sourceStart, sourceEnd: last.sourceEnd, sourceSurface };
+}
+
+function makeSemanticAnnotationOwnership(sourceSpan, annotations, evidenceSource, semanticRole, confidence = null, reviewRequired = null) {
+    const keys = [...new Set((annotations || []).filter(Boolean))];
+    if (!keys.length) return [];
+    return [{
+        annotations: keys,
+        sourceStart: Number.isInteger(sourceSpan?.sourceStart) ? sourceSpan.sourceStart : null,
+        sourceEnd: Number.isInteger(sourceSpan?.sourceEnd) ? sourceSpan.sourceEnd : null,
+        sourceSurface: sourceSpan?.sourceSurface ?? null,
+        evidenceSource: String(evidenceSource || 'derived-span'),
+        semanticRole: String(semanticRole || 'derived-span'),
+        confidence: Number.isFinite(confidence) ? confidence : null,
+        reviewRequired: typeof reviewRequired === 'boolean' ? reviewRequired : null
+    }];
+}
+
+function makeDerivedSpanToken(tokens, startIndex, endIndex, fields = {}, ownership = {}) {
+    const members = (tokens || []).slice(startIndex, endIndex + 1);
+    const first = members[0] || {};
+    const sourceSpan = getCompleteDerivedSourceSpan(tokens, startIndex, endIndex, { allowWhitespaceGaps: Boolean(ownership.allowWhitespaceGaps) });
+    const requestedSurface = String(fields.surface_form ?? members.map(token => String(token?.surface_form || '')).join(''));
+    const sameExplicitSpan = Boolean(sourceSpan
+        && Number.isInteger(first?.sourceStart)
+        && Number.isInteger(first?.sourceEnd)
+        && first.sourceStart === sourceSpan.sourceStart
+        && first.sourceEnd === sourceSpan.sourceEnd
+        && String(first.sourceSurface ?? first.surface_form ?? '') === sourceSpan.sourceSurface);
+    const sameImplicitSpan = members.length === 1 && requestedSurface === String(first?.surface_form || '');
+    const sameSpan = sameExplicitSpan || sameImplicitSpan;
+    const base = sameSpan ? { ...first } : stripSpanBoundSemanticAnnotations(first);
+    const previousOwnership = sameSpan && Array.isArray(first.semanticAnnotationOwnership)
+        ? first.semanticAnnotationOwnership.map(owner => ({ ...owner, annotations: [...(owner.annotations || [])] }))
+        : [];
+    const token = { ...base, ...fields, derivedSpan: true };
+    if (sourceSpan) {
+        token.sourceStart = sourceSpan.sourceStart;
+        token.sourceEnd = sourceSpan.sourceEnd;
+        token.sourceSurface = sourceSpan.sourceSurface;
+    } else if (!sameImplicitSpan) {
+        delete token.sourceStart;
+        delete token.sourceEnd;
+        delete token.sourceSurface;
+    }
+    token.semanticAnnotationOwnership = [
+        ...previousOwnership,
+        ...makeSemanticAnnotationOwnership(
+            sourceSpan,
+            ownership.annotations,
+            ownership.evidenceSource,
+            ownership.semanticRole,
+            ownership.confidence,
+            ownership.reviewRequired
+        )
+    ];
+    return token;
+}
+
+function makeDerivedMatchedSpanToken(tokens, startIndex, endIndex, endCharacter, fields = {}, ownership = {}) {
+    const finalToken = tokens?.[endIndex];
+    const finalLength = Array.from(String(finalToken?.surface_form || '')).length;
+    if (!finalToken || endCharacter >= finalLength) return makeDerivedSpanToken(tokens, startIndex, endIndex, fields, ownership);
+    const prefixToken = makeDerivedSubspanToken(finalToken, 0, endCharacter);
+    const members = [...(tokens || []).slice(startIndex, endIndex), prefixToken];
+    return makeDerivedSpanToken(members, 0, members.length - 1, fields, ownership);
+}
+
+function makeDerivedSubspanToken(token, startCharacter, endCharacter, fields = {}, ownership = {}) {
+    const originalSurface = String(token?.surface_form || '');
+    const characters = Array.from(originalSurface);
+    const start = Math.max(0, Math.min(characters.length, Number(startCharacter) || 0));
+    const end = Math.max(start, Math.min(characters.length, Number(endCharacter) || characters.length));
+    const surface = characters.slice(start, end).join('');
+    const base = stripSpanBoundSemanticAnnotations(token || {});
+    const output = { ...base, surface_form: surface, ...fields, derivedSpan: true };
+    output.sourceGapBefore = start === 0 ? String(token?.sourceGapBefore || '') : '';
+    const explicitSourceMatches = Number.isInteger(token?.sourceStart)
+        && Number.isInteger(token?.sourceEnd)
+        && String(token?.sourceSurface ?? originalSurface) === originalSurface;
+    let sourceSpan = null;
+    if (explicitSourceMatches) {
+        const startUnits = characters.slice(0, start).join('').length;
+        const endUnits = characters.slice(0, end).join('').length;
+        sourceSpan = {
+            sourceStart: token.sourceStart + startUnits,
+            sourceEnd: token.sourceStart + endUnits,
+            sourceSurface: String(token.sourceSurface ?? originalSurface).slice(startUnits, endUnits)
+        };
+        output.sourceStart = sourceSpan.sourceStart;
+        output.sourceEnd = sourceSpan.sourceEnd;
+        output.sourceSurface = sourceSpan.sourceSurface;
+    } else {
+        delete output.sourceStart;
+        delete output.sourceEnd;
+        delete output.sourceSurface;
+    }
+    output.semanticAnnotationOwnership = makeSemanticAnnotationOwnership(
+        sourceSpan,
+        ownership.annotations,
+        ownership.evidenceSource,
+        ownership.semanticRole,
+        ownership.confidence,
+        ownership.reviewRequired
+    );
+    return output;
+}
+
+function validateSourceTokenIntegrity(tokens, sourceText, options = {}) {
+    const source = String(sourceText || '');
+    const violations = [];
+    let previousStart = -1;
+    let previousEnd = 0;
+    const covered = [];
+    const add = (index, token, reason) => violations.push({ index, surface: String(token?.surface_form || ''), reason });
+    for (let index = 0; index < (tokens || []).length; index += 1) {
+        const token = tokens[index];
+        if (!token) continue;
+        const start = token.sourceStart;
+        const end = token.sourceEnd;
+        if (!Number.isInteger(start) || !Number.isInteger(end)) { add(index, token, 'missing-source-range'); continue; }
+        if (start < 0 || end < start || end > source.length) { add(index, token, 'invalid-source-range'); continue; }
+        if (start < previousStart) add(index, token, 'out-of-order-source-range');
+        if (start < previousEnd) add(index, token, start === previousStart && end === previousEnd ? 'duplicated-source-range' : 'overlapping-source-range');
+        const expectedSurface = source.slice(start, end);
+        if (String(token.sourceSurface ?? '') !== expectedSurface) add(index, token, 'invalid-sourceSurface');
+        previousStart = start;
+        previousEnd = Math.max(previousEnd, end);
+        covered.push([start, end]);
+        for (const owner of token.semanticAnnotationOwnership || []) {
+            const ownerMatches = owner
+                && owner.sourceStart === start
+                && owner.sourceEnd === end
+                && owner.sourceSurface === expectedSurface;
+            if (!ownerMatches) { add(index, token, 'stale-semantic-annotation-ownership'); continue; }
+            for (const annotation of owner.annotations || []) {
+                if (!Object.prototype.hasOwnProperty.call(token, annotation)) add(index, token, 'annotation-owner-without-annotation');
+            }
+        }
+    }
+    if (options.requireFullCoverage && covered.length) {
+        let cursor = 0;
+        for (const [start, end] of covered) {
+            const gap = start > cursor ? source.slice(cursor, start) : '';
+            if (gap && /\S/u.test(gap)) violations.push({ index: -1, surface: gap, reason: 'source-deletion' });
+            cursor = Math.max(cursor, end);
+        }
+        const trailing = cursor < source.length ? source.slice(cursor) : '';
+        if (trailing && /\S/u.test(trailing)) violations.push({ index: -1, surface: trailing, reason: 'source-deletion' });
+    }
+    return { valid: violations.length === 0, violations };
 }
 
 function sourceTokensAreContiguous(left, right) {
@@ -74,6 +294,50 @@ function contextualPatternContainsRange(pattern, sourceText, range) {
         if (!match[0].length) matcher.lastIndex += 1;
     }
     return false;
+}
+
+const titleMentionLeftBoundaryPattern = /[\s「『（【〔〈《〝“‘"'~～〜〰。、！？!?:：；;]/u;
+const titleMentionRightBoundaryPattern = /^[\s」』）】〕〉》〟”’"'~～〜〰。、！？!?:：；;]/u;
+
+function titleReadingEvidenceAppliesToRange(evidence, sourceText, range, boundaryContext = {}) {
+    if (!evidence?.pattern || !range) return false;
+    const source = canonicalizeTokenizerBoundaryCharacters(String(sourceText || ''));
+    if (contextualPatternContainsRange(evidence.pattern, source, range)) return true;
+
+    // A rule authored for the complete reviewed title remains valid when that exact
+    // title is mentioned as a syntactically bounded noun in a larger sentence. This
+    // does not broaden title-fragment rules whose pattern only works in a longer title.
+    const reviewedSurface = canonicalizeTokenizerBoundaryCharacters(String(evidence.surface || ''));
+    if (!reviewedSurface || source.slice(range.start, range.end) !== reviewedSurface) return false;
+    evidence.pattern.lastIndex = 0;
+    if (!evidence.pattern.test(reviewedSurface)) return false;
+
+    const left = source.slice(0, range.start);
+    const right = source.slice(range.end);
+    const leftBoundary = !left
+        || titleMentionLeftBoundaryPattern.test(left.slice(-1))
+        || Boolean(boundaryContext.leftGrammaticalBoundary);
+    const rightBoundary = !right
+        || titleMentionRightBoundaryPattern.test(right)
+        || Boolean(boundaryContext.rightGrammaticalBoundary);
+    return leftBoundary && rightBoundary;
+}
+
+function getTitleMentionBoundaryContext(tokens, sourceRanges, range) {
+    if (!range) return { leftGrammaticalBoundary: false, rightGrammaticalBoundary: false };
+    let leftGrammaticalBoundary = false;
+    let rightGrammaticalBoundary = false;
+    for (let index = 0; index < (tokens || []).length; index += 1) {
+        const token = tokens[index];
+        const tokenRange = sourceRanges?.[index]
+            || (Number.isInteger(token?.sourceStart) && Number.isInteger(token?.sourceEnd)
+                ? { start: token.sourceStart, end: token.sourceEnd }
+                : null);
+        if (!tokenRange) continue;
+        if (tokenRange.end === range.start && isParticle(token)) leftGrammaticalBoundary = true;
+        if (tokenRange.start === range.end && isGrammaticalToken(token)) rightGrammaticalBoundary = true;
+    }
+    return { leftGrammaticalBoundary, rightGrammaticalBoundary };
 }
 
 
@@ -175,8 +439,7 @@ function mergeReviewedCommonWordInflectionTokens(tokens) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestReviewedCommonWordInflection(tokens, index);
         if (!bestMatch || bestMatch.length === 1) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
             surface_form: bestMatch.surface,
             reading: bestMatch.reading,
             pronunciation: bestMatch.reading,
@@ -188,7 +451,11 @@ function mergeReviewedCommonWordInflectionTokens(tokens) {
             commonWordMatched: true,
             commonWordReading: bestMatch.reading,
             reviewedInflectionMatched: true
-        });
+        }, {
+            annotations: ['commonWordMatched', 'commonWordReading', 'reviewedInflectionMatched'],
+            evidenceSource: 'reviewed-common-word-inflection',
+            semanticRole: 'lexical-inflection'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -218,10 +485,14 @@ function mergeCommonWordTokens(tokens, sourceText) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestCommonWord(tokens, index, sourceText);
         if (!bestMatch || bestMatch.length === 1) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index], surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading,
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
+            surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading,
             pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*', commonWordMatched: true, commonWordReading: bestMatch.reading, commonWordRomaji: bestMatch.romaji || null
-        });
+        }, {
+            annotations: ['commonWordMatched', 'commonWordReading', 'commonWordRomaji'],
+            evidenceSource: 'common-word-bank',
+            semanticRole: 'lexical-span'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -248,7 +519,7 @@ function findLongestTitleReadingEvidence(tokens, startIndex, sourceText, sourceR
         const endRange = sourceRanges[end];
         const candidateRange = startRange && endRange ? { start: startRange.start, end: endRange.end } : null;
         for (const evidence of runtimeState.titleReadingDictionary.get(candidateSurface) || []) {
-            if (!contextualPatternContainsRange(evidence.pattern, sourceText, candidateRange)) continue;
+            if (!titleReadingEvidenceAppliesToRange(evidence, sourceText, candidateRange, getTitleMentionBoundaryContext(tokens, sourceRanges, candidateRange))) continue;
             bestMatch = { ...evidence, lookupSurface: candidateSurface, surface: evidence.surface || candidateSurface, length: end - startIndex + 1 };
         }
     }
@@ -261,8 +532,7 @@ function mergeTitleReadingEvidenceTokens(tokens, sourceText) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestTitleReadingEvidence(tokens, index, sourceText, sourceRanges);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
             surface_form: bestMatch.surface,
             reading: bestMatch.reading || tokens[index].reading,
             pronunciation: bestMatch.reading || tokens[index].pronunciation,
@@ -272,7 +542,11 @@ function mergeTitleReadingEvidenceTokens(tokens, sourceText) {
             titleReadingEvidenceKind: bestMatch.kind,
             titleReadingEvidenceSource: bestMatch.source,
             ...(bestMatch.length > 1 ? { pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*' } : {})
-        });
+        }, {
+            annotations: ['titleReadingEvidenceMatched', 'titleReadingEvidenceReading', 'titleReadingEvidenceRomaji', 'titleReadingEvidenceKind', 'titleReadingEvidenceSource'],
+            evidenceSource: bestMatch.source || 'title-reading-evidence',
+            semanticRole: 'title-reading'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -290,21 +564,43 @@ function getGeneralWordLookup(surface) {
 
 function getGeneralWordCandidates(lookup) {
     if (!lookup?.entry?.readings) return [];
-    return lookup.entry.readings.map(item => ({
+    const retained = lookup.entry.readings.map(item => ({
         reading: item.reading,
-        romaji: convertToRomaji(item.reading),
-        weight: item.score,
-        rank: Number.POSITIVE_INFINITY,
-        categories: new Set(['lexical']),
-        sources: new Set(['jitendex-general-word'])
+        popularityScore: Number(item.popularityScore ?? item.score ?? 0),
+        retained: true
     }));
+    const additional = (lookup.entry.unretainedReadings || []).map(item => ({
+        reading: item.reading,
+        popularityScore: Number(item.popularityScore || 0),
+        retained: false
+    }));
+    const seen = new Set();
+    return [...retained, ...additional]
+        .filter(item => { const key = normalizeKanaReading(item.reading); if (!key || seen.has(key)) return false; seen.add(key); return true; })
+        .sort((a, b) => b.popularityScore - a.popularityScore || a.reading.localeCompare(b.reading, 'ja'))
+        .map((item, index) => ({
+            reading: item.reading,
+            romaji: convertToRomaji(item.reading),
+            // Yomitan/Jitendex score is popularity/search ranking, not semantic probability.
+            weight: 0,
+            rank: index + 1,
+            popularityScore: item.popularityScore,
+            retained: item.retained,
+            categories: new Set(['lexical']),
+            sources: new Set(['jitendex-general-word'])
+        }));
+}
+
+function hasCompleteGeneralWordReadingCoverage(lookup) {
+    return lookup?.entry?.readingCoverage === 'complete-source-surface'
+        && Number.isInteger(lookup.entry.sourceReadingCount)
+        && lookup.entry.sourceReadingCount === getGeneralWordCandidates(lookup).length;
 }
 
 function selectGeneralWordReading(lookup) {
-    const readings = lookup?.entry?.readings || [];
-    if (!readings.length) return null;
-    if (readings.length === 1) return readings[0];
-    return readings[0].score - readings[1].score >= 50 ? readings[0] : null;
+    const candidates = getGeneralWordCandidates(lookup);
+    if (!hasCompleteGeneralWordReadingCoverage(lookup) || candidates.length !== 1) return null;
+    return lookup.entry.readings.find(item => normalizeKanaReading(item.reading) === normalizeKanaReading(candidates[0].reading)) || null;
 }
 
 /** @param {CJ2RToken} token */
@@ -314,23 +610,24 @@ function resolveGeneralWordFallback(token) {
     if (!lookup) return null;
     const selected = selectGeneralWordReading(lookup);
     const candidates = getGeneralWordCandidates(lookup);
-    const ambiguous = candidates.length > 1;
-    // An ambiguous general-word entry still contains attested ranked readings.
-    // Use the highest-ranked candidate only as provisional visible output while
-    // retaining ambiguity metadata so diagnostics continue to require review.
+    const concreteAmbiguity = candidates.length > 1;
+    const coverageIncomplete = !hasCompleteGeneralWordReadingCoverage(lookup);
+    // Popularity may order a provisional visible reading, but never clears
+    // ambiguity or substitutes for source coverage/restriction evidence.
     const provisional = selected || lookup.entry.readings[0] || null;
     return {
         reading: provisional?.reading || null,
-        source: selected ? 'general-word-fallback' : 'general-word-ranked-ambiguous',
-        confidence: selected ? (ambiguous ? 0.78 : 0.86) : 0.55,
+        source: selected ? 'general-word-fallback' : 'general-word-ranked-provisional',
+        confidence: selected ? 0.86 : (concreteAmbiguity ? 0.55 : 0.64),
         candidates,
         flags: [
             ...(provisional ? ['fallback-reading'] : []),
-            ...(ambiguous ? ['general-word-ambiguous'] : []),
+            ...(concreteAmbiguity ? ['general-word-ambiguous'] : []),
+            ...(coverageIncomplete ? ['general-word-coverage-incomplete'] : []),
             ...(lookup.variant ? ['variant-reading-evidence'] : [])
         ],
         variantMappings: lookup.variant?.mappings || [],
-        ambiguous
+        ambiguous: concreteAmbiguity || coverageIncomplete
     };
 }
 
@@ -339,15 +636,18 @@ function assessGeneralWordReading(token, currentReading) {
     const lookup = getGeneralWordLookup(token.surface_form);
     if (!lookup) return null;
     const normalized = normalizeKanaReading(currentReading);
-    const matchedIndex = lookup.entry.readings.findIndex(item => normalizeKanaReading(item.reading) === normalized);
-    const strongPreference = lookup.entry.readings.length > 1
-        ? lookup.entry.readings[0].score - lookup.entry.readings[1].score >= 50
-        : Boolean(lookup.entry.readings.length);
+    const candidates = getGeneralWordCandidates(lookup);
+    const matchedIndex = candidates.findIndex(item => normalizeKanaReading(item.reading) === normalized);
+    const completeCoverage = hasCompleteGeneralWordReadingCoverage(lookup);
+    const strongPreference = completeCoverage && candidates.length === 1;
+    const conflict = candidates.length > 0 && matchedIndex < 0;
     return {
         matched: matchedIndex >= 0,
         matchedIndex,
-        candidates: getGeneralWordCandidates(lookup),
+        candidates,
         strongPreference,
+        conflict,
+        coverageIncomplete: !completeCoverage,
         variantMappings: lookup.variant?.mappings || []
     };
 }
@@ -387,7 +687,7 @@ function findExactGeneralWordSegment(tokens, startIndex, sourceText = '') {
     const sourceSegments = String(sourceText || '').split(/[~～〜]/u);
     if (!segmentSurface || sourceSegments[segmentIndex] !== segmentSurface) return null;
     const lookup = getGeneralWordLookup(segmentSurface);
-    if (!lookup?.entry?.readings?.length || lookup.entry.mergeSafe || lookup.entry.readings.length < 2) return null;
+    if (!lookup?.entry?.readings?.length || lookup.entry.mergeSafe || getGeneralWordCandidates(lookup).length < 2) return null;
     if (hasStrongerGeneralWordSegmentEvidence(segmentTokens, segmentSurface)) return null;
     const provisional = lookup.entry.readings[0];
     return {
@@ -396,8 +696,10 @@ function findExactGeneralWordSegment(tokens, startIndex, sourceText = '') {
         length: segmentTokens.length,
         candidates: getGeneralWordCandidates(lookup),
         ambiguous: true,
+        coverageIncomplete: !hasCompleteGeneralWordReadingCoverage(lookup),
         variantMappings: lookup.variant?.mappings || [],
-        exactGeneralWordSegmentFallback: true
+        exactGeneralWordSegmentFallback: true,
+        tokenizerConsensusVerbSpan: false
     };
 }
 
@@ -419,21 +721,47 @@ function findLongestGeneralWord(tokens, startIndex, sourceText = '') {
         if (!runtimeState.generalWordPrefixes.has(candidateSurface) && !runtimeState.generalWordPrefixes.has(lookupSurface)) break;
         if (end === startIndex) continue;
         const lookup = getGeneralWordLookup(candidateSurface);
-        if (!lookup?.entry?.mergeSafe) continue;
+        if (!lookup?.entry) continue;
         const selected = selectGeneralWordReading(lookup);
-        // mergeSafe answers the span-boundary question independently from the
-        // reading-ambiguity question. When several readings remain, preserve
-        // them for review but use the bank's top-ranked attested reading as a
-        // provisional output rather than discarding the whole lexical span.
-        const provisional = selected || lookup.entry.readings[0] || null;
+        const candidates = getGeneralWordCandidates(lookup);
+        const candidateTokens = tokens.slice(startIndex, end + 1);
+        let tokenizerConsensusVerbSpan = false;
+        let tokenizerConsensusReading = null;
+        if (!lookup?.entry?.mergeSafe
+            && candidateTokens.length > 1
+            && candidateTokens.every(item => item?.pos === '動詞' && !isGrammaticalToken(item))
+            && runtimeState.tokenizer) {
+            const standalone = runtimeState.tokenizer.tokenize(candidateSurface) || [];
+            const standaloneToken = standalone.length === 1 && String(standalone[0]?.surface_form || '') === candidateSurface
+                ? standalone[0]
+                : null;
+            const standaloneReading = normalizeKanaReading(getKuromojiDictionaryReading(standaloneToken) || '');
+            tokenizerConsensusVerbSpan = Boolean(
+                standaloneToken
+                && standaloneToken.pos === '動詞'
+                && standaloneToken.pos_detail_1 !== '非自立'
+                && standaloneReading
+                && candidates.some(item => normalizeKanaReading(item?.reading || '') === standaloneReading)
+            );
+            tokenizerConsensusReading = tokenizerConsensusVerbSpan ? standaloneReading : null;
+        }
+        if (!lookup?.entry?.mergeSafe && !tokenizerConsensusVerbSpan) continue;
+        // A tokenizer split may be repaired only when standalone Kuromoji and
+        // maintained lexical evidence independently agree on the whole verb span.
+        const provisional = selected
+            || (tokenizerConsensusReading ? candidates.find(item => normalizeKanaReading(item?.reading || '') === tokenizerConsensusReading) : null)
+            || lookup.entry.readings[0]
+            || null;
         if (!provisional) continue;
         bestMatch = {
             surface: candidateSurface,
             reading: provisional.reading,
             length: end - startIndex + 1,
-            candidates: getGeneralWordCandidates(lookup),
-            ambiguous: lookup.entry.readings.length > 1,
-            variantMappings: lookup.variant?.mappings || []
+            candidates,
+            ambiguous: candidates.length > 1,
+            coverageIncomplete: !hasCompleteGeneralWordReadingCoverage(lookup),
+            variantMappings: lookup.variant?.mappings || [],
+            tokenizerConsensusVerbSpan
         };
     }
     return bestMatch;
@@ -455,15 +783,20 @@ function mergeGeneralWordTokens(tokens, sourceText = '') {
             merged.push(tokens[index]);
             continue;
         }
-        merged.push({
-            ...tokens[index], surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading,
-            pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*', generalWordMatched: true,
-            generalWordReading: bestMatch.reading, generalWordCandidates: bestMatch.candidates,
-            generalWordAmbiguous: bestMatch.ambiguous, generalWordVariantMappings: bestMatch.variantMappings,
-            numericExpression,
-            authoritativeSpanMatched: false, authoritativeSpanReading: null, authoritativeSpanRomaji: null,
-            authoritativeSpanSource: null, authoritativeSpanCategory: null, authoritativeSpanVariantMappings: []
-        });
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
+            surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading,
+            pos: bestMatch.tokenizerConsensusVerbSpan ? '動詞' : '名詞',
+            pos_detail_1: bestMatch.tokenizerConsensusVerbSpan ? '自立' : '一般', pos_detail_2: '*',
+            basic_form: bestMatch.tokenizerConsensusVerbSpan ? bestMatch.surface : undefined,
+            generalWordMatched: true, generalWordReading: bestMatch.reading, generalWordCandidates: bestMatch.candidates,
+            generalWordAmbiguous: bestMatch.ambiguous, generalWordCoverageIncomplete: bestMatch.coverageIncomplete, generalWordVariantMappings: bestMatch.variantMappings,
+            generalWordVerbSpanReconstructed: Boolean(bestMatch.tokenizerConsensusVerbSpan), numericExpression
+        }, {
+            annotations: ['generalWordMatched', 'generalWordReading', 'generalWordCandidates', 'generalWordAmbiguous', 'generalWordCoverageIncomplete', 'generalWordVariantMappings', 'numericExpression'],
+            evidenceSource: 'general-word-bank',
+            semanticRole: 'lexical-span',
+            reviewRequired: Boolean(bestMatch.ambiguous || bestMatch.coverageIncomplete)
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -492,8 +825,7 @@ function mergeRendakuEvidenceTokens(tokens) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestRendakuEvidence(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
             surface_form: bestMatch.surface,
             reading: bestMatch.reading,
             pronunciation: bestMatch.reading,
@@ -504,7 +836,11 @@ function mergeRendakuEvidenceTokens(tokens) {
             rendakuEvidenceReading: bestMatch.reading,
             rendakuEvidenceSource: bestMatch.source,
             rendakuApplied: bestMatch.rendaku
-        });
+        }, {
+            annotations: ['rendakuEvidenceMatched', 'rendakuEvidenceReading', 'rendakuEvidenceSource', 'rendakuApplied'],
+            evidenceSource: bestMatch.source || 'rendaku-evidence',
+            semanticRole: 'rendaku-reading'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -537,11 +873,26 @@ function findLongestHistoricalKanaEvidence(tokens, startIndex) {
 
 function tokenizeHistoricalRemainder(token, consumedCharacters) {
     const surface = String(token?.surface_form || '');
-    const remainder = Array.from(surface).slice(consumedCharacters).join('');
+    const characters = Array.from(surface);
+    const remainder = characters.slice(consumedCharacters).join('');
     if (!remainder) return [];
     // This is a post-tokenisation repair for an attested historical boundary.
     // Only the overshooting token fragment is retokenised; sentence context stays intact elsewhere.
-    return runtimeState.tokenizer ? runtimeState.tokenizer.tokenize(remainder) : [{ ...token, surface_form: remainder, reading: remainder, pronunciation: remainder }];
+    const retokenized = runtimeState.tokenizer ? runtimeState.tokenizer.tokenize(remainder) : [];
+    if (!retokenized.length) {
+        return [makeDerivedSubspanToken(token, consumedCharacters, characters.length, {
+            reading: remainder, pronunciation: remainder
+        }, { semanticRole: 'historical-remainder', evidenceSource: 'historical-kana-boundary' })];
+    }
+    let cursor = consumedCharacters;
+    return retokenized.map(item => {
+        const length = Array.from(String(item?.surface_form || '')).length;
+        const derived = makeDerivedSubspanToken(token, cursor, cursor + length, { ...item }, {
+            semanticRole: 'historical-remainder', evidenceSource: 'historical-kana-boundary'
+        });
+        cursor += length;
+        return derived;
+    });
 }
 
 function mergeHistoricalKanaEvidenceTokens(tokens) {
@@ -549,8 +900,7 @@ function mergeHistoricalKanaEvidenceTokens(tokens) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestHistoricalKanaEvidence(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({
-            ...tokens[index],
+        merged.push(makeDerivedMatchedSpanToken(tokens, index, bestMatch.endIndex, bestMatch.endOffset, {
             surface_form: bestMatch.surface,
             reading: bestMatch.reading,
             pronunciation: bestMatch.reading,
@@ -562,7 +912,11 @@ function mergeHistoricalKanaEvidenceTokens(tokens) {
             historicalKanaEvidenceReading: bestMatch.reading,
             historicalKanaEvidenceSource: bestMatch.source,
             historicalKanaEvidenceSourceType: bestMatch.sourceType
-        });
+        }, {
+            annotations: ['historicalKanaEvidenceMatched', 'historicalKanaEvidenceReading', 'historicalKanaEvidenceSource', 'historicalKanaEvidenceSourceType'],
+            evidenceSource: bestMatch.source || 'historical-kana-evidence',
+            semanticRole: 'historical-reading'
+        }));
         const finalToken = tokens[bestMatch.endIndex];
         const finalLength = Array.from(String(finalToken?.surface_form || '')).length;
         if (bestMatch.endOffset < finalLength) merged.push(...tokenizeHistoricalRemainder(finalToken, bestMatch.endOffset));
@@ -591,7 +945,11 @@ function mergeAtejiTokens(tokens) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestAteji(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        merged.push({ ...tokens[index], surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading, atejiMatched: true, atejiReading: bestMatch.reading });
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
+            surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading, atejiMatched: true, atejiReading: bestMatch.reading
+        }, {
+            annotations: ['atejiMatched', 'atejiReading'], evidenceSource: 'ateji-bank', semanticRole: 'ateji-reading'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -631,14 +989,18 @@ function shouldSuppressCountryNameLoanwordBeforeLanguageSuffix(tokens, startInde
 function makeMechanicalCountryNameFallbackToken(tokens, startIndex, bestMatch) {
     const matchedTokens = tokens.slice(startIndex, startIndex + bestMatch.length);
     const combinedReading = matchedTokens.map(token => getKuromojiDictionaryReading(token) || String(token?.surface_form || '')).join('');
-    return {
-        ...tokens[startIndex],
+    return makeDerivedSpanToken(tokens, startIndex, startIndex + bestMatch.length - 1, {
         surface_form: bestMatch.surface,
         reading: combinedReading || bestMatch.surface,
         pronunciation: combinedReading || bestMatch.surface,
         suppressLoanwordSourceSpelling: true,
         countryLanguageReviewRequired: true
-    };
+    }, {
+        annotations: ['suppressLoanwordSourceSpelling', 'countryLanguageReviewRequired'],
+        evidenceSource: 'country-language-mechanical-fallback',
+        semanticRole: 'loanword-country-name',
+        reviewRequired: true
+    });
 }
 
 function findLongestLoanword(tokens, startIndex) {
@@ -695,18 +1057,27 @@ function splitReviewedLoanwordToken(token) {
     if (!token || token.contextualOverrideMatched || token.titleReadingEvidenceMatched || token.rendakuEvidenceMatched || token.historicalKanaEvidenceMatched) return null;
     const segments = findUniqueReviewedLoanwordSegmentation(token.surface_form);
     if (!segments) return null;
-    return segments.map((segment, index) => ({
-        ...token,
-        surface_form: segment.surface,
-        reading: segment.surface,
-        pronunciation: segment.surface,
-        pos: '名詞',
-        pos_detail_1: '一般',
-        pos_detail_2: '*',
-        loanwordMatched: true,
-        loanwordOutput: segment.output,
-        ...(index > 0 ? { reviewedLexicalBoundaryBefore: true, reviewedLexicalBoundarySource: 'reviewed-loanword-segmentation' } : {})
-    }));
+    let cursor = 0;
+    return segments.map((segment, index) => {
+        const length = Array.from(segment.surface).length;
+        const derived = makeDerivedSubspanToken(token, cursor, cursor + length, {
+            surface_form: segment.surface,
+            reading: segment.surface,
+            pronunciation: segment.surface,
+            pos: '名詞',
+            pos_detail_1: '一般',
+            pos_detail_2: '*',
+            loanwordMatched: true,
+            loanwordOutput: segment.output,
+            ...(index > 0 ? { reviewedLexicalBoundaryBefore: true, reviewedLexicalBoundarySource: 'reviewed-loanword-segmentation' } : {})
+        }, {
+            annotations: ['loanwordMatched', 'loanwordOutput'],
+            evidenceSource: 'reviewed-loanword-segmentation',
+            semanticRole: 'loanword-segment'
+        });
+        cursor += length;
+        return derived;
+    });
 }
 
 function mergeLoanwordTokens(tokens) {
@@ -724,7 +1095,11 @@ function mergeLoanwordTokens(tokens) {
             index += bestMatch.length - 1;
             continue;
         }
-        merged.push({ ...tokens[index], surface_form: bestMatch.surface, loanwordMatched: true, loanwordOutput: bestMatch.output });
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
+            surface_form: bestMatch.surface, loanwordMatched: true, loanwordOutput: bestMatch.output
+        }, {
+            annotations: ['loanwordMatched', 'loanwordOutput'], evidenceSource: 'reviewed-loanword-bank', semanticRole: 'loanword-span'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;
@@ -780,8 +1155,7 @@ function getCanonicalNumericAliasReading(canonicalSurface) {
 
 function makeReviewedNumericAliasToken(tokens, startIndex, endIndex, canonicalSurface, resolved) {
     const span = tokens.slice(startIndex, endIndex + 1);
-    return {
-        ...span[0],
+    return makeDerivedSpanToken(tokens, startIndex, endIndex, {
         surface_form: span.map(token => String(token.surface_form || '')).join(''),
         reading: resolved.reading,
         pronunciation: resolved.reading,
@@ -795,7 +1169,11 @@ function makeReviewedNumericAliasToken(tokens, startIndex, endIndex, canonicalSu
         reviewedNumericAliasRomaji: resolved.romaji || null,
         reviewedNumericAliasSource: resolved.source,
         numericExpression: true
-    };
+    }, {
+        annotations: ['reviewedNumericAliasMatched', 'reviewedNumericAliasCanonicalSurface', 'reviewedNumericAliasReading', 'reviewedNumericAliasRomaji', 'reviewedNumericAliasSource', 'numericExpression'],
+        evidenceSource: resolved.source || 'reviewed-numeric-alias',
+        semanticRole: 'numeric-alias'
+    });
 }
 
 
@@ -858,15 +1236,17 @@ function expandKanaIterationReading(surface) {
 }
 
 function makeIterationFallbackToken(token, surface, reading) {
-    return {
-        ...token,
+    return makeDerivedSpanToken([token], 0, 0, {
         surface_form: surface,
         reading,
         pronunciation: reading,
         pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*', pos_detail_3: '*',
         iterationMarkFallbackMatched: true,
         iterationMarkFallbackReading: reading
-    };
+    }, {
+        annotations: ['iterationMarkFallbackMatched', 'iterationMarkFallbackReading'],
+        evidenceSource: 'iteration-mark-fallback', semanticRole: 'iteration-reading'
+    });
 }
 
 function mergeIterationMarkFallbackTokens(tokens) {
@@ -885,7 +1265,7 @@ function mergeIterationMarkFallbackTokens(tokens) {
         if (!hasReviewedLexicalBoundaryBefore(next) && String(next?.surface_form || '') === '々') {
             const reading = getSingleHanIterationFallbackReading(token);
             if (reading) {
-                merged.push(makeIterationFallbackToken(token, surface + '々', reading + reading));
+                merged.push(makeDerivedSpanToken(tokens, index, index + 1, { surface_form: surface + '々', reading: reading + reading, pronunciation: reading + reading, pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*', pos_detail_3: '*', iterationMarkFallbackMatched: true, iterationMarkFallbackReading: reading + reading }, { annotations: ['iterationMarkFallbackMatched', 'iterationMarkFallbackReading'], evidenceSource: 'iteration-mark-fallback', semanticRole: 'iteration-reading' }));
                 index += 1;
                 continue;
             }
@@ -895,7 +1275,7 @@ function mergeIterationMarkFallbackTokens(tokens) {
             const combinedSurface = surface + String(next.surface_form || '');
             const reading = expandKanaIterationReading(combinedSurface);
             if (reading) {
-                merged.push(makeIterationFallbackToken(token, combinedSurface, reading));
+                merged.push(makeDerivedSpanToken(tokens, index, index + 1, { surface_form: combinedSurface, reading, pronunciation: reading, pos: '名詞', pos_detail_1: '一般', pos_detail_2: '*', pos_detail_3: '*', iterationMarkFallbackMatched: true, iterationMarkFallbackReading: reading }, { annotations: ['iterationMarkFallbackMatched', 'iterationMarkFallbackReading'], evidenceSource: 'iteration-mark-fallback', semanticRole: 'iteration-reading' }));
                 index += 1;
                 continue;
             }
@@ -1020,8 +1400,7 @@ function tokenizeReviewedNameRemainder(token, consumedCharacters) {
     if (!remainder) return [];
     const honorificReading = getReviewedNameHonorificReading(remainder);
     if (honorificReading) {
-        return [{
-            ...token,
+        return [makeDerivedSubspanToken(token, consumedCharacters, Array.from(surface).length, {
             surface_form: remainder,
             reading: honorificReading,
             pronunciation: honorificReading,
@@ -1031,7 +1410,10 @@ function tokenizeReviewedNameRemainder(token, consumedCharacters) {
             pos_detail_3: '*',
             reviewedNameHonorificMatched: true,
             reviewedNameHonorificReading: honorificReading
-        }];
+        }, {
+            annotations: ['reviewedNameHonorificMatched', 'reviewedNameHonorificReading'],
+            evidenceSource: 'reviewed-name-honorific', semanticRole: 'name-honorific'
+        })];
     }
     return tokenizeHistoricalRemainder(token, consumedCharacters);
 }
@@ -1042,13 +1424,16 @@ function mergeReviewedProperNameSpanTokens(tokens) {
         const bestMatch = findLongestReviewedProperNameSpan(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
         const personLike = bestMatch.category === 'person' || bestMatch.category === 'name';
-        merged.push({
-            ...tokens[index], surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading,
+        merged.push(makeDerivedMatchedSpanToken(tokens, index, bestMatch.endIndex, bestMatch.endOffset, {
+            surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading,
             pos: '名詞', pos_detail_1: '固有名詞', pos_detail_2: personLike ? '人名' : '地域', pos_detail_3: '*',
             reviewedProperNameSpanMatched: true, reviewedProperNameSpanRomaji: bestMatch.romaji,
             reviewedProperNameLookupSurface: bestMatch.lookupSurface,
             reviewedProperNameVariantMappings: normalizeKanjiForLookupDetailed(bestMatch.surface, { names: true }).mappings
-        });
+        }, {
+            annotations: ['reviewedProperNameSpanMatched', 'reviewedProperNameSpanRomaji', 'reviewedProperNameLookupSurface', 'reviewedProperNameVariantMappings'],
+            evidenceSource: 'reviewed-proper-name-span', semanticRole: 'proper-name-span'
+        }));
         const finalToken = tokens[bestMatch.endIndex];
         const finalLength = Array.from(String(finalToken?.surface_form || '')).length;
         if (bestMatch.endOffset < finalLength) merged.push(...tokenizeReviewedNameRemainder(finalToken, bestMatch.endOffset));
@@ -1109,18 +1494,49 @@ function findLongestVariantProperNoun(tokens, startIndex) {
     return bestMatch;
 }
 
-function tokenizeCanonicalVariantProperNoun(bestMatch) {
+function tokenizeCanonicalVariantProperNoun(bestMatch, sourceTokens, startIndex) {
     if (!runtimeState.tokenizer || !bestMatch?.lookupSurface) return [];
     const canonicalTokens = runtimeState.tokenizer.tokenize(bestMatch.lookupSurface) || [];
     const reconstructed = canonicalTokens.map(token => String(token.surface_form || '')).join('');
     if (!canonicalTokens.length || reconstructed !== bestMatch.lookupSurface) return [];
-    return canonicalTokens.map(token => ({
-        ...token,
-        variantCanonicalRetokenized: true,
-        variantOriginalSurface: bestMatch.surface,
-        variantLookupSurface: bestMatch.lookupSurface,
-        variantMappings: bestMatch.variant.mappings
-    }));
+
+    const originalCharacters = Array.from(String(bestMatch.surface || ''));
+    const canonicalCharacters = Array.from(String(bestMatch.lookupSurface || ''));
+    if (originalCharacters.length !== canonicalCharacters.length) return [];
+    const fullSourceSpan = getCompleteDerivedSourceSpan(sourceTokens, startIndex, startIndex + bestMatch.length - 1);
+    if (!fullSourceSpan) {
+        return canonicalTokens.map(token => ({
+            ...token,
+            variantCanonicalRetokenized: true,
+            variantOriginalSurface: bestMatch.surface,
+            variantLookupSurface: bestMatch.lookupSurface,
+            variantMappings: bestMatch.variant.mappings
+        }));
+    }
+    const sourceToken = {
+        surface_form: bestMatch.surface,
+        sourceStart: fullSourceSpan.sourceStart,
+        sourceEnd: fullSourceSpan.sourceEnd,
+        sourceSurface: fullSourceSpan.sourceSurface
+    };
+    let characterOffset = 0;
+    const derived = [];
+    for (const canonicalToken of canonicalTokens) {
+        const canonicalLength = Array.from(String(canonicalToken.surface_form || '')).length;
+        if (!canonicalLength || characterOffset + canonicalLength > originalCharacters.length) return [];
+        derived.push(makeDerivedSubspanToken(sourceToken, characterOffset, characterOffset + canonicalLength, {
+            ...canonicalToken,
+            variantCanonicalRetokenized: true,
+            variantOriginalSurface: originalCharacters.slice(characterOffset, characterOffset + canonicalLength).join(''),
+            variantLookupSurface: String(canonicalToken.surface_form || ''),
+            variantMappings: bestMatch.variant.mappings
+        }, {
+            annotations: ['variantCanonicalRetokenized', 'variantOriginalSurface', 'variantLookupSurface', 'variantMappings'],
+            evidenceSource: 'proper-noun-variant-canonical-retokenization', semanticRole: 'proper-name-canonical-subspan'
+        }));
+        characterOffset += canonicalLength;
+    }
+    return characterOffset === originalCharacters.length ? derived : [];
 }
 
 function mergeVariantProperNounTokens(tokens) {
@@ -1128,18 +1544,21 @@ function mergeVariantProperNounTokens(tokens) {
     for (let index = 0; index < tokens.length; index += 1) {
         const bestMatch = findLongestVariantProperNoun(tokens, index);
         if (!bestMatch) { merged.push(tokens[index]); continue; }
-        const canonicalTokens = tokenizeCanonicalVariantProperNoun(bestMatch);
+        const canonicalTokens = tokenizeCanonicalVariantProperNoun(bestMatch, tokens, index);
         if (canonicalTokens.length) {
             merged.push(...canonicalTokens);
             index += bestMatch.length - 1;
             continue;
         }
         const details = inferVariantProperNounDetails(bestMatch.candidates);
-        merged.push({
-            ...tokens[index], surface_form: bestMatch.surface, reading: '*', pronunciation: '*', pos: '名詞', pos_detail_1: '固有名詞',
+        merged.push(makeDerivedSpanToken(tokens, index, index + bestMatch.length - 1, {
+            surface_form: bestMatch.surface, reading: '*', pronunciation: '*', pos: '名詞', pos_detail_1: '固有名詞',
             pos_detail_2: details.pos_detail_2, pos_detail_3: details.pos_detail_3, variantProperNounMatched: true,
             variantLookupSurface: bestMatch.lookupSurface, variantMappings: bestMatch.variant.mappings
-        });
+        }, {
+            annotations: ['variantProperNounMatched', 'variantLookupSurface', 'variantMappings'],
+            evidenceSource: 'proper-noun-variant-evidence', semanticRole: 'proper-name-span'
+        }));
         index += bestMatch.length - 1;
     }
     return merged;

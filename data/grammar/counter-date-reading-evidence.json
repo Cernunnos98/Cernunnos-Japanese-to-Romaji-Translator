@@ -2,702 +2,970 @@
   {
     "surface": "一人",
     "reading": "ひとり",
-    "romaji": "Hitori"
+    "romaji": "Hitori",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "二人",
     "reading": "ふたり",
-    "romaji": "Futari"
+    "romaji": "Futari",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "三人",
     "reading": "さんにん",
-    "romaji": "Sannin"
+    "romaji": "Sannin",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "四人",
     "reading": "よにん",
-    "romaji": "Yonin"
+    "romaji": "Yonin",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "一日",
     "reading": "ついたち",
-    "romaji": "Tsuitachi"
+    "romaji": "Tsuitachi",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "二日",
     "reading": "ふつか",
-    "romaji": "Futsuka"
+    "romaji": "Futsuka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "三日",
     "reading": "みっか",
-    "romaji": "Mikka"
+    "romaji": "Mikka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "四日",
     "reading": "よっか",
-    "romaji": "Yokka"
+    "romaji": "Yokka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "五日",
     "reading": "いつか",
-    "romaji": "Itsuka"
+    "romaji": "Itsuka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "六日",
     "reading": "むいか",
-    "romaji": "Muika"
+    "romaji": "Muika",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "七日",
     "reading": "なのか",
-    "romaji": "Nanoka"
+    "romaji": "Nanoka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "八日",
     "reading": "ようか",
-    "romaji": "Youka"
+    "romaji": "Youka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "九日",
     "reading": "ここのか",
-    "romaji": "Kokonoka"
+    "romaji": "Kokonoka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "十日",
     "reading": "とおか",
-    "romaji": "Tooka"
+    "romaji": "Tooka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "十四日",
     "reading": "じゅうよっか",
-    "romaji": "Juuyokka"
+    "romaji": "Juuyokka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "二十日",
     "reading": "はつか",
-    "romaji": "Hatsuka"
+    "romaji": "Hatsuka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "二十四日",
     "reading": "にじゅうよっか",
-    "romaji": "Nijuuyokka"
+    "romaji": "Nijuuyokka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "一個",
     "reading": "いっこ",
-    "romaji": "Ikko"
+    "romaji": "Ikko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "六個",
     "reading": "ろっこ",
-    "romaji": "Rokko"
+    "romaji": "Rokko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "八個",
     "reading": "はっこ",
-    "romaji": "Hakko"
+    "romaji": "Hakko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "十個",
     "reading": "じゅっこ",
-    "romaji": "Jukko"
+    "romaji": "Jukko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "一匹",
     "reading": "いっぴき",
-    "romaji": "Ippiki"
+    "romaji": "Ippiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "三匹",
     "reading": "さんびき",
-    "romaji": "Sanbiki"
+    "romaji": "Sanbiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "六匹",
     "reading": "ろっぴき",
-    "romaji": "Roppiki"
+    "romaji": "Roppiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "八匹",
     "reading": "はっぴき",
-    "romaji": "Happiki"
+    "romaji": "Happiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "十匹",
     "reading": "じゅっぴき",
-    "romaji": "Juppiki"
+    "romaji": "Juppiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "一本",
     "reading": "いっぽん",
-    "romaji": "Ippon"
+    "romaji": "Ippon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "三本",
     "reading": "さんぼん",
-    "romaji": "Sanbon"
+    "romaji": "Sanbon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "六本",
     "reading": "ろっぽん",
-    "romaji": "Roppon"
+    "romaji": "Roppon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "八本",
     "reading": "はっぽん",
-    "romaji": "Happon"
+    "romaji": "Happon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "十本",
     "reading": "じゅっぽん",
-    "romaji": "Juppon"
+    "romaji": "Juppon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "一冊",
     "reading": "いっさつ",
-    "romaji": "Issatsu"
+    "romaji": "Issatsu",
+    "role": "counter",
+    "unit": "冊"
   },
   {
     "surface": "八冊",
     "reading": "はっさつ",
-    "romaji": "Hassatsu"
+    "romaji": "Hassatsu",
+    "role": "counter",
+    "unit": "冊"
   },
   {
     "surface": "十冊",
     "reading": "じゅっさつ",
-    "romaji": "Jussatsu"
+    "romaji": "Jussatsu",
+    "role": "counter",
+    "unit": "冊"
   },
   {
     "surface": "一回",
     "reading": "いっかい",
-    "romaji": "Ikkai"
+    "romaji": "Ikkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "六回",
     "reading": "ろっかい",
-    "romaji": "Rokkai"
+    "romaji": "Rokkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "八回",
     "reading": "はっかい",
-    "romaji": "Hakkai"
+    "romaji": "Hakkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "十回",
     "reading": "じゅっかい",
-    "romaji": "Jukkai"
+    "romaji": "Jukkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "一階",
     "reading": "いっかい",
-    "romaji": "Ikkai"
+    "romaji": "Ikkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "三階",
     "reading": "さんがい",
-    "romaji": "Sangai"
+    "romaji": "Sangai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "六階",
     "reading": "ろっかい",
-    "romaji": "Rokkai"
+    "romaji": "Rokkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "八階",
     "reading": "はっかい",
-    "romaji": "Hakkai"
+    "romaji": "Hakkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "十階",
     "reading": "じゅっかい",
-    "romaji": "Jukkai"
+    "romaji": "Jukkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "一分",
     "reading": "いっぷん",
-    "romaji": "Ippun"
+    "romaji": "Ippun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "三分",
     "reading": "さんぷん",
-    "romaji": "Sanpun"
+    "romaji": "Sanpun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "四分",
     "reading": "よんぷん",
-    "romaji": "Yonpun"
+    "romaji": "Yonpun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "六分",
     "reading": "ろっぷん",
-    "romaji": "Roppun"
+    "romaji": "Roppun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "八分",
     "reading": "はっぷん",
-    "romaji": "Happun"
+    "romaji": "Happun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "十分",
     "reading": "じゅっぷん",
-    "romaji": "Juppun"
+    "romaji": "Juppun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "一杯",
     "reading": "いっぱい",
-    "romaji": "Ippai"
+    "romaji": "Ippai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "三杯",
     "reading": "さんばい",
-    "romaji": "Sanbai"
+    "romaji": "Sanbai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "六杯",
     "reading": "ろっぱい",
-    "romaji": "Roppai"
+    "romaji": "Roppai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "八杯",
     "reading": "はっぱい",
-    "romaji": "Happai"
+    "romaji": "Happai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "十杯",
     "reading": "じゅっぱい",
-    "romaji": "Juppai"
+    "romaji": "Juppai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "一歳",
     "reading": "いっさい",
-    "romaji": "Issai"
+    "romaji": "Issai",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "八歳",
     "reading": "はっさい",
-    "romaji": "Hassai"
+    "romaji": "Hassai",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "十歳",
     "reading": "じゅっさい",
-    "romaji": "Jussai"
+    "romaji": "Jussai",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "二十歳",
     "reading": "はたち",
-    "romaji": "Hatachi"
+    "romaji": "Hatachi",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "一千",
     "reading": "いっせん",
-    "romaji": "Issen"
+    "romaji": "Issen",
+    "role": "numeric-component"
   },
   {
     "surface": "八千",
     "reading": "はっせん",
-    "romaji": "Hassen"
+    "romaji": "Hassen",
+    "role": "numeric-component"
   },
   {
     "surface": "三千",
     "reading": "さんぜん",
-    "romaji": "Sanzen"
+    "romaji": "Sanzen",
+    "role": "numeric-component"
   },
   {
     "surface": "三百",
     "reading": "さんびゃく",
-    "romaji": "Sanbyaku"
+    "romaji": "Sanbyaku",
+    "role": "numeric-component"
   },
   {
     "surface": "六百",
     "reading": "ろっぴゃく",
-    "romaji": "Roppyaku"
+    "romaji": "Roppyaku",
+    "role": "numeric-component"
   },
   {
     "surface": "八百",
     "reading": "はっぴゃく",
-    "romaji": "Happyaku"
+    "romaji": "Happyaku",
+    "role": "numeric-component"
   },
   {
     "surface": "1人",
     "reading": "ひとり",
-    "romaji": "Hitori"
+    "romaji": "Hitori",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "2人",
     "reading": "ふたり",
-    "romaji": "Futari"
+    "romaji": "Futari",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "3人",
     "reading": "さんにん",
-    "romaji": "Sannin"
+    "romaji": "Sannin",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "4人",
     "reading": "よにん",
-    "romaji": "Yonin"
+    "romaji": "Yonin",
+    "role": "counter",
+    "unit": "人"
   },
   {
     "surface": "1日",
     "reading": "ついたち",
-    "romaji": "Tsuitachi"
+    "romaji": "Tsuitachi",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "2日",
     "reading": "ふつか",
-    "romaji": "Futsuka"
+    "romaji": "Futsuka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "3日",
     "reading": "みっか",
-    "romaji": "Mikka"
+    "romaji": "Mikka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "4日",
     "reading": "よっか",
-    "romaji": "Yokka"
+    "romaji": "Yokka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "5日",
     "reading": "いつか",
-    "romaji": "Itsuka"
+    "romaji": "Itsuka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "6日",
     "reading": "むいか",
-    "romaji": "Muika"
+    "romaji": "Muika",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "7日",
     "reading": "なのか",
-    "romaji": "Nanoka"
+    "romaji": "Nanoka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "8日",
     "reading": "ようか",
-    "romaji": "Youka"
+    "romaji": "Youka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "9日",
     "reading": "ここのか",
-    "romaji": "Kokonoka"
+    "romaji": "Kokonoka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "10日",
     "reading": "とおか",
-    "romaji": "Tooka"
+    "romaji": "Tooka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "14日",
     "reading": "じゅうよっか",
-    "romaji": "Juuyokka"
+    "romaji": "Juuyokka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "20日",
     "reading": "はつか",
-    "romaji": "Hatsuka"
+    "romaji": "Hatsuka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "24日",
     "reading": "にじゅうよっか",
-    "romaji": "Nijuuyokka"
+    "romaji": "Nijuuyokka",
+    "role": "calendar-date",
+    "unit": "日"
   },
   {
     "surface": "1個",
     "reading": "いっこ",
-    "romaji": "Ikko"
+    "romaji": "Ikko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "6個",
     "reading": "ろっこ",
-    "romaji": "Rokko"
+    "romaji": "Rokko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "8個",
     "reading": "はっこ",
-    "romaji": "Hakko"
+    "romaji": "Hakko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "10個",
     "reading": "じゅっこ",
-    "romaji": "Jukko"
+    "romaji": "Jukko",
+    "role": "counter",
+    "unit": "個"
   },
   {
     "surface": "1匹",
     "reading": "いっぴき",
-    "romaji": "Ippiki"
+    "romaji": "Ippiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "3匹",
     "reading": "さんびき",
-    "romaji": "Sanbiki"
+    "romaji": "Sanbiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "6匹",
     "reading": "ろっぴき",
-    "romaji": "Roppiki"
+    "romaji": "Roppiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "8匹",
     "reading": "はっぴき",
-    "romaji": "Happiki"
+    "romaji": "Happiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "10匹",
     "reading": "じゅっぴき",
-    "romaji": "Juppiki"
+    "romaji": "Juppiki",
+    "role": "counter",
+    "unit": "匹"
   },
   {
     "surface": "1本",
     "reading": "いっぽん",
-    "romaji": "Ippon"
+    "romaji": "Ippon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "3本",
     "reading": "さんぼん",
-    "romaji": "Sanbon"
+    "romaji": "Sanbon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "6本",
     "reading": "ろっぽん",
-    "romaji": "Roppon"
+    "romaji": "Roppon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "8本",
     "reading": "はっぽん",
-    "romaji": "Happon"
+    "romaji": "Happon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "10本",
     "reading": "じゅっぽん",
-    "romaji": "Juppon"
+    "romaji": "Juppon",
+    "role": "counter",
+    "unit": "本"
   },
   {
     "surface": "1冊",
     "reading": "いっさつ",
-    "romaji": "Issatsu"
+    "romaji": "Issatsu",
+    "role": "counter",
+    "unit": "冊"
   },
   {
     "surface": "8冊",
     "reading": "はっさつ",
-    "romaji": "Hassatsu"
+    "romaji": "Hassatsu",
+    "role": "counter",
+    "unit": "冊"
   },
   {
     "surface": "10冊",
     "reading": "じゅっさつ",
-    "romaji": "Jussatsu"
+    "romaji": "Jussatsu",
+    "role": "counter",
+    "unit": "冊"
   },
   {
     "surface": "1回",
     "reading": "いっかい",
-    "romaji": "Ikkai"
+    "romaji": "Ikkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "6回",
     "reading": "ろっかい",
-    "romaji": "Rokkai"
+    "romaji": "Rokkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "8回",
     "reading": "はっかい",
-    "romaji": "Hakkai"
+    "romaji": "Hakkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "10回",
     "reading": "じゅっかい",
-    "romaji": "Jukkai"
+    "romaji": "Jukkai",
+    "role": "counter",
+    "unit": "回"
   },
   {
     "surface": "1階",
     "reading": "いっかい",
-    "romaji": "Ikkai"
+    "romaji": "Ikkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "3階",
     "reading": "さんがい",
-    "romaji": "Sangai"
+    "romaji": "Sangai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "6階",
     "reading": "ろっかい",
-    "romaji": "Rokkai"
+    "romaji": "Rokkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "8階",
     "reading": "はっかい",
-    "romaji": "Hakkai"
+    "romaji": "Hakkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "10階",
     "reading": "じゅっかい",
-    "romaji": "Jukkai"
+    "romaji": "Jukkai",
+    "role": "counter",
+    "unit": "階"
   },
   {
     "surface": "1分",
     "reading": "いっぷん",
-    "romaji": "Ippun"
+    "romaji": "Ippun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "3分",
     "reading": "さんぷん",
-    "romaji": "Sanpun"
+    "romaji": "Sanpun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "4分",
     "reading": "よんぷん",
-    "romaji": "Yonpun"
+    "romaji": "Yonpun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "6分",
     "reading": "ろっぷん",
-    "romaji": "Roppun"
+    "romaji": "Roppun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "8分",
     "reading": "はっぷん",
-    "romaji": "Happun"
+    "romaji": "Happun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "10分",
     "reading": "じゅっぷん",
-    "romaji": "Juppun"
+    "romaji": "Juppun",
+    "role": "minute-counter",
+    "unit": "分"
   },
   {
     "surface": "1杯",
     "reading": "いっぱい",
-    "romaji": "Ippai"
+    "romaji": "Ippai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "3杯",
     "reading": "さんばい",
-    "romaji": "Sanbai"
+    "romaji": "Sanbai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "6杯",
     "reading": "ろっぱい",
-    "romaji": "Roppai"
+    "romaji": "Roppai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "8杯",
     "reading": "はっぱい",
-    "romaji": "Happai"
+    "romaji": "Happai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "10杯",
     "reading": "じゅっぱい",
-    "romaji": "Juppai"
+    "romaji": "Juppai",
+    "role": "counter",
+    "unit": "杯"
   },
   {
     "surface": "1歳",
     "reading": "いっさい",
-    "romaji": "Issai"
+    "romaji": "Issai",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "8歳",
     "reading": "はっさい",
-    "romaji": "Hassai"
+    "romaji": "Hassai",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "10歳",
     "reading": "じゅっさい",
-    "romaji": "Jussai"
+    "romaji": "Jussai",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "20歳",
     "reading": "はたち",
-    "romaji": "Hatachi"
+    "romaji": "Hatachi",
+    "role": "counter",
+    "unit": "歳"
   },
   {
     "surface": "1千",
     "reading": "いっせん",
-    "romaji": "Issen"
+    "romaji": "Issen",
+    "role": "numeric-component"
   },
   {
     "surface": "8千",
     "reading": "はっせん",
-    "romaji": "Hassen"
+    "romaji": "Hassen",
+    "role": "numeric-component"
   },
   {
     "surface": "3千",
     "reading": "さんぜん",
-    "romaji": "Sanzen"
+    "romaji": "Sanzen",
+    "role": "numeric-component"
   },
   {
     "surface": "3百",
     "reading": "さんびゃく",
-    "romaji": "Sanbyaku"
+    "romaji": "Sanbyaku",
+    "role": "numeric-component"
   },
   {
     "surface": "6百",
     "reading": "ろっぴゃく",
-    "romaji": "Roppyaku"
+    "romaji": "Roppyaku",
+    "role": "numeric-component"
   },
   {
     "surface": "8百",
     "reading": "はっぴゃく",
-    "romaji": "Happyaku"
+    "romaji": "Happyaku",
+    "role": "numeric-component"
   },
   {
     "surface": "1月",
     "reading": "いちがつ",
-    "romaji": "Ichigatsu"
+    "romaji": "Ichigatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "2月",
     "reading": "にがつ",
-    "romaji": "Nigatsu"
+    "romaji": "Nigatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "3月",
     "reading": "さんがつ",
-    "romaji": "Sangatsu"
+    "romaji": "Sangatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "4月",
     "reading": "しがつ",
-    "romaji": "Shigatsu"
+    "romaji": "Shigatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "5月",
     "reading": "ごがつ",
-    "romaji": "Gogatsu"
+    "romaji": "Gogatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "6月",
     "reading": "ろくがつ",
-    "romaji": "Rokugatsu"
+    "romaji": "Rokugatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "7月",
     "reading": "しちがつ",
-    "romaji": "Shichigatsu"
+    "romaji": "Shichigatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "8月",
     "reading": "はちがつ",
-    "romaji": "Hachigatsu"
+    "romaji": "Hachigatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "9月",
     "reading": "くがつ",
-    "romaji": "Kugatsu"
+    "romaji": "Kugatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "10月",
     "reading": "じゅうがつ",
-    "romaji": "Juugatsu"
+    "romaji": "Juugatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "11月",
     "reading": "じゅういちがつ",
-    "romaji": "Juuichigatsu"
+    "romaji": "Juuichigatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "12月",
     "reading": "じゅうにがつ",
-    "romaji": "Juunigatsu"
+    "romaji": "Juunigatsu",
+    "role": "calendar-month",
+    "unit": "月"
   },
   {
     "surface": "一箇月",
@@ -709,7 +977,9 @@
       "一ヵ月"
     ],
     "reading": "いっかげつ",
-    "romaji": "Ikkagetsu"
+    "romaji": "Ikkagetsu",
+    "role": "duration-month",
+    "unit": "箇月"
   },
   {
     "surface": "一箇所",
@@ -721,7 +991,9 @@
       "一ヵ所"
     ],
     "reading": "いっかしょ",
-    "romaji": "Ikkasho"
+    "romaji": "Ikkasho",
+    "role": "place-counter",
+    "unit": "箇所"
   },
   {
     "surface": "六箇月",
@@ -733,7 +1005,9 @@
       "六ヵ月"
     ],
     "reading": "ろっかげつ",
-    "romaji": "Rokkagetsu"
+    "romaji": "Rokkagetsu",
+    "role": "duration-month",
+    "unit": "箇月"
   },
   {
     "surface": "十箇月",
@@ -745,7 +1019,9 @@
       "十ヵ月"
     ],
     "reading": "じゅっかげつ",
-    "romaji": "Jukkagetsu"
+    "romaji": "Jukkagetsu",
+    "role": "duration-month",
+    "unit": "箇月"
   },
   {
     "surface": "六箇所",
@@ -757,7 +1033,9 @@
       "六ヵ所"
     ],
     "reading": "ろっかしょ",
-    "romaji": "Rokkasho"
+    "romaji": "Rokkasho",
+    "role": "place-counter",
+    "unit": "箇所"
   },
   {
     "surface": "八箇所",
@@ -769,7 +1047,9 @@
       "八ヵ所"
     ],
     "reading": "はっかしょ",
-    "romaji": "Hakkasho"
+    "romaji": "Hakkasho",
+    "role": "place-counter",
+    "unit": "箇所"
   },
   {
     "surface": "十箇所",
@@ -781,22 +1061,27 @@
       "十ヵ所"
     ],
     "reading": "じゅっかしょ",
-    "romaji": "Jukkasho"
+    "romaji": "Jukkasho",
+    "role": "place-counter",
+    "unit": "箇所"
   },
   {
     "surface": "一兆",
     "reading": "いっちょう",
-    "romaji": "Icchou"
+    "romaji": "Icchou",
+    "role": "numeric-component"
   },
   {
     "surface": "八兆",
     "reading": "はっちょう",
-    "romaji": "Hacchou"
+    "romaji": "Hacchou",
+    "role": "numeric-component"
   },
   {
     "surface": "十兆",
     "reading": "じゅっちょう",
-    "romaji": "Jucchou"
+    "romaji": "Jucchou",
+    "role": "numeric-component"
   },
   {
     "surface": "零時",
@@ -804,7 +1089,9 @@
       "0時"
     ],
     "reading": "れいじ",
-    "romaji": "Reiji"
+    "romaji": "Reiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "一時",
@@ -812,7 +1099,9 @@
       "1時"
     ],
     "reading": "いちじ",
-    "romaji": "Ichiji"
+    "romaji": "Ichiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "二時",
@@ -820,7 +1109,9 @@
       "2時"
     ],
     "reading": "にじ",
-    "romaji": "Niji"
+    "romaji": "Niji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "三時",
@@ -828,7 +1119,9 @@
       "3時"
     ],
     "reading": "さんじ",
-    "romaji": "Sanji"
+    "romaji": "Sanji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "四時",
@@ -836,7 +1129,9 @@
       "4時"
     ],
     "reading": "よじ",
-    "romaji": "Yoji"
+    "romaji": "Yoji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "五時",
@@ -844,7 +1139,9 @@
       "5時"
     ],
     "reading": "ごじ",
-    "romaji": "Goji"
+    "romaji": "Goji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "六時",
@@ -852,7 +1149,9 @@
       "6時"
     ],
     "reading": "ろくじ",
-    "romaji": "Rokuji"
+    "romaji": "Rokuji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "七時",
@@ -860,7 +1159,9 @@
       "7時"
     ],
     "reading": "しちじ",
-    "romaji": "Shichiji"
+    "romaji": "Shichiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "八時",
@@ -868,7 +1169,9 @@
       "8時"
     ],
     "reading": "はちじ",
-    "romaji": "Hachiji"
+    "romaji": "Hachiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "九時",
@@ -876,7 +1179,9 @@
       "9時"
     ],
     "reading": "くじ",
-    "romaji": "Kuji"
+    "romaji": "Kuji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十時",
@@ -884,7 +1189,9 @@
       "10時"
     ],
     "reading": "じゅうじ",
-    "romaji": "Juuji"
+    "romaji": "Juuji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十一時",
@@ -892,7 +1199,9 @@
       "11時"
     ],
     "reading": "じゅういちじ",
-    "romaji": "Juuichiji"
+    "romaji": "Juuichiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十二時",
@@ -900,7 +1209,9 @@
       "12時"
     ],
     "reading": "じゅうにじ",
-    "romaji": "Juuniji"
+    "romaji": "Juuniji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十三時",
@@ -908,7 +1219,9 @@
       "13時"
     ],
     "reading": "じゅうさんじ",
-    "romaji": "Juusanji"
+    "romaji": "Juusanji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十四時",
@@ -916,7 +1229,9 @@
       "14時"
     ],
     "reading": "じゅうよじ",
-    "romaji": "Juuyoji"
+    "romaji": "Juuyoji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十五時",
@@ -924,7 +1239,9 @@
       "15時"
     ],
     "reading": "じゅうごじ",
-    "romaji": "Juugoji"
+    "romaji": "Juugoji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十六時",
@@ -932,7 +1249,9 @@
       "16時"
     ],
     "reading": "じゅうろくじ",
-    "romaji": "Juurokuji"
+    "romaji": "Juurokuji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十七時",
@@ -940,7 +1259,9 @@
       "17時"
     ],
     "reading": "じゅうしちじ",
-    "romaji": "Juushichiji"
+    "romaji": "Juushichiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十八時",
@@ -948,7 +1269,9 @@
       "18時"
     ],
     "reading": "じゅうはちじ",
-    "romaji": "Juuhachiji"
+    "romaji": "Juuhachiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "十九時",
@@ -956,7 +1279,9 @@
       "19時"
     ],
     "reading": "じゅうくじ",
-    "romaji": "Juukuji"
+    "romaji": "Juukuji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "二十時",
@@ -964,7 +1289,9 @@
       "20時"
     ],
     "reading": "にじゅうじ",
-    "romaji": "Nijuuji"
+    "romaji": "Nijuuji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "二十一時",
@@ -972,7 +1299,9 @@
       "21時"
     ],
     "reading": "にじゅういちじ",
-    "romaji": "Nijuuichiji"
+    "romaji": "Nijuuichiji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "二十二時",
@@ -980,7 +1309,9 @@
       "22時"
     ],
     "reading": "にじゅうにじ",
-    "romaji": "Nijuuniji"
+    "romaji": "Nijuuniji",
+    "role": "clock-hour",
+    "unit": "時"
   },
   {
     "surface": "二十三時",
@@ -988,6 +1319,8 @@
       "23時"
     ],
     "reading": "にじゅうさんじ",
-    "romaji": "Nijuusanji"
+    "romaji": "Nijuusanji",
+    "role": "clock-hour",
+    "unit": "時"
   }
 ]

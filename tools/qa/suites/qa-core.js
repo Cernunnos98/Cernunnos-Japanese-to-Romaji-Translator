@@ -4,6 +4,9 @@ if (!qaInternals) throw new Error('CJ2R runtime diagnostic internals are unavail
 const {
     addSurfacePrefixes,
     attachSourceTokenSpans,
+    makeDerivedSpanToken,
+    makeDerivedSubspanToken,
+    validateSourceTokenIntegrity,
     annotateMorphologicalOutputBoundaries,
     blockUnresolvedHanFromRomaji,
     buildTranslationDiagnostics,
@@ -18,6 +21,8 @@ const {
     convertToken,
     createRuntimeState,
     createCoalescingScheduler,
+    discoverSourceSpanCandidates,
+    validateSourceSpanCandidates,
     deduplicateKanjiReadingsForDisplay,
     findExactOverride,
     findLongestAuthoritativeSpan,
@@ -44,6 +49,10 @@ const {
     makeReadingResolution,
     markJapaneseSingleQuotes,
     markUnreviewedNameContextTokens,
+    markAmbiguousNumericRoleTokens,
+    markTypedClockHourRoleTokens,
+    markTypedMinuteCounterRoleTokens,
+    applyTypedNumericRoleReadings,
     mergeCasualSpeechTokens,
     mergeDesiderativeGaruTokens,
     mergeAtejiTokens,
@@ -79,6 +88,7 @@ const {
     shouldJoinNumericTokens,
     shouldSeparateNumericTokens,
     splitStructuredNumericUnitTokens,
+    applyStructuredFractionOutputTokens,
     stripIdeographicVariationSelectors,
     translateText,
     translateTextFromTokenizationForQa,
@@ -505,14 +515,22 @@ function runTranslatorGeneratedQA(options = {}) {
         const readingValid = /^[ぁ-ゖァ-ンヴー]+$/u.test(entry?.reading || '');
         const romaji = String(entry?.romaji || '').trim();
         const romajiSafe = Boolean(romaji) && !containsHan(romaji) && !/[ĀĒĪŌŪāēīōū]/u.test(romaji);
-        const translated = runtimeState.tokenizer ? translateForRegression(surface, false) : romaji;
+        const audit = runtimeState.tokenizer ? translateAuditForGeneratedQa(surface, false) : { output: romaji, requiresReview: false };
+        const lexicalCandidates = entry?.role === 'minute-counter' ? getGeneralWordCandidates(getGeneralWordLookup(surface)) : [];
+        const competingLexicalOutputs = lexicalCandidates
+            .filter(candidate => normalizeKanaReading(candidate?.reading || '') !== normalizeKanaReading(entry?.reading || ''))
+            .map(candidate => capitalizeRomaji(convertToRomaji(candidate.reading || '')));
+        const roleConflictHandled = competingLexicalOutputs.length > 0
+            && audit.requiresReview
+            && competingLexicalOutputs.includes(audit.output);
+        const translationValid = audit.output === romaji || roleConflictHandled;
         results.push(makeQaResult(
             `QA-COUNTER-DATE-${surface}`,
             'counter-date-bank',
             surface,
-            readingValid && romajiSafe && translated === romaji,
-            `reading=${entry?.reading || ''}; romaji=${romaji}; translated=${translated}`,
-            'reviewed counter/date reading and Rule 0 output are used unchanged'
+            readingValid && romajiSafe && translationValid,
+            `role=${entry?.role || ''}; reading=${entry?.reading || ''}; romaji=${romaji}; translated=${audit.output}; review=${audit.requiresReview}`,
+            'reviewed counter/date evidence is Rule 0-safe and is used only when its semantic role is established; incompatible lexical evidence remains reviewable'
         ));
     }
 

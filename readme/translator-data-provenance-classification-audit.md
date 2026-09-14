@@ -15,9 +15,9 @@ A `complete` entry is sufficiently documented for maintained release use. `parti
 
 `data/translator-data-provenance-classification.json` contains **39** entries:
 
-- project-authored/manual: **11**
+- project-authored/manual: **10**
 - externally-derived: **22**
-- mixed: **6**
+- mixed: **7**
 - complete: **39**
 - partial: **0**
 
@@ -25,11 +25,32 @@ A `complete` entry is sufficiently documented for maintained release use. `parti
 
 ### Common-word bank
 
-`data/common-words/common-words-term-bank-1.json` records a source label per row. Project-reviewed rows are separated from Jitendex-derived rows (snapshot `2026-08-11`, revision `2026.08.11.0`). Jitendex-derived material remains covered by the relevant Jitendex/EDRDG/CC BY-SA notices.
+`data/common-words/common-words-term-bank-1.json` records a source label per row. Project-reviewed rows are separated from Jitendex-derived rows (snapshot `2026-08-11`, revision `2026.08.11.0`). Jitendex-derived material remains covered by the relevant Jitendex/EDRDG/CC BY-SA notices. The contextual lexical forms `三分` (`さんぶん`) and `四分` (`しぶん`) in `する` constructions are manually reviewed reading facts; each row identifies Digital Daijisen/Kotobank as research evidence. No dictionary definition text is redistributed.
+
+### General-word fallback bank
+
+`data/general-words/general-words-term-bank-1.json` is an externally derived Jitendex bank using schema v2. Its retained rows originate from the legacy positive-priority compact selection, but the schema now separates the retained reading list from source-coverage metadata. Jitendex/Yomitan scores are recorded as popularity/search-order values only; they are not semantic confidence. `mergeSafe` records span-boundary eligibility and does not establish a unique reading.
+
+The retained 2026-08-11 compact snapshot cannot prove that omitted readings were absent upstream, so its default coverage is `filtered-positive-priority` and its restriction status is explicitly unknown. The maintained EDRDG updater reconstructs complete per-surface reading sets, source-reading counts, source sequence evidence and spelling-specific applicability from a supplied complete Jitendex snapshot. Runtime code must not infer uniqueness from compact-bank omission.
 
 ### Compound fallback bank
 
 `data/compound-words/compound-words-term-bank-1.json` is a small project-reviewed fallback set. It stores factual surface/reading data only and does not redistribute forum explanations or presentation content.
+
+### Expanded loanword/source-spelling bank
+
+`data/loanwords/loanwords-term-bank-1.json` is classified as **mixed**. Existing CJ2R-reviewed mappings retain precedence over conservatively accepted external candidates. The expansion uses explicit JMdict/Jitendex source-language evidence plus a filtered JMnedict subset for established company, product, work, organisation and group names; Jiten frequency is supporting/prioritisation evidence only. Ambiguous homographs, descriptive/non-name outputs and unverifiable partial-source records are excluded rather than guessed.
+
+Runtime foreign-source output uses the project's conventional unaccented Latin/ASCII form. Typed `country-name`/`country-language` rows support only explicitly reviewed whole expressions such as `ロシア語 → Russia-go`; country mappings are not productively extended to arbitrary `～語` strings.
+
+Metadata-only loanword rows may record a confirmed foreign-derived surface as review-required without asserting one source spelling. These rows deliberately keep mechanical Rule-0 output until stronger source evidence resolves the ambiguity. NINJAL Report 126, BCCWJ/SUW-LUW research and other linguistic references used for coverage and word-boundary design are indexed in `licenses and sources/Japanese Word Boundary and Loanword Research Sources.md`; they are research evidence, not redistributed spelling banks.
+
+NINJAL loanword surveys are used only for usage/recognition and coverage-gap corroboration; CJ2R does not redistribute NINJAL survey rows or use survey presence as source-spelling authority. Relevant notices include:
+
+- `licenses and sources/Jitendex-Jiten-JMnedict Attribution.md`
+- `licenses and sources/CC BY-SA 4.0 Notice.md`
+- `licenses and sources/Electronic Dictionary Research and Development Group License.md`
+- `licenses and sources/NINJAL Loanword Survey Attribution.md`
 
 ### Japanese-use Han scope
 
@@ -56,7 +77,7 @@ Relevant notices include:
 
 ### Reviewed counter/date and clock-time evidence
 
-`data/grammar/counter-date-reading-evidence.json` is project-authored/manual. It stores reviewed exceptional counter/date/numeral readings rather than importing a general numeric-pronunciation dataset. The 2026-09-10 clock-time review added reviewed 0:00–23:00 hour forms and Arabic aliases; the factual Japanese readings were cross-checked against The Japan Foundation Irodori starter time tables, while final Romaji remains governed by Rule 0.
+`data/grammar/counter-date-reading-evidence.json` is project-authored/manual. It stores reviewed exceptional counter/date/numeral readings rather than importing a general numeric-pronunciation dataset. Each row now declares the semantic `role` to which the reviewed pronunciation applies and, where relevant, its `unit`; the row therefore supplies pronunciation evidence only after runtime role arbitration, not evidence that the role itself is present. The 2026-09-10 clock-time review added reviewed 0:00–23:00 hour forms and Arabic aliases; the factual Japanese readings were cross-checked against The Japan Foundation Irodori starter time tables, while final Romaji remains governed by Rule 0.
 
 ### Reviewed multiple-reading evidence
 
@@ -76,7 +97,7 @@ Relevant notices include:
 
 ## External-evidence hash coverage
 
-`data/external-evidence-source-provenance.json` pins **14** externally-derived or mixed files whose source/licence basis is specific enough for automatic verification. Structural QA checks each stored SHA-256 and referenced notice.
+`data/external-evidence-source-provenance.json` pins **15** externally-derived or mixed files whose source/licence basis is specific enough for automatic verification. Structural QA checks each stored SHA-256 and referenced notice.
 
 Project-authored/manual banks do not need an external-source hash entry merely because an external reference was consulted during review.
 

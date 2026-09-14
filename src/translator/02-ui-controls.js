@@ -2,6 +2,7 @@
 let statusBanner = null;
 let inputArea = null;
 let outputDiv = null;
+let translationReviewDiv = null;
 let kanjiReadingsDiv = null;
 let kanjiSearchInput = null;
 let kanjiReadingConsumers = [];
@@ -46,18 +47,19 @@ function sameKanjiReadingConsumers(previous, current) {
 }
 
 function refreshBuiltInUiReferences({ scanKanjiTargets = false } = {}) {
-    const previous = [statusBanner, inputArea, outputDiv, kanjiReadingsDiv, kanjiSearchInput];
+    const previous = [statusBanner, inputArea, outputDiv, translationReviewDiv, kanjiReadingsDiv, kanjiSearchInput];
     const previousConsumers = kanjiReadingConsumers;
     const hadCustomKanjiTarget = previousConsumers.some(consumer => consumer.isCustomTarget);
     statusBanner = document.getElementById('status-banner');
     inputArea = document.getElementById('input');
     outputDiv = document.getElementById('output');
+    translationReviewDiv = document.getElementById('translation-review');
     kanjiReadingsDiv = document.getElementById('kanji-readings');
     kanjiSearchInput = document.getElementById('kanji-search');
     kanjiReadingConsumers = collectKanjiReadingConsumers(scanKanjiTargets || hadCustomKanjiTarget);
 
     setVisibility(statusBanner, true);
-    const current = [statusBanner, inputArea, outputDiv, kanjiReadingsDiv, kanjiSearchInput];
+    const current = [statusBanner, inputArea, outputDiv, translationReviewDiv, kanjiReadingsDiv, kanjiSearchInput];
     return current.some((element, index) => element !== previous[index])
         || !sameKanjiReadingConsumers(previousConsumers, kanjiReadingConsumers);
 }

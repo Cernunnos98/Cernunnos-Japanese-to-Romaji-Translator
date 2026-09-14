@@ -1,24 +1,30 @@
 # Jitendex, Jiten and JMnedict attribution
 
-## Jitendex
+## Jitendex / JMdict
 
 Jitendex.org by Stephen Kraus.
-Snapshot used: 2026-08-11, revision 2026.08.11.0.
+Existing CJ2R snapshot: 2026-08-11, revision 2026.08.11.0.
 Licence: CC BY-SA 4.0.
-Project use: current JMdict reading priorities, ateji identification, and a compact general whole-word fallback bank derived from positive-priority surface/reading pairs. The fallback never replaces a valid context-selected Kuromoji reading. The translator distributes only compact derived reading data, not the full Jitendex dictionary.
+
+CJ2R uses Jitendex as a structured distribution of JMdict evidence, including reading priorities, ateji identification, compact general whole-word fallback evidence, and reviewed loanword source-language spelling evidence. Existing CJ2R-reviewed mappings take precedence over bulk-derived evidence. Jitendex/Yomitan term scores used by CJ2R are popularity/search-order values, not probabilities or semantic-confidence scores. The general-word schema therefore records reading coverage and spelling applicability separately; absence from the legacy positive-priority compact subset is not treated as proof that no other reading exists.
+
+For the loanword expansion, non-wasei multiword source strings are excluded when the Jitendex export does not expose enough JMdict source metadata to prove that the source applies to the whole Japanese expression rather than only part of it. Ambiguous source spellings are not guessed.
 
 Jitendex includes JMdict material from the Electronic Dictionary Research and Development Group (EDRDG); the EDRDG licence notice is included separately in this folder.
 
 ## Jiten
 
 Jiten: https://jiten.moe/
-Snapshot used: global frequency dictionary dated 2026-09-03 / revision 2026-09-02.
+Previously maintained CJ2R frequency snapshot: 2026-09-03 / revision 2026-09-02.
+Loanword-expansion supporting snapshot: 2026-09-12, revision Jiten 26-09-08.
 Licence: Jiten publishes its derived decks, frequency lists and statistics under CC BY-SA 4.0.
-Project use: frequency is supporting evidence for strongly separated reading alternatives and for selecting a compact media-attested JMnedict subset. Frequency alone never selects a reading.
+
+Frequency is supporting evidence for prioritisation and ambiguity review only. It never establishes a source-language spelling and never selects an otherwise ambiguous mapping by itself.
 
 ## JMnedict
 
 JMnedict, Electronic Dictionary Research and Development Group (EDRDG).
-Snapshot used: 2026-08-10.
-Project use: compact person/character/fictive proper-name readings that are not already covered by the existing project bank or the same ordinary JMdict reading.
+Snapshot used: 2026-08-10, revision JMnedict.2026-08-10.
 Licence: EDRDG licence, included separately in this folder.
+
+CJ2R uses JMnedict for reviewed proper-name evidence and, in the loanword/name expansion, a conservatively filtered subset of established company, product, work, organisation and group names. Exact-surface conflicts, ordinary-word collisions, multiple incompatible names, descriptive/non-name outputs and other unsafe rows are excluded rather than guessed.

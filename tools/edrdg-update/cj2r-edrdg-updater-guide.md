@@ -4,7 +4,7 @@ This tool keeps CJ2R's maintained EDRDG-derived inputs current without allowing 
 
 It checks four source packages:
 
-- **Jitendex** — priority information used by reviewed JMdict-derived CJ2R evidence;
+- **Jitendex** — surface/reading evidence and popularity/search-order scores used by JMdict-derived CJ2R evidence;
 - **JMdict (without proper names)** — direct current EDRDG cross-check;
 - **JMnedict** — reviewed proper-name subset;
 - **KANJIDIC** — Kanji helper banks.
@@ -32,7 +32,7 @@ The default staging directory is timestamped under `tools/edrdg-update/staging/`
 
 Important outputs:
 
-- `edrdg-update-review-report.json` — blockers, Jitendex priority changes and JMdict cross-check differences;
+- `edrdg-update-review-report.json` — blockers, Jitendex popularity-score changes, reconstructed general-word surface coverage/applicability metadata and JMdict cross-check differences;
 - `edrdg-update-manifest.json` — source hashes/revisions and exact project paths proposed for change;
 - `edrdg-update-manifest.sha256` — approval hash;
 - `candidate-project/` — isolated candidate tree.
@@ -68,15 +68,18 @@ Promotion is transactional for the files listed in the manifest. A failed final 
 
 When the review report is clean, the candidate may update:
 
-- existing priority scores in `data/general-words/general-words-term-bank-1.json`;
+- existing popularity/search-order scores in `data/general-words/general-words-term-bank-1.json`;
+- per-surface general-word reading coverage, source-reading counts and spelling-specific applicability evidence reconstructed from the complete supplied Jitendex snapshot;
 - existing priority scores in `data/ateji/ateji-term-bank-1.json`;
-- maintained Jitendex priority fields in `data/reading-evidence/reading-evidence.json`;
+- maintained Jitendex ranking fields in `data/reading-evidence/reading-evidence.json`;
 - validation of the existing compact JMnedict-reviewed name subset;
 - KANJIDIC helper banks and source metadata;
 - Jitendex/JMnedict/KANJIDIC snapshot references in attribution/provenance files;
 - tracked SHA-256 values in `data/external-evidence-source-provenance.json`.
 
 It does **not** add every new upstream dictionary entry automatically. New lexical readings, proper names and title-specific evidence remain normal CJ2R review work.
+
+For the general-word bank, Jitendex/Yomitan term scores are stored strictly as **popularity/search-order metadata**. They are not semantic confidence and a score gap must not be used to prove one reading correct. The legacy compact bank retained positive-priority pairs only, so omission from that compact representation is not proof that an alternative reading does not exist. During a prepared update the updater reconstructs all source readings available for each maintained surface, records whether the retained bank is complete or filtered, and retains source sequence/applicability evidence. `mergeSafe` remains a boundary-eligibility signal only.
 
 ## 5. Offline or controlled-source use
 
