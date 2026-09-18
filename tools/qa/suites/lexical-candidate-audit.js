@@ -111,7 +111,8 @@ function getLexicalCandidateAuditInventory() {
         add({ sourceType: 'reviewed-proper-name-span', surface, readings: [entry?.reading], outputs: [entry?.romaji], candidateKind: 'reviewed-name' });
     }
     for (const [surface, entry] of runtimeState.reviewedReadingSpanDictionary.entries()) {
-        add({ sourceType: 'reviewed-reading-span', surface, readings: [entry?.reading], outputs: [entry?.romaji], candidateKind: 'reviewed-reading' });
+        const readings = [entry?.reading, ...(entry?.alternatives || [])];
+        add({ sourceType: 'reviewed-reading-span', surface, readings, outputs: [entry?.romaji], candidateKind: 'reviewed-reading', ambiguityExpected: readings.filter(Boolean).length > 1 });
     }
     for (const [surface, rules] of runtimeState.titleReadingDictionary.entries()) {
         (rules || []).forEach((rule, patternIndex) => add({

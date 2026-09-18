@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 const args = process.argv.slice(2);
 const checkOnly = args.includes('--check');
 const rootArg = args.find(arg => arg !== '--check');
@@ -35,8 +36,20 @@ const sources = sourceFiles.map(file => ({
     file,
     content: fs.readFileSync(path.join(sourceDir, file), 'utf8').trimEnd()
 }));
+
+function assertJavaScriptParses(source, filename) {
+    try {
+        new vm.Script(source, { filename });
+    } catch (error) {
+        console.error(`JavaScript syntax error in ${filename}: ${error.message || error}`);
+        process.exit(2);
+    }
+}
+
+for (const source of sources) assertJavaScriptParses(source.content, `tools/qa/suites/${source.file}`);
 const bodyParts = sources.map(source => source.content.split('\n').map(line => `    ${line}`).join('\n'));
 const generated = `${header}${bodyParts.join('\n\n')}\n${footer}`;
+assertJavaScriptParses(generated, 'tools/qa/translator-qa.js');
 
 function lineMappings(lineCount) {
     if (lineCount <= 0) return '';

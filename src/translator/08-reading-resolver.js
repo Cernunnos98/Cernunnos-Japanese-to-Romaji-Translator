@@ -1,6 +1,17 @@
 // Source section: Proper-name ranking, Kuromoji pronunciation safeguards and reading evidence.
 function getProperNounCategoryHints(token) {
     const hints = new Set();
+    if (token?.locationSuffixRoleMatched) {
+        hints.add('loc');
+        return hints;
+    }
+    if (token?.nameHonorificRoleMatched) {
+        hints.add('fam');
+        hints.add('per');
+        hints.add('person');
+        hints.add('char');
+        return hints;
+    }
     const detail2 = String(token?.pos_detail_2 || '');
     const detail3 = String(token?.pos_detail_3 || '');
     if (detail2 === '地域') hints.add('loc');
@@ -40,51 +51,80 @@ function rankProperNounCandidates(candidates) {
 }
 
 /** @param {CJ2RToken} token */
-function resolveProperNounReading(token) {
-    if (!token || !isProperNounToken(token)) return null;
+function assessOrdinaryNounProperNameConflict(token, selectedReading) {
+    if (!token || token.pos !== '名詞' || token.pos_detail_1 !== '一般' || isProperNounToken(token) || token.nameHonorificRoleMatched || token.locationSuffixRoleMatched) return null;
+    const normalizedSelected = normalizeKanaReading(selectedReading || '');
+    if (!normalizedSelected) return null;
+    const sourceOrthographyCandidates = Array.isArray(token.sourceOrthographyProperNounCandidates)
+        ? token.sourceOrthographyProperNounCandidates
+        : [];
     const lookup = getProperNounCandidateLookup(token.surface_form);
-    const candidates = lookup.candidates;
+    const candidates = sourceOrthographyCandidates.length ? sourceOrthographyCandidates : (lookup.candidates || []);
+    const distinctReadings = new Set(candidates.map(candidate => normalizeKanaReading(candidate?.reading || '')).filter(Boolean));
+    if (distinctReadings.size !== 1) return null;
+    const incompatibleCandidates = candidates.filter(candidate => normalizeKanaReading(candidate?.reading || '') !== normalizedSelected);
+    if (!incompatibleCandidates.length) return null;
+    return {
+        candidates,
+        incompatibleCandidates,
+        variantMappings: lookup.variant?.mappings || []
+    };
+}
+
+function resolveProperNounReading(token) {
+    if (!token || (!isProperNounToken(token) && !token.nameHonorificRoleMatched && !token.locationSuffixRoleMatched)) return null;
+    const sourceOrthographyCandidates = Array.isArray(token.sourceOrthographyProperNounCandidates)
+        ? token.sourceOrthographyProperNounCandidates
+        : [];
+    const lookup = getProperNounCandidateLookup(token.nameHonorificCandidateSurface || token.locationSuffixCandidateSurface || token.surface_form);
+    const candidates = sourceOrthographyCandidates.length ? sourceOrthographyCandidates : lookup.candidates;
     if (!candidates.length) return null;
     const tokenVariantMappings = Array.isArray(token.variantMappings) ? token.variantMappings : [];
     const variant = lookup.variant || ((token.variantCanonicalRetokenized || token.variantProperNounMatched) && tokenVariantMappings.length
         ? { mappings: tokenVariantMappings }
         : null);
-    const sourcePrefix = variant ? 'proper-noun-variant' : 'proper-noun';
-    const variantFlags = variant ? ['variant-reading-evidence'] : [];
+    const sourceOrthographyExact = sourceOrthographyCandidates.length > 0;
+    const sourcePrefix = sourceOrthographyExact ? 'proper-noun-source-orthography' : (variant ? 'proper-noun-variant' : 'proper-noun');
+    const canonicalLexicalReviewFlags = token.sourceOrthographyCanonicalLexicalReviewRequired
+        ? ['whole-word-reading-ambiguous']
+        : [];
+    const variantFlags = sourceOrthographyExact
+        ? canonicalLexicalReviewFlags
+        : (variant ? ['variant-reading-evidence'] : []);
+    const hints = getProperNounCategoryHints(token);
+    const categoryMatches = candidates.filter(candidate => [...candidate.categories].some(category => hints.has(category)));
+    const contextualRoleMatched = Boolean(token.nameHonorificRoleMatched || token.locationSuffixRoleMatched);
+    const roleCandidates = contextualRoleMatched && categoryMatches.length ? categoryMatches : candidates;
+    const resolutionCandidates = contextualRoleMatched ? roleCandidates : candidates;
     const kuromojiReading = getKuromojiDictionaryReading(token);
     const normalizedKuromoji = normalizeKanaReading(kuromojiReading);
-    const kuromojiMatch = normalizedKuromoji ? candidates.find(candidate => normalizeKanaReading(candidate.reading) === normalizedKuromoji) : null;
+    const kuromojiMatch = normalizedKuromoji ? roleCandidates.find(candidate => normalizeKanaReading(candidate.reading) === normalizedKuromoji) : null;
     if (kuromojiMatch) {
-        const hints = getProperNounCategoryHints(token);
-        const categoryMatches = candidates.filter(candidate => [...candidate.categories].some(category => hints.has(category)));
         const relevantCandidates = categoryMatches.length ? categoryMatches : candidates;
         const relevantReadings = new Set(relevantCandidates.map(candidate => normalizeKanaReading(candidate.reading)));
-        const ranking = rankProperNounCandidates(relevantCandidates);
-        const rankedMatch = ranking.selected
-            && normalizeKanaReading(ranking.selected.reading) === normalizedKuromoji;
-        const ambiguous = relevantReadings.size > 1 && (Boolean(variant) || !rankedMatch);
+        const ambiguous = relevantReadings.size > 1;
         return {
             reading: kuromojiMatch.reading, romaji: kuromojiMatch.romaji, source: `${sourcePrefix}+kuromoji`,
-            confidence: ambiguous ? 0.78 : (variant ? 0.95 : 0.99), candidates,
+            confidence: ambiguous ? 0.78 : (variant ? 0.95 : 0.99), candidates: resolutionCandidates,
             flags: [...variantFlags, ...(ambiguous ? ['proper-noun-ambiguous'] : [])],
             variantMappings: variant?.mappings || [], ambiguous
         };
     }
-    if (candidates.length === 1) {
-        return { reading: candidates[0].reading, romaji: candidates[0].romaji, source: sourcePrefix, confidence: variant ? 0.91 : 0.96, candidates, flags: variantFlags, variantMappings: variant?.mappings || [], ambiguous: false };
+    if (roleCandidates.length === 1) {
+        const roleSource = token.nameHonorificRoleMatched ? `${sourcePrefix}-honorific-role`
+            : (token.locationSuffixRoleMatched ? `${sourcePrefix}-location-suffix-role` : sourcePrefix);
+        return { reading: roleCandidates[0].reading, romaji: roleCandidates[0].romaji, source: roleSource, confidence: variant ? 0.91 : 0.96, candidates: resolutionCandidates, flags: variantFlags, variantMappings: variant?.mappings || [], ambiguous: false };
     }
-    const hints = getProperNounCategoryHints(token);
-    const categoryMatches = candidates.filter(candidate => [...candidate.categories].some(category => hints.has(category)));
     const categoryReadings = new Map(categoryMatches.map(candidate => [normalizeKanaReading(candidate.reading), candidate]));
     if (categoryReadings.size === 1) {
         const candidate = [...categoryReadings.values()][0];
-        return { reading: candidate.reading, romaji: candidate.romaji, source: `${sourcePrefix}-category`, confidence: variant ? 0.86 : 0.90, candidates, flags: variantFlags, variantMappings: variant?.mappings || [], ambiguous: false };
+        return { reading: candidate.reading, romaji: candidate.romaji, source: `${sourcePrefix}-category`, confidence: variant ? 0.86 : 0.90, candidates: resolutionCandidates, flags: variantFlags, variantMappings: variant?.mappings || [], ambiguous: false };
     }
-    const ranking = rankProperNounCandidates(categoryMatches.length ? categoryMatches : candidates);
+    const ranking = rankProperNounCandidates(contextualRoleMatched ? roleCandidates : (categoryMatches.length ? categoryMatches : candidates));
     if (ranking.selected) {
-        return { reading: ranking.selected.reading, romaji: ranking.selected.romaji, source: `${sourcePrefix}-ranked`, confidence: Math.max(0.55, ranking.confidence - (variant ? 0.04 : 0)), candidates, flags: [...variantFlags, 'proper-noun-ambiguous'], variantMappings: variant?.mappings || [], ambiguous: true };
+        return { reading: ranking.selected.reading, romaji: ranking.selected.romaji, source: `${sourcePrefix}-ranked`, confidence: Math.max(0.55, ranking.confidence - (variant ? 0.04 : 0)), candidates: resolutionCandidates, flags: [...variantFlags, 'proper-noun-ambiguous'], variantMappings: variant?.mappings || [], ambiguous: true };
     }
-    return { reading: null, romaji: null, source: `${sourcePrefix}-ambiguous`, confidence: variant ? 0.30 : 0.35, candidates, flags: [...variantFlags, 'proper-noun-ambiguous', 'unresolved-reading'], variantMappings: variant?.mappings || [], ambiguous: true };
+    return { reading: null, romaji: null, source: `${sourcePrefix}-ambiguous`, confidence: variant ? 0.30 : 0.35, candidates: resolutionCandidates, flags: [...variantFlags, 'proper-noun-ambiguous', 'unresolved-reading'], variantMappings: variant?.mappings || [], ambiguous: true };
 }
 
 function getSafeOrthographicPronunciation(readingValue, pronunciationValue) {
@@ -275,14 +315,57 @@ function getContextTokenTerms(token) {
     return terms;
 }
 
+function isContextEvidenceHardBoundaryToken(token) {
+    const surface = String(token?.surface_form || '');
+    if (!surface) return false;
+    for (let index = 0; index < surface.length; index += 1) {
+        const character = surface[index];
+        if (isCanonicalTransparentBoundaryCharacter(character) && !canonicalHardWhitespaceCharacters.has(character)) continue;
+        if (isCanonicalHardBoundaryAt(surface, index)) return true;
+    }
+    return false;
+}
+
+const contextEvidenceClauseBoundarySurfaces = new Set([
+    'が', 'けど', 'けれど', 'けれども', 'ので', 'なので', 'のに', 'なのに',
+    'ものの', 'ものを', 'ものから', 'し', 'から', 'ても', 'でも', 'ば', 'たら'
+]);
+
+function isContextEvidenceClauseBoundaryToken(tokens, index) {
+    const token = tokens[index];
+    if (isContextEvidenceHardBoundaryToken(token)) return true;
+    const pos = String(token?.pos || '');
+    if (pos === '接続詞') return true;
+    if (pos === '助詞'
+        && String(token?.pos_detail_1 || '') === '接続助詞'
+        && contextEvidenceClauseBoundarySurfaces.has(String(token?.surface_form || ''))) return true;
+    const nextSurface = String(tokens[index + 1]?.surface_form || '');
+    return pos === '名詞'
+        && String(token?.pos_detail_1 || '') === '非自立'
+        && String(token?.pos_detail_2 || '') === '副詞可能'
+        && (nextSurface === 'で' || nextSurface === 'では')
+        && index > 0
+        && ['動詞', '形容詞', '助動詞'].includes(String(tokens[index - 1]?.pos || ''));
+}
+
+function getContextEvidenceTokenIndexes(tokens, targetIndex, windowSize) {
+    const indexes = [];
+    for (const direction of [-1, 1]) {
+        for (let distance = 1; distance <= windowSize; distance += 1) {
+            const index = targetIndex + (direction * distance);
+            if (index < 0 || index >= tokens.length) break;
+            if (isContextEvidenceClauseBoundaryToken(tokens, index)) break;
+            indexes.push(index);
+        }
+    }
+    return indexes;
+}
+
 function scoreWeightedContextTerms(tokens, targetIndex, terms, windowSize, sourceText = '') {
     if (!Array.isArray(terms) || !terms.length) return 0;
-    const start = Math.max(0, targetIndex - windowSize);
-    const end = Math.min(tokens.length - 1, targetIndex + windowSize);
     const matchedTerms = new Set();
     let score = 0;
-    for (let index = start; index <= end; index += 1) {
-        if (index === targetIndex) continue;
+    for (const index of getContextEvidenceTokenIndexes(tokens, targetIndex, windowSize)) {
         const tokenTerms = getContextTokenTerms(tokens[index]);
         for (const evidence of terms) {
             if (matchedTerms.has(evidence.term) || !tokenTerms.has(evidence.term)) continue;
@@ -296,6 +379,172 @@ function scoreWeightedContextTerms(tokens, targetIndex, terms, windowSize, sourc
     for (const evidence of terms) {
         if (matchedTerms.has(evidence.term) || evidence.term === targetSurface || !sourceWindow.includes(evidence.term)) continue;
         matchedTerms.add(evidence.term);
+        score += Number(evidence.weight || 0);
+    }
+    return score;
+}
+
+const LOANWORD_CONTEXT_NOMINAL_CONNECTORS = new Set(['の', 'な']);
+const LOANWORD_CONTEXT_TOPIC_PARTICLES = new Set(['は', 'が']);
+
+function isLoanwordContextCopulaToken(token) {
+    const surface = String(token?.surface_form || '');
+    const basic = String(tokenBasicForm(token) || '');
+    return surface === 'だ' || surface === 'です' || basic === 'だ' || basic === 'です';
+}
+
+function isLoanwordContextLexicalToken(token) {
+    const pos = String(token?.pos || '');
+    return Boolean(String(token?.surface_form || '')) && !['助詞', '助動詞', '記号'].includes(pos);
+}
+
+function isLoanwordContextPredicateToken(tokens, index) {
+    const token = tokens[index];
+    const pos = String(token?.pos || '');
+    if (pos === '動詞' || pos === '形容詞') return true;
+    if (pos !== '名詞' || String(token?.pos_detail_1 || '') !== 'サ変接続') return false;
+    const next = tokens[index + 1];
+    if (!next || isContextEvidenceHardBoundaryToken(next)) return true;
+    const nextSurface = String(next.surface_form || '');
+    const nextBasic = String(tokenBasicForm(next) || nextSurface);
+    return nextBasic === 'する' || nextSurface === 'だ' || nextSurface === 'です';
+}
+
+function getLoanwordContextEvidenceTokenIndexes(tokens, targetIndex, windowSize) {
+    const indexes = new Set();
+    const minimum = Math.max(0, targetIndex - windowSize);
+    const maximum = Math.min(tokens.length - 1, targetIndex + windowSize);
+    const previous = tokens[targetIndex - 1];
+    const next = tokens[targetIndex + 1];
+
+    const addNominalSegment = (start, direction) => {
+        for (let index = start; index >= minimum && index <= maximum; index += direction) {
+            const token = tokens[index];
+            if (!token || isContextEvidenceHardBoundaryToken(token)) break;
+            const surface = String(token.surface_form || '');
+            if (String(token.pos || '') === '助詞' && !LOANWORD_CONTEXT_NOMINAL_CONNECTORS.has(surface)) break;
+            if (isLoanwordContextLexicalToken(token)) indexes.add(index);
+        }
+    };
+
+    const addCopularTopicRelation = () => {
+        const following = tokens[targetIndex + 1];
+        if (following && LOANWORD_CONTEXT_TOPIC_PARTICLES.has(String(following.surface_form || ''))) {
+            const complement = [];
+            for (let index = targetIndex + 2; index <= maximum; index += 1) {
+                const token = tokens[index];
+                if (!token || isContextEvidenceHardBoundaryToken(token)) break;
+                if (isLoanwordContextCopulaToken(token)) {
+                    if (complement.length) complement.forEach(item => indexes.add(item));
+                    break;
+                }
+                if (!isLoanwordContextLexicalToken(token)) break;
+                complement.push(index);
+            }
+        }
+
+        const preceding = tokens[targetIndex - 1];
+        const afterTarget = tokens[targetIndex + 1];
+        if (preceding && LOANWORD_CONTEXT_TOPIC_PARTICLES.has(String(preceding.surface_form || ''))
+            && afterTarget && isLoanwordContextCopulaToken(afterTarget)) {
+            const topic = [];
+            for (let index = targetIndex - 2; index >= minimum; index -= 1) {
+                const token = tokens[index];
+                if (!token || isContextEvidenceHardBoundaryToken(token) || !isLoanwordContextLexicalToken(token)) break;
+                topic.push(index);
+            }
+            topic.forEach(item => indexes.add(item));
+        }
+    };
+
+    if (previous && !isContextEvidenceHardBoundaryToken(previous)) {
+        const surface = String(previous.surface_form || '');
+        if (LOANWORD_CONTEXT_NOMINAL_CONNECTORS.has(surface)) addNominalSegment(targetIndex - 2, -1);
+        else if (isLoanwordContextLexicalToken(previous)) indexes.add(targetIndex - 1);
+    }
+
+    if (next && !isContextEvidenceHardBoundaryToken(next)) {
+        const surface = String(next.surface_form || '');
+        if (LOANWORD_CONTEXT_NOMINAL_CONNECTORS.has(surface)) {
+            addNominalSegment(targetIndex + 2, 1);
+        } else if (isLoanwordContextLexicalToken(next)) {
+            indexes.add(targetIndex + 1);
+        } else if (String(next.pos || '') === '助詞') {
+            for (let index = targetIndex + 2; index <= maximum; index += 1) {
+                const token = tokens[index];
+                if (!token || isContextEvidenceHardBoundaryToken(token)) break;
+                if (!isLoanwordContextPredicateToken(tokens, index)) continue;
+                indexes.add(index);
+                const previousToken = tokens[index - 1];
+                if (String(tokenBasicForm(token) || '') === 'する'
+                    && previousToken
+                    && String(previousToken.pos_detail_1 || '') === 'サ変接続') indexes.add(index - 1);
+                break;
+            }
+        }
+    }
+    addCopularTopicRelation();
+    return [...indexes];
+}
+
+function loanwordContextTermMatchesToken(term, token) {
+    const evidenceTerm = String(term || '');
+    if (!evidenceTerm) return false;
+    const tokenTerms = getContextTokenTerms(token);
+    if (tokenTerms.has(evidenceTerm)) return true;
+    if (!/[一-龯々〆ヵヶ]/u.test(evidenceTerm)) return false;
+    return [...tokenTerms].some(tokenTerm => tokenTerm.startsWith(evidenceTerm));
+}
+
+function loanwordContextTermMatchesTokenSequence(term, tokens, indexes) {
+    const evidenceTerm = String(term || '');
+    if (!evidenceTerm || !Array.isArray(indexes) || indexes.length < 2) return false;
+    const selected = new Set(indexes);
+    const ordered = [...selected].sort((left, right) => left - right);
+    for (let startOffset = 0; startOffset < ordered.length; startOffset += 1) {
+        let surface = '';
+        let basic = '';
+        let previousIndex = null;
+        for (let offset = startOffset; offset < ordered.length; offset += 1) {
+            const index = ordered[offset];
+            if (previousIndex !== null && index !== previousIndex + 1) break;
+            const token = tokens[index];
+            if (!token || !isLoanwordContextLexicalToken(token)) break;
+            surface += String(token.surface_form || '');
+            basic += String(tokenBasicForm(token) || token.surface_form || '');
+            if (surface === evidenceTerm || basic === evidenceTerm) return true;
+            if (surface.length > evidenceTerm.length && basic.length > evidenceTerm.length) break;
+            previousIndex = index;
+        }
+    }
+    return false;
+}
+
+function scoreWeightedLoanwordContextTerms(tokens, targetIndex, terms, windowSize, sourceText = '') {
+    if (!Array.isArray(terms) || !terms.length) return 0;
+    const matchedTerms = new Set();
+    let score = 0;
+    const contextIndexes = getLoanwordContextEvidenceTokenIndexes(tokens, targetIndex, windowSize);
+    for (const index of contextIndexes) {
+        for (const evidence of terms) {
+            if (matchedTerms.has(evidence.term) || !loanwordContextTermMatchesToken(evidence.term, tokens[index])) continue;
+            matchedTerms.add(evidence.term);
+            score += Number(evidence.weight || 0);
+        }
+    }
+    for (const evidence of terms) {
+        if (matchedTerms.has(evidence.term) || !loanwordContextTermMatchesTokenSequence(evidence.term, tokens, contextIndexes)) continue;
+        matchedTerms.add(evidence.term);
+        score += Number(evidence.weight || 0);
+    }
+    if (!sourceText) return score;
+    const sourceWindow = getContextSourceWindow(tokens, targetIndex, windowSize, sourceText);
+    const targetSurface = String(tokens[targetIndex]?.surface_form || '');
+    for (const evidence of terms) {
+        const term = String(evidence.term || '');
+        if (matchedTerms.has(term) || !targetSurface || term === targetSurface || !term.includes(targetSurface)) continue;
+        if (!sourceWindow.includes(term)) continue;
+        matchedTerms.add(term);
         score += Number(evidence.weight || 0);
     }
     return score;
@@ -323,18 +572,35 @@ function getLoanwordMetadataForToken(token) {
 
 function getContextSourceWindow(tokens, targetIndex, windowSize, sourceText) {
     if (!sourceText) return '';
-    const startIndex = Math.max(0, targetIndex - windowSize);
-    const endIndex = Math.min(tokens.length - 1, targetIndex + windowSize);
-    const startToken = tokens[startIndex];
-    const endToken = tokens[endIndex];
+    const targetToken = tokens[targetIndex];
+    const targetPosition = Number(targetToken?.word_position || 0);
+    if (targetPosition <= 0) return sourceText;
+    const reachable = getContextEvidenceTokenIndexes(tokens, targetIndex, windowSize);
+    const indexes = [targetIndex, ...reachable].sort((left, right) => left - right);
+    const startToken = tokens[indexes[0]];
+    const endToken = tokens[indexes[indexes.length - 1]];
     const startPosition = Number(startToken?.word_position || 0);
     const endPosition = Number(endToken?.word_position || 0);
-    if (startPosition > 0 && endPosition > 0) {
-        const start = Math.max(0, startPosition - 1);
-        const end = Math.min(sourceText.length, endPosition - 1 + String(endToken?.surface_form || '').length);
-        if (end > start) return sourceText.slice(start, end);
+    if (startPosition <= 0 || endPosition <= 0) return sourceText;
+    let start = Math.max(0, startPosition - 1);
+    let end = Math.min(sourceText.length, endPosition - 1 + String(endToken?.surface_form || '').length);
+    const targetStart = targetPosition - 1;
+    const targetEnd = Math.min(sourceText.length, targetStart + String(targetToken?.surface_form || '').length);
+    for (let index = targetStart - 1; index >= start; index -= 1) {
+        const character = sourceText[index];
+        if (isCanonicalTransparentBoundaryCharacter(character) && !canonicalHardWhitespaceCharacters.has(character)) continue;
+        if (!isCanonicalHardBoundaryAt(sourceText, index)) continue;
+        start = index + 1;
+        break;
     }
-    return sourceText;
+    for (let index = targetEnd; index < end; index += 1) {
+        const character = sourceText[index];
+        if (isCanonicalTransparentBoundaryCharacter(character) && !canonicalHardWhitespaceCharacters.has(character)) continue;
+        if (!isCanonicalHardBoundaryAt(sourceText, index)) continue;
+        end = index;
+        break;
+    }
+    return end > start ? sourceText.slice(start, end) : String(targetToken?.surface_form || '');
 }
 
 function scoreFinalContextFeatureGroup(tokens, targetIndex, groupId, windowSize, sourceText) {
@@ -373,7 +639,7 @@ function evaluateContextualLoanwordEvidence(tokens, targetIndex, metadata, optio
     const candidates = evidence.candidates.map(candidate => ({
         output: candidate.output,
         romaji: candidate.output,
-        weight: scoreWeightedContextTerms(tokens, targetIndex, candidate.terms, evidence.window, sourceText),
+        weight: scoreWeightedLoanwordContextTerms(tokens, targetIndex, candidate.terms, evidence.window, sourceText),
         rank: Number.POSITIVE_INFINITY,
         categories: new Set([options.finalPass ? 'sentence-context-verification' : 'contextual-loanword']),
         sources: new Set([evidence.source]),

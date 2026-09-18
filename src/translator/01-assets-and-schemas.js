@@ -312,6 +312,18 @@ function hasNoConflictingRows(data, keySelector, valueSelector) {
     return true;
 }
 
+function hasUniqueCounterDateKeys(data) {
+    const seen = new Set();
+    for (const entry of data || []) {
+        for (const key of [entry?.surface, ...(entry?.aliases || [])]) {
+            const normalized = String(key || '').trim();
+            if (!normalized || seen.has(normalized)) return false;
+            seen.add(normalized);
+        }
+    }
+    return true;
+}
+
 function isWeightedContextTerms(terms) {
     return Array.isArray(terms) && terms.length > 0
         && terms.every(item => isPlainObject(item) && isText(item.term)
@@ -343,6 +355,14 @@ function isLoanwordContextEvidence(context, allowedOutputs) {
     return true;
 }
 
+function isValidCountryLanguageLoanwordEntry(entry, hasOutput) {
+    if (String(entry?.category || '') !== 'country-language') return true;
+    return hasOutput
+        && String(entry.surface || '').length > 1
+        && String(entry.surface || '').endsWith('語')
+        && normalizeReviewedRomaji(entry.output).endsWith('-go');
+}
+
 function isLoanwordBankEntryV2(entry) {
     if (Array.isArray(entry)) return isText(entry[0]) && isRule0RomajiEvidence(entry[1]);
     if (!isPlainObject(entry) || !isText(entry.surface)) return false;
@@ -350,6 +370,7 @@ function isLoanwordBankEntryV2(entry) {
     const reviewOnly = entry.output == null && entry.requiresReview === true && isText(entry.reviewReason);
     if (!hasOutput && !reviewOnly) return false;
     if (entry.category != null && !isText(entry.category)) return false;
+    if (!isValidCountryLanguageLoanwordEntry(entry, hasOutput)) return false;
     if (entry.requiresReview != null && typeof entry.requiresReview !== 'boolean') return false;
     if (entry.reviewReason != null && !isText(entry.reviewReason)) return false;
     if (entry.ambiguitySignificance != null && !['none', 'incidental', 'material'].includes(String(entry.ambiguitySignificance))) return false;
@@ -391,7 +412,8 @@ function isContextualReadingEvidence(data) {
             && isSemanticKanaReading(candidate.reading)
             && Array.isArray(candidate.features) && candidate.features.length > 0
             && candidate.features.every(feature => featureIds.has(feature))
-            && Number.isFinite(Number(candidate.minScore)) && Number(candidate.minScore) > 0));
+            && Number.isFinite(Number(candidate.minScore)) && Number(candidate.minScore) > 0)
+        && new Set(entry.candidates.map(candidate => normalizeEvidenceReading(candidate.reading))).size === entry.candidates.length);
 }
 
 const assetSchemaValidators = Object.freeze({
@@ -422,7 +444,11 @@ const assetSchemaValidators = Object.freeze({
         return isPlainObject(entry) && isText(entry.surface) && isSemanticKanaReading(entry.reading)
             && (entry.romaji == null || isRule0RomajiEvidence(entry.romaji))
             && (entry.pattern == null || (typeof entry.pattern === 'string' && (!entry.pattern || isSafeReviewedPattern(entry.pattern))))
-            && (entry.conjugationClass == null || ['godan-ra'].includes(String(entry.conjugationClass)));
+            && (entry.tokenReadingAuthority == null || typeof entry.tokenReadingAuthority === 'boolean')
+            && (entry.conjugationClass == null || ['godan-ra'].includes(String(entry.conjugationClass)))
+            && (entry.conjugationClass !== 'godan-ra'
+                || (String(entry.surface).endsWith('る') && normalizeEvidenceReading(entry.reading).endsWith('る')))
+            && isText(entry.source);
     }),
     'general-word-bank-v1': data => isNonEmptyRowBank(data, entry => Array.isArray(entry)
         && isText(entry[0])
@@ -496,7 +522,7 @@ const assetSchemaValidators = Object.freeze({
                 && (candidate.categories == null || (Array.isArray(candidate.categories) && candidate.categories.every(isText))));
     }),
     'reviewed-proper-name-span-evidence-v1': data => isNonEmptyRowBank(data, entry => isPlainObject(entry)
-        && isText(entry.surface) && isSemanticKanaReading(entry.reading) && isRule0RomajiEvidence(entry.romaji) && isText(entry.category))
+        && isText(entry.surface) && isSemanticKanaReading(entry.reading) && isRule0RomajiEvidence(entry.romaji) && isText(entry.category) && isText(entry.source))
         && hasNoConflictingRows(data, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), normalizeReviewedRomaji(entry.romaji), entry.category]),
     'particle-expressions-v1': data => isNonEmptyRowBank(data, entry => isPlainObject(entry) && isText(entry.surface) && isRule0RomajiEvidence(entry.romaji) && normalizeReviewedRomaji(entry.romaji) === normalizeReviewedRomaji(entry.romaji).toLowerCase())
         && hasNoConflictingRows(data, entry => entry.surface, entry => normalizeReviewedRomaji(entry.romaji)),
@@ -511,8 +537,11 @@ const assetSchemaValidators = Object.freeze({
         && (entry.aliases == null || isTextArray(entry.aliases))
         && isSemanticKanaReading(entry.reading) && isRule0RomajiEvidence(entry.romaji)
         && ['counter', 'calendar-date', 'calendar-month', 'duration-month', 'place-counter', 'clock-hour', 'minute-counter', 'numeric-component'].includes(String(entry.role || ''))
-        && (entry.unit == null || isText(entry.unit)))
-        && hasNoConflictingRows(data, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), normalizeReviewedRomaji(entry.romaji), entry.aliases || [], entry.role, entry.unit || null]),
+        && (entry.unit == null || isText(entry.unit))
+        && (entry.numericTail == null || typeof entry.numericTail === 'boolean')
+        && (entry.hundredTailReading == null || isSemanticKanaReading(entry.hundredTailReading)))
+        && hasNoConflictingRows(data, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), normalizeReviewedRomaji(entry.romaji), entry.aliases || [], entry.role, entry.unit || null, Boolean(entry.numericTail), normalizeEvidenceReading(entry.hundredTailReading || '')])
+        && hasUniqueCounterDateKeys(data),
     'contextual-reading-evidence-v1': data => isContextualReadingEvidence(data),
     'reading-evidence-v1': data => Array.isArray(data) && data.every(entry => isPlainObject(entry)
         && isText(entry.surface)
@@ -529,21 +558,29 @@ const assetSchemaValidators = Object.freeze({
             && isSemanticKanaReading(entry.reading)
             && Array.isArray(entry.alternatives)
             && entry.alternatives.every(isSemanticKanaReading)
-            && (entry.numericCanonical == null || isText(entry.numericCanonical))
-            && (entry.numericRole == null || ['numeral', 'counter'].includes(String(entry.numericRole))))
+            && ((entry.numericCanonical == null && entry.numericRole == null)
+                || (isText(entry.numericCanonical) && ['numeral', 'counter'].includes(String(entry.numericRole)))))
         && hasNoConflictingRows(data.preferences, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), entry.alternatives, entry.numericCanonical || null, entry.numericRole || null])
         && Array.isArray(data.spans)
         && data.spans.every(entry => isPlainObject(entry)
             && isText(entry.surface)
             && isSemanticKanaReading(entry.reading)
-            && (entry.romaji == null || isRule0RomajiEvidence(entry.romaji)))
-        && hasNoConflictingRows(data.spans, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), normalizeReviewedRomaji(entry.romaji || '')]),
-    'rendaku-evidence-v1': data => Array.isArray(data) && data.every(entry => isPlainObject(entry) && isText(entry.surface) && isSemanticKanaReading(entry.reading))
+            && (entry.romaji == null || isRule0RomajiEvidence(entry.romaji))
+            && (entry.alternatives == null || (Array.isArray(entry.alternatives) && entry.alternatives.every(isSemanticKanaReading)))
+            && (entry.reviewRequired == null || typeof entry.reviewRequired === 'boolean'))
+        && hasNoConflictingRows(data.spans, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), normalizeReviewedRomaji(entry.romaji || ''), entry.alternatives || [], Boolean(entry.reviewRequired)]),
+    'rendaku-evidence-v1': data => Array.isArray(data) && data.every(entry => isPlainObject(entry)
+        && isText(entry.surface) && isSemanticKanaReading(entry.reading) && typeof entry.rendaku === 'boolean' && isText(entry.source))
         && hasNoConflictingRows(data, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), Boolean(entry.rendaku), String(entry.source || '').trim()]),
     'historical-kana-evidence-v1': data => isPlainObject(data)
         && Array.isArray(data.entries)
-        && data.entries.every(entry => isPlainObject(entry) && isText(entry.surface) && isSemanticKanaReading(entry.reading))
-        && hasNoConflictingRows(data.entries, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), String(entry.pos || '').trim(), String(entry.source || '').trim()])
+        && data.entries.every(entry => isPlainObject(entry)
+            && isText(entry.surface)
+            && isSemanticKanaReading(entry.reading)
+            && isText(entry.pos)
+            && isText(entry.source)
+            && (entry.conjugationClass == null || ['ク活用', 'シク活用'].includes(String(entry.conjugationClass))))
+        && hasNoConflictingRows(data.entries, entry => entry.surface, entry => [normalizeEvidenceReading(entry.reading), String(entry.pos || '').trim(), String(entry.conjugationClass || '').trim(), String(entry.source || '').trim()])
 });
 
 function validateAssetSchema(assetKey, data, filePath) {

@@ -119,10 +119,11 @@ async function loadCommonWordDictionary() {
             const patternText = String(Array.isArray(entry) ? entry[2] || '' : entry?.pattern || '').trim();
             const romaji = Array.isArray(entry) ? null : normalizeDictionaryRomaji(entry?.romaji);
             const conjugationClass = Array.isArray(entry) ? '' : String(entry?.conjugationClass || '').trim();
+            const tokenReadingAuthority = Array.isArray(entry) ? false : entry?.tokenReadingAuthority === true;
             if (!surface || !reading) continue;
             let pattern = null;
             if (patternText) {
-                try { pattern = compileReviewedPattern(patternText, 'u'); }
+                try { pattern = compileReviewedPattern(canonicalizeReviewedPatternForTokenizerBoundary(patternText), 'u'); }
                 catch (error) {
                     console.warn(`Invalid common-word pattern: ${patternText}`, error);
                     runtimeState.resourceWarnings.add(`Invalid common-word pattern: ${patternText}`);
@@ -130,7 +131,7 @@ async function loadCommonWordDictionary() {
                 }
             }
             const rules = runtimeState.commonWordDictionary.get(surface) || [];
-            rules.push({ reading, pattern, romaji: romaji || null, conjugationClass: conjugationClass || null });
+            rules.push({ reading, pattern, romaji: romaji || null, conjugationClass: conjugationClass || null, tokenReadingAuthority });
             runtimeState.commonWordDictionary.set(surface, rules);
         }
     }
@@ -220,6 +221,33 @@ function registerTokenizerConfirmedKanaLexicalReadingAliases() {
     return registered;
 }
 
+function normalizeGeneralWordReadingEvidence(rowMeta, readings) {
+    const readingEvidence = [];
+    if (Array.isArray(rowMeta?.readingEvidence)) {
+        for (const item of rowMeta.readingEvidence) {
+            const reading = normalizeDictionaryReading(item?.reading || '');
+            if (!reading) continue;
+            const sequences = [];
+            if (Array.isArray(item?.sequences)) {
+                for (const sequence of item.sequences) if (Number.isInteger(sequence)) sequences.push(sequence);
+            }
+            readingEvidence.push({
+                reading,
+                retained: Boolean(item?.retained),
+                popularityScore: Number(item?.popularityScore || 0),
+                sequences,
+                spellingSpecificApplicability: item?.spellingSpecificApplicability === true
+            });
+        }
+    }
+    const retainedSet = new Set((readings || []).map(item => normalizeKanaReading(item.reading)));
+    const unretainedReadings = [];
+    for (const item of readingEvidence) {
+        if (!item.retained && !retainedSet.has(normalizeKanaReading(item.reading))) unretainedReadings.push(item);
+    }
+    return { readingEvidence, unretainedReadings };
+}
+
 async function loadGeneralWordDictionary() {
     for (const filePath of lexicalTermBankFiles.generalWords) {
         const data = await fetchJsonAsset('generalWords', filePath, `General-word term bank unavailable: ${filePath}`);
@@ -242,15 +270,7 @@ async function loadGeneralWordDictionary() {
                 };
             }).filter(item => item.reading).sort((a, b) => b.popularityScore - a.popularityScore || a.reading.localeCompare(b.reading, 'ja'));
             if (!readings.length) continue;
-            const readingEvidence = Array.isArray(rowMeta.readingEvidence) ? rowMeta.readingEvidence.map(item => ({
-                reading: normalizeDictionaryReading(item?.reading || ''),
-                retained: Boolean(item?.retained),
-                popularityScore: Number(item?.popularityScore || 0),
-                sequences: Array.isArray(item?.sequences) ? item.sequences.filter(Number.isInteger) : [],
-                spellingSpecificApplicability: item?.spellingSpecificApplicability === true
-            })).filter(item => item.reading) : [];
-            const retainedSet = new Set(readings.map(item => normalizeKanaReading(item.reading)));
-            const unretainedReadings = readingEvidence.filter(item => !item.retained && !retainedSet.has(normalizeKanaReading(item.reading)));
+            const { readingEvidence, unretainedReadings } = normalizeGeneralWordReadingEvidence(rowMeta, readings);
             const readingCoverage = String(rowMeta.readingCoverage || bankMeta.defaultReadingCoverage || 'unknown');
             const restrictionStatus = String(rowMeta.restrictionStatus || bankMeta.defaultRestrictionStatus || 'unknown');
             setUniqueDictionaryEntry(runtimeState.generalWordDictionary, surface, {
@@ -369,6 +389,51 @@ function registerProperNounCandidate(surface, reading, metadata = {}) {
     candidates.set(normalized, existing);
 }
 
+function candidateHasProperNounSource(candidate, fileName) {
+    return [...(candidate?.sources || [])].some(source => String(source || '').endsWith(`/nouns/${fileName}`));
+}
+
+function buildProperNounPersonComponentCorroborationIndex() {
+    const jmnedictPeople = [];
+    for (const [surface, candidates] of runtimeState.properNounDictionary.entries()) {
+        for (const candidate of candidates.values()) {
+            if (candidate.categories?.has('person') && candidateHasProperNounSource(candidate, 'jmnedict-bank-1.json')) {
+                jmnedictPeople.push({ surface, candidate });
+            }
+        }
+    }
+
+    for (const person of jmnedictPeople) {
+        const personSurface = String(person.surface || '');
+        const personReading = normalizeKanaReading(person.candidate.reading || '');
+        const characters = Array.from(personSurface);
+        if (!personReading || characters.length < 3) continue;
+        for (let offset = 1; offset < characters.length; offset += 1) {
+            for (const alignment of ['prefix', 'suffix']) {
+                const componentSurface = alignment === 'prefix'
+                    ? characters.slice(0, characters.length - offset).join('')
+                    : characters.slice(offset).join('');
+                if (Array.from(componentSurface).filter(isHanCharacter).length < 2) continue;
+                const candidates = runtimeState.properNounDictionary.get(componentSurface);
+                if (!candidates?.size) continue;
+                for (const candidate of candidates.values()) {
+                    if (!candidate.categories?.has('per') || !candidateHasProperNounSource(candidate, 'nouns-term-bank-1.json')) continue;
+                    const componentReading = normalizeKanaReading(candidate.reading || '');
+                    if (!componentReading) continue;
+                    const readingAligned = alignment === 'prefix'
+                        ? personReading.startsWith(componentReading)
+                        : personReading.endsWith(componentReading);
+                    if (!readingAligned) continue;
+                    if (!(candidate.personComponentCorroborations instanceof Set)) candidate.personComponentCorroborations = new Set();
+                    candidate.personComponentCorroborations.add([
+                        'jmnedict-person-component', alignment, person.surface, person.candidate.reading
+                    ].join('|'));
+                }
+            }
+        }
+    }
+}
+
 function getProperNounSourceRank(entry) {
     if (!Array.isArray(entry)) return 0;
     const value = Number(entry.length > 6 ? entry[6] : entry[3]);
@@ -401,7 +466,10 @@ function registerProperNounEntry(entry, sourceName) {
     if (!surface || !reading) return;
     const hints = parseProperNounReadingHints(entry);
     const normalizedReading = normalizeKanaReading(reading);
-    const directHint = hints.find(hint => normalizeKanaReading(hint.reading) === normalizedReading);
+    let directHint = null;
+    for (const hint of hints) {
+        if (normalizeKanaReading(hint.reading) === normalizedReading) { directHint = hint; break; }
+    }
     const rank = getProperNounSourceRank(entry);
     registerProperNounCandidate(surface, reading, {
         category, source: sourceName, weight: directHint ? directHint.weight : 100, rank
@@ -463,7 +531,7 @@ function buildLexicalPrefixIndexes() {
     for (const rule of titleReadingRules) {
         const normalizedSurface = normalizeTranslatorInputText(rule.surface);
         if (!normalizedSurface) continue;
-        const normalizedPatternText = normalizeReviewedPatternKanjiLiterals(canonicalizeTokenizerBoundaryCharacters(rule.patternText));
+        const normalizedPatternText = canonicalizeReviewedPatternForTokenizerBoundary(rule.patternText);
         try { rule.pattern = compileReviewedPattern(normalizedPatternText, 'i'); }
         catch (error) {
             console.warn(`Invalid normalized title-reading pattern: ${rule.patternText}`, error);
@@ -504,8 +572,54 @@ function buildLexicalPrefixIndexes() {
         addSurfacePrefixes(runtimeState.loanwordPrefixes, surface);
         addSurfacePrefixes(runtimeState.loanwordPrefixes, normalizeKanjiForLookup(surface));
     }
+
+    runtimeState.properNounVariantEvidenceSurfaces.clear();
+    runtimeState.properNounVariantEvidencePrefixes.clear();
+    for (const surface of runtimeState.properNounDictionary.keys()) {
+        const canonicalSurface = normalizeKanjiForLookup(surface, { names: true });
+        if (!canonicalSurface) continue;
+        let sourceSurfaces = runtimeState.properNounVariantEvidenceSurfaces.get(canonicalSurface);
+        if (!sourceSurfaces) {
+            sourceSurfaces = new Set();
+            runtimeState.properNounVariantEvidenceSurfaces.set(canonicalSurface, sourceSurfaces);
+        }
+        sourceSurfaces.add(surface);
+        addSurfacePrefixes(runtimeState.properNounVariantEvidencePrefixes, canonicalSurface);
+    }
 }
 
+
+function escapeCanonicalizedReviewedPatternLiteral(value, inCharacterClass = false) {
+    const reserved = inCharacterClass ? /[\\\]\^-]/u : /[\\^$.*+?()[\]{}|]/u;
+    return Array.from(String(value || '')).map(character => reserved.test(character) ? `\\${character}` : character).join('');
+}
+
+function canonicalizeReviewedPatternForTokenizerBoundary(patternText) {
+    const characters = Array.from(String(patternText || ''));
+    let output = '';
+    let inCharacterClass = false;
+    for (let index = 0; index < characters.length; index += 1) {
+        const character = characters[index];
+        if (character === '\\') {
+            const next = characters[index + 1];
+            if (next == null) { output += character; continue; }
+            if (/^[\x00-\x7F]$/u.test(next)) {
+                output += character + next;
+            } else {
+                const canonical = canonicalizeTokenizerBoundaryCharacters(next);
+                output += escapeCanonicalizedReviewedPatternLiteral(canonical, inCharacterClass);
+            }
+            index += 1;
+            continue;
+        }
+        if (character === '[') { inCharacterClass = true; output += character; continue; }
+        if (character === ']' && inCharacterClass) { inCharacterClass = false; output += character; continue; }
+        if (/^[\x00-\x7F]$/u.test(character)) { output += character; continue; }
+        const canonical = canonicalizeTokenizerBoundaryCharacters(character);
+        output += escapeCanonicalizedReviewedPatternLiteral(canonical, inCharacterClass);
+    }
+    return normalizeReviewedPatternKanjiLiterals(output);
+}
 
 function normalizeReviewedPatternKanjiLiterals(patternText) {
     return Array.from(String(patternText || '')).map(character =>
@@ -529,7 +643,7 @@ async function loadTitleReadingEvidence() {
                 const rule = {
                     surface,
                     patternText,
-                    pattern: compileReviewedPattern(canonicalizeTokenizerBoundaryCharacters(patternText), 'i'),
+                    pattern: compileReviewedPattern(canonicalizeReviewedPatternForTokenizerBoundary(patternText), 'i'),
                     reading: entry.reading ? normalizeEvidenceReading(entry.reading) : null,
                     romaji: silentSeparator ? '' : normalizeReviewedRomaji(entry.romaji),
                     kind,
@@ -563,6 +677,7 @@ async function loadLexicalTermBanks() {
         if (!Array.isArray(data)) continue;
         for (const entry of data) registerProperNounEntry(entry, filePath);
     }
+    buildProperNounPersonComponentCorroborationIndex();
 }
 
 function buildKnownPhraseDictionary() {
@@ -712,6 +827,7 @@ function buildAuthoritativeSpanIndex() {
         registerAuthoritativeSpanEvidence(surface, {
             reading: entry.reading,
             romaji: entry.romaji,
+            alternatives: entry.alternatives || [],
             source: 'reviewed-reading-span',
             confidence: 1,
             priority: 99,
@@ -733,9 +849,10 @@ async function loadCounterDateEvidence() {
         const romaji = normalizeDictionaryRomaji(entry?.romaji);
         const role = String(entry?.role || '').trim();
         const unit = String(entry?.unit || '').trim() || null;
+        const hundredTailReading = normalizeDictionaryReading(entry?.hundredTailReading) || null;
         if (!surface || !reading || !romaji || !role) continue;
         for (const reviewedSurface of [surface, ...aliases]) {
-            setUniqueDictionaryEntry(runtimeState.counterDateReadingDictionary, reviewedSurface, { reading, romaji, role, unit }, 'counter/date');
+            setUniqueDictionaryEntry(runtimeState.counterDateReadingDictionary, reviewedSurface, { reading, romaji, role, unit, numericTail: entry.numericTail === true, hundredTailReading }, 'counter/date');
             addSurfacePrefixes(runtimeState.counterDateReadingPrefixes, reviewedSurface);
         }
     }
@@ -813,10 +930,14 @@ async function loadReviewedReadingEvidence() {
         const surface = String(entry?.surface || '').trim();
         const reading = normalizeDictionaryReading(entry?.reading);
         const romaji = normalizeDictionaryRomaji(entry?.romaji || (reading ? convertToRomaji(reading) : ''));
+        const alternatives = Array.isArray(entry?.alternatives)
+            ? entry.alternatives.map(normalizeDictionaryReading).filter(Boolean)
+            : [];
         if (!surface || !reading || !romaji) continue;
         setUniqueDictionaryEntry(runtimeState.reviewedReadingSpanDictionary, surface, {
             reading,
             romaji,
+            alternatives,
             reviewRequired: Boolean(entry?.reviewRequired),
             note: String(entry?.note || '').trim()
         }, 'reviewed reading span');
@@ -850,10 +971,11 @@ async function loadHistoricalKanaEvidence() {
     for (const entry of entries) {
         const surface = String(entry?.surface || '').trim();
         const reading = normalizeDictionaryReading(entry?.reading);
-        if (!surface || !reading || !/^[ぁ-ゖァ-ンヴー]+$/u.test(reading)) continue;
+        if (!surface || !reading || !isSemanticKanaReading(reading)) continue;
         setUniqueDictionaryEntry(runtimeState.historicalKanaEvidenceDictionary, surface, {
             reading,
             pos: String(entry?.pos || '名詞').trim() || '名詞',
+            conjugationClass: String(entry?.conjugationClass || '').trim(),
             source: String(entry?.source || '').trim(),
             sourceType: String(entry?.sourceType || '').trim(),
             note: String(entry?.note || '').trim()

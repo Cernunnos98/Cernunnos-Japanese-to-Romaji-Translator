@@ -160,8 +160,15 @@ releaseWatchdog.unref();
 
     await run('Release browser isolation tests', process.execPath, [path.join(__dirname, 'test-translator-release-browser-isolation.js')]);
     await run('Semantic data safety tests', process.execPath, [path.join(__dirname, 'test-translator-semantic-data-safety.js'), root]);
+    await run('Loanword source-scope audit tests', process.execPath, [path.join(__dirname, 'test-loanword-source-scope-audit.js'), root]);
     await run('External evidence provenance updater tests', process.execPath, [path.join(__dirname, 'test-update-external-evidence-source-provenance-hashes.js')]);
     await run('External evidence provenance hash check', process.execPath, [path.join(__dirname, 'update-external-evidence-source-provenance-hashes.js'), '--check', root]);
+    await run(
+        'Release-gate mutation detection',
+        process.execPath,
+        [path.join(__dirname, 'run-translator-release-gate-mutations-partitioned.js'), root],
+        positiveInteger(process.env.TRANSLATOR_RELEASE_GATE_MUTATION_TOTAL_TIMEOUT_MS, 600000)
+    );
     await run('Yomitan evidence candidate generator tests', process.execPath, [path.join(root, 'tools/evidence-candidate-generation/test-generate-yomitan-evidence-review-candidates.js')]);
     await run('CJ2R EDRDG updater tests', process.execPath, [path.join(root, 'tools/edrdg-update/test-cj2r-edrdg-updater.js')]);
     await run('Node canonical/generated/differential QA', process.execPath, [path.join(__dirname, 'run-translator-node-qa.js'), root]);

@@ -123,182 +123,208 @@
     "reading": "いっこ",
     "romaji": "Ikko",
     "role": "counter",
-    "unit": "個"
+    "unit": "個",
+    "numericTail": true
   },
   {
     "surface": "六個",
     "reading": "ろっこ",
     "romaji": "Rokko",
     "role": "counter",
-    "unit": "個"
+    "unit": "個",
+    "numericTail": true
   },
   {
     "surface": "八個",
     "reading": "はっこ",
     "romaji": "Hakko",
     "role": "counter",
-    "unit": "個"
+    "unit": "個",
+    "numericTail": true
   },
   {
     "surface": "十個",
     "reading": "じゅっこ",
     "romaji": "Jukko",
     "role": "counter",
-    "unit": "個"
+    "unit": "個",
+    "numericTail": true
   },
   {
     "surface": "一匹",
     "reading": "いっぴき",
     "romaji": "Ippiki",
     "role": "counter",
-    "unit": "匹"
+    "unit": "匹",
+    "numericTail": true
   },
   {
     "surface": "三匹",
     "reading": "さんびき",
     "romaji": "Sanbiki",
     "role": "counter",
-    "unit": "匹"
+    "unit": "匹",
+    "numericTail": true
   },
   {
     "surface": "六匹",
     "reading": "ろっぴき",
     "romaji": "Roppiki",
     "role": "counter",
-    "unit": "匹"
+    "unit": "匹",
+    "numericTail": true
   },
   {
     "surface": "八匹",
     "reading": "はっぴき",
     "romaji": "Happiki",
     "role": "counter",
-    "unit": "匹"
+    "unit": "匹",
+    "numericTail": true
   },
   {
     "surface": "十匹",
     "reading": "じゅっぴき",
     "romaji": "Juppiki",
     "role": "counter",
-    "unit": "匹"
+    "unit": "匹",
+    "numericTail": true
   },
   {
     "surface": "一本",
     "reading": "いっぽん",
     "romaji": "Ippon",
     "role": "counter",
-    "unit": "本"
+    "unit": "本",
+    "numericTail": true
   },
   {
     "surface": "三本",
     "reading": "さんぼん",
     "romaji": "Sanbon",
     "role": "counter",
-    "unit": "本"
+    "unit": "本",
+    "numericTail": true
   },
   {
     "surface": "六本",
     "reading": "ろっぽん",
     "romaji": "Roppon",
     "role": "counter",
-    "unit": "本"
+    "unit": "本",
+    "numericTail": true
   },
   {
     "surface": "八本",
     "reading": "はっぽん",
     "romaji": "Happon",
     "role": "counter",
-    "unit": "本"
+    "unit": "本",
+    "numericTail": true
   },
   {
     "surface": "十本",
     "reading": "じゅっぽん",
     "romaji": "Juppon",
     "role": "counter",
-    "unit": "本"
+    "unit": "本",
+    "numericTail": true
   },
   {
     "surface": "一冊",
     "reading": "いっさつ",
     "romaji": "Issatsu",
     "role": "counter",
-    "unit": "冊"
+    "unit": "冊",
+    "numericTail": true
   },
   {
     "surface": "八冊",
     "reading": "はっさつ",
     "romaji": "Hassatsu",
     "role": "counter",
-    "unit": "冊"
+    "unit": "冊",
+    "numericTail": true
   },
   {
     "surface": "十冊",
     "reading": "じゅっさつ",
     "romaji": "Jussatsu",
     "role": "counter",
-    "unit": "冊"
+    "unit": "冊",
+    "numericTail": true
   },
   {
     "surface": "一回",
     "reading": "いっかい",
     "romaji": "Ikkai",
     "role": "counter",
-    "unit": "回"
+    "unit": "回",
+    "numericTail": true
   },
   {
     "surface": "六回",
     "reading": "ろっかい",
     "romaji": "Rokkai",
     "role": "counter",
-    "unit": "回"
+    "unit": "回",
+    "numericTail": true
   },
   {
     "surface": "八回",
     "reading": "はっかい",
     "romaji": "Hakkai",
     "role": "counter",
-    "unit": "回"
+    "unit": "回",
+    "numericTail": true
   },
   {
     "surface": "十回",
     "reading": "じゅっかい",
     "romaji": "Jukkai",
     "role": "counter",
-    "unit": "回"
+    "unit": "回",
+    "numericTail": true
   },
   {
     "surface": "一階",
     "reading": "いっかい",
     "romaji": "Ikkai",
     "role": "counter",
-    "unit": "階"
+    "unit": "階",
+    "numericTail": true
   },
   {
     "surface": "三階",
     "reading": "さんがい",
     "romaji": "Sangai",
     "role": "counter",
-    "unit": "階"
+    "unit": "階",
+    "numericTail": true
   },
   {
     "surface": "六階",
     "reading": "ろっかい",
     "romaji": "Rokkai",
     "role": "counter",
-    "unit": "階"
+    "unit": "階",
+    "numericTail": true
   },
   {
     "surface": "八階",
     "reading": "はっかい",
     "romaji": "Hakkai",
     "role": "counter",
-    "unit": "階"
+    "unit": "階",
+    "numericTail": true
   },
   {
     "surface": "十階",
     "reading": "じゅっかい",
     "romaji": "Jukkai",
     "role": "counter",
-    "unit": "階"
+    "unit": "階",
+    "numericTail": true
   },
   {
     "surface": "一分",
@@ -347,56 +373,64 @@
     "reading": "いっぱい",
     "romaji": "Ippai",
     "role": "counter",
-    "unit": "杯"
+    "unit": "杯",
+    "numericTail": true
   },
   {
     "surface": "三杯",
     "reading": "さんばい",
     "romaji": "Sanbai",
     "role": "counter",
-    "unit": "杯"
+    "unit": "杯",
+    "numericTail": true
   },
   {
     "surface": "六杯",
     "reading": "ろっぱい",
     "romaji": "Roppai",
     "role": "counter",
-    "unit": "杯"
+    "unit": "杯",
+    "numericTail": true
   },
   {
     "surface": "八杯",
     "reading": "はっぱい",
     "romaji": "Happai",
     "role": "counter",
-    "unit": "杯"
+    "unit": "杯",
+    "numericTail": true
   },
   {
     "surface": "十杯",
     "reading": "じゅっぱい",
     "romaji": "Juppai",
     "role": "counter",
-    "unit": "杯"
+    "unit": "杯",
+    "numericTail": true
   },
   {
     "surface": "一歳",
     "reading": "いっさい",
     "romaji": "Issai",
     "role": "counter",
-    "unit": "歳"
+    "unit": "歳",
+    "numericTail": true
   },
   {
     "surface": "八歳",
     "reading": "はっさい",
     "romaji": "Hassai",
     "role": "counter",
-    "unit": "歳"
+    "unit": "歳",
+    "numericTail": true
   },
   {
     "surface": "十歳",
     "reading": "じゅっさい",
     "romaji": "Jussai",
     "role": "counter",
-    "unit": "歳"
+    "unit": "歳",
+    "numericTail": true
   },
   {
     "surface": "二十歳",
@@ -589,6 +623,14 @@
     "unit": "個"
   },
   {
+    "surface": "百個",
+    "reading": "ひゃっこ",
+    "romaji": "Hyakko",
+    "role": "counter",
+    "unit": "個",
+    "hundredTailReading": "っこ"
+  },
+  {
     "surface": "1匹",
     "reading": "いっぴき",
     "romaji": "Ippiki",
@@ -624,6 +666,14 @@
     "unit": "匹"
   },
   {
+    "surface": "百匹",
+    "reading": "ひゃっぴき",
+    "romaji": "Hyappiki",
+    "role": "counter",
+    "unit": "匹",
+    "hundredTailReading": "っぴき"
+  },
+  {
     "surface": "1本",
     "reading": "いっぽん",
     "romaji": "Ippon",
@@ -657,6 +707,14 @@
     "romaji": "Juppon",
     "role": "counter",
     "unit": "本"
+  },
+  {
+    "surface": "百本",
+    "reading": "ひゃっぽん",
+    "romaji": "Hyappon",
+    "role": "counter",
+    "unit": "本",
+    "hundredTailReading": "っぽん"
   },
   {
     "surface": "1冊",
@@ -708,6 +766,14 @@
     "unit": "回"
   },
   {
+    "surface": "百回",
+    "reading": "ひゃっかい",
+    "romaji": "Hyakkai",
+    "role": "counter",
+    "unit": "回",
+    "hundredTailReading": "っかい"
+  },
+  {
     "surface": "1階",
     "reading": "いっかい",
     "romaji": "Ikkai",
@@ -741,6 +807,14 @@
     "romaji": "Jukkai",
     "role": "counter",
     "unit": "階"
+  },
+  {
+    "surface": "百階",
+    "reading": "ひゃっかい",
+    "romaji": "Hyakkai",
+    "role": "counter",
+    "unit": "階",
+    "hundredTailReading": "っかい"
   },
   {
     "surface": "1分",
@@ -818,6 +892,14 @@
     "romaji": "Juppai",
     "role": "counter",
     "unit": "杯"
+  },
+  {
+    "surface": "百杯",
+    "reading": "ひゃっぱい",
+    "romaji": "Hyappai",
+    "role": "counter",
+    "unit": "杯",
+    "hundredTailReading": "っぱい"
   },
   {
     "surface": "1歳",
@@ -1322,5 +1404,37 @@
     "romaji": "Nijuusanji",
     "role": "clock-hour",
     "unit": "時"
+  },
+  {
+    "surface": "一巻",
+    "reading": "いっかん",
+    "romaji": "Ikkan",
+    "role": "counter",
+    "unit": "巻",
+    "numericTail": true
+  },
+  {
+    "surface": "百巻",
+    "reading": "ひゃっかん",
+    "romaji": "Hyakkan",
+    "role": "counter",
+    "unit": "巻",
+    "hundredTailReading": "っかん"
+  },
+  {
+    "surface": "一章",
+    "reading": "いっしょう",
+    "romaji": "Isshou",
+    "role": "counter",
+    "unit": "章",
+    "numericTail": true
+  },
+  {
+    "surface": "一節",
+    "reading": "いっせつ",
+    "romaji": "Issetsu",
+    "role": "counter",
+    "unit": "節",
+    "numericTail": true
   }
 ]

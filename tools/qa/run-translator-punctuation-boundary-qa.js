@@ -41,7 +41,8 @@ const separatorFamilies = [
     { name: 'comma', canonical: '、', variants: ['、','，','､','﹑','﹐','︑','︐',','] },
     { name: 'question', canonical: '？', variants: ['？','?','﹖','︖'] },
     { name: 'exclamation', canonical: '！', variants: ['！','!','﹗','︕'] },
-    { name: 'colon', canonical: '：', variants: ['：',':','﹕','︓'] },
+    { name: 'colon', canonical: '：', variants: ['：','﹕','︓'] },
+    { name: 'ascii-colon', canonical: ':', variants: [':'] },
     { name: 'semicolon', canonical: '；', variants: ['；',';','﹔','︔'] },
     { name: 'wave', canonical: '〜', variants: ['〜','～','~','〰'] },
     { name: 'em-dash', canonical: '―', variants: ['―','—','﹘','︱'] },
@@ -118,7 +119,9 @@ const protectedCases = [
     ['A_B', 'A_B'],
     ['A+B', 'A+B'],
     ['C++', 'C++'],
-    ['時々', 'Tokidoki']
+    ['時々', 'Tokidoki'],
+    ['学校:学校', 'Gakkou:Gakkou'],
+    ['学校: 学校', 'Gakkou: Gakkou']
 ];
 
 const cases = [];
@@ -153,7 +156,7 @@ for (const base of bases) {
 // punctuation family across six structurally different bases. This keeps the release
 // process bounded while still covering every layout class independently of glyph variants.
 for (const base of layoutBases) {
-    for (const family of separatorFamilies) {
+    for (const family of separatorFamilies.filter(item => item.name !== 'ascii-colon')) {
         for (const layout of infixLayouts.filter(item => item.name !== 'tight')) {
             add(`layout:${base}:${family.name}:${layout.name}`, 'layout-equivalence', layout.render(base, family.canonical, base), `${base}${family.canonical}${base}`, { base, expectRepeatedBase: true });
         }
@@ -166,7 +169,7 @@ for (const base of layoutBases) {
 }
 
 // Exact-override trailing punctuation must survive compatibility/presentation variants.
-for (const family of separatorFamilies.filter(item => ['period','question','exclamation','colon','semicolon','wave','ellipsis'].includes(item.name))) {
+for (const family of separatorFamilies.filter(item => ['period','question','exclamation','colon','ascii-colon','semicolon','wave','ellipsis'].includes(item.name))) {
     for (const variant of family.variants) {
         add(`override-trailing:${family.name}:${variant.codePointAt(0).toString(16)}`, 'override-trailing-equivalence', `東京喰種${variant}`, `東京喰種${family.canonical}`);
     }

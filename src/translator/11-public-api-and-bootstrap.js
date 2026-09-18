@@ -9,7 +9,9 @@ function getRuntimeDiagnosticsInternals() {
         blockUnresolvedHanFromRomaji,
         buildTranslationDiagnostics,
         capitalizeRomaji,
+        canonicalizeIdeographicDecimalNotationSurface,
         canonicalizeTokenizerBoundaryCharacters,
+        canonicalizeReviewedPatternForTokenizerBoundary,
         classifyCanonicalBoundaryTokens,
         classifyHanCharacterScope,
         classifyTokenOutputBoundary,
@@ -34,10 +36,12 @@ function getRuntimeDiagnosticsInternals() {
         getContextualReadingEvidenceForToken,
         evaluateContextualReadingEvidence,
         getLoanwordMetadataForToken,
+        getLoanwordReviewFlag,
         evaluateContextualLoanwordEvidence,
         annotateContextualLoanwordEvidence,
         annotateMorphologicalOutputBoundaries,
         getGeneralWordCandidates,
+        normalizeGeneralWordReadingEvidence,
         getGeneralWordLookup,
         getHanOccurrences,
         getKuromojiDictionaryReading,
@@ -58,14 +62,18 @@ function getRuntimeDiagnosticsInternals() {
         markUnreviewedNameContextTokens,
         markAmbiguousNumericRoleTokens,
         markTypedClockHourRoleTokens,
+        markTypedDayDurationSpanTokens,
         markTypedMinuteCounterRoleTokens,
         applyTypedNumericRoleReadings,
+        mergeIdeographicDecimalNotationTokens,
         mergeCasualSpeechTokens,
         mergeAtejiTokens,
         mergeCommonWordTokens,
         mergeExactDictionaryRescueTokens,
         splitReviewedLoanwordToken,
         mergeGeneralWordTokens,
+        mergeHistoricalKanaEvidenceTokens,
+        mergeReviewedProperNameSpanTokens,
         mergeVariantProperNounTokens,
         needsSpaceBeforeGrammaticalExpression,
         normalizeDictionaryReading,
@@ -74,9 +82,30 @@ function getRuntimeDiagnosticsInternals() {
         normalizePunctuation,
         normalizeRule0OutputPunctuation,
         normalizeTranslatorInputText,
+        normalizeJapaneseCompatibilitySourceSymbols,
+        getJapaneseCompatibilitySourceDecomposition,
+        historicalFixedEncodedKanaMap,
+        normalizeHistoricalFixedEncodedKanaForms,
+        historicalArchaicSyllableKanaMap,
+        normalizeHistoricalArchaicSyllableKana,
+        historicalSingleValuedHentaiganaRanges,
+        getHistoricalSingleValuedHentaiganaModernKana,
+        normalizeHistoricalSingleValuedHentaigana,
+        historicalAmbiguousHentaiganaCandidateMap,
+        getHistoricalAmbiguousHentaiganaCandidates,
+        resolveHistoricalAmbiguousHentaiganaKanaRun,
+        normalizeHistoricalContextResolvedHentaigana,
+        historicalArchaicYeDualIdentityCandidates,
+        getHistoricalArchaicYeDualIdentityCandidates,
+        resolveHistoricalArchaicYeDualIdentityKanaRun,
+        normalizeHistoricalContextResolvedArchaicYe,
+        resolveHistoricalContextualKanaExtensionRun,
+        normalizeHistoricalContextResolvedKanaExtensions,
+        normalizeHistoricalVerticalIterationMarks,
         normalizeSentenceSpacing,
         publicAssetPolicy,
         rankProperNounCandidates,
+        registerProperNounEntry,
         reconcileKanaSourceTokenBoundaries,
         resolveGeneralWordFallback,
         resolveProperNounReading,
@@ -91,6 +120,7 @@ function getRuntimeDiagnosticsInternals() {
         shouldJoinNumericTokens,
         shouldSeparateNumericTokens,
         splitStructuredNumericUnitTokens,
+        splitTokensAtImmutableSourceAuthorityBoundaries,
         applyStructuredFractionOutputTokens,
         stripIdeographicVariationSelectors,
         translateText,
@@ -102,7 +132,8 @@ function getRuntimeDiagnosticsInternals() {
         resolveConfiguredAssetBaseUrl,
         updateRuntimeDiagnostics,
         validateAssetSchema,
-        validateFinalOutputEvidenceConsistency
+        validateFinalOutputEvidenceConsistency,
+        validateSourceSpanAuthorityPreservation
     });
 }
 
@@ -182,6 +213,11 @@ function publishTranslatorDiagnostics(regressionReport = null) {
 
 function getTranslatorDiagnostics() {
     const diagnostics = runtimeDiagnosticsSnapshot || publishTranslatorDiagnostics();
+    const diagnosticsTools = ENABLE_RUNTIME_DIAGNOSTICS && runtimeDiagnosticsTools
+        ? {
+            ...runtimeDiagnosticsTools,
+        }
+        : null;
     return {
         ...diagnostics,
         runtime: runtimeStatusSnapshot(),
@@ -189,7 +225,7 @@ function getTranslatorDiagnostics() {
         developerWarnings: [...runtimeState.developerWarnings],
         regressionFailures: [...(diagnostics.regressionFailures || [])],
         lastTranslation: runtimeState.lastTranslationDiagnostics,
-        tools: ENABLE_RUNTIME_DIAGNOSTICS ? runtimeDiagnosticsTools : null
+        tools: diagnosticsTools
     };
 }
 

@@ -170,6 +170,318 @@
           "weight": 4
         }
       ]
+    },
+    {
+      "id": "hon-book-reading-context",
+      "terms": [
+        {
+          "term": "読む",
+          "weight": 5
+        },
+        {
+          "term": "読み",
+          "weight": 5
+        },
+        {
+          "term": "読み直す",
+          "weight": 6
+        },
+        {
+          "term": "読み返す",
+          "weight": 6
+        },
+        {
+          "term": "僕の本",
+          "weight": 6
+        },
+        {
+          "term": "私の本",
+          "weight": 6
+        },
+        {
+          "term": "俺の本",
+          "weight": 6
+        },
+        {
+          "term": "彼の本",
+          "weight": 6
+        },
+        {
+          "term": "彼女の本",
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "id": "moto-origin-context",
+      "terms": [
+        {
+          "term": "根本",
+          "weight": 5
+        },
+        {
+          "term": "由来",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "sakana-everyday-food-context",
+      "terms": [
+        {
+          "term": "買う",
+          "weight": 4
+        },
+        {
+          "term": "食べる",
+          "weight": 5
+        },
+        {
+          "term": "焼く",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "uo-literary-fish-context",
+      "terms": [
+        {
+          "term": "泳ぐ",
+          "weight": 3
+        },
+        {
+          "term": "川魚",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "gyo-technical-fish-context",
+      "terms": [
+        {
+          "term": "魚類",
+          "weight": 5
+        },
+        {
+          "term": "魚介",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "kudamono-food-market-context",
+      "terms": [
+        {
+          "term": "買う",
+          "weight": 4
+        },
+        {
+          "term": "食べる",
+          "weight": 5
+        },
+        {
+          "term": "売る",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "kabutsu-formal-context",
+      "terms": [
+        {
+          "term": "分類",
+          "weight": 4
+        },
+        {
+          "term": "漢語",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "mizu-drinking-context",
+      "terms": [
+        {
+          "term": "飲む",
+          "weight": 5
+        },
+        {
+          "term": "汲む",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "sui-technical-water-context",
+      "terms": [
+        {
+          "term": "化合物",
+          "weight": 5
+        },
+        {
+          "term": "四大",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "eru-acquisition-context",
+      "terms": [
+        {
+          "term": "信用",
+          "weight": 5
+        },
+        {
+          "term": "資格",
+          "weight": 4
+        },
+        {
+          "term": "権利",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "uru-potential-context",
+      "terms": [
+        {
+          "term": "あり",
+          "weight": 5
+        },
+        {
+          "term": "有り",
+          "weight": 5
+        },
+        {
+          "term": "起こり",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "hiku-instrument-context",
+      "terms": [
+        {
+          "term": "ベース",
+          "weight": 5
+        },
+        {
+          "term": "ギター",
+          "weight": 5
+        },
+        {
+          "term": "ピアノ",
+          "weight": 5
+        },
+        {
+          "term": "バイオリン",
+          "weight": 5
+        },
+        {
+          "term": "楽器",
+          "weight": 4
+        },
+        {
+          "term": "演奏",
+          "weight": 4
+        },
+        {
+          "term": "バンド",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "hajiku-flick-repel-context",
+      "terms": [
+        {
+          "term": "そろばん",
+          "weight": 5
+        },
+        {
+          "term": "水",
+          "weight": 4
+        },
+        {
+          "term": "銃弾",
+          "weight": 4
+        },
+        {
+          "term": "指",
+          "weight": 3
+        },
+        {
+          "term": "爪",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "nuno-fabric-context",
+      "terms": [
+        {
+          "term": "レース",
+          "weight": 5
+        },
+        {
+          "term": "生地",
+          "weight": 4
+        },
+        {
+          "term": "織物",
+          "weight": 4
+        },
+        {
+          "term": "綿",
+          "weight": 3
+        },
+        {
+          "term": "麻",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "fu-sino-context",
+      "terms": [
+        {
+          "term": "配布",
+          "weight": 5
+        },
+        {
+          "term": "公布",
+          "weight": 5
+        },
+        {
+          "term": "分布",
+          "weight": 5
+        },
+        {
+          "term": "塗布",
+          "weight": 5
+        },
+        {
+          "term": "散布",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "kire-cloth-piece-context",
+      "terms": [
+        {
+          "term": "切れ端",
+          "weight": 5
+        },
+        {
+          "term": "端切れ",
+          "weight": 5
+        },
+        {
+          "term": "余り切れ",
+          "weight": 5
+        }
+      ]
     }
   ],
   "entries": [
@@ -260,6 +572,174 @@
         }
       ],
       "source": "Project-reviewed/JMdict contextual sense distinction"
+    },
+    {
+      "surface": "本",
+      "window": 3,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "ほん",
+          "features": [
+            "hon-book-reading-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "もと",
+          "features": [
+            "moto-origin-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary sense distinction: 書籍の本 (ほん) vs origin/base 本 (もと)"
+    },
+    {
+      "surface": "魚",
+      "window": 4,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "さかな",
+          "features": [
+            "sakana-everyday-food-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "うお",
+          "features": [
+            "uo-literary-fish-context"
+          ],
+          "minScore": 3
+        },
+        {
+          "reading": "ぎょ",
+          "features": [
+            "gyo-technical-fish-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary usage distinction for standalone 魚 readings"
+    },
+    {
+      "surface": "果物",
+      "window": 4,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "くだもの",
+          "features": [
+            "kudamono-food-market-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "かぶつ",
+          "features": [
+            "kabutsu-formal-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary usage distinction for 果物"
+    },
+    {
+      "surface": "水",
+      "window": 4,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "みず",
+          "features": [
+            "mizu-drinking-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "すい",
+          "features": [
+            "sui-technical-water-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary usage distinction for standalone 水"
+    },
+    {
+      "surface": "得る",
+      "window": 4,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "える",
+          "features": [
+            "eru-acquisition-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "うる",
+          "features": [
+            "uru-potential-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary usage distinction for 得る"
+    },
+    {
+      "surface": "弾く",
+      "window": 4,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "ひく",
+          "features": [
+            "hiku-instrument-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "はじく",
+          "features": [
+            "hajiku-flick-repel-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary sense distinction for 弾く (instrument performance vs flick/repel senses)"
+    },
+    {
+      "surface": "布",
+      "window": 3,
+      "minMargin": 2,
+      "candidates": [
+        {
+          "reading": "ぬの",
+          "features": [
+            "nuno-fabric-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "ふ",
+          "features": [
+            "fu-sino-context"
+          ],
+          "minScore": 4
+        },
+        {
+          "reading": "きれ",
+          "features": [
+            "kire-cloth-piece-context"
+          ],
+          "minScore": 4
+        }
+      ],
+      "source": "Project-reviewed dictionary sense distinction for standalone 布 readings"
     }
   ]
 }

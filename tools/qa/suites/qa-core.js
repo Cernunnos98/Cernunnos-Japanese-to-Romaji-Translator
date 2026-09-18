@@ -11,7 +11,9 @@ const {
     blockUnresolvedHanFromRomaji,
     buildTranslationDiagnostics,
     capitalizeRomaji,
+    canonicalizeIdeographicDecimalNotationSurface,
     canonicalizeTokenizerBoundaryCharacters,
+    canonicalizeReviewedPatternForTokenizerBoundary,
     classifyCanonicalBoundaryTokens,
     classifyHanCharacterScope,
     classifyTokenOutputBoundary,
@@ -34,7 +36,9 @@ const {
     getCommonWordReadingForToken,
     getContextualReadingEvidenceForToken,
     evaluateContextualReadingEvidence,
+    getLoanwordReviewFlag,
     getGeneralWordCandidates,
+    normalizeGeneralWordReadingEvidence,
     getGeneralWordLookup,
     getHanOccurrences,
     getKuromojiDictionaryReading,
@@ -51,8 +55,10 @@ const {
     markUnreviewedNameContextTokens,
     markAmbiguousNumericRoleTokens,
     markTypedClockHourRoleTokens,
+    markTypedDayDurationSpanTokens,
     markTypedMinuteCounterRoleTokens,
     applyTypedNumericRoleReadings,
+    mergeIdeographicDecimalNotationTokens,
     mergeCasualSpeechTokens,
     mergeDesiderativeGaruTokens,
     mergeAtejiTokens,
@@ -60,6 +66,8 @@ const {
     mergeExactDictionaryRescueTokens,
     splitReviewedLoanwordToken,
     mergeGeneralWordTokens,
+    mergeHistoricalKanaEvidenceTokens,
+    mergeReviewedProperNameSpanTokens,
     mergeKanaLexicalReadingTokens,
     mergeVariantProperNounTokens,
     needsCrossTokenApostrophe,
@@ -71,9 +79,30 @@ const {
     normalizePunctuation,
     normalizeRule0OutputPunctuation,
     normalizeTranslatorInputText,
+    normalizeJapaneseCompatibilitySourceSymbols,
+    getJapaneseCompatibilitySourceDecomposition,
+    historicalFixedEncodedKanaMap,
+    normalizeHistoricalFixedEncodedKanaForms,
+    historicalArchaicSyllableKanaMap,
+    normalizeHistoricalArchaicSyllableKana,
+    historicalSingleValuedHentaiganaRanges,
+    getHistoricalSingleValuedHentaiganaModernKana,
+    normalizeHistoricalSingleValuedHentaigana,
+    historicalAmbiguousHentaiganaCandidateMap,
+    getHistoricalAmbiguousHentaiganaCandidates,
+    resolveHistoricalAmbiguousHentaiganaKanaRun,
+    normalizeHistoricalContextResolvedHentaigana,
+    historicalArchaicYeDualIdentityCandidates,
+    getHistoricalArchaicYeDualIdentityCandidates,
+    resolveHistoricalArchaicYeDualIdentityKanaRun,
+    normalizeHistoricalContextResolvedArchaicYe,
+    resolveHistoricalContextualKanaExtensionRun,
+    normalizeHistoricalContextResolvedKanaExtensions,
+    normalizeHistoricalVerticalIterationMarks,
     normalizeSentenceSpacing,
     publicAssetPolicy,
     rankProperNounCandidates,
+    registerProperNounEntry,
     reconcileKanaSourceTokenBoundaries,
     resolveGeneralWordFallback,
     resolveProperNounReading,
@@ -88,6 +117,7 @@ const {
     shouldJoinNumericTokens,
     shouldSeparateNumericTokens,
     splitStructuredNumericUnitTokens,
+    splitTokensAtImmutableSourceAuthorityBoundaries,
     applyStructuredFractionOutputTokens,
     stripIdeographicVariationSelectors,
     translateText,
@@ -99,7 +129,8 @@ const {
     resolveConfiguredAssetBaseUrl,
     updateRuntimeDiagnostics,
     validateAssetSchema,
-    validateFinalOutputEvidenceConsistency
+    validateFinalOutputEvidenceConsistency,
+    validateSourceSpanAuthorityPreservation
 } = qaInternals;
 
 // Developer-only regression and QA tools.
@@ -234,10 +265,28 @@ function getRegressionInvariants() {
             test: (output, check) => {
                 const value = String(output || '');
                 const source = String(check?.input || '');
-                const punctuationSpacingClean = !/ {2,}|　/u.test(value)
-                    && !/\s+[,.;:?!\)\]]/u.test(value)
-                    && !/[\(\[]\s+/u.test(value)
-                    && !/[,;:?!](?=[A-Za-z])/u.test(value);
+                const sourceColonStyles = [];
+                for (let index = 0; index < source.length; index += 1) {
+                    if (source[index] === ':' || source[index] === '：') {
+                        sourceColonStyles.push({ ascii: source[index] === ':', tight: source[index] === ':' && !/\s/u.test(source[index + 1] || '') });
+                    }
+                }
+                let colonOrdinal = 0;
+                let colonSpacingClean = true;
+                for (let index = 0; index < value.length; index += 1) {
+                    if (value[index] !== ':') continue;
+                    const style = sourceColonStyles[colonOrdinal++] || null;
+                    if (/[A-Za-z]/u.test(value[index + 1] || '') && !style?.tight) {
+                        colonSpacingClean = false;
+                        break;
+                    }
+                }
+                const spacingProbe = value.replace(/\bhttps?:\/\/[^\s"'<>]+/giu, match => 'U'.repeat(match.length));
+                const punctuationSpacingClean = !/ {2,}|　/u.test(spacingProbe)
+                    && !/\s+[,.;:?!\)\]]/u.test(spacingProbe)
+                    && !/[\(\[]\s+/u.test(spacingProbe)
+                    && !/[,;?!](?=[A-Za-z])/u.test(spacingProbe)
+                    && colonSpacingClean;
                 if (!punctuationSpacingClean) return false;
                 if (!/[~～〜]/u.test(source)) return true;
                 const waveIndexes = [];

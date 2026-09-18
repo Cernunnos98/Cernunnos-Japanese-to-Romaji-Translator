@@ -39,6 +39,14 @@
       "note": "喃喃 is なんなん as a whole word; なんなん is not a single-character reading."
     },
     {
+      "surface": "大水",
+      "reading": "おおみず",
+      "alternatives": [
+        "たいすい"
+      ],
+      "note": "大水 has attested おおみず and たいすい readings; unsupported だいすい must not be selected."
+    },
+    {
       "surface": "嬲",
       "reading": "なぶる",
       "alternatives": [
@@ -102,16 +110,6 @@
       "note": "Rare character; exact lexical evidence takes precedence."
     },
     {
-      "surface": "掬",
-      "reading": "きく",
-      "alternatives": [
-        "すくう",
-        "むすぶ",
-        "こく"
-      ],
-      "note": "Bare character/headword reading; 掬う is contextually すくう."
-    },
-    {
       "surface": "捌",
       "reading": "はち",
       "alternatives": [
@@ -124,6 +122,16 @@
       "numericCanonical": "八",
       "numericRole": "numeral",
       "note": "Bare glyph can function as formal 八; okurigana resolves verbal uses."
+    },
+    {
+      "surface": "掬",
+      "reading": "きく",
+      "alternatives": [
+        "すくう",
+        "むすぶ",
+        "こく"
+      ],
+      "note": "Bare character/headword reading; 掬う is contextually すくう."
     },
     {
       "surface": "擣",
@@ -162,6 +170,16 @@
         "まないた"
       ],
       "note": "Variant of 俎; common compound reading is ソ."
+    },
+    {
+      "surface": "玖",
+      "reading": "きゅう",
+      "alternatives": [
+        "く"
+      ],
+      "numericCanonical": "九",
+      "numericRole": "numeral",
+      "note": "Formal 九; canonical numeric context is required because 九月 is くがつ while 九万 is きゅうまん."
     },
     {
       "surface": "疋",
@@ -296,16 +314,6 @@
         "まるまげ"
       ],
       "note": "Generic hairstyle reading まげ; specific hairstyle compounds can use わげ."
-    },
-    {
-      "surface": "玖",
-      "reading": "きゅう",
-      "alternatives": [
-        "く"
-      ],
-      "numericCanonical": "九",
-      "numericRole": "numeral",
-      "note": "Formal 九; canonical numeric context is required because 九月 is くがつ while 九万 is きゅうまん."
     }
   ],
   "spans": [
@@ -314,6 +322,17 @@
       "reading": "せんぱく",
       "romaji": "Senpaku",
       "note": "Lexical compound protects 佰=ハク from numeric aliasing."
+    },
+    {
+      "surface": "夾纈",
+      "reading": "きょうけち",
+      "romaji": "Kyoukechi"
+    },
+    {
+      "surface": "小公子",
+      "reading": "しょうこうし",
+      "romaji": "Shoukoushi",
+      "note": "Reviewed whole-word dictionary reading; Kotobank / Digital Daijisen and Nihon Kokugo Daijiten: https://kotobank.jp/word/%E5%B0%8F%E5%85%AC%E5%AD%90-79178"
     },
     {
       "surface": "巉岩",
@@ -341,19 +360,20 @@
       "romaji": "Senmetsu"
     },
     {
+      "surface": "決勝トーナメント",
+      "reading": "けっしょうトーナメント",
+      "romaji": "Kesshou Tournament",
+      "note": "Reviewed whole-span Rule 0 output: Japanese 決勝 plus source-language spelling Tournament for トーナメント; frozen adversarial adjudication 2026-09-15."
+    },
+    {
       "surface": "爼上",
       "reading": "そじょう",
       "romaji": "Sojou"
     },
     {
-      "surface": "車站",
-      "reading": "しゃたん",
-      "romaji": "Shatan"
-    },
-    {
-      "surface": "夾纈",
-      "reading": "きょうけち",
-      "romaji": "Kyoukechi"
+      "surface": "玖馬",
+      "reading": "きゅーば",
+      "romaji": "Kyuuba"
     },
     {
       "surface": "翊賛",
@@ -366,6 +386,17 @@
       "romaji": "Kouri"
     },
     {
+      "surface": "薄桜",
+      "reading": "うすざくら",
+      "romaji": "Usuzakura",
+      "note": "Attested ordinary lexical reading; Digital Daijisen and Nihon Kokugo Daijiten via Kotobank: https://kotobank.jp/word/%E8%96%84%E6%A1%9C-439832"
+    },
+    {
+      "surface": "車站",
+      "reading": "しゃたん",
+      "romaji": "Shatan"
+    },
+    {
       "surface": "陌上",
       "reading": "はくじょう",
       "romaji": "Hakujou"
@@ -376,21 +407,24 @@
       "romaji": "Ganshu"
     },
     {
-      "surface": "玖馬",
-      "reading": "きゅーば",
-      "romaji": "Kyuuba"
+      "surface": "各月",
+      "reading": "かくげつ",
+      "romaji": "Kakugetsu",
+      "alternatives": [
+        "かくつき"
+      ],
+      "reviewRequired": true,
+      "note": "Digital Daijisen and Nihon Kokugo Daijiten list かくげつ; current Fuchu City usage explicitly attests 各月(かくつき). Preserve both as legitimate and keep isolated output review-required. Sources: https://kotobank.jp/word/%E5%90%84%E6%9C%88-460177 ; https://www.city.fuchu.tokyo.jp/kurashi/gomirisaikuru/bunbetu_calendar/gomicalendar/gomicalender.html"
     },
     {
-      "surface": "薄桜",
-      "reading": "うすざくら",
-      "romaji": "Usuzakura",
-      "note": "Attested ordinary lexical reading; Digital Daijisen and Nihon Kokugo Daijiten via Kotobank: https://kotobank.jp/word/%E8%96%84%E6%A1%9C-439832"
-    },
-    {
-      "surface": "小公子",
-      "reading": "しょうこうし",
-      "romaji": "Shoukoushi",
-      "note": "Reviewed whole-word dictionary reading; Kotobank / Digital Daijisen and Nihon Kokugo Daijiten: https://kotobank.jp/word/%E5%B0%8F%E5%85%AC%E5%AD%90-79178"
+      "surface": "各年",
+      "reading": "かくねん",
+      "romaji": "Kakunen",
+      "alternatives": [
+        "かくとし"
+      ],
+      "reviewRequired": true,
+      "note": "Current official Japanese usage attests both 各年(かくねん) and 各年(かくとし). Preserve both as legitimate and keep isolated output review-required. Sources: https://www.city.komaki.aichi.jp/admin/soshiki/shiminseikatsu/tabunkakyousei/tabunkakyousei/question/49324.html ; https://www.city.machida.tokyo.jp/kids/introduction/kidstoukei/jinnkou.html"
     }
   ]
 }

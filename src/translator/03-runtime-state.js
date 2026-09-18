@@ -30,6 +30,8 @@ function createRuntimeState() {
         atejiPrefixes: new Set(),
         properNounDictionary: new Map(),
         properNounPrefixes: new Set(),
+        properNounVariantEvidenceSurfaces: new Map(),
+        properNounVariantEvidencePrefixes: new Set(),
         reviewedProperNameSpanDictionary: new Map(),
         reviewedProperNameSpanPrefixes: new Set(),
         readingEvidenceDictionary: new Map(),

@@ -109,6 +109,8 @@ for rel in [
     'tools/qa/run-translator-punctuation-boundary-qa.js',
     'tools/qa/run-translator-punctuation-boundary-partitioned.js',
     'tools/qa/run-translator-failure-injection-partitioned.js',
+    'tools/qa/test-translator-release-gate-mutations.js',
+    'tools/qa/run-translator-release-gate-mutations-partitioned.js',
     'tools/qa/run-translator-focused-qa.js',
     'tools/qa/run-translator-qa-dashboard.js',
     'tools/qa/Open CJ2R QA Dashboard.cmd',

@@ -10,9 +10,23 @@ function findSourceTokenRanges(tokens, sourceText) {
 
         const explicitStart = Number(token?.sourceStart);
         const explicitEnd = Number(token?.sourceEnd);
+        const explicitSourceSurface = Number.isInteger(explicitStart) && Number.isInteger(explicitEnd)
+            ? text.slice(explicitStart, explicitEnd)
+            : '';
+        const canonicalVariantOwnsExplicitSpan = Boolean(
+            token?.variantCanonicalRetokenized === true
+            && String(token?.variantOriginalSurface || '') === explicitSourceSurface
+            && Array.isArray(token?.semanticAnnotationOwnership)
+            && token.semanticAnnotationOwnership.some(owner =>
+                owner?.sourceStart === explicitStart
+                && owner?.sourceEnd === explicitEnd
+                && owner?.sourceSurface === explicitSourceSurface
+                && Array.isArray(owner?.annotations)
+                && owner.annotations.includes('variantCanonicalRetokenized'))
+        );
         if (Number.isInteger(explicitStart) && Number.isInteger(explicitEnd)
             && explicitStart >= cursor && explicitEnd >= explicitStart
-            && text.slice(explicitStart, explicitEnd) === surface) {
+            && (explicitSourceSurface === surface || canonicalVariantOwnsExplicitSpan)) {
             ranges.push({ start: explicitStart, end: explicitEnd });
             cursor = explicitEnd;
             continue;
@@ -65,12 +79,13 @@ const spanBoundSemanticAnnotationKeys = new Set([
     'numericExpression', 'contextualOverrideMatched', 'contextualRomaji',
     'titleReadingEvidenceMatched', 'titleReadingEvidenceReading', 'titleReadingEvidenceRomaji', 'titleReadingEvidenceKind', 'titleReadingEvidenceSource',
     'sourceSpanLexicalCandidateMatched', 'sourceSpanLexicalCandidateReading', 'sourceSpanLexicalCandidateRomaji', 'sourceSpanLexicalCandidateKind', 'sourceSpanLexicalCandidateSource', 'sourceSpanLexicalCandidateConfidence',
-    'reviewedProperNameSpanMatched', 'reviewedProperNameSpanRomaji', 'reviewedProperNameLookupSurface', 'reviewedProperNameVariantMappings',
+    'reviewedProperNameSpanMatched', 'reviewedProperNameSpanRomaji', 'reviewedProperNameLookupSurface', 'reviewedProperNameVariantMappings', 'reviewedProperNameLexicalCollision', 'reviewedProperNameLexicalReading',
     'reviewedNameHonorificMatched', 'reviewedNameHonorificReading',
     'typedTemporalExpressionMatched', 'typedTemporalExpressionType', 'typedTemporalReading', 'typedTemporalSource', 'typedTemporalSpanLexicalCollision', 'typedTemporalSuffix', 'structuredTemporalHead',
-    'typedNumericExpressionMatched', 'typedNumericExpressionType', 'typedNumericReading', 'typedNumericSource', 'typedNumericRoleSelected', 'typedNumericRole', 'typedNumericRoleState', 'typedNumericRoleSource', 'typedNumericRoleReviewRequired', 'typedNumericRoleAlternatives', 'structuredNumericSplit',
+    'typedNumericExpressionMatched', 'typedNumericExpressionType', 'typedNumericReading', 'typedNumericSource', 'typedNumericRoleSelected', 'typedNumericRole', 'typedNumericRoleState', 'typedNumericRoleSource', 'typedNumericRoleReviewRequired', 'typedNumericRoleAlternatives', 'structuredNumericSplit', 'sourceSpanLexicalBoundaryRelease',
+    'ideographicDecimalNotationMatched', 'ideographicDecimalCanonicalDigits',
     'structuredFractionRole', 'structuredFractionReading', 'structuredFractionSource',
-    'authoritativeSpanMatched', 'authoritativeSpanCategory', 'authoritativeSpanReading', 'authoritativeSpanRomaji', 'authoritativeSpanSource', 'authoritativeSpanConfidence', 'authoritativeSpanReviewRequired', 'authoritativeSpanReviewReason', 'authoritativeSpanReviewFlag', 'authoritativeSpanVariantMappings',
+    'authoritativeSpanMatched', 'authoritativeSpanCategory', 'authoritativeSpanReading', 'authoritativeSpanRomaji', 'authoritativeSpanSource', 'authoritativeSpanConfidence', 'authoritativeSpanReviewRequired', 'authoritativeSpanReviewReason', 'authoritativeSpanReviewFlag', 'authoritativeSpanAlternatives', 'authoritativeSpanVariantMappings',
     'reviewedNumericAliasMatched', 'reviewedNumericAliasCanonicalSurface', 'reviewedNumericAliasReading', 'reviewedNumericAliasRomaji', 'reviewedNumericAliasSource',
     'variantProperNounMatched', 'variantCanonicalRetokenized', 'variantOriginalSurface', 'variantLookupSurface', 'variantMappings',
     'latinPassthroughMatched', 'latinPassthroughOutput',
@@ -86,8 +101,9 @@ const spanBoundSemanticAnnotationKeys = new Set([
     'atejiMatched', 'atejiReading',
     'generalWordMatched', 'generalWordReading', 'generalWordAmbiguous', 'generalWordCoverageIncomplete', 'generalWordCandidates', 'generalWordVariantMappings',
     'ordinaryCompoundReadingMatched', 'ordinaryCompoundReading', 'ordinaryCompoundReadingCandidates',
+    'structuralRoleReadingMatched', 'structuralRoleReading', 'structuralRoleReadingCandidates', 'structuralPrefixRoleMatched', 'structuralSuffixRoleMatched',
     'iterationMarkFallbackMatched', 'iterationMarkFallbackReading',
-    'nameContextAmbiguous', 'nameContextSurname', 'nameContextBase', 'nameContextStructure',
+    'nameContextAmbiguous', 'nameContextSurname', 'nameContextBase', 'nameContextStructure', 'nameContextCandidateSurface', 'nameContextSourceStart', 'nameContextSourceEnd', 'nameContextSourceSurface',
     'desiderativeGaruRecoveredFromSurface',
     'readingResolution', 'outputBoundaryBefore', 'outputBoundaryReason', 'outputBoundaryAuthority', 'outputBoundaryRequiresReview',
     'semanticAnnotationOwnership'
@@ -397,7 +413,7 @@ function getKuromojiDictionaryReading(token) {
 }
 
 function hasReviewedLexicalBoundaryBefore(token) {
-    return Boolean(token?.reviewedLexicalBoundaryBefore || token?.tokenizationRoleBoundaryBefore);
+    return Boolean(token?.reviewedLexicalBoundaryBefore || token?.tokenizationRoleBoundaryBefore || token?.sourceAuthorityBoundaryBefore);
 }
 
 function crossesReviewedLexicalBoundary(tokens, startIndex, endIndex) {
@@ -450,8 +466,8 @@ function isGrammaticalToken(token) {
         && runtimeState.auxiliarySpacingBasicForms.has(tokenBasicForm(token));
 }
 function isNominalizer(token) { return Boolean(token) && token.surface_form === 'の' && token.pos === '名詞'; }
-function isPrefix(token) { return Boolean(token) && token.pos === '接頭詞'; }
-function isSuffix(token) { return Boolean(token) && (token.pos === '接尾詞' || token.pos_detail_1 === '接尾'); }
+function isPrefix(token) { return Boolean(token) && (token.pos === '接頭詞' || token.structuralPrefixRoleMatched); }
+function isSuffix(token) { return Boolean(token) && (token.pos === '接尾詞' || token.pos_detail_1 === '接尾' || token.structuralSuffixRoleMatched); }
 function isProperNounToken(token) { return Boolean(token) && (token.pos_detail_1 === '固有名詞' || token.pos_detail_2 === '人名'); }
 function isPersonNameToken(token) { return Boolean(token) && token.pos_detail_1 === '固有名詞' && token.pos_detail_2 === '人名'; }
 
@@ -676,11 +692,27 @@ function resolveGeneralWordFallback(token) {
 function assessGeneralWordReading(token, currentReading) {
     if (!token || !currentReading) return null;
     const lookup = getGeneralWordLookup(token.surface_form);
-    if (!lookup) return null;
+    const sourceOrthographyCandidates = Array.isArray(token.sourceOrthographyGeneralWordCandidates)
+        ? token.sourceOrthographyGeneralWordCandidates
+        : [];
+    if (!lookup && !sourceOrthographyCandidates.length) return null;
     const normalized = normalizeKanaReading(currentReading);
-    const candidates = getGeneralWordCandidates(lookup);
+    const byReading = new Map();
+    for (const candidate of [...(lookup ? getGeneralWordCandidates(lookup) : []), ...sourceOrthographyCandidates]) {
+        const reading = normalizeKanaReading(candidate?.reading || '');
+        if (!reading) continue;
+        const existing = byReading.get(reading);
+        byReading.set(reading, {
+            ...(existing || {}),
+            ...candidate,
+            categories: new Set([...(existing?.categories || []), ...(candidate?.categories || [])]),
+            sources: new Set([...(existing?.sources || []), ...(candidate?.sources || [])])
+        });
+    }
+    const candidates = [...byReading.values()];
     const matchedIndex = candidates.findIndex(item => normalizeKanaReading(item.reading) === normalized);
-    const completeCoverage = hasCompleteGeneralWordReadingCoverage(lookup);
+    const canonicalCompleteCoverage = lookup ? hasCompleteGeneralWordReadingCoverage(lookup) : true;
+    const completeCoverage = canonicalCompleteCoverage && token.sourceOrthographyGeneralWordCoverageIncomplete !== true;
     const strongPreference = completeCoverage && candidates.length === 1;
     const conflict = candidates.length > 0 && matchedIndex < 0;
     return {
@@ -690,12 +722,65 @@ function assessGeneralWordReading(token, currentReading) {
         strongPreference,
         conflict,
         coverageIncomplete: !completeCoverage,
-        variantMappings: lookup.variant?.mappings || []
+        variantMappings: lookup?.variant?.mappings || []
     };
 }
 
+function isGeneralWordHardSegmentSeparatorToken(token) {
+    if (!token) return false;
+    const surface = String(token.surface_form || '');
+    const characters = Array.from(surface);
+    if (!characters.length) return false;
+    const isHardCharacter = character => /^[~～〜、，,。！？?!]$/u.test(character);
+    const hasHardCharacter = characters.some(isHardCharacter);
+    if (!hasHardCharacter) return false;
+    return characters.every(character => isHardCharacter(character) || isCanonicalTransparentBoundaryCharacter(character));
+}
+
+function isGeneralWordTransparentSegmentBoundaryToken(token) {
+    return Boolean(token?.canonicalBoundary && isCanonicalTransparentBoundarySurface(token.surface_form));
+}
+
 function isGeneralWordSegmentSeparatorToken(token) {
-    return Boolean(token && /^[~～〜]$/u.test(String(token.surface_form || '')));
+    return isGeneralWordHardSegmentSeparatorToken(token) || isGeneralWordTransparentSegmentBoundaryToken(token);
+}
+
+function isGeneralWordSourceSegmentSeparatorCharacter(character) {
+    return /^[~～〜、，,。！？?!]$/u.test(character) || isCanonicalTransparentBoundaryCharacter(character);
+}
+
+function splitGeneralWordSourceSegments(value) {
+    const segments = [''];
+    let insideSeparatorRun = false;
+    for (const character of Array.from(String(value || ''))) {
+        if (isGeneralWordSourceSegmentSeparatorCharacter(character)) {
+            if (!insideSeparatorRun) segments.push('');
+            insideSeparatorRun = true;
+            continue;
+        }
+        insideSeparatorRun = false;
+        segments[segments.length - 1] += character;
+    }
+    return segments;
+}
+
+function isTransparentWrappedGeneralWordSegmentIsolated(tokens, startIndex, endIndex) {
+    const hasTransparentEdge = isGeneralWordTransparentSegmentBoundaryToken(tokens[startIndex - 1])
+        || isGeneralWordTransparentSegmentBoundaryToken(tokens[endIndex + 1]);
+    if (!hasTransparentEdge) return true;
+    for (let index = startIndex - 1; index >= 0; index -= 1) {
+        if (isGeneralWordHardSegmentSeparatorToken(tokens[index])) break;
+        if (!isGeneralWordTransparentSegmentBoundaryToken(tokens[index])) return false;
+    }
+    for (let index = endIndex + 1; index < tokens.length; index += 1) {
+        if (isGeneralWordHardSegmentSeparatorToken(tokens[index])) break;
+        if (!isGeneralWordTransparentSegmentBoundaryToken(tokens[index])) return false;
+    }
+    return true;
+}
+
+function isTrailingSentencePunctuationToken(token) {
+    return Boolean(token && token.pos === '記号' && /^[。！？?!]+$/u.test(String(token.surface_form || '')));
 }
 
 function hasStrongerGeneralWordSegmentEvidence(tokens, surface) {
@@ -722,12 +807,22 @@ function findExactGeneralWordSegment(tokens, startIndex, sourceText = '') {
     if (startIndex > 0 && !isGeneralWordSegmentSeparatorToken(tokens[startIndex - 1])) return null;
     let endIndex = startIndex;
     while (endIndex + 1 < tokens.length && !isGeneralWordSegmentSeparatorToken(tokens[endIndex + 1])) endIndex += 1;
-    const segmentTokens = tokens.slice(startIndex, endIndex + 1);
+    let lexicalEndIndex = endIndex;
+    while (lexicalEndIndex > startIndex && isTrailingSentencePunctuationToken(tokens[lexicalEndIndex])) lexicalEndIndex -= 1;
+    const segmentTokens = tokens.slice(startIndex, lexicalEndIndex + 1);
     if (!segmentTokens.length) return null;
+    if (!isTransparentWrappedGeneralWordSegmentIsolated(tokens, startIndex, lexicalEndIndex)) return null;
     const segmentSurface = segmentTokens.map(token => String(token?.surface_form || '')).join('');
-    const segmentIndex = tokens.slice(0, startIndex).filter(isGeneralWordSegmentSeparatorToken).length;
-    const sourceSegments = String(sourceText || '').split(/[~～〜]/u);
-    if (!segmentSurface || sourceSegments[segmentIndex] !== segmentSurface) return null;
+    const sourceSpan = getCompleteDerivedSourceSpan(tokens, startIndex, lexicalEndIndex);
+    if (!segmentSurface) return null;
+    if (sourceSpan) {
+        if (sourceSpan.sourceSurface !== segmentSurface) return null;
+    } else {
+        const segmentIndex = tokens.slice(0, startIndex).filter(isGeneralWordSegmentSeparatorToken).length;
+        const sourceSegments = splitGeneralWordSourceSegments(sourceText);
+        const sourceSegment = String(sourceSegments[segmentIndex] || '');
+        if (sourceSegment !== segmentSurface) return null;
+    }
     const lookup = getGeneralWordLookup(segmentSurface);
     if (!lookup?.entry?.readings?.length || lookup.entry.mergeSafe || getGeneralWordCandidates(lookup).length < 2) return null;
     if (hasStrongerGeneralWordSegmentEvidence(segmentTokens, segmentSurface)) return null;
@@ -894,7 +989,8 @@ function findLongestHistoricalKanaEvidence(tokens, startIndex) {
     for (let end = startIndex; end < tokens.length; end += 1) {
         const token = tokens[end];
         if (crossesReviewedLexicalBoundary(tokens, startIndex, end)) break;
-        if (!token || token.pos === '記号' || token.contextualOverrideMatched) break;
+        const historicalIterationMark = token?.pos === '記号' && /^[ゝゞヽヾ]$/u.test(String(token.surface_form || ''));
+        if (!token || (token.pos === '記号' && !historicalIterationMark) || token.contextualOverrideMatched) break;
         const prefixSurface = candidateSurface;
         const tokenCharacters = Array.from(String(token.surface_form || ''));
         let stillPossible = false;
@@ -1382,6 +1478,55 @@ function mergeReviewedNumericAliasTokens(tokens) {
     return merged;
 }
 
+/** @param {CJ2RToken[]} tokens @param {number} startIndex @param {ReadonlyArray<CJ2RSourceSpanCandidate>} [sourceSpanCandidates] */
+function findLongestSourceOrthographyReviewedProperNameSpan(tokens, startIndex, sourceSpanCandidates = []) {
+    const first = tokens?.[startIndex];
+    if (!first || !Number.isInteger(first.sourceStart)) return null;
+    const matches = (sourceSpanCandidates || []).filter(candidate =>
+        candidate?.kind === 'reviewed-name'
+        && candidate?.evidenceSource === 'reviewed-proper-name-span'
+        && candidate?.metadata?.sourceOrthographyPreserved === true
+        && candidate.reviewRequired !== true
+        && candidate.sourceStart === first.sourceStart
+        && Number.isInteger(candidate.sourceEnd)
+        && candidate.sourceEnd > candidate.sourceStart
+        && candidate.reading
+        && candidate.romaji);
+    let best = null;
+    for (const candidate of matches) {
+        let endIndex = -1;
+        for (let index = startIndex; index < tokens.length; index += 1) {
+            const token = tokens[index];
+            if (!token || !Number.isInteger(token.sourceStart) || !Number.isInteger(token.sourceEnd)) break;
+            if (index > startIndex && tokens[index - 1]?.sourceEnd !== token.sourceStart) break;
+            const tokenEnd = Number(token.sourceEnd);
+            if (tokenEnd === candidate.sourceEnd) { endIndex = index; break; }
+            if (tokenEnd > candidate.sourceEnd) break;
+        }
+        if (endIndex < startIndex) continue;
+        const reconstructed = tokens.slice(startIndex, endIndex + 1).map(token => String(token.surface_form || '')).join('');
+        if (reconstructed !== String(candidate.sourceSurface || '')) continue;
+        const evidence = runtimeState.reviewedProperNameSpanDictionary.get(String(candidate.lookupSurface || ''));
+        if (!evidence || normalizeKanaReading(evidence.reading || '') !== normalizeKanaReading(candidate.reading || '')
+            || String(evidence.romaji || '') !== String(candidate.romaji || '')) continue;
+        const match = {
+            surface: reconstructed,
+            lookupSurface: String(candidate.lookupSurface || ''),
+            reading: candidate.reading,
+            romaji: candidate.romaji,
+            category: evidence.category,
+            endIndex,
+            endOffset: Array.from(String(tokens[endIndex]?.surface_form || '')).length,
+            length: endIndex - startIndex + 1,
+            sourceOrthographyPreserved: true
+        };
+        if (!best || candidate.sourceEnd > best.sourceEnd) best = { ...match, sourceEnd: candidate.sourceEnd };
+    }
+    if (!best) return null;
+    const { sourceEnd: _sourceEnd, ...result } = best;
+    return result;
+}
+
 function findLongestReviewedProperNameSpan(tokens, startIndex) {
     let candidateSurface = '';
     let bestMatch = null;
@@ -1460,20 +1605,43 @@ function tokenizeReviewedNameRemainder(token, consumedCharacters) {
     return tokenizeHistoricalRemainder(token, consumedCharacters);
 }
 
-function mergeReviewedProperNameSpanTokens(tokens) {
+/** @param {CJ2RToken[]} tokens @param {ReadonlyArray<CJ2RSourceSpanCandidate>} [sourceSpanCandidates] */
+function mergeReviewedProperNameSpanTokens(tokens, sourceSpanCandidates = []) {
     const merged = [];
     for (let index = 0; index < tokens.length; index += 1) {
-        const bestMatch = findLongestReviewedProperNameSpan(tokens, index);
+        const surfaceMatch = findLongestReviewedProperNameSpan(tokens, index);
+        const sourceOrthographyMatch = findLongestSourceOrthographyReviewedProperNameSpan(tokens, index, sourceSpanCandidates);
+        const bestMatch = !surfaceMatch || (sourceOrthographyMatch && sourceOrthographyMatch.length >= surfaceMatch.length)
+            ? sourceOrthographyMatch
+            : surfaceMatch;
         if (!bestMatch) { merged.push(tokens[index]); continue; }
         const personLike = bestMatch.category === 'person' || bestMatch.category === 'name';
+        const originalToken = tokens[index];
+        const originalSurfaceLength = Array.from(String(originalToken?.surface_form || '')).length;
+        const exactSingleTokenMatch = bestMatch.endIndex === index && bestMatch.endOffset === originalSurfaceLength;
+        const originalReading = normalizeKanaReading(originalToken?.reading || originalToken?.pronunciation || '');
+        const reviewedReading = normalizeKanaReading(bestMatch.reading || '');
+        const followingHonorific = exactSingleTokenMatch
+            ? getReviewedNameHonorificReading(tokens[index + 1]?.surface_form)
+            : null;
+        const lexicalCollision = Boolean(
+            exactSingleTokenMatch
+            && !isProperNounToken(originalToken)
+            && !followingHonorific
+            && originalReading
+            && reviewedReading
+            && originalReading !== reviewedReading
+        );
         merged.push(makeDerivedMatchedSpanToken(tokens, index, bestMatch.endIndex, bestMatch.endOffset, {
             surface_form: bestMatch.surface, reading: bestMatch.reading, pronunciation: bestMatch.reading,
             pos: '名詞', pos_detail_1: '固有名詞', pos_detail_2: personLike ? '人名' : '地域', pos_detail_3: '*',
             reviewedProperNameSpanMatched: true, reviewedProperNameSpanRomaji: bestMatch.romaji,
             reviewedProperNameLookupSurface: bestMatch.lookupSurface,
-            reviewedProperNameVariantMappings: normalizeKanjiForLookupDetailed(bestMatch.surface, { names: true }).mappings
+            reviewedProperNameVariantMappings: normalizeKanjiForLookupDetailed(bestMatch.surface, { names: true }).mappings,
+            reviewedProperNameLexicalCollision: lexicalCollision,
+            reviewedProperNameLexicalReading: lexicalCollision ? originalReading : null
         }, {
-            annotations: ['reviewedProperNameSpanMatched', 'reviewedProperNameSpanRomaji', 'reviewedProperNameLookupSurface', 'reviewedProperNameVariantMappings'],
+            annotations: ['reviewedProperNameSpanMatched', 'reviewedProperNameSpanRomaji', 'reviewedProperNameLookupSurface', 'reviewedProperNameVariantMappings', 'reviewedProperNameLexicalCollision', 'reviewedProperNameLexicalReading'],
             evidenceSource: 'reviewed-proper-name-span', semanticRole: 'proper-name-span'
         }));
         const finalToken = tokens[bestMatch.endIndex];
@@ -1484,20 +1652,58 @@ function mergeReviewedProperNameSpanTokens(tokens) {
     return merged;
 }
 
+function getEquivalentProperNounVariantCandidates(canonicalSurface) {
+    const sourceSurfaces = runtimeState.properNounVariantEvidenceSurfaces.get(String(canonicalSurface || ''));
+    if (!sourceSurfaces?.size) return [];
+    const merged = new Map();
+    for (const sourceSurface of sourceSurfaces) {
+        const candidates = runtimeState.properNounDictionary.get(sourceSurface);
+        if (!candidates?.size) continue;
+        for (const candidate of candidates.values()) {
+            const readingKey = normalizeKanaReading(candidate?.reading || '');
+            if (!readingKey) continue;
+            const existing = merged.get(readingKey);
+            if (!existing) {
+                merged.set(readingKey, {
+                    ...candidate,
+                    categories: new Set(candidate.categories || []),
+                    sources: new Set(candidate.sources || []),
+                    variantEvidenceSurfaces: new Set([sourceSurface])
+                });
+                continue;
+            }
+            existing.weight = Math.max(Number(existing.weight || 0), Number(candidate.weight || 0));
+            const rank = Number(candidate.rank);
+            if (Number.isFinite(rank) && rank > 0) existing.rank = Math.min(Number(existing.rank || Number.POSITIVE_INFINITY), rank);
+            for (const category of candidate.categories || []) existing.categories.add(category);
+            for (const source of candidate.sources || []) existing.sources.add(source);
+            existing.variantEvidenceSurfaces.add(sourceSurface);
+        }
+    }
+    return [...merged.values()];
+}
+
 function getProperNounCandidateLookup(surface) {
     const originalSurface = String(surface || '');
     const variantEvidence = normalizeKanjiForLookupDetailed(originalSurface, { names: true });
     const exact = runtimeState.properNounDictionary.get(originalSurface);
     if (exact?.size) {
-        return { candidates: [...exact.values()], lookupSurface: originalSurface, variant: null, variantEvidence: variantEvidence.changed ? variantEvidence : null };
+        return { candidates: [...exact.values()], lookupSurface: originalSurface, variant: null, variantEvidence: variantEvidence.changed ? variantEvidence : null, equivalentEvidence: false };
     }
     if (!variantEvidence.changed || !variantEvidence.normalizedSurface) {
-        return { candidates: [], lookupSurface: originalSurface, variant: null, variantEvidence: null };
+        const equivalent = getEquivalentProperNounVariantCandidates(originalSurface);
+        return equivalent.length
+            ? { candidates: equivalent, lookupSurface: originalSurface, variant: null, variantEvidence: null, equivalentEvidence: true }
+            : { candidates: [], lookupSurface: originalSurface, variant: null, variantEvidence: null, equivalentEvidence: false };
     }
     const normalized = runtimeState.properNounDictionary.get(variantEvidence.normalizedSurface);
-    return normalized?.size
-        ? { candidates: [...normalized.values()], lookupSurface: variantEvidence.normalizedSurface, variant: variantEvidence, variantEvidence }
-        : { candidates: [], lookupSurface: originalSurface, variant: null, variantEvidence };
+    if (normalized?.size) {
+        return { candidates: [...normalized.values()], lookupSurface: variantEvidence.normalizedSurface, variant: variantEvidence, variantEvidence, equivalentEvidence: false };
+    }
+    const equivalent = getEquivalentProperNounVariantCandidates(variantEvidence.normalizedSurface);
+    return equivalent.length
+        ? { candidates: equivalent, lookupSurface: variantEvidence.normalizedSurface, variant: variantEvidence, variantEvidence, equivalentEvidence: true }
+        : { candidates: [], lookupSurface: originalSurface, variant: null, variantEvidence, equivalentEvidence: false };
 }
 
 function inferVariantProperNounDetails(candidates) {
@@ -1512,7 +1718,9 @@ function inferVariantProperNounDetails(candidates) {
 function canContinueVariantProperNounSpan(surface) {
     const original = String(surface || '');
     if (runtimeState.properNounPrefixes.has(original)) return true;
-    return runtimeState.properNounPrefixes.has(normalizeKanjiForLookup(original, { names: true }));
+    const canonical = normalizeKanjiForLookup(original, { names: true });
+    return runtimeState.properNounPrefixes.has(canonical)
+        || runtimeState.properNounVariantEvidencePrefixes.has(canonical);
 }
 
 function findLongestVariantProperNoun(tokens, startIndex) {
@@ -1521,17 +1729,29 @@ function findLongestVariantProperNoun(tokens, startIndex) {
     for (let end = startIndex; end < tokens.length; end += 1) {
         const token = tokens[end];
         if (crossesReviewedLexicalBoundary(tokens, startIndex, end)) break;
-        if (!token) break;
+        if (!token || token.sourceSpanLexicalCandidateMatched || token.reviewedProperNameSpanMatched
+            || token.locationSuffixRoleMatched || token.locationSuffixContextMatched
+            || token.sourceOrthographyEquivalentPersonNameRoleMatched
+            || token.sourceOrthographyExactFullPersonNameRoleMatched
+            || token.sourceOrthographyCorroboratedVariantFullPersonNameRoleMatched) break;
         const tokenSurface = String(token.surface_form || '');
         const hanSurface = containsHan(tokenSurface);
-        if (((token.pos === '記号' && tokenSurface !== '々') || isParticle(token) || token.contextualOverrideMatched) && !hanSurface) break;
-        candidateSurface += tokenSurface;
+        const nextCandidateSurface = candidateSurface + tokenSurface;
+        const lexicalBoundaryToken = ((token.pos === '記号' && tokenSurface !== '々') || isParticle(token) || token.contextualOverrideMatched) && !hanSurface;
+        if (lexicalBoundaryToken && !canContinueVariantProperNounSpan(nextCandidateSurface)) break;
+        candidateSurface = nextCandidateSurface;
         if (!canContinueVariantProperNounSpan(candidateSurface)) break;
         const hanCount = Array.from(candidateSurface).filter(isHanCharacter).length;
-        if (hanCount < 2) continue;
         const lookup = getProperNounCandidateLookup(candidateSurface);
-        if (!lookup.variantEvidence || !lookup.candidates.length) continue;
-        bestMatch = { surface: candidateSurface, lookupSurface: lookup.lookupSurface, candidates: lookup.candidates, variant: lookup.variantEvidence, length: end - startIndex + 1 };
+        const mixedScriptCanonicalVariant = hanCount === 1
+            && Array.from(candidateSurface).length > 1
+            && lookup.variantEvidence?.changed === true
+            && lookup.lookupSurface !== candidateSurface
+            && lookup.candidates.length > 0;
+        if (hanCount < 2 && !mixedScriptCanonicalVariant) continue;
+        const variantAuthority = lookup.variantEvidence || (lookup.equivalentEvidence ? { changed: false, mappings: [] } : null);
+        if (!variantAuthority || !lookup.candidates.length) continue;
+        bestMatch = { surface: candidateSurface, lookupSurface: lookup.lookupSurface, candidates: lookup.candidates, variant: variantAuthority, length: end - startIndex + 1 };
     }
     return bestMatch;
 }

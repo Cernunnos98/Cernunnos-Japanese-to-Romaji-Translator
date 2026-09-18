@@ -702,5 +702,76 @@
     "romaji": "Sazan Eyes",
     "kind": "official-mixed-script-title-reading",
     "source": "https://magazine.yanmaga.jp/c/3x3eyes/ — Space-normal presentation variant of the same reviewed 3×3EYES〈サザンアイズ〉 title evidence."
+  },
+  {
+    "surface": "よつばと",
+    "pattern": "よつばと！",
+    "reading": "よつばと",
+    "romaji": "Yotsuba to",
+    "kind": "title-boundary",
+    "source": "Frozen adversarial adjudication 2026-09-15; reviewed title boundary"
+  },
+  {
+    "surface": "かくかくしかじか",
+    "pattern": "かくかくしかじか",
+    "reading": "かくかくしかじか",
+    "romaji": "Kakukaku Shikajika",
+    "kind": "title-boundary",
+    "source": "https://cocohana.shueisha.co.jp/story/higashimura/kakukaku/index.html"
+  },
+  {
+    "surface": "りゅうおうのおしごと",
+    "pattern": "りゅうおうのおしごと！",
+    "reading": "りゅうおうのおしごと",
+    "romaji": "Ryuuou no Oshigoto",
+    "kind": "title-boundary",
+    "source": "https://ga.sbcr.jp/product/9784797384840/"
+  },
+  {
+    "surface": "なにか",
+    "pattern": "蜘蛛ですが、なにか？",
+    "reading": "なにか",
+    "romaji": "Nani ka",
+    "kind": "title-boundary",
+    "source": "https://www.kadokawa.co.jp/product/321508000370/"
+  },
+  {
+    "surface": "旅ビト",
+    "pattern": "風ノ旅ビト",
+    "reading": "たびびと",
+    "romaji": "Tabibito",
+    "kind": "title-reading",
+    "source": "https://www.playstation.com/ja-jp/games/journey/"
+  },
+  {
+    "surface": "D",
+    "pattern": "ハイスクールD×D",
+    "romaji": "D",
+    "kind": "title-cross-literal-context",
+    "source": "https://haremking.tv/products/original.html"
+  },
+  {
+    "surface": "風",
+    "pattern": "風ノ旅ビト",
+    "reading": "かぜ",
+    "romaji": "Kaze",
+    "kind": "title-reading",
+    "source": "Project-reviewed title reading; official title: https://www.playstation.com/ja-jp/games/journey/; reading cross-check: https://gameline.jp/kazenotabibito/"
+  },
+  {
+    "surface": "流星",
+    "pattern": "ひるなかの流星",
+    "reading": "りゅうせい",
+    "romaji": "Ryuusei",
+    "kind": "title-reading",
+    "source": "Project-reviewed title reading; publisher title: https://www.shueisha.co.jp/books/items/contents.html?isbn=978-4-08-846708-5&mode=1; reading cross-check: https://d.hatena.ne.jp/keyword/%E3%81%B2%E3%82%8B%E3%81%AA%E3%81%8B%E3%81%AE%E6%B5%81%E6%98%9F"
+  },
+  {
+    "surface": "風",
+    "pattern": "風の谷のナウシカ",
+    "reading": "かぜ",
+    "romaji": "Kaze",
+    "kind": "title-reading",
+    "source": "Project-reviewed title reading; official work: https://www.ghibli.jp/works/nausicaa/; kana reading cross-check: https://www.shochiku.co.jp/cinemakabuki/lineup_images/49/"
   }
 ]

@@ -6,6 +6,7 @@ const permanentQaMechanisms = Object.freeze([
     { id: 'source-integrity', label: 'Source-span integrity', prefix: 'MECH-SOURCE-INTEGRITY-' },
     { id: 'source-span-candidate-discovery', label: 'Source-span candidate discovery', prefix: 'MECH-CANDIDATE-DISCOVERY-' },
     { id: 'numeric-role-arbitration', label: 'Numeric/counter role arbitration', prefix: 'MECH-NUMERIC-ROLE-' },
+    { id: 'counter-tail-composition', label: 'Reviewed embedded counter-tail composition', prefix: 'MECH-COUNTER-TAIL-' },
     { id: 'boundary-arbitration', label: 'Lexical/structural boundary arbitration', prefix: 'MECH-BOUNDARY-ARBITRATION-' },
     { id: 'reading-arbitration', label: 'Reading arbitration and ambiguity', prefix: 'MECH-READING-ARBITRATION-' },
     { id: 'review-lifecycle', label: 'Review state lifecycle', prefix: 'MECH-REVIEW-' },

@@ -404,13 +404,18 @@
       "sourceBasis": [
         "Existing CJ2R project-reviewed source-language spelling decisions retain precedence.",
         "Jitendex/JMdict snapshot 2026-08-11 (revision 2026.08.11.0): explicit source-language spelling evidence for conservatively accepted lexical loanwords; non-wasei multiword source strings are excluded when full-versus-partial source status cannot be proven from the export.",
-        "JMnedict snapshot 2026-08-10: conservatively filtered established company, product, work, organisation and group names; descriptive, conflicting and unsafe rows are rejected.",
+        "JMnedict snapshot 2026-08-10: conservatively filtered established company, product, work, organisation and group identity candidates; named-entity translations are identity/reference evidence only and require independent proof before they can become direct Rule-0 source spellings.",
         "Jiten global frequency snapshot 2026-09-12 (revision Jiten 26-09-08): supporting frequency/prioritisation evidence only.",
         "NINJAL loanword surveys: usage, recognition and coverage-gap corroboration only; survey presence never supplies source spelling and NINJAL survey rows are not redistributed in the runtime bank.",
         "Metadata-only requiresReview rows establish foreign-derived status while deliberately withholding an unresolved source spelling; runtime retains mechanical Rule-0 Romaji until stronger evidence exists.",
         "NINJAL Report 126 and Japanese word-boundary/frequency research are used for independent coverage measurement and linguistic design only; they do not supply runtime source spellings.",
         "Paramount Japan official STAR TREK material: narrow manual verification that スター・トレック corresponds to the source title Star Trek; no site content is redistributed.",
-        "Sakura Quest official site: narrow manual verification that サクラクエスト is presented as SAKURA QUEST; no site content is redistributed."
+        "Sakura Quest official site: narrow manual verification that サクラクエスト is presented as SAKURA QUEST; no site content is redistributed.",
+        "Capcom official material: narrow manual verification that ストリートファイター corresponds to Street Fighter for CJ2R's source-spelling purpose; the unrelated Hard Times work-title translation is not source spelling for that Katakana surface.",
+        "Sony Pictures Japan and 20th Century Studios Japan official material: manual controls showing that Japanese release titles can map to materially different original/localised English work titles; those identity translations are not promoted as source spellings of the Japanese surface.",
+        "Tatsunoko Production official material: independent manual verification that マッハGoGoGo uses Mach Go Go Go as the primary Roman work name while Speed Racer is an international localised title.",
+        "Eiga.com, allcinema, National Film Archive of Japan and other rights-holder/publisher pages are used for narrow manual title-scope adjudication: a work identity or original title does not replace foreign source words actually encoded by a Japanese release title.",
+        "Japan Foundation Marugoto official English vocabulary materials, checked 2026-09-18: narrow manual verification for selected basic loanwords, foreign place/company names and country-name source spellings; no Marugoto vocabulary-list content is redistributed."
       ],
       "licenceRefs": [
         "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",

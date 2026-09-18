@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "version": 1,
+    "purpose": "Independent adjudication for exact-surface reading conflicts discovered across maintained evidence families. This file records legitimate ambiguity/scope splits; it must not be generated from production dictionaries or translator output.",
+    "lastReviewed": "2026-09-15"
+  },
+  "cases": [
+    {
+      "id": "SEM-CROSS-BANK-MALE-OTOKO-ONOKO",
+      "kind": "legitimate-ambiguity",
+      "surface": "男",
+      "allowedReadings": ["おとこ", "おのこ"],
+      "evidenceFamilies": ["compound", "reading-evidence"],
+      "requiresReviewWhenBare": true,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E7%94%B7-448348",
+          "supports": "男 has the ordinary reading おとこ."
+        },
+        {
+          "authority": "Kotobank / Digital Daijisen and Seisenban Nihon Kokugo Daijiten",
+          "url": "https://kotobank.jp/word/%E7%94%B7%E3%81%AE%E5%AD%90-453367",
+          "supports": "The historical lexical form おのこ is also written 男 and denotes a male/man."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CROSS-BANK-ONE-DAY-DATE-DURATION",
+      "kind": "semantic-role-split",
+      "surface": "一日",
+      "allowedReadings": ["いちにち", "ついたち"],
+      "evidenceFamilies": ["counter-date", "reading-evidence"],
+      "requiresReviewWhenBare": true,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E4%B8%80%E6%97%A5-433373",
+          "supports": "一日 is attested as いちにち for a day/duration and ついたち for the first day of a month."
+        }
+      ]
+    }
+  ]
+}

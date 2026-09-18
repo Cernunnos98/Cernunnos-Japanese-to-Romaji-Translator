@@ -32,9 +32,9 @@
       }
     ],
     "counts": {
-      "general": 372,
+      "general": 373,
       "names": 42,
-      "totalExplicit": 414
+      "totalExplicit": 415
     },
     "sourcePolicy": "The explicit mapping table is project-curated. Agency for Cultural Affairs and Unicode data are normative/reference evidence. CJKVI and University of Tokyo pages were used as comparison references only; CJ2R does not redistribute those source datasets or prose."
   },
@@ -410,7 +410,8 @@
     "逸": "逸",
     "難": "難",
     "響": "響",
-    "頻": "頻"
+    "頻": "頻",
+    "𠮟": "叱"
   },
   "names": {
     "㐂": "喜",

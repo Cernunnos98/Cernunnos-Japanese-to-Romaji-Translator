@@ -39,7 +39,7 @@ The retained 2026-08-11 compact snapshot cannot prove that omitted readings were
 
 ### Expanded loanword/source-spelling bank
 
-`data/loanwords/loanwords-term-bank-1.json` is classified as **mixed**. Existing CJ2R-reviewed mappings retain precedence over conservatively accepted external candidates. The expansion uses explicit JMdict/Jitendex source-language evidence plus a filtered JMnedict subset for established company, product, work, organisation and group names; Jiten frequency is supporting/prioritisation evidence only. Ambiguous homographs, descriptive/non-name outputs and unverifiable partial-source records are excluded rather than guessed.
+`data/loanwords/loanwords-term-bank-1.json` is classified as **mixed**. Existing CJ2R-reviewed mappings retain precedence over conservatively accepted external candidates. The expansion uses explicit JMdict/Jitendex source-language evidence plus a filtered JMnedict subset for established company, product, work, organisation and group names; Jiten frequency is supporting/prioritisation evidence only. JMnedict named-entity translations are treated as identity candidates, not automatic global source-spelling truth: translated, localised and original-title aliases require independent proof that they represent the Japanese surface before they can emit direct Romaji; otherwise the row remains scoped or review-only. Descriptive/non-name outputs and unverifiable partial-source records are excluded rather than guessed. A dedicated report-only source-scope audit now flags rows whose maintained Roman output looks materially broader or semantically different from the foreign-derived Japanese surface. Its findings are review candidates, never automatic corrections. Release QA requires every maintained candidate to have an explicit adjudication in the independent semantic oracle, so newly introduced high-risk rows cannot pass unnoticed; adjudicated truths live separately in that oracle.
 
 Runtime foreign-source output uses the project's conventional unaccented Latin/ASCII form. Typed `country-name`/`country-language` rows support only explicitly reviewed whole expressions such as `ロシア語 → Russia-go`; country mappings are not productively extended to arbitrary `～語` strings.
 
@@ -95,9 +95,31 @@ Relevant notices include:
 
 `data/title-readings/title-reading-evidence.json` is a project-authored/manual bank for reviewed title furigana/gikun, title-specific names and official spellings. It is used where an exceptional reading belongs to a title span rather than to the same characters globally.
 
+## Cross-bank semantic integrity
+
+Release semantic-data safety now checks maintained evidence families for exact-surface authority conflicts and semantic-scope leakage rather than validating each bank only in isolation. Current authoritative Romaji/output evidence has no unadjudicated exact-surface conflict. The only maintained exact-surface reading conflicts requiring explicit cross-bank adjudication are:
+
+- `男`: `おとこ` / `おのこ` — legitimate lexical ambiguity; bare use remains reviewable.
+- `一日`: `いちにち` / `ついたち` — semantic role split between duration/day and calendar-date use; bare use remains reviewable.
+
+Those decisions live in `tools/qa/semantic-oracle/cross-bank-conflict-truth.json`, which is independent of production dictionaries and carries external evidence for each adjudication. Mutation checks prove that a newly introduced conflict, or an extra reading added to an existing conflict, fails the audit.
+
+Additional scope contracts now enforce that:
+
+- title-specific reading/gikun evidence retains an explicit title pattern and cannot become bare lexical authority;
+- typed `country-language` loanword rows cover a complete `～語` surface and agree with the reviewed country-name form plus `-go` where a paired country row exists;
+- counter/date aliases cannot collide with another row's canonical surface or alias;
+- reviewed numeric-reading metadata carries its canonical numeric form and semantic role together;
+- common-word authority retains row-level source provenance;
+- reviewed proper-name, Rendaku and historical-kana evidence retain the provenance fields required by their authority level;
+- contextual-reading entries cannot define the same candidate reading twice under competing feature rules; and
+- externally-derived or mixed runtime banks must have exactly one pinned provenance record.
+
+The general-word bank remains deliberately weak fallback evidence. Differences between its candidate set and stronger specialised evidence are not automatically treated as semantic conflicts; when a stronger preferred reading is absent from the general candidate set, an explicit adjudication is required instead.
+
 ## External-evidence hash coverage
 
-`data/external-evidence-source-provenance.json` pins **15** externally-derived or mixed files whose source/licence basis is specific enough for automatic verification. Structural QA checks each stored SHA-256 and referenced notice.
+`data/external-evidence-source-provenance.json` pins **16** externally-derived or mixed files whose source/licence basis is specific enough for automatic verification. Structural QA checks each stored SHA-256 and referenced notice.
 
 Project-authored/manual banks do not need an external-source hash entry merely because an external reference was consulted during review.
 

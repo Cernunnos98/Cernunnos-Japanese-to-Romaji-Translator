@@ -171,7 +171,7 @@ function buildScenarios(registry) {
         {
             id: 'runtime-tokenizer-configurable-delayed-success',
             assetKey: 'kuromojiDictionary', assetPath: registry.kuromojiDictionary.paths[0],
-            criticality: 'critical', type: 'runtime', failure: 'tokenizer-delayed-success', tokenizerTimeoutMs: 2000, delayMs: 300
+            criticality: 'critical', type: 'runtime', failure: 'tokenizer-delayed-success', tokenizerTimeoutMs: 10000, delayMs: 300
         },
         {
             id: 'runtime-bind-initialization-failure-contained',

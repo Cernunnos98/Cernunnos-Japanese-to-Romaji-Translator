@@ -1,0 +1,2075 @@
+{
+  "_meta": {
+    "version": 1,
+    "purpose": "Independent semantic oracle for high-risk loanword/source-spelling rows. Expectations are manually established from Rule 0 and external authoritative sources; never generate this file from production dictionaries or translator output.",
+    "lastReviewed": "2026-09-15"
+  },
+  "cases": [
+    {
+      "id": "SEM-SOURCE-SPELLING-STREET-FIGHTER",
+      "kind": "canonical-output",
+      "surface": "ストリートファイター",
+      "canonicalOutput": "Street Fighter",
+      "forbiddenOutputs": [
+        "Hard Times"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CAPCOM",
+          "url": "https://game.capcom.com/manual/SFV/en/page-1.html",
+          "supports": "CAPCOM uses Street Fighter as the Roman/source title for ストリートファイター."
+        },
+        {
+          "authority": "Sony Pictures Japan",
+          "url": "https://www.sonypictures.jp/he/2807",
+          "supports": "Hard Times is an English film title whose Japanese release title is ストリートファイター; it is not the Rule-0 source spelling of the Katakana surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-WORK-PRIMARY-MACH-GO-GO-GO",
+      "kind": "canonical-output",
+      "surface": "マッハゴーゴーゴー",
+      "canonicalOutput": "Mach Go Go Go",
+      "forbiddenOutputs": [
+        "Speed Racer"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Tatsunoko Production",
+          "url": "https://tatsunoko.co.jp/en/works/mach-go-go-go-speed-racer/",
+          "supports": "The rights holder presents the original work as MACH GO GO GO (SPEED RACER)."
+        },
+        {
+          "authority": "Tatsunoko Production",
+          "url": "https://tatsunoko.co.jp/news/4251/",
+          "supports": "The rights holder states that マッハGoGoGo was broadcast in America under the localised title Speed Racer."
+        }
+      ]
+    },
+    {
+      "id": "SEM-WORK-PRIMARY-MACH-GO-GO-GO-DOTTED",
+      "kind": "canonical-output",
+      "surface": "マッハゴー・ゴー・ゴー",
+      "canonicalOutput": "Mach Go Go Go",
+      "forbiddenOutputs": [
+        "Speed Racer"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Tatsunoko Production",
+          "url": "https://tatsunoko.co.jp/en/works/mach-go-go-go-speed-racer/",
+          "supports": "The rights holder presents the original work as MACH GO GO GO (SPEED RACER), not Speed Racer as its Japanese primary Roman name."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-DIVER",
+      "kind": "canonical-output",
+      "surface": "ザダイバー",
+      "forbiddenOutputs": [
+        "Men of Honor"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "20th Century Studios Japan",
+          "url": "https://www.20thcenturystudios.jp/movies/the-diver",
+          "supports": "The official Japanese release title is ザ・ダイバー while the film identity is Men of Honor. Under Rule 0 the Katakana source form is The Diver, not the unrelated original film title."
+        }
+      ],
+      "canonicalOutput": "The Diver"
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-AGENT",
+      "kind": "canonical-output",
+      "surface": "ザエージェント",
+      "forbiddenOutputs": [
+        "Jerry Maguire"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Sony Pictures Japan",
+          "url": "https://www.sonypictures.jp/he/2703",
+          "supports": "Sony distinguishes the Japanese title ザ・エージェント from the original film identity JERRY MAGUIRE. Under Rule 0 the Katakana source form is The Agent."
+        }
+      ],
+      "canonicalOutput": "The Agent"
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-SECRET-SERVICE",
+      "kind": "canonical-output",
+      "surface": "ザシークレットサービス",
+      "canonicalOutput": "The Secret Service",
+      "forbiddenOutputs": [
+        "In the Line of Fire"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Sony Pictures Japan",
+          "url": "https://www.sonypictures.jp/he/1449",
+          "supports": "Sony publishes ザ・シークレット・サービス as the Japanese title and IN THE LINE OF FIRE as the original title; the original-title identity must not replace the Katakana source form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-DROPPERS",
+      "kind": "canonical-output",
+      "surface": "ザドロッパーズ",
+      "canonicalOutput": "The Droppers",
+      "forbiddenOutputs": [
+        "Fast Break"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/44838/",
+          "supports": "The work is published in Japan as ザ・ドロッパーズ and the page records The Droppers (Fast Break); The Droppers is the Roman form corresponding to the Japanese surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-PRODUCER",
+      "kind": "canonical-output",
+      "surface": "ザプロデューサー",
+      "canonicalOutput": "The Producer",
+      "forbiddenOutputs": [
+        "The Buddy Factor",
+        "Swimming with Sharks"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/44891/",
+          "supports": "The Japanese title is ザ・プロデューサー while the work identity/original title is The Buddy Factor. CJ2R follows the source form represented by the Japanese title, not the original-title alias."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-MONSTER",
+      "kind": "canonical-output",
+      "surface": "ザモンスター",
+      "canonicalOutput": "The Monster",
+      "forbiddenOutputs": [
+        "Vice Squad"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/9092",
+          "supports": "The Japanese title is ザ・モンスター while the film identity is VICE SQUAD. The identity translation is not source-spelling evidence for the Katakana title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-LAST-STUNT",
+      "kind": "canonical-output",
+      "surface": "ザラストスタント",
+      "canonicalOutput": "The Last Stunt",
+      "forbiddenOutputs": [
+        "Steel Arena"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/9125",
+          "supports": "The Japanese title is ザ・ラスト・スタント while the original title is STEEL ARENA. The original work identity must not replace the Katakana source form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-SCARECROW",
+      "kind": "canonical-output",
+      "surface": "ザスケアクロウ",
+      "canonicalOutput": "The Scarecrow",
+      "forbiddenOutputs": [
+        "Night of the Scarecrow"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/41713/",
+          "supports": "The Japanese release title is ザ・スケアクロウ while the recorded original/English work identity is Night of the Scarecrow. The identity title does not replace the source form encoded by the Katakana."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-GAMBLER",
+      "kind": "canonical-output",
+      "surface": "ザギャンブラー",
+      "canonicalOutput": "The Gambler",
+      "forbiddenOutputs": [
+        "Kenny Rogers As the Gambler"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/8542",
+          "supports": "The Japanese release title is ザ・ギャンブラー while the work identity is KENNY ROGERS AS THE GAMBLER. CJ2R preserves the source form encoded by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-DECLINE",
+      "kind": "canonical-output",
+      "surface": "ザデクライン",
+      "canonicalOutput": "The Decline",
+      "forbiddenOutputs": [
+        "The Decline of Western Civilization"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/44831/",
+          "supports": "The Japanese release title is ザ・デクライン while the original title is The Decline of Western Civilization. The longer identity title must not be substituted for the Japanese source form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-GREAT-FIGHTER",
+      "kind": "canonical-output",
+      "surface": "ザグレートファイター",
+      "canonicalOutput": "The Great Fighter",
+      "forbiddenOutputs": [
+        "Draw!"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/8566",
+          "supports": "The Japanese release title is ザ・グレート・ファイター while the original work title is DRAW!. The original-title identity is not the source spelling represented by the Katakana."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-BIG-BATTLE",
+      "kind": "canonical-output",
+      "surface": "ザビッグバトル",
+      "canonicalOutput": "The Big Battle",
+      "forbiddenOutputs": [
+        "The Grand Attack",
+        "The Biggest Battle",
+        "The Great Battle",
+        "Battle Force"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/8977",
+          "supports": "The Japanese release title is ザ・ビッグ・バトル while the work has several different international titles. Those identities do not replace the English source words encoded by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-KILLER-BEES",
+      "kind": "canonical-output",
+      "surface": "ザキラービーズ",
+      "canonicalOutput": "The Killer Bees",
+      "forbiddenOutputs": [
+        "The Bees"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/8547",
+          "supports": "The Japanese release title is ザ・キラー・ビーズ while the original title is THE BEES. The word キラー is present in the Japanese source and must not be discarded."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-CRITTERS-2",
+      "kind": "canonical-output",
+      "surface": "クリッター２",
+      "canonicalOutput": "Critters 2",
+      "forbiddenOutputs": [
+        "Critters 2 - The Main Course",
+        "Critters 2: The Main Course"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/6478",
+          "supports": "The Japanese title is クリッター２ and the original title is CRITTERS 2: THE MAIN COURSE. The subtitle is not present in the Japanese source and must not be injected."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-SCANNERS-2",
+      "kind": "canonical-output",
+      "surface": "スキャナーズ２",
+      "canonicalOutput": "Scanners 2",
+      "forbiddenOutputs": [
+        "Scanners 2 - The New Order",
+        "Scanners II: The New Order"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/45825/",
+          "supports": "The Japanese title is スキャナーズ2 and the original title is Scanners II: The New Order. The unrepresented subtitle must not be injected into CJ2R output."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-BEN-HUR",
+      "kind": "canonical-output",
+      "surface": "ベン・ハー",
+      "canonicalOutput": "Ben-Hur",
+      "forbiddenOutputs": [
+        "Ben Hur: A Tale of the Christ",
+        "Ben-Hur: A Tale of the Christ"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "National Film Archive of Japan",
+          "url": "https://www.nfaj.go.jp/wp-content/uploads/GEM_release0927.pdf",
+          "supports": "The Japanese title is ベン・ハー while the archive records BEN-HUR: A TALE OF THE CHRIST. CJ2R preserves the established Ben-Hur spelling without adding the subtitle absent from the Japanese surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-TEXAS-SWAT",
+      "kind": "canonical-output",
+      "surface": "テキサスＳＷＡＴ",
+      "canonicalOutput": "Texas SWAT",
+      "forbiddenOutputs": [
+        "Lone Wolf McQuade"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/46935/",
+          "supports": "The Japanese release title is テキサスSWAT while the original title is Lone Wolf McQuade. The original-title identity must not replace the words actually present in the Japanese source."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-VAMP-2",
+      "kind": "canonical-output",
+      "surface": "ヴァンプ２",
+      "canonicalOutput": "Vamp 2",
+      "forbiddenOutputs": [
+        "Vampire At Midnight"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/18859",
+          "supports": "The Japanese release title is ヴァンプ2 while the original title is VAMPIRE AT MIDNIGHT; allcinema also notes that the Japanese 2 does not indicate a real sequel. CJ2R still preserves the Japanese source form rather than substituting the work identity."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-DOLLS-2",
+      "kind": "canonical-output",
+      "surface": "ドールズ２",
+      "canonicalOutput": "Dolls 2",
+      "forbiddenOutputs": [
+        "Demonic Toys"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/15796",
+          "supports": "The Japanese release title includes ドールズ2 while the original title is DEMONIC TOYS. The original-title identity does not replace the source form encoded by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-DYUEMA",
+      "kind": "canonical-output",
+      "surface": "デュエマ",
+      "canonicalOutput": "Dyuema",
+      "forbiddenOutputs": [
+        "Duel Masters Trading Card Game"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Takara Tomy",
+          "url": "https://dmps.takaratomy.co.jp/",
+          "supports": "The rights holder uses デュエマ as the established Japanese clipping. Rule 0 preserves the clipped Roman form rather than expanding it to the full franchise name."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-POKEKA",
+      "kind": "canonical-output",
+      "surface": "ポケカ",
+      "canonicalOutput": "Pokeka",
+      "forbiddenOutputs": [
+        "Pokemon Trading Card Game"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "The Pokemon Company",
+          "url": "https://www.pokemon-card.com/info/2000/20000701_002220.html",
+          "supports": "The official card-game site itself uses ポケカ as the established Japanese clipping; Rule 0 does not reconstruct the full historical expression."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-KOKOICHI",
+      "kind": "canonical-output",
+      "surface": "ココイチ",
+      "canonicalOutput": "Kokoichi",
+      "forbiddenOutputs": [
+        "Curry House CoCo Ichibanya"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Ichibanya",
+          "url": "https://www.ichibanya.co.jp/comp/",
+          "supports": "The operator describes ココイチ as the familiar nickname of カレーハウスCoCo壱番屋. Rule 0 preserves the clipped Japanese form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-AJIKAN",
+      "kind": "canonical-output",
+      "surface": "アジカン",
+      "canonicalOutput": "Ajikan",
+      "forbiddenOutputs": [
+        "Asian Kung-Fu Generation"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "ASIAN KUNG-FU GENERATION",
+          "url": "https://www.asiankung-fu.com/s/n80/page/25th",
+          "supports": "The band uses アジカン on its official anniversary site. Rule 0 preserves the established Japanese clipping instead of expanding the full band name."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-RECCHIRI",
+      "kind": "canonical-output",
+      "surface": "レッチリ",
+      "canonicalOutput": "Recchiri",
+      "forbiddenOutputs": [
+        "Red Hot Chili Peppers"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Warner Music Japan",
+          "url": "https://wmg.jp/rhcp",
+          "supports": "The Japanese label states that the band is commonly known in Japan as レッチリ. Rule 0 preserves that clipping."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-PAZUDORA",
+      "kind": "canonical-output",
+      "surface": "パズドラ",
+      "canonicalOutput": "Pazudora",
+      "forbiddenOutputs": [
+        "Puzzle and Dragons",
+        "Puzzle & Dragons"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "GungHo Online Entertainment",
+          "url": "https://pad.gungho.jp/",
+          "supports": "The official site identifies パズル＆ドラゴンズ as パズドラ. Rule 0 preserves the established Japanese clipping."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-IRARE",
+      "kind": "canonical-output",
+      "surface": "イラレ",
+      "canonicalOutput": "Irare",
+      "forbiddenOutputs": [
+        "Adobe Illustrator"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Adobe",
+          "url": "https://blog.adobe.com/jp/publish/2022/03/29/cc-design-illustrator-beteran-01-tool",
+          "supports": "Adobe itself uses イラレ as the established Japanese shorthand for Illustrator. Rule 0 preserves the clipped form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-CLIPPING-YAFUOKU",
+      "kind": "canonical-output",
+      "surface": "ヤフオク",
+      "canonicalOutput": "Yafuoku",
+      "forbiddenOutputs": [
+        "Yahoo! Auctions"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "LY Corporation",
+          "url": "https://www.lycorp.co.jp/ja/news/release/2023/",
+          "supports": "The service was officially named ヤフオク! before its 2023 rename to Yahoo!オークション. Rule 0 preserves the Japanese clipped form rather than expanding it."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-LAST-SUMMER-2",
+      "kind": "canonical-output",
+      "surface": "ラストサマー２",
+      "canonicalOutput": "Last Summer 2",
+      "forbiddenOutputs": [
+        "I Still Know What You Did Last Summer"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Sony Pictures Japan",
+          "url": "https://www.sonypictures.jp/he/4485",
+          "supports": "Sony distinguishes the Japanese title ラストサマー２ from the original English title I STILL KNOW WHAT YOU DID LAST SUMMER; the latter must not replace the source words represented by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-MICRO-KIDS",
+      "kind": "canonical-output",
+      "surface": "ミクロキッズ",
+      "canonicalOutput": "Micro Kids",
+      "forbiddenOutputs": [
+        "Honey, I Shrunk the Kids"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CiNii Research",
+          "url": "https://cir.nii.ac.jp/crid/1970586434909415182",
+          "supports": "The catalogue records ミクロキッズ as the Japanese title and Honey, I Shrunk the Kids as a different title. CJ2R preserves the Japanese title components using source spelling."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-MICRO-KIDS-3",
+      "kind": "canonical-output",
+      "surface": "ミクロキッズ３",
+      "canonicalOutput": "Micro Kids 3",
+      "forbiddenOutputs": [
+        "Honey, We Shrunk Ourselves"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Disney Japan",
+          "url": "https://www.disney.co.jp/studio/liveaction/0361",
+          "supports": "Disney publishes the Japanese title ミクロキッズ3. The unrelated original English work title must not replace that Japanese-coined title form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-PINK-PANTHER-2",
+      "kind": "canonical-output",
+      "surface": "ピンクパンサー２",
+      "canonicalOutput": "Pink Panther 2",
+      "forbiddenOutputs": [
+        "The Return of the Pink Panther"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/48493/",
+          "supports": "The source records ピンク・パンサー2 as the Japanese title and The Return of the Pink Panther as its different original title. CJ2R preserves the Japanese title form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-PINK-PANTHER-3",
+      "kind": "canonical-output",
+      "surface": "ピンクパンサー３",
+      "canonicalOutput": "Pink Panther 3",
+      "forbiddenOutputs": [
+        "The Pink Panther Strikes Again"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CDJournal",
+          "url": "https://artist.cdjournal.com/d/the-pink-panther-strikes-again/4209010235",
+          "supports": "The Japanese release title is ピンク・パンサー3 while the original title is THE PINK PANTHER STRIKES AGAIN. The original-title identity must not replace the Japanese source form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-PINK-PANTHER-4",
+      "kind": "canonical-output",
+      "surface": "ピンクパンサー４",
+      "canonicalOutput": "Pink Panther 4",
+      "forbiddenOutputs": [
+        "Revenge of the Pink Panther"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/48495/",
+          "supports": "The Japanese release title is ピンク・パンサー4 while the original title is Revenge of the Pink Panther. CJ2R preserves the Japanese title form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-SCANNERS-3",
+      "kind": "canonical-output",
+      "surface": "スキャナーズ３",
+      "canonicalOutput": "Scanners 3",
+      "forbiddenOutputs": [
+        "Scanners 3 - The Takeover",
+        "Scanners III: The Takeover"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "JapanDict / JMnedict",
+          "url": "https://www.japandict.com/%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%8A%E3%83%BC%E3%82%BA%EF%BC%93",
+          "supports": "JMnedict exposes Scanners 3 - The Takeover as the work identity for スキャナーズ3; the unrepresented subtitle is not source-spelling evidence for CJ2R output."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-FREE-WILLY-2",
+      "kind": "canonical-output",
+      "surface": "フリーウィリー２",
+      "canonicalOutput": "Free Willy 2",
+      "forbiddenOutputs": [
+        "Free Willy 2 - The Adventure Home",
+        "Free Willy 2: The Adventure Home"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Movie Management Company",
+          "url": "https://mmc-inc.jp/kids-wb/5568/",
+          "supports": "The Japanese title is フリー・ウィリー2 while the source also records the longer original title. The subtitle absent from Japanese must not be injected."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-FREE-WILLY-3",
+      "kind": "canonical-output",
+      "surface": "フリーウィリー３",
+      "canonicalOutput": "Free Willy 3",
+      "forbiddenOutputs": [
+        "Free Willy 3 - The Rescue",
+        "Free Willy 3: The Rescue"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Movie Management Company",
+          "url": "https://mmc-inc.jp/kids-wb/5568/",
+          "supports": "The Japanese title is フリー・ウィリー3 while the longer original title includes The Rescue. The unrepresented subtitle must not be injected."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-MANNEQUIN-2",
+      "kind": "canonical-output",
+      "surface": "マネキン２",
+      "canonicalOutput": "Mannequin 2",
+      "forbiddenOutputs": [
+        "Mannequin Two On the Move",
+        "Mannequin Two: On the Move"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eijiro on the WEB",
+          "url": "https://eow.alc.co.jp/search?q=%E3%83%9E%E3%83%8D%E3%82%AD%E3%83%B3%5Bmannequin%5D",
+          "supports": "The Japanese title マネキン2 corresponds to a longer English work title. Rule 0 does not inject the absent On the Move subtitle."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-HELLRAISER-3",
+      "kind": "canonical-output",
+      "surface": "ヘルレイザー３",
+      "canonicalOutput": "Hellraiser 3",
+      "forbiddenOutputs": [
+        "Hellraiser 3 - Hell On Earth",
+        "Hellraiser III: Hell on Earth"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Daytona International",
+          "url": "https://daytonajp.com/movie/hell3/",
+          "supports": "The distributor records the Japanese release title ヘルレイザー3：ヘル・オン・アース and the original title HELLRAISER III: HELL ON EARTH. For the maintained shorter surface ヘルレイザー3, the absent subtitle cannot be injected."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-POSEIDON-ADVENTURE-2",
+      "kind": "canonical-output",
+      "surface": "ポセイドンアドベンチャー２",
+      "canonicalOutput": "Poseidon Adventure 2",
+      "forbiddenOutputs": [
+        "Beyond The Poseidon Adventure",
+        "Beyond the Poseidon Adventure"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Apple TV Japan",
+          "url": "https://tv.apple.com/jp/movie/%E3%83%9B%E3%82%BB%E3%82%A4%E3%83%88%E3%83%B3%E3%82%A2%E3%83%88%E3%83%98%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC2/umc.cmc.6z3dn4co9ipxxt34b38jvvsai",
+          "supports": "Apple publishes the Japanese title ポセイドン・アドベンチャー2. The different original title Beyond the Poseidon Adventure must not replace that Japanese title form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-JEKYLL-HYDE",
+      "kind": "canonical-output",
+      "surface": "ジキル＆ハイド",
+      "canonicalOutput": "Jekyll & Hyde",
+      "forbiddenOutputs": [
+        "Mary Reilly"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Sony Pictures Japan",
+          "url": "https://www.sonypictures.jp/he/4266",
+          "supports": "Sony publishes ジキル＆ハイド as the Japanese title and MARY REILLY as the original film title. CJ2R preserves the source spellings Jekyll and Hyde represented by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-AMERICAN-COPS",
+      "kind": "canonical-output",
+      "surface": "アメリカンコップス",
+      "canonicalOutput": "American Cops",
+      "forbiddenOutputs": [
+        "Strike Force"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/24869",
+          "supports": "The Japanese release title is アメリカン・コップス while STRIKE FORCE is the original work identity. The latter must not replace the title form represented by the Katakana."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-LETHAL-PANTHER",
+      "kind": "canonical-output",
+      "surface": "リーサルパンサー",
+      "canonicalOutput": "Lethal Panther",
+      "forbiddenOutputs": [
+        "Hard To Die"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eijiro on the WEB",
+          "url": "https://eow.alc.co.jp/search?q=%E3%83%AA%E3%83%BC%E3%82%B5%E3%83%AB",
+          "supports": "Eijiro distinguishes リーサル・パンサー = Lethal Panther from リーサル・パンサー2 = Hard To Die, showing that the JMnedict-style Hard To Die mapping is not the source spelling of this maintained surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-AH-POOK-IS-HERE",
+      "kind": "canonical-output",
+      "surface": "アプークイズヒア",
+      "canonicalOutput": "Ah Pook Is Here",
+      "forbiddenOutputs": [
+        "Ah, Pook Is Here and Other Texts"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "National Diet Library",
+          "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000002206440",
+          "supports": "NDL records the Japanese title ア・プークイズヒア and gives the original title as Ah Pook is here; the maintained JMnedict expansion added unrelated collected-text wording."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-TOM-JONES",
+      "kind": "canonical-output",
+      "surface": "トムジョウンズ",
+      "canonicalOutput": "Tom Jones",
+      "forbiddenOutputs": [
+        "The History of Tom Jones, A Foundling"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CiNii Books",
+          "url": "https://ci.nii.ac.jp/ncid/BN00925755",
+          "supports": "CiNii records the Japanese title トム・ジョウンズ and separately identifies The history of Tom Jones, a foundling as an alternate/original title; CJ2R preserves the source form represented by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-TOM-JONES-ALT-KANA",
+      "kind": "canonical-output",
+      "surface": "トムジョンズ",
+      "canonicalOutput": "Tom Jones",
+      "forbiddenOutputs": [
+        "The History of Tom Jones, A Foundling"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E3%81%A8%E3%82%80%E3%81%98%E3%82%88%E3%83%BC%E3%82%93%E3%81%9A-3160961",
+          "supports": "Kotobank distinguishes the Japanese title/name トムジョーンズ from the full original work title The History of Tom Jones, a Foundling."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-LIFE-HEALING",
+      "kind": "canonical-output",
+      "surface": "ライフ・ヒーリング",
+      "canonicalOutput": "Life Healing",
+      "forbiddenOutputs": [
+        "You Can Heal Your Life"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "National Diet Library",
+          "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000002287942",
+          "supports": "NDL records ライフ・ヒーリング as the Japanese title and You can heal your life separately as the original title; the original title must not replace the loanword form actually written."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-LIFE-HEALING-COMPACT",
+      "kind": "canonical-output",
+      "surface": "ライフヒーリング",
+      "canonicalOutput": "Life Healing",
+      "forbiddenOutputs": [
+        "You Can Heal Your Life"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CiNii Books",
+          "url": "https://ci.nii.ac.jp/ncid/BB22053373",
+          "supports": "CiNii records ライフヒーリング as the Japanese title and You can heal your life separately as another/original title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-HOT-SHOTS-2",
+      "kind": "canonical-output",
+      "surface": "ホット・ショット２",
+      "canonicalOutput": "Hot Shots! 2",
+      "forbiddenOutputs": [
+        "Hot Shots! Part Deux"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/21527",
+          "supports": "allcinema records the Japanese release title ホット・ショット２ separately from original HOT SHOTS! PART DEUX; CJ2R preserves the represented Hot Shots source spelling plus the written sequel number rather than inserting the absent subtitle."
+        },
+        {
+          "authority": "映画.com",
+          "url": "https://eiga.com/movie/49392/",
+          "supports": "The first Japanese title ホット・ショット corresponds to source title Hot Shots!, establishing the source spelling of the represented title component."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-HOT-SHOTS-2-COMPACT",
+      "kind": "canonical-output",
+      "surface": "ホットショット２",
+      "canonicalOutput": "Hot Shots! 2",
+      "forbiddenOutputs": [
+        "Hot Shots! Part Deux"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/21527",
+          "supports": "The Japanese sequel title is ホット・ショット２ while the original title contains Part Deux; punctuation-normalised Japanese spelling must not cause the absent subtitle to be injected."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-LOST-WORLD-JURASSIC-PARK",
+      "kind": "canonical-output",
+      "surface": "ロストワールドジュラシックパーク",
+      "canonicalOutput": "The Lost World: Jurassic Park",
+      "forbiddenOutputs": [
+        "The Lost World"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Jurassic World official Japan",
+          "url": "https://www.jurassicworld.jp/history/",
+          "supports": "The official Japanese franchise site identifies the work as ロスト・ワールド／ジュラシック・パーク; the maintained output must not drop the represented Jurassic Park component."
+        },
+        {
+          "authority": "映画.com",
+          "url": "https://eiga.com/movie/51009/",
+          "supports": "映画.com records original/source title The Lost World: Jurassic Park for the Japanese title, providing the canonical English source spelling and punctuation."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-BEATLES-GREATEST-STORY",
+      "kind": "canonical-output",
+      "surface": "ザ・ビートルズ・グレイテスト・ストーリー",
+      "canonicalOutput": "The Beatles Greatest Story",
+      "forbiddenOutputs": [
+        "The Beatles As They Were"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "映画.com",
+          "url": "https://eiga.com/movie/44869/",
+          "supports": "The Japanese release title is ザ・ビートルズ グレイテスト・ストーリー while The Beatles as They Were is separately identified as the original/English title; CJ2R preserves the source words represented by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-BEATLES-GREATEST-STORY-COMPACT",
+      "kind": "canonical-output",
+      "surface": "ザビートルズグレイテストストーリー",
+      "canonicalOutput": "The Beatles Greatest Story",
+      "forbiddenOutputs": [
+        "The Beatles As They Were"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kinenote",
+          "url": "https://www.kinenote.com/main/s/?cinema_id=3837",
+          "supports": "Kinenote records Japanese ザ・ビートルズ グレイテスト・ストーリー and English work identity The Beatles as They Were separately; the identity translation is not the loanword source form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-LOCAL-TITLE-LOVE-CATASTROPHE",
+      "kind": "canonical-output",
+      "surface": "ラヴ＆カタストロフィ",
+      "canonicalOutput": "Love & Catastrophe",
+      "forbiddenOutputs": [
+        "Love and Other Catastrophes"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "映画.com",
+          "url": "https://eiga.com/movie/50468/",
+          "supports": "映画.com records Japanese release title ラヴ&カタストロフィ and original Love and Other Catastrophes separately; Other and the plural ending are not represented by the Japanese loanword title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-BRAND-HOKUREN",
+      "kind": "canonical-output",
+      "surface": "ホクレン",
+      "canonicalOutput": "HOKUREN",
+      "forbiddenOutputs": [
+        "Hokuren Federation of Agricultural Cooperatives"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Hokuren official website",
+          "url": "https://www.hokuren.or.jp/role/catalog/detail/?id=29",
+          "supports": "The organisation uses HOKUREN as its Roman brand form; the full descriptive organisation name must not be substituted for the shorter Japanese surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-DORUGABA",
+      "kind": "canonical-output",
+      "surface": "ドルガバ",
+      "canonicalOutput": "Dorugaba",
+      "forbiddenOutputs": [
+        "Dolce and Gabbana"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Japan Patent Office appeal decision database",
+          "url": "https://shohyo.shinketsu.jp/originaltext/tm/1246488.html",
+          "supports": "The decision explicitly records ドルガバ as a Japanese abbreviated/nickname form of DOLCE & GABBANA; Rule 0 requires preserving the Japanese clipping rather than expanding it."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-NASHOJIO",
+      "kind": "canonical-output",
+      "surface": "ナショジオ",
+      "canonicalOutput": "Nashojio",
+      "forbiddenOutputs": [
+        "National Geographic"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "National Geographic Japan official site",
+          "url": "https://natgeotv.jp/special-contents/sns/",
+          "supports": "National Geographic Japan itself uses ナショジオ as its shortened Japanese name, so Rule 0 clipping policy preserves that clipped form rather than expanding it."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-KINEKO",
+      "kind": "canonical-output",
+      "surface": "キネコ",
+      "canonicalOutput": "Kineko",
+      "forbiddenOutputs": [
+        "From Kinescope Recorder"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E3%81%8D%E3%81%AD%E3%82%8C%E3%81%93-1690506",
+          "supports": "Kotobank records キネレコ as an abbreviation of kinescope recorder and identifies キネコ as the same abbreviated term; the abbreviation must not be expanded."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-KINEREKO",
+      "kind": "canonical-output",
+      "surface": "キネレコ",
+      "canonicalOutput": "Kinereko",
+      "forbiddenOutputs": [
+        "From Kinescope Recorder"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E3%81%8D%E3%81%AD%E3%82%8C%E3%81%93-1690506",
+          "supports": "Kotobank explicitly defines キネレコ as an abbreviation of kinescope recorder; Rule 0 preserves the Japanese clipped Roman form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-AIPAA",
+      "kind": "canonical-output",
+      "surface": "アイパー",
+      "canonicalOutput": "Aipaa",
+      "forbiddenOutputs": [
+        "Iron Permanent"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Imidas modern katakana dictionary",
+          "url": "https://imidas.jp/katakana/detail/Z-01-1-0287.html",
+          "supports": "Imidas identifies アイパー as a Japanese abbreviation related to iron permanent wave; the established Japanese clipping must not be expanded to its etymological source phrase."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-WASEI-BL-COMIC",
+      "kind": "canonical-output",
+      "surface": "ＢＬコミック",
+      "canonicalOutput": "BL Comic",
+      "forbiddenOutputs": [
+        "Boys Love"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "JapanDict / JMdict presentation",
+          "url": "https://www.japandict.com/%EF%BC%A2%EF%BC%AC%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF",
+          "supports": "The entry marks ＢＬコミック as gairaigo/waseigo; expanding BL to a meaning while dropping コミック changes the written form instead of romanising it."
+        },
+        {
+          "authority": "HOMESHA / Shueisha Group",
+          "url": "https://www.homesha.co.jp/products/genre/comics-bl/",
+          "supports": "The publisher uses BLコミック as the category name, confirming BL + comic as the maintained written expression."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-BRAND-NEOGEO",
+      "kind": "canonical-output",
+      "surface": "ネオジオ",
+      "canonicalOutput": "NEOGEO",
+      "forbiddenOutputs": [
+        "Neo-Geo MVS"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "SNK official",
+          "url": "https://www.snk-corp.co.jp/press/2020/110501/",
+          "supports": "SNK explicitly identifies NEOGEO（ネオジオ） as the platform name; MVS is a distinct arcade system designation and must not be injected into bare ネオジオ."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-WASEI-PEEPUSAATO",
+      "kind": "canonical-output",
+      "surface": "ペープサート",
+      "canonicalOutput": "Peepusaato",
+      "forbiddenOutputs": [
+        "Paper Puppet Theater"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E3%81%BA%E3%83%BC%E3%81%B7%E3%81%95%E3%83%BC%E3%81%A8-3218295",
+          "supports": "Kotobank identifies ペープサート as a Japanese-made term derived from paper + puppet + theater; Rule 0 preserves the Japanese-coined form instead of expanding it."
+        },
+        {
+          "authority": "Hitomiza puppet theatre",
+          "url": "https://hitomiza.com/youji-theater",
+          "supports": "Hitomiza explains that ペープサート was coined by shortening paper puppet theater, independently confirming it is a Japanese clipping/coinage."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-BATTALION",
+      "kind": "canonical-output",
+      "surface": "バタリアン",
+      "canonicalOutput": "Battalion",
+      "forbiddenOutputs": [
+        "Return of the Living Dead"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "映画.com",
+          "url": "https://eiga.com/movie/47948/",
+          "supports": "The Japanese release title バタリアン is documented as Battalion while The Return of the Living Dead is the separate original film title; the identity title must not replace the source spelling represented by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-MUTANT-NINJA-TURTLES-2",
+      "kind": "canonical-output",
+      "surface": "ミュータントニンジャタートルズ２",
+      "canonicalOutput": "Mutant Ninja Turtles 2",
+      "forbiddenOutputs": [
+        "Teenage Mutant Ninja Turtles 2 - The Secret of the Ooze",
+        "Teenage Mutant Ninja Turtles II: The Secret of the Ooze"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "WOWOW",
+          "url": "https://www.wowow.co.jp/detail/002774",
+          "supports": "WOWOW distinguishes the Japanese title ミュータント・ニンジャ・タートルズ2 from the longer original title. Rule 0 must not expand the Japanese clipped/localised source form with omitted words or subtitle material."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-CITY-MAMA-COUNTRY-PAPA",
+      "kind": "canonical-output",
+      "surface": "シティママｖｓカントリーパパ",
+      "canonicalOutput": "City Mama vs Country Papa",
+      "forbiddenOutputs": [
+        "The More Things Change..."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "EDRDG JMdictDB",
+          "url": "https://www.edrdg.org/jmwsgi/entr.py?q=5038093.2&sid=&svc=jmdict",
+          "supports": "JMnedict identifies The More Things Change... as the work identity for シティママｖｓカントリーパパ. That identity translation is not the source spelling of the English-derived words actually present in the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-BRAND-ROTHMANS",
+      "kind": "canonical-output",
+      "surface": "ロスマンズ",
+      "canonicalOutput": "Rothmans",
+      "forbiddenOutputs": [
+        "Rothmans International p.l.c."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "British American Tobacco",
+          "url": "https://www.bat.com/brands",
+          "supports": "BAT presents Rothmans as a brand name. A corporate legal-name expansion is not required by the Japanese surface ロスマンズ."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-MISTER-ARTHUR-2-DOTTED",
+      "kind": "canonical-output",
+      "surface": "ミスター・アーサー２",
+      "canonicalOutput": "Mister Arthur 2",
+      "forbiddenOutputs": [
+        "Arthur 2: On the Rocks"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/22702",
+          "supports": "The Japanese title ミスター・アーサー２ is distinct from the original title ARTHUR 2: ON THE ROCKS. CJ2R preserves the source-language spelling of the Japanese title words rather than substituting the different original title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-MISTER-ARTHUR-2",
+      "kind": "canonical-output",
+      "surface": "ミスターアーサー２",
+      "canonicalOutput": "Mister Arthur 2",
+      "forbiddenOutputs": [
+        "Arthur 2: On the Rocks"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/22702",
+          "supports": "The compact Japanese title corresponds to the same localised title form; the original subtitle is not represented by the Japanese source."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-BRAND-MCCORMICK",
+      "kind": "canonical-output",
+      "surface": "マコーミック",
+      "canonicalOutput": "McCormick",
+      "forbiddenOutputs": [
+        "McCormick and Company, Inc."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "McCormick Japan",
+          "url": "https://mccormick.youki.co.jp/",
+          "supports": "The official Japanese McCormick brand site pairs マコーミック with McCormick. Expanding the surface to the full corporate legal name changes the lexical form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-GUINNESS-BOOK-DOTTED",
+      "kind": "canonical-output",
+      "surface": "ギネス・ブック",
+      "canonicalOutput": "Guinness Book",
+      "forbiddenOutputs": [
+        "Guinness Book of Records"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E3%81%8E%E3%81%AD%E3%81%99%E3%81%B6%E3%81%A4%E3%81%8F-3149432",
+          "supports": "Digital Daijisen explicitly labels ギネスブック as Guinness Book; the longer historical title is etymological/background information and must not be injected into the established Japanese clipping."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-GUINNESS-BOOK",
+      "kind": "canonical-output",
+      "surface": "ギネスブック",
+      "canonicalOutput": "Guinness Book",
+      "forbiddenOutputs": [
+        "Guinness Book of Records"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen",
+          "url": "https://kotobank.jp/word/%E3%81%8E%E3%81%AD%E3%81%99%E3%81%B6%E3%81%A4%E3%81%8F-3149432",
+          "supports": "Digital Daijisen explicitly labels ギネスブック as Guinness Book; the established clipped form remains clipped under Rule 0."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CZECH-DASHENKA",
+      "kind": "canonical-output",
+      "surface": "ダーシェンカ",
+      "canonicalOutput": "Dashenka",
+      "forbiddenOutputs": [
+        "Dashenka - The Life of a Puppy"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CiNii Books",
+          "url": "https://ci.nii.ac.jp/ncid/BC04602783",
+          "supports": "CiNii records the original title as Dášeňka. Rule 0 uses the project ASCII-safe donor form Dashenka; the rest of the book title must not be injected into the single-word surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-THE-DEPTHS",
+      "kind": "canonical-output",
+      "surface": "ザデプス",
+      "canonicalOutput": "The Depths",
+      "forbiddenOutputs": [
+        "Deepstar Six"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema / EarthQuaker Devices Japan",
+          "url": "https://www.allcinema.net/cinema/8841",
+          "supports": "allcinema records ザ・デプス as the Japanese title and DEEPSTAR SIX as the distinct original title. The work identity is not source-spelling evidence for the Japanese title words."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-GERMAN-MORITAT",
+      "kind": "canonical-output",
+      "surface": "モリタート",
+      "canonicalOutput": "Moritat",
+      "forbiddenOutputs": [
+        "Die Moritat von Mackie Messer"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Digital Daijisen Plus",
+          "url": "https://kotobank.jp/word/%E3%82%82%E3%82%8A%E3%81%9F%E3%83%BC%E3%81%A8-1700039",
+          "supports": "Kotobank identifies モリタート as the conventional short name of Die Moritat von Mackie Messer. Rule 0 preserves the single donor word instead of expanding it to the full song title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-ENTITY-ALIAS-ICEMAN",
+      "kind": "canonical-output",
+      "surface": "アイスマン",
+      "canonicalOutput": "Iceman",
+      "forbiddenOutputs": [
+        "Otzi the Iceman"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "EDRDG JMdictDB",
+          "url": "https://www.edrdg.org/jmwsgi/updates.py?d=2&m=3&svc=jmdict&y=2012",
+          "supports": "The lexical surface is アイスマン/Iceman; EDRDG records Ötzi the Iceman as the entity meaning. The entity identity must not be emitted as though it were the source spelling of the surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-BRAND-HANAE-MORI",
+      "kind": "canonical-output",
+      "surface": "ハナエモリ",
+      "canonicalOutput": "Hanae Mori",
+      "forbiddenOutputs": [
+        "Hanae Mori Associates Co., Ltd."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "HANAE MORI",
+          "url": "https://www.hanae-mori.com/",
+          "supports": "The official HANAE MORI site presents the name as HANAE MORI. A corporate suffix expansion is not part of the Japanese surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-LEXEME-CRITERION",
+      "kind": "canonical-output",
+      "surface": "クライテリオン",
+      "canonicalOutput": "Criterion",
+      "forbiddenOutputs": [
+        "The Criterion Collection"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "The Criterion Collection",
+          "url": "https://www.criterion.com/",
+          "supports": "The organisation is The Criterion Collection, while the Japanese surface contains only the donor lexeme Criterion. The full entity name must not be injected without that source material."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-KING-OF-KICKBOXER-FINAL",
+      "kind": "canonical-output",
+      "surface": "キングオブキックボクサーファイナル",
+      "canonicalOutput": "King of Kickboxer Final",
+      "forbiddenOutputs": [
+        "American Shaolin - King of the Kickboxers 2",
+        "American Shaolin: The King of the Kickboxers II"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Filmarks",
+          "url": "https://filmarks.com/movies/52565",
+          "supports": "Filmarks distinguishes the Japanese localised title キング・オブ・キックボクサー／ファイナル from the different original title. CJ2R must preserve the source spelling of the Japanese title components rather than substitute the work identity."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-BERNIES-2",
+      "kind": "canonical-output",
+      "surface": "バーニーズ２",
+      "canonicalOutput": "Bernie's 2",
+      "forbiddenOutputs": [
+        "Weekend At Bernie's 2",
+        "Weekend at Bernie's II"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/17579",
+          "supports": "allcinema records the Japanese title バーニーズ２ and the longer original title WEEKEND AT BERNIE'S II. Rule 0 preserves the Japanese clipped title form instead of reconstructing the omitted original words."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-CALEB-WILLIAMS",
+      "kind": "canonical-output",
+      "surface": "ケレイヴウィリアムズ",
+      "canonicalOutput": "Caleb Williams",
+      "forbiddenOutputs": [
+        "The Adventure of Caleb Williams"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CiNii Books",
+          "url": "https://ci.nii.ac.jp/ncid/BN02682858",
+          "supports": "CiNii records Caleb Williams as an alternate/source title for the Japanese publication; the longer Adventure title is not represented by the maintained Katakana surface."
+        },
+        {
+          "authority": "ALC Eijiro",
+          "url": "https://eow.alc.co.jp/search?q=caleb",
+          "supports": "ALC distinguishes the work identity The Adventure of Caleb Williams from the Japanese rendering ケレイヴ・ウィリアムズ, supporting removal of the unrepresented title expansion."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-KANGAROO-SKIPPY",
+      "kind": "canonical-output",
+      "surface": "カンガルー・スキッピー",
+      "canonicalOutput": "Kangaroo Skippy",
+      "forbiddenOutputs": [
+        "Skippy the Bush Kangaroo"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "allcinema",
+          "url": "https://www.allcinema.net/cinema/pdf/351919",
+          "supports": "The Japanese title is カンガルー・スキッピー while Skippy the Bush Kangaroo is recorded as an alternate/original work title. CJ2R retains the source spellings represented by the Japanese title instead of substituting the different work title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-SAAKURA",
+      "kind": "canonical-output",
+      "surface": "サークラ",
+      "canonicalOutput": "Saakura",
+      "forbiddenOutputs": [
+        "Circle Crusher",
+        "Circle Crasher"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "TaneTan",
+          "url": "https://moto-neta.com/other/circle-crasher/",
+          "supports": "サークラ is explicitly documented as an abbreviation of サークルクラッシャー. Rule 0 requires established Japanese clippings to remain clipped rather than reconstructing the full donor/wasei expression."
+        }
+      ]
+    },
+    {
+      "id": "SEM-JMNEDICT-WORK-ALIAS-ROBIN-HOOD-PRINCE-OF-WALES",
+      "kind": "canonical-output",
+      "surface": "ロビンフッドプリンスオブウェールズ",
+      "canonicalOutput": "Robin Hood Prince of Wales",
+      "forbiddenOutputs": [
+        "Robin Hood Prince of Thieves"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "ALC Eijiro",
+          "url": "https://eow.alc.co.jp/search?q=Robin+Hood",
+          "supports": "ALC records ロビン・フッド／プリンス・オブ・ウェールズ as the Japanese film title and Robin Hood Prince of Thieves as the film identity. The latter must not replace the explicitly present ウェールズ source form."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-WASEI-CARICATURIZE",
+      "kind": "canonical-output",
+      "surface": "カリカチュアライズ",
+      "canonicalOutput": "Caricaturize",
+      "forbiddenOutputs": [
+        "Caricature And -Ize"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Shogakukan / Nihon Kokugo Daijiten",
+          "url": "https://kotobank.jp/word/%E3%81%8B%E3%82%8A%E3%81%8B%E3%81%A1%E3%82%86%E3%81%82%E3%82%89%E3%81%84%E3%81%9A-3209467",
+          "supports": "Dictionary evidence gives 洋語 caricaturize and also explains the formation from caricature + -ize. The etymological explanation is not a source-spelling output."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-QUICK-AND-DEAD",
+      "kind": "canonical-output",
+      "surface": "クイック＆デッド",
+      "canonicalOutput": "The Quick and the Dead",
+      "forbiddenOutputs": [
+        "The Quick And the Dead"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Sony Pictures Entertainment",
+          "url": "https://www.sonypictures.com/movies/thequickandthedead",
+          "supports": "Rights holder styles the source title as THE QUICK AND THE DEAD."
+        },
+        {
+          "authority": "WOWOW",
+          "url": "https://www.wowow.co.jp/detail/011867",
+          "supports": "Japanese listing pairs クイック＆デッド with original title The Quick and The Dead."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-EDDIE-AND-CRUISERS",
+      "kind": "canonical-output",
+      "surface": "エディ＆ザクルーザーズ",
+      "canonicalOutput": "Eddie and the Cruisers",
+      "forbiddenOutputs": [
+        "Eddie And the Cruisers"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "STUDIOCANAL",
+          "url": "https://www.studiocanal.com/title/eddie-and-the-cruisers/",
+          "supports": "Rights holder styles the source title as Eddie and the Cruisers."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-MR-MRS-BRIDGE",
+      "kind": "canonical-output",
+      "surface": "ミスター＆ミセスブリッジ",
+      "canonicalOutput": "Mr. & Mrs. Bridge",
+      "forbiddenOutputs": [
+        "Mr. And Mrs. Bridge"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Encyclopedia.com / VideoHound",
+          "url": "https://www.encyclopedia.com/arts/culture-magazines/mr-mrs-bridge",
+          "supports": "Reference source styles the film title as Mr. & Mrs. Bridge, matching the ampersand form represented by the Japanese title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-SHADOW-OF-VAMPIRE",
+      "kind": "canonical-output",
+      "surface": "シャドウオブヴァンパイア",
+      "canonicalOutput": "Shadow of the Vampire",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Tangorin / JMnedict",
+          "url": "https://tangorin.com/names?offset=250&qid=5&search=Minister%2BPei%2Bof%2Bthe%2BTang",
+          "supports": "JMnedict-derived listing identifies シャドウオブヴァンパイア as the work Shadow of the Vampire; this is a direct source-title restoration, not an unrelated localisation."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-BIG-FOUR",
+      "kind": "canonical-output",
+      "surface": "ビッグ４",
+      "canonicalOutput": "The Big Four",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Agatha Christie official",
+          "url": "https://www.agathachristie.com/stories/the-big-four",
+          "supports": "Rights-holder site gives the canonical source title The Big Four."
+        },
+        {
+          "authority": "Delicious Death bibliography",
+          "url": "https://www.deliciousdeath.com/08/index08j.html",
+          "supports": "Japanese bibliography pairs ビッグ４ with The Big Four."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-ARC-THE-LAD",
+      "kind": "canonical-output",
+      "surface": "アークザラッド",
+      "canonicalOutput": "Arc the Lad",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Aniplex",
+          "url": "https://www.aniplex.co.jp/lineup/arcthelad/products/",
+          "supports": "Official Japanese product page pairs アークザラッド with Arc The Lad."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-ENTITY-NEW-YORK-TIMES-DOTTED",
+      "kind": "canonical-output",
+      "surface": "ニューヨーク・タイムズ",
+      "canonicalOutput": "The New York Times",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "T JAPAN official",
+          "url": "https://www.tjapan.jp/about",
+          "supports": "Official Japanese site explicitly identifies ニューヨーク・タイムズ社 with The New York Times."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-ENTITY-NEW-YORK-TIMES",
+      "kind": "canonical-output",
+      "surface": "ニューヨークタイムズ",
+      "canonicalOutput": "The New York Times",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "T JAPAN official",
+          "url": "https://www.tjapan.jp/about",
+          "supports": "Official Japanese site explicitly identifies ニューヨーク・タイムズ社 with The New York Times."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-TITLE-BACK-TO-FUTURE",
+      "kind": "canonical-output",
+      "surface": "バックトゥザフューチャー",
+      "canonicalOutput": "Back to the Future",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "NBCUniversal Japan",
+          "url": "https://www.nbcuni.co.jp/movie/sp/bttf-bd/bttfbd.html",
+          "supports": "Official Japanese rights-holder page pairs バック・トゥ・ザ・フューチャー with BACK TO THE FUTURE."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-ENTITY-CLUB-OF-ROME",
+      "kind": "canonical-output",
+      "surface": "ローマクラブ",
+      "canonicalOutput": "Club of Rome",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Club of Rome official",
+          "url": "https://www.clubofrome.org/about-us/national-associations/",
+          "supports": "Official organisation site uses Club of Rome and identifies its Japanese association; this is an organisation-name restoration rather than a translation alias."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-NONENGLISH-ILIAS",
+      "kind": "canonical-output",
+      "surface": "イリアス",
+      "canonicalOutput": "Ilias",
+      "forbiddenOutputs": [
+        "The Iliad"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Shogakukan",
+          "url": "https://kotobank.jp/word/%E3%81%84%E3%82%8A%E3%81%82%E3%81%99-3143431",
+          "supports": "Kotobank identifies the Greek source form as Ilias. The English title The Iliad is a translation identity, not the donor spelling represented by イリアス."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-NONENGLISH-ILIAS-LONG",
+      "kind": "canonical-output",
+      "surface": "イーリアス",
+      "canonicalOutput": "Ilias",
+      "forbiddenOutputs": [
+        "The Iliad"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Shogakukan / Nihon Kokugo Daijiten",
+          "url": "https://kotobank.jp/word/%E3%81%84%E3%83%BC%E3%82%8A%E3%81%82%E3%81%99-3223756",
+          "supports": "Kotobank explicitly gives Ilias as the Greek source form and records イーリアス as a Japanese variant. The English title The Iliad must not replace that donor identity."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-AINEKU",
+      "kind": "canonical-output",
+      "surface": "アイネク",
+      "canonicalOutput": "Aineku",
+      "forbiddenOutputs": [
+        "Eine Kleine Nachtmusik"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "EDRDG/JapanDict",
+          "url": "https://www.japandict.com/%E3%82%A2%E3%82%A4%E3%83%8D%E3%82%AF",
+          "supports": "Lexical evidence marks アイネク as an abbreviation of Eine Kleine Nachtmusik. Rule 0 preserves an established Japanese clipping rather than reconstructing the omitted full title."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-CLIPPING-CUT-SEW",
+      "kind": "canonical-output",
+      "surface": "カットソー",
+      "canonicalOutput": "Kattosoo",
+      "forbiddenOutputs": [
+        "Cut And Sewn",
+        "Cut and Sewn"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank / Shogakukan / Heibonsha",
+          "url": "https://kotobank.jp/word/%E3%81%8B%E3%81%A4%E3%81%A8%E3%81%9D%E3%83%BC-3209313",
+          "supports": "Dictionary evidence states カットソー is the shortened Japanese form of cut and sewn. Rule 0 forbids expanding an established Japanese clipping back into the full donor expression."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-ENTITY-PARTIAL-DEVIL-RAYS",
+      "kind": "canonical-output",
+      "surface": "デビルレイズ",
+      "canonicalOutput": "Devil Rays",
+      "forbiddenOutputs": [
+        "Tampa Bay Devil Rays"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Tampa Bay Rays / MLB",
+          "url": "https://www.mlb.com/rays/history/timeline",
+          "supports": "MLB records the former full franchise name as Tampa Bay Devil Rays and repeatedly refers to the team as the Devil Rays. The maintained Japanese surface contains only the source words Devil Rays, so Tampa Bay must not be injected."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-LOCALISED-SUBTITLE-RUNDOWN",
+      "kind": "canonical-output",
+      "surface": "ランダウン・ロッキングザアマゾン",
+      "canonicalOutput": "The Rundown Rocking the Amazon",
+      "forbiddenOutputs": [
+        "The Rundown"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Eiga.com",
+          "url": "https://eiga.com/movie/52202/",
+          "supports": "The Japanese release title is ランダウン ロッキング・ザ・アマゾン while the original title is The Rundown. CJ2R may restore the source spelling The Rundown but must not delete the explicit Japanese subtitle words Rocking the Amazon."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-AISIN-AW",
+      "kind": "canonical-output",
+      "surface": "アイシン・エイ・ダブリュ",
+      "canonicalOutput": "Aisin AW Co., Ltd.",
+      "forbiddenOutputs": [
+        "Aisin AW Co. Ltd."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "AISIN official",
+          "url": "https://www.aisin.com/en/profile/history/",
+          "supports": "AISIN official history gives the English company name Aisin AW Co., Ltd.; this is a source-name restoration, not a translation alias."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-AISIN-AW-COMPACT",
+      "kind": "canonical-output",
+      "surface": "アイシンエイダブリュ",
+      "canonicalOutput": "Aisin AW Co., Ltd.",
+      "forbiddenOutputs": [
+        "Aisin AW Co. Ltd."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "AISIN official",
+          "url": "https://www.aisin.com/en/profile/history/",
+          "supports": "AISIN official history gives the English company name Aisin AW Co., Ltd.; this is a source-name restoration, not a translation alias."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-WESCO",
+      "kind": "canonical-output",
+      "surface": "ウエスコ",
+      "canonicalOutput": "WESCO Inc.",
+      "forbiddenOutputs": [
+        "Wesco, Inc."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "WESCO official",
+          "url": "https://www.wesco.co.jp/information/international.php",
+          "supports": "The company itself pairs 株式会社ウエスコ with Company Name: WESCO Inc. Rule 0 therefore preserves that official source name."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-AMADA-METRECS",
+      "kind": "canonical-output",
+      "surface": "アマダメトレックス",
+      "canonicalOutput": "Amada Metrecs Co., Ltd.",
+      "forbiddenOutputs": [
+        "Amada Metrecs Co. Ltd."
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "JSP corporate biography",
+          "url": "https://www.co-jsp.co.jp/english/sustainability/g/g_officer.html",
+          "supports": "The English corporate biography records AMADA METRECS CO., LTD. as the historical company name. The maintained output normalises case but retains the official punctuation and corporate identity."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-JAPAN-ENERGY",
+      "kind": "canonical-output",
+      "surface": "ジャパンエナジー",
+      "canonicalOutput": "Japan Energy Corporation",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "ENEOS historical release",
+          "url": "https://www.eneos.co.jp/newsrelease/je/2002/pdf_export/20030205_1.pdf",
+          "supports": "The company release explicitly pairs 株式会社ジャパンエナジー with JAPAN ENERGY CORPORATION."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-BECHTEL",
+      "kind": "canonical-output",
+      "surface": "ベクテル",
+      "canonicalOutput": "Bechtel Group, Inc.",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Bechtel official",
+          "url": "https://www.bechtel.com/people/leadership/riley-bechtel/",
+          "supports": "Bechtel official material identifies the corporate entity as Bechtel Group, Inc.; this is an official foreign company-name restoration."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-BURROUGHS",
+      "kind": "canonical-output",
+      "surface": "バローズ",
+      "canonicalOutput": "Burroughs Corporation",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Ritsumeikan University oral-history archive",
+          "url": "https://www.arc.ritsumei.ac.jp/lib/vm/2024d40/zenOH01_007tx.pdf",
+          "supports": "The archive explicitly glosses Japanese バロース as Burroughs Corporation, supporting the historical company-name identity."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-BAND-THE-CHECKERS",
+      "kind": "canonical-output",
+      "surface": "チェッカーズ",
+      "canonicalOutput": "The Checkers",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Pony Canyon",
+          "url": "https://checkers40.ponycanyon.co.jp/",
+          "supports": "The rights-holder anniversary site brands the group as THE CHECKERS while referring to チェッカーズ in Japanese, supporting The Checkers as the official source name."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-WASEI-CAR-ACTION-DOTTED",
+      "kind": "canonical-output",
+      "surface": "カー・アクション",
+      "canonicalOutput": "Car Action",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Rule 0 reviewed wasei policy",
+          "url": "https://drive.google.com/file/d/10Uy_Pn_zCrYqo9bjaltI4S_fmXDH0P_w/view",
+          "supports": "The surface is the Japanese-coined English-component expression car action. Rule 0 restores reviewed source-component spelling without replacing it with an idiomatic translation."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-WASEI-CAR-ACTION",
+      "kind": "canonical-output",
+      "surface": "カーアクション",
+      "canonicalOutput": "Car Action",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Rule 0 reviewed wasei policy",
+          "url": "https://drive.google.com/file/d/10Uy_Pn_zCrYqo9bjaltI4S_fmXDH0P_w/view",
+          "supports": "The surface is the Japanese-coined English-component expression car action. Rule 0 restores reviewed source-component spelling without replacing it with an idiomatic translation."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-WASEI-COLD-COFFEE-DOTTED",
+      "kind": "canonical-output",
+      "surface": "コール・コーヒー",
+      "canonicalOutput": "Cold Coffee",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank",
+          "url": "https://kotobank.jp/word/%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC-499387",
+          "supports": "Dictionary evidence identifies コールコーヒー as the Japanese expression formed from cold + coffee. Rule 0 restores those source components rather than translating the concept."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-WASEI-COLD-COFFEE",
+      "kind": "canonical-output",
+      "surface": "コールコーヒー",
+      "canonicalOutput": "Cold Coffee",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Kotobank",
+          "url": "https://kotobank.jp/word/%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC-499387",
+          "supports": "Dictionary evidence identifies コールコーヒー as the Japanese expression formed from cold + coffee. Rule 0 restores those source components rather than translating the concept."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-COUNTRY-UK",
+      "kind": "canonical-output",
+      "surface": "イギリス",
+      "canonicalOutput": "United Kingdom",
+      "forbiddenOutputs": [],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "CJ2R Rule 0 / project country-name policy",
+          "url": "https://drive.google.com/file/d/10Uy_Pn_zCrYqo9bjaltI4S_fmXDH0P_w/view",
+          "supports": "Rule 0 explicitly maintains the reviewed bare country mapping イギリス → United Kingdom, while separate QA prevents that mapping from leaking into forms such as イギリス語."
+        }
+      ]
+    },
+    {
+      "id": "SEM-RULE0-PRODUCT-KRAZY-SALT",
+      "kind": "canonical-output",
+      "surface": "キレイジーソールト",
+      "canonicalOutput": "Krazy Salt",
+      "forbiddenOutputs": [
+        "Jane's Krazy Mixed-Up Salt",
+        "Krazy Mixed-Up Salt"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Japan Greentea Center",
+          "url": "https://www.jp-greentea.co.jp/assets/uploads/sougou2024_s_pd0816.pdf",
+          "supports": "The Japanese importer explains that the fuller source product name is Krazy Mixed-Up Salt, while the Japanese marketed form is クレイジーソルト. The maintained surface therefore must not inject Jane's or Mixed-Up."
+        },
+        {
+          "authority": "Jane's Krazy official",
+          "url": "https://www.janeskrazy.com/history/",
+          "supports": "The brand itself uses Krazy Salt as a source-language shortened reference. This provides a source spelling that matches the material actually represented by the Japanese surface."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-COMPANY-TECHNOS",
+      "kind": "canonical-output",
+      "surface": "テクノス",
+      "canonicalOutput": "TECHNOS JAPAN CORP.",
+      "forbiddenOutputs": [
+        "Technos Japan Corporation"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "TECHNOS official",
+          "url": "https://www.technos.jp/CompanyBrochure/Brochure.shtml",
+          "supports": "The company itself pairs 株式会社テクノス with the official English company name TECHNOS JAPAN CORP. Rule 0 restores that exact source-name form rather than expanding CORP. to Corporation."
+        }
+      ]
+    },
+    {
+      "id": "SEM-SOURCE-MERCH-CAN-BADGE",
+      "kind": "canonical-output",
+      "surface": "缶バッジ",
+      "canonicalOutput": "Can Badge",
+      "forbiddenOutputs": [
+        "Kan Bajji"
+      ],
+      "requiresReview": false,
+      "evidence": [
+        {
+          "authority": "Digital Daijisen via Kotobank",
+          "url": "https://kotobank.jp/word/%E7%BC%B6-468981",
+          "supports": "Digital Daijisen records modern かん/缶 as derived from English can or Dutch kan and notes the written forms are ateji."
+        },
+        {
+          "authority": "Bandai Candy official",
+          "url": "https://www.bandai.co.jp/candy/products/2023/4570117910517000.html",
+          "supports": "Bandai uses CAN BADGE COLLECTION while describing the products in Japanese as 缶バッジ, corroborating Can Badge as the source-language presentation for this merchandise term."
+        }
+      ]
+    }
+  ]
+}

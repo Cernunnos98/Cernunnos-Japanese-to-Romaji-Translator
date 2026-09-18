@@ -23,6 +23,8 @@ Frequency is supporting evidence for prioritisation and ambiguity review only. I
 
 ## JMnedict
 
+Named-entity translations are identity evidence, not automatically a globally valid Rule-0 source spelling. For works, products and organisations, translated/localised titles and same-surface entity collisions require independent scope review before a direct Roman output is promoted into runtime data. A work's original or international English title must not replace foreign source words that are actually encoded by a Japanese release title.
+
 JMnedict, Electronic Dictionary Research and Development Group (EDRDG).
 Snapshot used: 2026-08-10, revision JMnedict.2026-08-10.
 Licence: EDRDG licence, included separately in this folder.

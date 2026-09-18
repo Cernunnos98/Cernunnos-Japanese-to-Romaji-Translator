@@ -77,6 +77,13 @@
     "source": "Reviewed project proper-noun evidence; single JMnedict reading; official artist material confirms 倖田來未; Rule 0 romanises the original Japanese name"
   },
   {
+    "surface": "八九寺",
+    "reading": "はちくじ",
+    "romaji": "Hachikuji",
+    "category": "name",
+    "source": "JMnedict exact fictitious-name reading; official Monogatari character material confirms 八九寺真宵."
+  },
+  {
     "surface": "切嗣",
     "reading": "きりつぐ",
     "romaji": "Kiritsugu",
@@ -161,6 +168,20 @@
     "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
   },
   {
+    "surface": "宮崎駿",
+    "reading": "みやざきはやお",
+    "romaji": "Miyazaki Hayao",
+    "category": "person",
+    "source": "Studio Ghibli official work credits identify 宮﨑駿 / Hayao Miyazaki; JMnedict gives みやざきはやお. Rule 0 keeps Japanese name order."
+  },
+  {
+    "surface": "富野由悠季",
+    "reading": "とみのよしゆき",
+    "romaji": "Tomino Yoshiyuki",
+    "category": "person",
+    "source": "Sunrise official creator profile gives とみの・よしゆき for 富野由悠季; Bandai Namco official English material uses Yoshiyuki Tomino. Rule 0 keeps Japanese name order."
+  },
+  {
     "surface": "小日向海流",
     "reading": "こひなたみのる",
     "romaji": "Kohinata Minoru",
@@ -189,6 +210,13 @@
     "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
   },
   {
+    "surface": "庵野秀明",
+    "reading": "あんのひであき",
+    "romaji": "Anno Hideaki",
+    "category": "person",
+    "source": "https://www.khara.co.jp/hideakianno/ — Khara official biography gives 庵野 秀明（あんの ひであき）. Rule 0 keeps Japanese name order."
+  },
+  {
     "surface": "式守",
     "reading": "しきもり",
     "romaji": "Shikimori",
@@ -210,6 +238,13 @@
     "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Rule 0 source-language spelling Zhang Zuolin"
   },
   {
+    "surface": "影縫",
+    "reading": "かげぬい",
+    "romaji": "Kagenui",
+    "category": "name",
+    "source": "JMnedict exact fictitious-name reading; official Monogatari cast material confirms 影縫余弦 as the character name."
+  },
+  {
     "surface": "忠茂",
     "reading": "ただしげ",
     "romaji": "Tadashige",
@@ -229,6 +264,20 @@
     "romaji": "Naritoshi",
     "category": "person",
     "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "戦刃",
+    "reading": "いくさば",
+    "romaji": "Ikusaba",
+    "category": "name",
+    "source": "JMnedict exact fictitious-name reading いくさば; Danganronpa official franchise material confirms the name context."
+  },
+  {
+    "surface": "斧乃木",
+    "reading": "おののぎ",
+    "romaji": "Ononogi",
+    "category": "name",
+    "source": "https://www.monogatari-series.com/tsukimonogatari/chara/ — official Monogatari character material gives 斧乃木余接 as おののき よつぎ."
   },
   {
     "surface": "日馬富士",
@@ -273,6 +322,13 @@
     "source": "Reviewed project proper-noun evidence; JMnedict identifies the entity and Encyclopedia of China confirms Cao Cao"
   },
   {
+    "surface": "月ノ美兎",
+    "reading": "つきのみと",
+    "romaji": "Tsukino Mito",
+    "category": "person",
+    "source": "https://shop.nijisanji.jp/1002 — NIJISANJI official store gives 月ノ美兎 as つきのみと / Tsukino Mito."
+  },
+  {
     "surface": "朋紘",
     "reading": "ともひろ",
     "romaji": "Tomohiro",
@@ -285,6 +341,13 @@
     "romaji": "Mie",
     "category": "person",
     "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "朱志香",
+    "reading": "じぇしか",
+    "romaji": "Jeshika",
+    "category": "name",
+    "source": "JMnedict exact fictitious-name reading じぇしか; official Umineko material confirms 右代宮朱志香 as the character identity. Rule 0 preserves the Japanese name rather than substituting an English translation."
   },
   {
     "surface": "李逵",
@@ -306,6 +369,13 @@
     "romaji": "Mori Ougai",
     "category": "person",
     "source": "Reviewed project proper-noun evidence; single JMnedict reading; Mori Ogai museum/national museum material confirms the identity"
+  },
+  {
+    "surface": "楼座",
+    "reading": "ろーざ",
+    "romaji": "Rooza",
+    "category": "name",
+    "source": "JMnedict exact fictitious-name reading ろーざ; official Umineko material confirms 右代宮楼座 as the character identity. Rule 0 romanises the Japanese reading as Rooza."
   },
   {
     "surface": "横浜市営地下鉄グリーンライン",
@@ -448,6 +518,13 @@
     "source": "Reviewed project proper-noun evidence"
   },
   {
+    "surface": "神羅",
+    "reading": "しんら",
+    "romaji": "Shinra",
+    "category": "name",
+    "source": "Square Enix FINAL FANTASY VII official material uses Shinra for 神羅; JMnedict gives the exact reading しんら."
+  },
+  {
     "surface": "秀郷",
     "reading": "ひでさと",
     "romaji": "Hidesato",
@@ -469,6 +546,13 @@
     "source": "Reviewed project proper-noun evidence; single JMnedict reading and Shogakukan-attested identity; Rule 0 Japanese name order"
   },
   {
+    "surface": "綺礼",
+    "reading": "きれい",
+    "romaji": "Kirei",
+    "category": "name",
+    "source": "https://www.fate-sn.com/chara/ — official Fate character material gives 言峰綺礼 as ことみねきれい."
+  },
+  {
     "surface": "緊箍児",
     "reading": "きんこじ",
     "romaji": "Kinkoji",
@@ -476,11 +560,32 @@
     "source": "Reviewed project entity evidence; EDRDG JMdictDB gives the single reading きんこじ for the Journey to the West fictional object"
   },
   {
+    "surface": "縁寿",
+    "reading": "えんじぇ",
+    "romaji": "Enje",
+    "category": "name",
+    "source": "https://umine.co/rondo/character/1998/ — official Umineko character material gives 右代宮縁寿 as うしろみやえんじぇ."
+  },
+  {
     "surface": "羊介",
     "reading": "ようすけ",
     "romaji": "Yousuke",
     "category": "person",
     "source": "Reviewed project proper-noun evidence; single high-confidence personal-name reading"
+  },
+  {
+    "surface": "腐川",
+    "reading": "ふかわ",
+    "romaji": "Fukawa",
+    "category": "name",
+    "source": "https://www.danganronpa.com/pages/zetsubou/character/fukawa_touko.php — official Danganronpa material confirms 腐川冬子; JMnedict gives the exact surname reading ふかわ."
+  },
+  {
+    "surface": "臓硯",
+    "reading": "ぞうけん",
+    "romaji": "Zouken",
+    "category": "name",
+    "source": "https://www.fate-sn.com/chara/ — official Fate character material gives 間桐臓硯 as まとうぞうけん."
   },
   {
     "surface": "臨済",
@@ -539,6 +644,13 @@
     "source": "Reviewed project proper-noun evidence; confirmed against Namegata City official address material"
   },
   {
+    "surface": "衛宮",
+    "reading": "えみや",
+    "romaji": "Emiya",
+    "category": "name",
+    "source": "https://www.fate-sn.com/chara/ — official Fate character material gives 衛宮切嗣 as えみやきりつぐ."
+  },
+  {
     "surface": "袁世凱",
     "reading": "えんせいがい",
     "romaji": "Yuan Shikai",
@@ -551,6 +663,13 @@
     "romaji": "Xi Shi",
     "category": "person",
     "source": "Reviewed project proper-noun evidence; JMnedict identifies the historical person; Chinese Text Project confirms Xi Shi"
+  },
+  {
+    "surface": "言峰",
+    "reading": "ことみね",
+    "romaji": "Kotomine",
+    "category": "name",
+    "source": "https://www.fate-sn.com/chara/ — official Fate character material gives 言峰綺礼 as ことみねきれい."
   },
   {
     "surface": "運昇",
@@ -595,6 +714,13 @@
     "source": "Reviewed project proper-noun evidence; single JMnedict reading and Monogatari official character material"
   },
   {
+    "surface": "霧切",
+    "reading": "きりぎり",
+    "romaji": "Kirigiri",
+    "category": "name",
+    "source": "JMnedict exact fictitious-name reading; Danganronpa official franchise material confirms the character-name context."
+  },
+  {
     "surface": "首里",
     "reading": "しゅり",
     "romaji": "Shuri",
@@ -635,5 +761,12 @@
     "romaji": "Ougai",
     "category": "person",
     "source": "Reviewed project proper-noun evidence; single JMnedict reading; Mori Ogai museum material confirms the pen name"
+  },
+  {
+    "surface": "竜騎士07",
+    "reading": "りゅうきしぜろなな",
+    "romaji": "Ryukishi07",
+    "category": "person",
+    "source": "07th Expansion official English event material uses Ryukishi07; KONAMI official SILENT HILL f material credits Ryukishi07."
   }
 ]

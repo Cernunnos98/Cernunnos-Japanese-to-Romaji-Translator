@@ -393,5 +393,127 @@
     "surface": "もののけ",
     "reading": "もののけ",
     "source": "Project-reviewed lexical boundary and reading; Digital Daijisen via Kotobank attests 物の怪（もののけ） as an established noun"
+  },
+  {
+    "surface": "大そう",
+    "reading": "たいそう",
+    "source": "https://kotobank.jp/word/%E5%A4%A7%E5%B1%A4"
+  },
+  {
+    "surface": "抱き枕",
+    "reading": "だきまくら",
+    "source": "https://kotobank.jp/word/%E6%8A%B1%E6%9E%95-672191"
+  },
+  {
+    "surface": "軽音",
+    "reading": "けいおん",
+    "source": "Project-reviewed lexical abbreviation; TBS uses けいおん in 軽音部 context and Digital Daijisen/Kotobank attests 軽音楽 けいおんがく"
+  },
+  {
+    "surface": "軽音部",
+    "reading": "けいおんぶ",
+    "pattern": "軽音部",
+    "source": "Project-reviewed ordinary lexical form; institutional club material pairs 軽音部 with けいおん部, corroborated by TBS usage of けいおん in 軽音部 context"
+  },
+  {
+    "surface": "数日",
+    "reading": "すうじつ",
+    "source": "Project-reviewed modern default reading; Digital Daijisen/Kotobank and contemporary dictionary references list 数日 as すうじつ. すうにち remains a variant in some dictionaries but is not used as CJ2R modern-default authority."
+  },
+  {
+    "surface": "数日間",
+    "reading": "すうじつかん",
+    "source": "Project-reviewed modern lexical compound; JMdict entry 1373210/JapanDict lists 数日間 すうじつかん, corroborated by modern dictionary usage."
+  },
+  {
+    "surface": "お手数",
+    "reading": "おてすう",
+    "source": "Project-reviewed modern polite lexical reading; Shogakukan Digital Daijisen/Kotobank lists 御手数 as おてすう and redirects おてかず to おてすう for this honorific form."
+  },
+  {
+    "surface": "疫病",
+    "reading": "えきびょう",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 疫病 as えきびょう and Nihon Kokugo Daijiten notes older usage was often やくびょう."
+  },
+  {
+    "surface": "疫病神",
+    "reading": "やくびょうがみ",
+    "source": "Project-reviewed lexical exception; contemporary dictionaries attest 疫病神 as やくびょうがみ, preserving the established compound against the modern default for standalone 疫病."
+  },
+  {
+    "surface": "完治",
+    "reading": "かんち",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 完治 as かんち and redirects かんじ to かんち.",
+    "pattern": "完治"
+  },
+  {
+    "surface": "敵国",
+    "reading": "てきこく",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 敵国 as てきこく and redirects てっこく to てきこく."
+  },
+  {
+    "surface": "緑化",
+    "reading": "りょっか",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 緑化 as りょっか and redirects りょくか to りょっか."
+  },
+  {
+    "surface": "漏洩",
+    "reading": "ろうえい",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 漏洩 as ろうえい; ろうせつ is retained as an attested alternate, not default authority."
+  },
+  {
+    "surface": "天王星",
+    "reading": "てんのうせい",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 天王星 as てんのうせい and redirects てんおうせい to it."
+  },
+  {
+    "surface": "教示",
+    "reading": "きょうじ",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 教示 as きょうじ while noting きょうし as an alternate."
+  },
+  {
+    "surface": "農作物",
+    "reading": "のうさくぶつ",
+    "source": "Project-reviewed modern default; Digital Daijisen and Nihon Kokugo Daijiten head 農作物 as のうさくぶつ while also attesting のうさくもつ."
+  },
+  {
+    "surface": "鐘楼",
+    "reading": "しょうろう",
+    "source": "Project-reviewed contemporary default; Digital Daijisen uses しょうろう as the defining entry and しゅろう as an equivalent alternate; encyclopaedic references likewise use しょうろう."
+  },
+  {
+    "surface": "鉄製",
+    "reading": "てっせい",
+    "pattern": "鉄製(?=$|[のはがをにでと、。！？!?])",
+    "source": "Project-reviewed standalone/adnominal default; Digital Daijisen heads 鉄製 as てっせい. Scoped to a lexical boundary so compounds such as 鉄製品 and 鉄製模造品 retain their attested てつせい- forms."
+  },
+  {
+    "surface": "余人",
+    "reading": "よじん",
+    "source": "Project-reviewed modern default; Digital Daijisen heads 余人 as よじん and redirects よにん to よじん."
+  },
+  {
+    "surface": "三角形",
+    "reading": "さんかくけい",
+    "source": "Reviewed contemporary default; Digital Daijisen heads 三角形 as さんかくけい and redirects さんかっけい to that entry; modern mathematical compounds use the same reading.",
+    "tokenReadingAuthority": true
+  },
+  {
+    "surface": "詩歌",
+    "reading": "しいか",
+    "source": "Reviewed contemporary default; Digital Daijisen heads 詩歌 as しいか and redirects しか to that entry; the long-vowel form is the ordinary modern lexical default.",
+    "tokenReadingAuthority": true
+  },
+  {
+    "surface": "嫌",
+    "reading": "いや",
+    "pattern": "嫌なので",
+    "source": "Project-reviewed/Rule 0 canonical example"
+  },
+  {
+    "surface": "私",
+    "reading": "わたし",
+    "pattern": "私は",
+    "source": "Project-reviewed/Rule 0 explicit example"
   }
 ]

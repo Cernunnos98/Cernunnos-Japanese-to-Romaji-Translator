@@ -13,10 +13,9 @@
 <body>
     <main class="page-shell">
         <header class="page-header">
-            <div>
-                <p class="eyebrow">CJ2R developer tools</p>
-                <h1>Quality assurance dashboard</h1>
-                <p class="intro">Run the existing QA checks and review their progress in one place. Only a successful full release run certifies a release.</p>
+            <div class="header-title-group">
+                <h1>CJ2R QA Dashboard</h1>
+                <p class="intro">Run QA checks and review progress in one place.</p>
             </div>
             <div class="header-actions">
                 <div id="connectionStatus" class="connection-status" role="status">Connecting…</div>
@@ -25,26 +24,28 @@
         </header>
 
         <section class="control-panel" aria-labelledby="runHeading">
-            <div class="section-heading compact-heading">
-                <div>
-                    <h2 id="runHeading">Choose a scan</h2>
-                    <p id="jobDescription">Runs every release gate. Only this option can certify a release.</p>
+            <div class="scan-choice">
+                <div class="section-heading compact-heading">
+                    <div>
+                        <h2 id="runHeading">Choose a scan</h2>
+                        <p id="jobDescription">Runs every release gate. Only this option can certify a release.</p>
+                    </div>
+                    <span id="certificationBadge" class="badge certification">Release-certifying</span>
                 </div>
-                <span id="certificationBadge" class="badge certification">Release-certifying</span>
-            </div>
 
-            <div class="run-controls">
                 <label class="field-label" for="jobSelect">QA scan</label>
                 <select id="jobSelect"></select>
+            </div>
 
-                <label id="buildOption" class="checkbox-row">
-                    <input id="buildFirst" type="checkbox">
-                    <span>
-                        <strong>Build generated files first</strong>
-                        <small>Use this only when maintained source files have changed.</small>
-                    </span>
-                </label>
+            <label id="buildOption" class="checkbox-row">
+                <input id="buildFirst" type="checkbox">
+                <span>
+                    <strong>Build generated files first</strong>
+                    <small>Use this only when maintained source files have changed.</small>
+                </span>
+            </label>
 
+            <div class="control-actions">
                 <div class="button-row">
                     <button id="runButton" class="button primary" type="button">Run comprehensive QA</button>
                     <button id="stopButton" class="button danger" type="button" disabled>Stop safely</button>

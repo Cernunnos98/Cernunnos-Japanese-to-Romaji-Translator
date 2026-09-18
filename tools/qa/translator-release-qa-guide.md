@@ -272,6 +272,14 @@ Every maintained file under `data/` must have a complete entry in `data/translat
 
 ## 7. Evidence and source-maintenance tools
 
+### Independent semantic oracle
+
+`tools/qa/semantic-oracle/loanword-source-truth.json` stores manually adjudicated high-risk loanword/name-source truths independently of runtime dictionaries and translator output. `test-translator-semantic-data-safety.js` checks that the oracle does not import production truth tables, validates the maintained rows against those expectations, and injects plausible semantic corruptions to prove the gate can detect them. The oracle is intentionally evidence-backed and small; production rows must never be generated into it.
+
+### Loanword source-scope discovery audit
+
+`run-loanword-source-scope-audit.js` performs a whole-bank, report-only scan for possible identity/title expansions that do not appear to correspond to the foreign words encoded by the Japanese surface. It uses mechanical Romanisation and conservative structural heuristics only to rank review candidates. A candidate is not a defect until externally adjudicated, and the audit never rewrites runtime data. `test-loanword-source-scope-audit.js` verifies the detector with synthetic positive/negative cases and requires every maintained candidate to have an explicit semantic-oracle adjudication before release, preventing newly introduced high-risk rows from passing unnoticed.
+
 ### Yomitan review candidates
 
 `tools/evidence-candidate-generation/` turns a hash-pinned extracted Yomitan snapshot into deterministic review-only candidates. It cannot write directly into runtime `data/`.
@@ -297,6 +305,8 @@ See `tools/edrdg-update/cj2r-edrdg-updater-guide.md`.
 | `build-translator-qa.js` | Build/parity check for the aggregate |
 | `run-translator-node-qa.js` | Canonical/generated/differential Node QA |
 | `run-lexical-candidate-coverage-audit.js` | Deterministic resumable whole-bank source-span candidate-discovery audit |
+| `run-loanword-source-scope-audit.js` | Report-only whole-bank discovery audit for possible named-entity identity/source-spelling scope leaks |
+| `test-loanword-source-scope-audit.js` | Synthetic and maintained-control tests for the source-scope candidate detector |
 | `run-translator-performance-qa.js` | Node/candidate/memory/browser performance harness with machine-readable result states |
 | `run-translator-focused-qa.js` | One selected translator functional-area regression scan |
 | `run-translator-typecheck.js` | Version-bounded TypeScript `checkJs` + explicit `strictNullChecks` validation (`>=5.8 <7`) |
@@ -304,6 +314,8 @@ See `tools/edrdg-update/cj2r-edrdg-updater-guide.md`.
 | `run-translator-punctuation-boundary-partitioned.js` | Complete punctuation/boundary release wrapper |
 | `run-translator-browser-smoke-cdp.js` | Development/production/cross-origin browser smoke; also verifies the supplied interface and hook example |
 | `run-translator-failure-injection-partitioned.js` | Complete failure-injection release wrapper |
+| `test-translator-release-gate-mutations.js` | Independent release-gate corruption/recovery mutations |
+| `run-translator-release-gate-mutations-partitioned.js` | Partitioned wrapper for release-gate mutation detection |
 | `translator-differential-review-decisions.json` | Reviewed differential-decision ledger |
 | `browser/cdp-harness.js` | Shared browser/process harness |
 | `browser/fake-dom.js` | Minimal Node DOM emulation |
@@ -327,3 +339,12 @@ A release is not complete merely because the local gate passed. For Drive promot
 6. confirm no owned Node/Chromium/profile resources remain.
 
 Only then treat the promoted Drive tree as the accepted release.
+
+## Release-gate mutation detection
+
+The release gate includes independent mutation checks for the non-browser QA layers. These tests corrupt a temporary copy of the project, verify that the intended gate fails with the expected diagnostic, restore the original bytes, and verify the same gate is clean again.
+
+Covered release invariants include generated engine parity, generated QA parity, QA-source syntax preflight, structural release cleanliness, static type checking, source dependency cycles, semantic-data classification coverage, loanword source-scope adjudication, pinned provenance hashes, and a real reviewed source-spelling regression.
+
+The mutation cases are partitioned by `run-translator-release-gate-mutations-partitioned.js` so slow checks cannot obscure the status of faster detectors. The temporary copies are deleted after each partition and production runtime behaviour is not altered by the mutation tests.
+

@@ -25,7 +25,7 @@
     },
     {
       "path": "data/common-words/common-words-term-bank-1.json",
-      "sha256": "91cf364958018110c7b19419c97c6f31a3d3c051703b9da822af23169ca5cd03",
+      "sha256": "1574e24b16b7a3bae649b9c488d5483b8173b7ed7deede166cc1e237025b2ea0",
       "sources": [
         {
           "name": "CJ2R project review",
@@ -38,8 +38,8 @@
         },
         {
           "name": "Digital Daijisen via Kotobank",
-          "snapshot": "consulted 2026-09-14",
-          "role": "research-only lexical verification for project-reviewed もののけ boundary/reading; no dictionary definitions redistributed"
+          "snapshot": "consulted 2026-09-16",
+          "role": "research-only lexical verification for project-reviewed もののけ boundary/reading; no dictionary definitions redistributed; modern lexical verification for project-reviewed 数日 → すうじつ; no dictionary definitions redistributed"
         }
       ],
       "licenceRefs": [
@@ -47,7 +47,7 @@
         "licenses and sources/CC BY-SA 4.0 Notice.md",
         "licenses and sources/Electronic Dictionary Research and Development Group License.md"
       ],
-      "note": "Mixed compact bank. Each row identifies whether it is project-reviewed/manual or Jitendex-derived; selected project-reviewed rows may cite research-only dictionary verification documented in the research-sources guide."
+      "note": "Mixed compact bank. Each row identifies whether it is project-reviewed/manual or Jitendex-derived; selected project-reviewed rows may cite research-only dictionary verification documented in the research-sources guide, including modern-default reading adjudication where legacy analyser output conflicts."
     },
     {
       "path": "data/general-words/general-words-term-bank-1.json",
@@ -85,7 +85,7 @@
     },
     {
       "path": "data/historical-kana/historical-kana-evidence.json",
-      "sha256": "571c3605bb6cb7bb051f43d21a960006e9706e7495ad2a47f8b4c369649a0f61",
+      "sha256": "cc6a14a84219b2c6e434d05e0c69a349f9ddd6d861f81e2ccac6bb13a883d76a",
       "sources": [
         {
           "name": "Agency for Cultural Affairs Modern Kana Usage comparison tables",
@@ -93,13 +93,32 @@
         },
         {
           "name": "Kotobank",
-          "entry": "をかし"
+          "snapshot": "consulted 2026-09-17",
+          "entries": [
+            "をかし",
+            "思う",
+            "歌う",
+            "使う",
+            "問う",
+            "請う／乞う",
+            "笑う",
+            "心／こゝろ"
+          ],
+          "role": "Research-only lexical verification of exact historical spellings and modern readings; dictionary definitions are not redistributed."
+        },
+        {
+          "name": "Aozora Bunko",
+          "snapshot": "consulted 2026-09-17",
+          "entries": [
+            "泉鏡太郎『麻を刈る』— 涼（すゞ）しい"
+          ],
+          "role": "Research-only orthographic attestation for an exact historical iteration-mark spelling; no literary text is redistributed."
         }
       ],
       "licenceRefs": [
         "licenses and sources/Historical Kana Evidence Sources.md"
       ],
-      "note": "Exact historical spelling-to-reading evidence used only by the historical API."
+      "note": "Exact historical spelling-to-reading evidence used only by the historical API; source rows are individually cited in the evidence bank and companion source guide."
     },
     {
       "path": "data/kanji/japanese-han-scope.json",
@@ -222,7 +241,7 @@
     },
     {
       "path": "data/kanji/kanji-variants.json",
-      "sha256": "1443730e1f5c26917d106c8a5af1b86e92dfb328cdae42a51008404d3437d3be",
+      "sha256": "be569b85f0e5e9d577c4260aefa2e2a2e94f774dfc29e55dd0c0c95db7052b4f",
       "sources": [
         {
           "name": "Agency for Cultural Affairs Jōyō Kanji reference",
@@ -245,7 +264,7 @@
     },
     {
       "path": "data/loanwords/loanwords-term-bank-1.json",
-      "sha256": "8ff831957f3f3cd0fa62e9c008d16ee108d9bea656ea00242d59fd95624ca08d",
+      "sha256": "3d8f54e7563fb91a368acbc7493bc91d0ea4859e51aa1fcfbb7a2425587caedb",
       "sources": [
         {
           "name": "CJ2R project review",
@@ -290,6 +309,72 @@
           "snapshot": "2026-09-14",
           "url": "https://sakura-quest.com/",
           "role": "manual verification for the reviewed サクラクエスト → Sakura Quest mapping only; no site content is redistributed"
+        },
+        {
+          "name": "CAPCOM official Street Fighter material",
+          "snapshot": "2026-09-15",
+          "url": "https://game.capcom.com/manual/SFV/en/page-1.html",
+          "role": "manual source-spelling control for ストリートファイター → Street Fighter"
+        },
+        {
+          "name": "Sony Pictures Japan title pages",
+          "snapshot": "2026-09-15",
+          "role": "manual work-title scope controls; original English work identities are not automatically source spellings of Japanese release-title surfaces"
+        },
+        {
+          "name": "20th Century Studios Japan title pages",
+          "snapshot": "2026-09-15",
+          "url": "https://www.20thcenturystudios.jp/movies/the-diver",
+          "role": "manual title-scope control for ザダイバー → The Diver versus work identity Men of Honor"
+        },
+        {
+          "name": "Tatsunoko Production official material",
+          "snapshot": "2026-09-15",
+          "url": "https://tatsunoko.co.jp/en/works/mach-go-go-go-speed-racer/",
+          "role": "manual work-name/localisation control for マッハゴーゴーゴー → Mach Go Go Go"
+        },
+        {
+          "name": "Eiga.com title records",
+          "snapshot": "2026-09-15",
+          "role": "manual title-scope adjudication for selected Japanese release titles versus different original/English work identities"
+        },
+        {
+          "name": "allcinema title records",
+          "snapshot": "2026-09-15",
+          "role": "manual title-scope adjudication for selected Japanese release titles versus different original/English work identities"
+        },
+        {
+          "name": "National Film Archive of Japan",
+          "snapshot": "2026-09-15",
+          "url": "https://www.nfaj.go.jp/wp-content/uploads/GEM_release0927.pdf",
+          "role": "manual title-scope control for ベン・ハー / BEN-HUR: A TALE OF THE CHRIST"
+        },
+        {
+          "name": "Digital Daijisen via Kotobank",
+          "snapshot": "consulted 2026-09-15",
+          "url": "https://kotobank.jp/word/%E7%BC%B6-468981",
+          "role": "research-only donor-origin verification for 缶 / 缶バッジ; no dictionary definition redistributed"
+        },
+        {
+          "name": "Bandai Candy official CAN BADGE COLLECTION",
+          "snapshot": "consulted 2026-09-15",
+          "url": "https://www.bandai.co.jp/candy/products/2023/4570117910517000.html",
+          "role": "manual source-presentation corroboration for 缶バッジ → Can Badge"
+        },
+        {
+          "name": "Digital Daijisen via Kotobank — キャッシュ / ソース",
+          "snapshot": "consulted 2026-09-17",
+          "urls": [
+            "https://kotobank.jp/word/%E3%81%8D%E3%82%84%E3%81%A4%E3%81%97%E3%82%86-3189412",
+            "https://kotobank.jp/word/%E3%81%9D%E3%83%BC%E3%81%99-3157752"
+          ],
+          "role": "research-only contextual disambiguation: キャッシュで支払う/現金払い supports Cash; ソース includes Source as 出どころ/みなもと and Sauce as the food sense. No dictionary definition is redistributed."
+        },
+        {
+          "name": "Japan Foundation Marugoto official vocabulary materials",
+          "snapshot": "2026-09-18",
+          "url": "https://marugoto.jpf.go.jp/en/download/",
+          "role": "narrow manual verification for selected basic gairaigo, foreign place/company names and country-name source spellings; no Marugoto material is redistributed"
         }
       ],
       "licenceRefs": [
@@ -298,7 +383,7 @@
         "licenses and sources/Electronic Dictionary Research and Development Group License.md",
         "licenses and sources/NINJAL Loanword Survey Attribution.md"
       ],
-      "note": "Mixed reviewed loanword/source-spelling bank. Existing CJ2R decisions retain precedence. Independently corroborated ordinary mappings may supplement explicit source-language metadata; metadata-only requiresReview rows preserve unresolved homographs, clippings, abbreviations and wasei-eigo without guessing a global spelling."
+      "note": "Mixed reviewed loanword/source-spelling bank. Existing CJ2R decisions retain precedence. JMnedict named-entity translations are identity evidence only: translated, localised or original work titles cannot replace foreign source words actually encoded by a Japanese surface. Metadata-only requiresReview rows preserve unresolved homographs, clippings, abbreviations and wasei-eigo without guessing a global spelling. The 2026-09-15 adversarial replay also closed reviewed donor/source-spelling gaps across established titles, companies, events and merchandise using case-specific rights-holder, publisher, manufacturer or dictionary evidence; source spelling was admitted only where the represented Japanese form supported it."
     },
     {
       "path": "data/nouns/jmnedict-bank-1.json",
@@ -339,6 +424,36 @@
         "licenses and sources/CC BY-SA 4.0 Notice.md"
       ],
       "note": "Japanese Wikipedia-derived proper-noun evidence with three CJ2R-reviewed semantic reading repairs documented in the provenance classification."
+    },
+    {
+      "path": "data/nouns/reviewed-proper-name-span-evidence.json",
+      "sha256": "eaa278b77f147c3ee890f1566238145e1ce743489b63af600627630b02df8a71",
+      "sources": [
+        {
+          "name": "CJ2R project review",
+          "snapshot": "maintained manual exact-span decisions"
+        },
+        {
+          "name": "JMnedict",
+          "snapshot": "2026-08-10",
+          "role": "candidate reading/source basis where cited by reviewed rows"
+        },
+        {
+          "name": "Jiten global frequency dictionary",
+          "snapshot": "2026-09-03",
+          "revision": "2026-09-02",
+          "role": "supporting candidate/source evidence where cited"
+        },
+        {
+          "name": "External official, publisher, manufacturer and dictionary references",
+          "role": "row-level research-only verification recorded in each reviewed decision; source prose/media are not redistributed"
+        }
+      ],
+      "licenceRefs": [
+        "licenses and sources/Jitendex-Jiten-JMnedict Attribution.md",
+        "licenses and sources/Electronic Dictionary Research and Development Group License.md"
+      ],
+      "note": "Mixed reviewed proper-name/source-spelling decision bank. Project-authored exact-span decisions retain row-level source descriptions; externally derived JMnedict/Jiten evidence is documented and pinned here."
     },
     {
       "path": "data/reading-evidence/reading-evidence.json",
